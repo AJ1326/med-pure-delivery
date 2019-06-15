@@ -1,4 +1,19 @@
-<div [hidden]="!isLoading" class="text-xs-center">
-  <i class="fas fa-cog fa-spin fa-3x"></i> <span>{{message}}</span>
-</div>
+<!--<div [hidden]="!isLoading" class="text-xs-center">-->
+<!--<i class="fas fa-cog fa-spin fa-3x"></i> <span>{{message}}</span>-->
+<!--</div>-->
 
+<!--<div [class.hidden]="!show">-->
+<!--<div class="loader-overlay">-->
+<!--<div *ngIf="show" class="loader1"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div id="loadersContainer" [hidden]="!isLoading">-->
+<!--<div class="loader1"></div>-->
+<!--</div>-->
+
+<div [class.hidden]="!show">
+  <div class="loader-overlay">
+    <div *ngIf="show" class="loader"></div>
+  </div>
+</div>

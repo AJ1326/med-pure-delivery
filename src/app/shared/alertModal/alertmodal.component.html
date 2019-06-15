@@ -1,0 +1,21 @@
+<div>
+  <div class="modal-header">
+    <div class="modal-title add-med-head" id="modal-basic-title">Add the medicine.</div>
+    <button type="button" class="close" aria-label="Close" (click)="closeAlertModal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 add-med-footer">
+      *Your order will be delivered to you, between morning 8 AM to 2PM and you can edit your order anytime before 9 PM.
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button" (click)="submitAlert('Yes')">
+      Yes
+    </button>
+    <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button" (click)="submitAlert('No')">
+      No
+    </button>
+  </div>
+</div>

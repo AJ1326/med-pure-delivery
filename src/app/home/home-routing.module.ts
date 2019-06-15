@@ -6,8 +6,8 @@ import { HomeComponent } from './home.component';
 import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
-  Shell.childRoutes([
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+  Shell.retailerShell([
+    { path: '', redirectTo: '/retailer/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
   ])
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

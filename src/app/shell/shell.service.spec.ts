@@ -5,26 +5,20 @@ import { ShellComponent } from './shell.component';
 import { Shell } from './shell.service';
 
 describe('Shell', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ShellComponent
-      ],
-      providers: [
-        AuthenticationGuard,
-        { provide: AuthenticationService, useClass: MockAuthenticationService },
-      ]
+      declarations: [ShellComponent],
+      providers: [AuthenticationGuard, { provide: AuthenticationService, useClass: MockAuthenticationService }]
     });
   });
 
-  describe('childRoutes', () => {
+  describe('retailerShell', () => {
     it('should create routes as children of shell', () => {
       // Prepare
       const testRoutes = [{ path: 'test' }];
 
       // Act
-      const result = Shell.childRoutes(testRoutes);
+      const result = Shell.retailerShell(testRoutes);
 
       // Assert
       expect(result.path).toBe('');

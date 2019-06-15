@@ -1,0 +1,265 @@
+<div>
+  <app-message-bar [messageBarEvent]="success_message"></app-message-bar>
+</div>
+
+<ng-template #alertModal let-modal>
+  <app-alert [alertModalRefference]="modalReference" (messageEvent)="receiveMessage($event)"></app-alert>
+</ng-template>
+
+<ng-template #rt let-r="result" let-t="term">
+  <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+
+<form class="search-container">
+  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>
+  <input
+    type="text"
+    id="search-bar"
+    placeholder="What can I help you with today?"
+    class="form-control"
+    [class.is-invalid]="searchFailed"
+    [(ngModel)]="model"
+    [ngbTypeahead]="search"
+    name="searching"
+    (selectItem)="selectedItem($event)"
+    [resultTemplate]="rt"
+    [inputFormatter]="formatter"
+  />
+  <a><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"/></a>
+  <span *ngIf="searching">searching...</span>
+  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+</form>
+
+<app-loader [isLoading]="isLoading"></app-loader>
+
+<div class="main-panel main-panel-desktop">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12" style="padding: 0px; !important">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">List of distributors</h4>
+              <!--<p class="card-description">-->
+              <!--Add class-->
+              <!--<code>.table-striped</code>-->
+              <!--</p>-->
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        User
+                      </th>
+                      <th>
+                        Distributor name
+                      </th>
+                      <th>
+                        Rating
+                      </th>
+                      <th>
+                        Stock
+                      </th>
+                      <th>
+                        Discount
+                      </th>
+                      <th>
+                        Company
+                      </th>
+                      <th>
+                        Pack
+                      </th>
+                      <th>
+                        MRP
+                      </th>
+                      <th>
+                        Rate
+                      </th>
+                      <th>
+                        Vat
+                      </th>
+                      <th>
+                        Add
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let dist of distributor_list; let i = index" [attr.data-index]="i">
+                      <td class="py-1">
+                        <img src="{{ '../../assets/images/faces-clipart/pic-' + i + '.png' }}" alt="image" />
+                      </td>
+                      <td>
+                        {{ dist.distributor }}
+                      </td>
+                      <td>
+                        <app-rating [rating]="dist.rating"></app-rating>
+                      </td>
+                      <td>
+                        {{ dist.stock }}
+                      </td>
+                      <td>{{ dist.discount }}%</td>
+                      <td>
+                        {{ dist.company }}
+                      </td>
+                      <td>
+                        {{ dist.pack }}
+                      </td>
+                      <td><i class="fa fa-inr" aria-hidden="true"></i> {{ dist.mrp }}</td>
+                      <td><i class="fa fa-inr" aria-hidden="true"></i> {{ dist.rate }}</td>
+                      <td>{{ dist.vat }}%</td>
+                      <td>
+                        <div
+                          _ngcontent-c17=""
+                          *ngIf="distributor_list_order_index.indexOf(dist['uuid']) > -1; else other_btn_content"
+                          disabled
+                          class="badge badge-primary add-btn add-btn-disable"
+                        >
+                          Add
+                        </div>
+                        <ng-template #other_btn_content>
+                          <div class="badge badge-primary add-btn" (click)="addOrder(dist['uuid'], i)">Add</div>
+                        </ng-template>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="padding: 0px; !important">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Order List</h4>
+              <!--<p class="card-description">-->
+              <!--Add class-->
+              <!--<code>.table-bordered</code>-->
+              <!--</p>-->
+              <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0"
+                >*Qauntity can't exceed the max value.</span
+              >
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>
+                        #
+                      </th>
+                      <th>
+                        Distributor name
+                      </th>
+                      <th>
+                        Company
+                      </th>
+                      <th>
+                        Pack
+                      </th>
+                      <th>
+                        Stock
+                      </th>
+                      <th>
+                        Rate
+                      </th>
+                      <th>
+                        Total Saved
+                      </th>
+                      <th>
+                        Remove
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of order_list; let i = index" [attr.data-index]="i">
+                      <td>
+                        <div
+                          *ngIf="
+                            show_order_qauntity_error_index.indexOf(order['uuid']) > -1;
+                            else other_btn_content_quantity
+                          "
+                        >
+                          <span>
+                            <i class="fa fa-exclamation-triangle fa-error-max-quantity" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                        <ng-template #other_btn_content_quantity>{{ i + 1 }}</ng-template>
+                      </td>
+                      <td>
+                        {{ order.distributor }}
+                      </td>
+                      <td>
+                        {{ order.company }}
+                      </td>
+                      <td>
+                        {{ order.pack }}
+                      </td>
+                      <td>
+                        <input
+                          style="width: 100% !important;"
+                          type="number"
+                          [max]="order.stock"
+                          [ngModel]="1"
+                          (ngModelChange)="valueChange($event, i, order.stock, order['uuid'])"
+                          min="1"
+                        />
+                      </td>
+                      <td>
+                        {{ order.rate }}
+                      </td>
+                      <td>{{ order.discount }}%</td>
+                      <td>
+                        <div class="badge badge-primary" (click)="removeOrder(order['uuid'], i)">-</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row btn-order-submit" *ngIf="order_list.length > 0 && show_order_qauntity_error_index.length == 0">
+      {{ show_order_qauntity_error_index.length }}
+      <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" (click)="callAlertModal(alertModal)">
+        Submit
+      </button>
+    </div>
+
+    <div class="row btn-order-submit btn-submit-disabled" *ngIf="show_order_qauntity_error_index.length > 0">
+      <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" disabled>Submit</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #addmedicine let-modal>
+  <div class="modal-header">
+    <div class="modal-title add-med-head" id="modal-basic-title">Add the medicine.</div>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-12">
+      <form class="forms-sample">
+        <div class="form-group">
+          <label for="med_name">Medicine name</label>
+          <input type="email" class="form-control" id="med_name" placeholder="" />
+        </div>
+        <div class="form-group">
+          <label for="med_quant">Qauntity</label>
+          <input type="number" class="form-control" id="med_quant" />
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <span class="add-med-footer">
+      *We will update you regarding the mediicine.
+    </span>
+    <button type="submit" class="btn btn-success mr-2" (click)="modal.close('Save click')">Submit</button>
+  </div>
+</ng-template>

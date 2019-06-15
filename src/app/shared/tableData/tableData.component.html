@@ -1,0 +1,64 @@
+<form>
+  <div class="container">
+    <div class="search-box" id="SBox">
+      <input
+        id="search"
+        type="text"
+        name="searchTerm"
+        [(ngModel)]="service.searchTerm"
+        placeholder="Search by order list."
+      />
+      <div class="also search-link" onclick="searchbox(0)" id="searchclick"></div>
+      <span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>
+      <!--<a class="fa fa-cog also setting"></a>-->
+    </div>
+  </div>
+
+  <!--<div class="form-group form-inline">-->
+  <!--<input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" placeholder="Search by order list."/>-->
+  <!--<span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>-->
+  <!--</div>-->
+
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel *ngFor="let order of (orderlist$ | async)" title="{{ order.order_number }}">
+      <ng-template ngbPanelContent>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" sortable="product_name" (sort)="onSort($event)">Product Name</th>
+              <th scope="col" sortable="qauntity" (sort)="onSort($event)">Qauntity</th>
+              <th scope="col" sortable="Price" (sort)="onSort($event)">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tr-color" *ngFor="let prod of order.product">
+              <th scope="row">{{ prod.id }}</th>
+              <td>
+                <ngb-highlight [result]="prod.product_name" [term]="service.searchTerm"></ngb-highlight>
+              </td>
+              <td><ngb-highlight [result]="prod.qauntity | number" [term]="service.searchTerm"></ngb-highlight></td>
+              <td><ngb-highlight [result]="prod.price | number" [term]="service.searchTerm"></ngb-highlight></td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+
+  <div class="d-flex justify-content-between p-2" style="margin-top: 2%;">
+    <ngb-pagination
+      class="pagination-separated"
+      [collectionSize]="total$ | async"
+      [(page)]="service.page"
+      [pageSize]="service.pageSize"
+    >
+    </ngb-pagination>
+
+    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="25">25</option>
+      <option [ngValue]="50">50</option>
+    </select>
+  </div>
+</form>

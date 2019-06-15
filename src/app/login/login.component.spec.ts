@@ -7,22 +7,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from '@app/core';
 import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
+describe('FooterComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgbModule,
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        CoreModule
-      ],
+      imports: [NgbModule, RouterTestingModule, TranslateModule.forRoot(), ReactiveFormsModule, CoreModule],
       declarations: [LoginComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

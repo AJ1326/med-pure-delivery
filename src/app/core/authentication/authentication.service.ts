@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { LoginService } from '@app/login/login.service';
+import { CookieService } from 'ngx-cookie-service';
+// import {CookieService} from "ngx-cookie-service";
 
 export interface Credentials {
   // Customize received credentials here
-  username: string;
-  token: string;
+  email: string;
+  key: string;
+  role: Array<string>;
+  permissions: Array<string>;
 }
 
 export interface LoginContext {
-  username: string;
+  email: string;
   password: string;
-  remember?: boolean;
 }
 
 const credentialsKey = 'credentials';
@@ -21,10 +25,17 @@ const credentialsKey = 'credentials';
  */
 @Injectable()
 export class AuthenticationService {
-
+  /**
+   * Gets the user credentials.
+   * @return The user credentials or null if the user is not authenticated.
+   */
+  get credentials(): Credentials | null {
+    return this._credentials;
+  }
+  logged_in_role: any;
   private _credentials: Credentials | null;
 
-  constructor() {
+  constructor(private LoginService: LoginService, private cookieService: CookieService) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
@@ -38,12 +49,33 @@ export class AuthenticationService {
    */
   login(context: LoginContext): Observable<Credentials> {
     // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456'
+    // return this.http.post<Credentials>(`${URLS.LOGIN_API}`, context, {withCredentials: true});
+    this.logged_in_role = {
+      key: 'f220702e6f2ae9c515ffcd7c2870cceca0ee0347',
+      role: ['retailer_role'],
+      agreement: [
+        {
+          agreement_type: 'no'
+        }
+      ],
+      permissions: ['can_cancel_orders', 'can_place_orders', 'can_view_products', 'can_view_self_orders_as_retailer']
     };
-    this.setCredentials(data, context.remember);
-    return of(data);
+    // Login service call
+
+    // return this.LoginService.login(context);
+    //
+    // .subscribe(
+    //   (credentials: any) => {
+    //     this.logged_in_role = credentials;
+    //   },
+    //   (error: any) => {
+    //     console.log('error', error);
+    //     this.logged_in_role = error;
+    //   }
+    // );
+
+    // this.setCredentials(this.logged_in_role);
+    return of(this.logged_in_role);
   }
 
   /**
@@ -61,15 +93,42 @@ export class AuthenticationService {
    * @return True if the user is authenticated.
    */
   isAuthenticated(): boolean {
+    console.log('isAuth:', !!this.credentials);
     return !!this.credentials;
   }
 
-  /**
-   * Gets the user credentials.
-   * @return The user credentials or null if the user is not authenticated.
-   */
-  get credentials(): Credentials | null {
-    return this._credentials;
+  permissionView(): string | boolean {
+    let role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
+    if (role) {
+      role = JSON.parse(role);
+      const role_type = role['role'][0];
+      return role_type;
+    } else {
+      return false;
+    }
+  }
+
+  onboardingView(): string | boolean {
+    let boarding = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
+    if (boarding) {
+      boarding = JSON.parse(boarding);
+      console.log('lolololo', boarding['agreement'][0]['agreement_type']);
+      const boardValue = boarding['agreement'][0]['agreement_type'];
+      return boardValue;
+    } else {
+      return false;
+    }
+  }
+
+  getToken(): string | boolean {
+    let token = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
+    if (token) {
+      token = JSON.parse(token);
+      const key = token['key'];
+      return key;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -79,16 +138,16 @@ export class AuthenticationService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  private setCredentials(credentials?: Credentials, remember?: boolean) {
+  public setCredentials(credentials?: Credentials, remember?: boolean) {
     this._credentials = credentials || null;
 
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
+      this.cookieService.set('sessionid', JSON.stringify(credentials));
     } else {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
     }
   }
-
 }

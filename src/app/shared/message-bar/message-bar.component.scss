@@ -1,0 +1,126 @@
+//@charset "utf-8";
+//
+////@import url(https://fonts.googleapis.com/css?family=Lato:300, 400, 700);
+//
+//@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+//
+//[class*="fontawesome-"]:before {
+//  font-family: "FontAwesome", sans-serif;
+//}
+//
+//body {
+//  font-size: 16px;
+//  color: #fff;
+//  padding: 0;
+//  margin: 0 auto;
+//  position: relative;
+//  background: #f2f2f2;
+//  height: 100%;
+//  width: 100%;
+//  font-weight: 400;
+//  font-family: "Lato", sans-serif;
+//}
+//
+//p {
+//  font-weight: 200;
+//}
+//h1 {
+//  text-align: center;
+//  font-weight: 200;
+//  color: #555;
+//  text-transform: uppercase;
+//}
+//.container {
+//  width: 85%;
+//  margin: 0 auto;
+//  position: relative;
+//}
+//.alert {
+//  display: none;
+//}
+//.alert p {
+//  padding: 0;
+//}
+//.alert span.close {
+//  float: right;
+//  font-size: 1.6em;
+//  position: relative;
+//  top: 0.12em;
+//}
+//.alert span.close:hover {
+//  color: #ccc;
+//}
+//.alert span.icon {
+//  margin-right: 0.5em;
+//  font-size: 1.5em;
+//  position: relative;
+//  top: 0.12em;
+//}
+//.alert.success {
+//  background: #53ca74;
+//  color: #fff;
+//  padding: 2em 0;
+//}
+//.alert.error {
+//  background: #ea6c6c;
+//  opacity: 0.8;
+//  color: #fff;
+//  left: 0px;
+//  -webkit-animation-duration: 5s;
+//  animation-duration: 5s;
+//  -webkit-animation-fill-mode: both;
+//  animation-fill-mode: both;
+//}
+//
+//@-webkit-keyframes fadeOut {
+//  0% {
+//    opacity: 1;
+//  }
+//  100% {
+//    opacity: 0;
+//  }
+//}
+//
+//@keyframes fadeOut {
+//  0% {
+//    opacity: 1;
+//  }
+//  100% {
+//    opacity: 0;
+//  }
+//}
+//
+//.fadeOut {
+//  -webkit-animation-name: fadeOut;
+//  animation-name: fadeOut;
+//}
+//
+//.instruction {
+//  width: 420px;
+//  margin: 3em auto;
+//  text-align: center;
+//  color: #999;
+//  line-height: 1.5em;
+//}
+//.instruction a.button {
+//  display: block;
+//  clear: both;
+//  width: 65%;
+//  padding: 1em;
+//  text-align: center;
+//  border: 1px solid #ccc;
+//  margin: 1em auto;
+//  border-radius: 0.5em;
+//}
+//.instruction a.button:hover {
+//  background: #eaeaea;
+//  border: 1px solid #c4c4c4;
+//}
+//.instruction a.button:active {
+//  background: #dddddd;
+//}
+//
+//.success,
+//.error {
+//  display: block;
+//}

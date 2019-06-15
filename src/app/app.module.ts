@@ -7,7 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
-import { CoreModule } from '@app/core';
+import {
+  AuthenticationBoardingGuard,
+  AuthenticationPermissionDistributorGuard,
+  AuthenticationPermissionRetailerGuard,
+  CoreModule
+} from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
@@ -15,6 +20,14 @@ import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PlacingOrderModule } from '@app/placingOrder/placingOrder.module';
+import { ChangePasswordModule } from '@app/changePassword/changePassword.module';
+import { OrderListRoutingModule } from '@app/orderList/order-list-routing.module';
+import { HotkeyModule } from 'angular2-hotkeys';
+import { OrderListRetailerRoutingModule } from '@app/order-list-retailer/order-list-retailer-routing.module';
+import { CookieService } from 'ngx-cookie-service';
+import { ProfileModule } from '@app/profile/profile.module';
+import { FeedbackModule } from '@app/feedback/feedback.module';
 
 @NgModule({
   imports: [
@@ -22,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     HttpClientModule,
+    HotkeyModule.forRoot(),
     TranslateModule.forRoot(),
     NgbModule,
     CoreModule,
@@ -29,12 +43,22 @@ import { AppRoutingModule } from './app-routing.module';
     ShellModule,
     HomeModule,
     AboutModule,
+    FeedbackModule,
+    OrderListRoutingModule,
+    OrderListRetailerRoutingModule,
     LoginModule,
-    AppRoutingModule // must be imported as the last module as it contains the fallback route
+    PlacingOrderModule,
+    AppRoutingModule,
+    ProfileModule,
+    ChangePasswordModule // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
   providers: [
+    AuthenticationPermissionRetailerGuard,
+    AuthenticationPermissionDistributorGuard,
+    AuthenticationBoardingGuard,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

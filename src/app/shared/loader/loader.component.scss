@@ -1,3 +1,209 @@
-.fa {
-  vertical-align: middle;
+//#loadersContainer{
+//  display:table;
+//  margin:auto;
+//  overflow:hidden;
+//}
+//
+//#loadersContainer *{
+//  margin:3em 0;
+//}
+//
+//*{
+//  -webkit-font-smoothing: antialiased;
+//}
+//
+///*loader 1*/
+//.loader1{
+//  width:64px;
+//  height:64px;
+//  position:relative;
+//  -o-animation:loaderRotate 2s infinite linear;
+//  -moz-animation:loaderRotate 2s infinite linear;
+//  -webkit-animation:loaderRotate 2s infinite linear;
+//  -ms-animation:loaderRotate 2s infinite linear;
+//  animation:loaderRotate 2s infinite linear;
+//  border-radius:50%;
+//  box-sizing:border-box;
+//}
+//.loader1:after{
+//  content:'';
+//  display:block;
+//  border:3px solid transparent;
+//  border-left:3px solid #FF3E31;
+//  box-sizing:border-box;
+//  position:absolute;
+//  top:0;
+//  left:0;
+//  bottom:0;
+//  right:0;
+//  border-radius:50%;
+//  -o-animation:borderFlexLoader 2s infinite linear;
+//  -moz-animation:borderFlexLoader 2s infinite linear;
+//  -webkit-animation:borderFlexLoader 2s infinite linear;
+//  -ms-animation:borderFlexLoader 2s infinite linear;
+//  animation:borderFlexLoader 2s infinite linear;
+//}
+//.loader1:before{
+//  content:'';
+//  display:block;
+//  border:3px solid transparent;
+//  border-left:3px solid #FF3E31;
+//  box-sizing:border-box;
+//  position:absolute;
+//  top:0;
+//  left:0;
+//  bottom:0;
+//  right:0;
+//  border-radius:50%;
+//}
+//
+//@-o-keyframes loaderRotate{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  100%{
+//    transform:rotate(360deg);
+//  }
+//}
+//@-moz-keyframes loaderRotate{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  100%{
+//    transform:rotate(360deg);
+//  }
+//}
+//@-webkit-keyframes loaderRotate{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  100%{
+//    transform:rotate(360deg);
+//  }
+//}
+//@-ms-keyframes loaderRotate{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  100%{
+//    transform:rotate(360deg);
+//  }
+//}
+//
+//@keyframes loaderRotate{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  100%{
+//    transform:rotate(360deg);
+//  }
+//}
+//
+//@-o-keyframes borderFlexLoader{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  50%{
+//    transform:rotate(180deg);
+//  }
+//  100%{
+//    transform:rotate(0deg);
+//  }
+//}
+//
+//@-webkit-keyframes borderFlexLoader{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  50%{
+//    transform:rotate(180deg);
+//  }
+//  100%{
+//    transform:rotate(0deg);
+//  }
+//}
+//
+//@-moz-keyframes borderFlexLoader{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  50%{
+//    transform:rotate(180deg);
+//  }
+//  100%{
+//    transform:rotate(0deg);
+//  }
+//}
+//
+//@-ms-keyframes borderFlexLoader{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  50%{
+//    transform:rotate(180deg);
+//  }
+//  100%{
+//    transform:rotate(0deg);
+//  }
+//}
+//
+//@keyframes borderFlexLoader{
+//  0%{
+//    transform:rotate(0deg);
+//  }
+//  50%{
+//    transform:rotate(90deg);
+//  }
+//  100%{
+//    transform:rotate(0deg);
+//  }
+//}
+///*end loader 1*/
+
+.hidden {
+  visibility: hidden;
+}
+.loader-overlay {
+  position: absolute;
+  width: 100%;
+  z-index: 500000;
+  top: 0;
+}
+.loader {
+  height: 4px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+.loader:before {
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 4px;
+  background-color: red;
+  animation: loading 2s linear infinite;
+}
+@keyframes loading {
+  from {
+    left: -200px;
+    width: 30%;
+  }
+  50% {
+    width: 30%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    left: 50%;
+  }
+  95% {
+    left: 120%;
+  }
+  to {
+    left: 100%;
+  }
 }
