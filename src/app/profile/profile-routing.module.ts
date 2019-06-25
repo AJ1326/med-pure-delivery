@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile.component';
 
 const routes: Routes = [
   Shell.retailerShell([{ path: 'profile', component: ProfileComponent, data: { title: extract('Profile') } }])
+  // Shell.distributorShell([{ path: 'profile', component: ProfileComponent, data: { title: extract('Profile') } }])
 ];
 
 @NgModule({

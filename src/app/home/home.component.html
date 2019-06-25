@@ -21,81 +21,90 @@
   <!--</div>-->
   <!--</div>-->
   <div class="row">
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-      <div class="card card-statistics">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('order-list')">
+      <div id="order-list" class="card card-statistics active_card">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-cube text-danger icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Total number of leaves</p>
+              <p class="mb-0 text-right">List of orders</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">10</h3>
+                <h3 class="font-weight-medium text-right mb-0">1067</h3>
               </div>
             </div>
           </div>
           <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> short by 7 leaves
+            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Total order placed
           </p>
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-      <div class="card card-statistics">
+    <div
+      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
+      (click)="selectFilterCard('re-order-list')"
+    >
+      <div id="re-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-receipt text-warning icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Sick leaves</p>
+              <p class="mb-0 text-right">Fast moving</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">5</h3>
+                <h3 class="font-weight-medium text-right mb-0">500</h3>
               </div>
             </div>
           </div>
           <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Every month .5 alloted.
+            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Fast moving products
           </p>
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-      <div class="card card-statistics">
+    <div
+      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
+      (click)="selectFilterCard('open-order-list')"
+    >
+      <div id="open-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-poll-box text-success icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Casual leaves</p>
+              <p class="mb-0 text-right">Open orders</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">10</h3>
+                <h3 class="font-weight-medium text-right mb-0">5</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Every month 2 alloted.
-          </p>
+          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Pending orders</p>
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-      <div class="card card-statistics">
+    <div
+      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
+      (click)="selectFilterCard('closed-order-list')"
+    >
+      <div id="closed-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-account-location text-info icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Employees</p>
+              <p class="mb-0 text-right">Canceled orders</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">246</h3>
+                <h3 class="font-weight-medium text-right mb-0">7</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales</p>
+          <p class="text-muted mt-3 mb-0">
+            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> List of canceled orders
+          </p>
         </div>
       </div>
     </div>
@@ -438,166 +447,246 @@
   <!--</div>-->
   <!--</div>-->
   <!--</div>-->
-  <div class="row">
-    <div class="col-12 grid-margin">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title mb-4">Manage Tickets</h5>
-          <div class="fluid-container">
-            <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
-              <div class="col-md-1">
-                <img
-                  class="img-sm rounded-circle mb-4 mb-md-0"
-                  src="../../assets/images/faces/face1.jpg"
-                  alt="profile image"
-                />
-              </div>
-              <div class="ticket-details col-md-9">
-                <div class="d-flex">
-                  <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">James :</p>
-                  <p class="text-primary mr-1 mb-0">[#23047]</p>
-                  <p class="mb-0 ellipsis">Donec rutrum congue leo eget malesuada.</p>
-                </div>
-                <p class="text-gray ellipsis mb-2">
-                  Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim
-                  vivamus.
-                </p>
-                <div class="row text-gray d-md-flex d-none">
-                  <div class="col-4 d-flex">
-                    <small class="mb-0 mr-2 text-muted text-muted">Last responded :</small>
-                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">3 hours ago</small>
-                  </div>
-                  <div class="col-4 d-flex">
-                    <small class="mb-0 mr-2 text-muted text-muted">Due in :</small>
-                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">2 Days</small>
-                  </div>
-                </div>
-              </div>
-              <div class="ticket-actions col-md-2">
-                <div class="btn-group dropdown">
-                  <button
-                    type="button"
-                    class="btn btn-success dropdown-toggle btn-sm"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Manage
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
-              <div class="col-md-1">
-                <img
-                  class="img-sm rounded-circle mb-4 mb-md-0"
-                  src="../../assets/images/faces/face2.jpg"
-                  alt="profile image"
-                />
-              </div>
-              <div class="ticket-details col-md-9">
-                <div class="d-flex">
-                  <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">Stella :</p>
-                  <p class="text-primary mr-1 mb-0">[#23135]</p>
-                  <p class="mb-0 ellipsis">Curabitur aliquet quam id dui posuere blandit.</p>
-                </div>
-                <p class="text-gray ellipsis mb-2">
-                  Pellentesque in ipsum id orci porta dapibus. Sed porttitor lectus nibh. Curabitur non nulla sit amet
-                  nisl.
-                </p>
-                <div class="row text-gray d-md-flex d-none">
-                  <div class="col-4 d-flex">
-                    <small class="mb-0 mr-2 text-muted">Last responded :</small>
-                    <small class="Last-responded mr-2 mb-0 text-muted">3 hours ago</small>
-                  </div>
-                  <div class="col-4 d-flex">
-                    <small class="mb-0 mr-2 text-muted">Due in :</small>
-                    <small class="Last-responded mr-2 mb-0 text-muted">2 Days</small>
-                  </div>
-                </div>
-              </div>
-              <div class="ticket-actions col-md-2">
-                <div class="btn-group dropdown">
-                  <button
-                    type="button"
-                    class="btn btn-success dropdown-toggle btn-sm"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Manage
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row ticket-card mt-3">
-              <div class="col-md-1">
-                <img
-                  class="img-sm rounded-circle mb-4 mb-md-0"
-                  src="../../assets/images/faces/face3.jpg"
-                  alt="profile image"
-                />
-              </div>
-              <div class="ticket-details col-md-9">
-                <div class="d-flex">
-                  <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">John Doe :</p>
-                  <p class="text-primary mr-1 mb-0">[#23246]</p>
-                  <p class="mb-0 ellipsis">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar.</p>
-                </div>
-                <p class="text-gray ellipsis mb-2">
-                  Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus. Lorem ipsum dolor sit amet.
-                </p>
-                <div class="row text-gray d-md-flex d-none">
-                  <div class="col-4 d-flex">
-                    <small class="mb-0 mr-2 text-muted">Last responded :</small>
-                    <small class="Last-responded mr-2 mb-0 text-muted">3 hours ago</small>
-                  </div>
-                  <div class="col-4 d-flex">
-                    <small class="mb-0 mr-2 text-muted">Due in :</small>
-                    <small class="Last-responded mr-2 mb-0 text-muted">2 Days</small>
-                  </div>
-                </div>
-              </div>
-              <div class="ticket-actions col-md-2">
-                <div class="btn-group dropdown">
-                  <button
-                    type="button"
-                    class="btn btn-success dropdown-toggle btn-sm"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Manage
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>
-                    <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+  <!--<div class="main-panel main-panel-desktop">-->
+  <!--<div class="content-wrapper">-->
+  <!--<div class="row">-->
+  <!--<div class="col-md-12" style="padding: 0px; !important">-->
+  <!--<div class="col-lg-12 grid-margin stretch-card">-->
+  <!--<div class="card">-->
+  <!--<div class="card-body">-->
+  <!--<h4 class="card-title">List of orders</h4>-->
+  <!--<form style="width: 100% !important;">-->
+  <!--<div class="form-group form-inline">-->
+  <!--Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="quoteService.searchTerm"/>-->
+  <!--<span class="ml-3" *ngIf="quoteService.loading$ | async">Loading...</span>-->
+  <!--</div>-->
+
+  <!--<ngb-accordion [closeOthers]="true" activeIds="static-1">-->
+  <!--<ngb-panel id="static-2">-->
+  <!--<ng-template ngbPanelTitle>-->
+  <!--<span>Order Placed</span>-->
+  <!--<span>Total:</span>-->
+  <!--<span>Shipped to:</span>-->
+  <!--<span>ORDER # 171-7965261-3449103</span>-->
+  <!--<span>Order detail</span>-->
+  <!--</ng-template>-->
+  <!--<ng-template ngbPanelContent>-->
+  <!--<table class="table table-striped">-->
+  <!--<thead>-->
+  <!--<tr>-->
+  <!--<th scope="col">#</th>-->
+  <!--<th scope="col" sortable="name" (sort)="onSort($event)">Country</th>-->
+  <!--<th scope="col" sortable="area" (sort)="onSort($event)">Area</th>-->
+  <!--<th scope="col" sortable="population" (sort)="onSort($event)">Population</th>-->
+  <!--</tr>-->
+  <!--</thead>-->
+  <!--<tbody>-->
+  <!--<tr *ngFor="let country of countries$ | async">-->
+  <!--<th scope="row">{{ country.id }}</th>-->
+  <!--<td>-->
+  <!--<img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">-->
+  <!--<ngb-highlight [result]="country.name" [term]="quoteService.searchTerm"></ngb-highlight>-->
+  <!--</td>-->
+  <!--<td><ngb-highlight [result]="country.area | number" [term]="quoteService.searchTerm"></ngb-highlight></td>-->
+  <!--<td><ngb-highlight [result]="country.population | number" [term]="quoteService.searchTerm"></ngb-highlight></td>-->
+  <!--</tr>-->
+  <!--</tbody>-->
+  <!--</table>-->
+  <!--</ng-template>-->
+  <!--</ngb-panel>-->
+  <!--</ngb-accordion>-->
+
+  <!--<div class="d-flex justify-content-between p-2">-->
+  <!--<ngb-pagination-->
+  <!--[collectionSize]="total$ | async" [(page)]="quoteService.page" [pageSize]="quoteService.pageSize">-->
+  <!--</ngb-pagination>-->
+
+  <!--<select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="quoteService.pageSize">-->
+  <!--<option [ngValue]="10">10</option>-->
+  <!--<option [ngValue]="50">50</option>-->
+  <!--<option [ngValue]="100">100</option>-->
+  <!--</select>-->
+  <!--</div>-->
+
+  <!--</form>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <app-retailer-order-list></app-retailer-order-list>
+
+  <!--If no order iis present-->
+  <div>
+    <img class="empty_cart" src="../../assets/images/home/empty_cart.svg" />
   </div>
+
+  <!--Manage tickets-->
+  <!--<div class="row">-->
+  <!--<div class="col-12 grid-margin">-->
+  <!--<div class="card">-->
+  <!--<div class="card-body">-->
+  <!--<h5 class="card-title mb-4">Manage Tickets</h5>-->
+  <!--<div class="fluid-container">-->
+  <!--<div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">-->
+  <!--<div class="col-md-1">-->
+  <!--<img-->
+  <!--class="img-sm rounded-circle mb-4 mb-md-0"-->
+  <!--src="../../assets/images/faces/face1.jpg"-->
+  <!--alt="profile image"-->
+  <!--/>-->
+  <!--</div>-->
+  <!--<div class="ticket-details col-md-9">-->
+  <!--<div class="d-flex">-->
+  <!--<p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">James :</p>-->
+  <!--<p class="text-primary mr-1 mb-0">[#23047]</p>-->
+  <!--<p class="mb-0 ellipsis">Donec rutrum congue leo eget malesuada.</p>-->
+  <!--</div>-->
+  <!--<p class="text-gray ellipsis mb-2">-->
+  <!--Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim-->
+  <!--vivamus.-->
+  <!--</p>-->
+  <!--<div class="row text-gray d-md-flex d-none">-->
+  <!--<div class="col-4 d-flex">-->
+  <!--<small class="mb-0 mr-2 text-muted text-muted">Last responded :</small>-->
+  <!--<small class="Last-responded mr-2 mb-0 text-muted text-muted">3 hours ago</small>-->
+  <!--</div>-->
+  <!--<div class="col-4 d-flex">-->
+  <!--<small class="mb-0 mr-2 text-muted text-muted">Due in :</small>-->
+  <!--<small class="Last-responded mr-2 mb-0 text-muted text-muted">2 Days</small>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="ticket-actions col-md-2">-->
+  <!--<div class="btn-group dropdown">-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-success dropdown-toggle btn-sm"-->
+  <!--data-toggle="dropdown"-->
+  <!--aria-haspopup="true"-->
+  <!--aria-expanded="false"-->
+  <!--&gt;-->
+  <!--Manage-->
+  <!--</button>-->
+  <!--<div class="dropdown-menu">-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>-->
+  <!--<div class="dropdown-divider"></div>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">-->
+  <!--<div class="col-md-1">-->
+  <!--<img-->
+  <!--class="img-sm rounded-circle mb-4 mb-md-0"-->
+  <!--src="../../assets/images/faces/face2.jpg"-->
+  <!--alt="profile image"-->
+  <!--/>-->
+  <!--</div>-->
+  <!--<div class="ticket-details col-md-9">-->
+  <!--<div class="d-flex">-->
+  <!--<p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">Stella :</p>-->
+  <!--<p class="text-primary mr-1 mb-0">[#23135]</p>-->
+  <!--<p class="mb-0 ellipsis">Curabitur aliquet quam id dui posuere blandit.</p>-->
+  <!--</div>-->
+  <!--<p class="text-gray ellipsis mb-2">-->
+  <!--Pellentesque in ipsum id orci porta dapibus. Sed porttitor lectus nibh. Curabitur non nulla sit amet-->
+  <!--nisl.-->
+  <!--</p>-->
+  <!--<div class="row text-gray d-md-flex d-none">-->
+  <!--<div class="col-4 d-flex">-->
+  <!--<small class="mb-0 mr-2 text-muted">Last responded :</small>-->
+  <!--<small class="Last-responded mr-2 mb-0 text-muted">3 hours ago</small>-->
+  <!--</div>-->
+  <!--<div class="col-4 d-flex">-->
+  <!--<small class="mb-0 mr-2 text-muted">Due in :</small>-->
+  <!--<small class="Last-responded mr-2 mb-0 text-muted">2 Days</small>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="ticket-actions col-md-2">-->
+  <!--<div class="btn-group dropdown">-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-success dropdown-toggle btn-sm"-->
+  <!--data-toggle="dropdown"-->
+  <!--aria-haspopup="true"-->
+  <!--aria-expanded="false"-->
+  <!--&gt;-->
+  <!--Manage-->
+  <!--</button>-->
+  <!--<div class="dropdown-menu">-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>-->
+  <!--<div class="dropdown-divider"></div>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="row ticket-card mt-3">-->
+  <!--<div class="col-md-1">-->
+  <!--<img-->
+  <!--class="img-sm rounded-circle mb-4 mb-md-0"-->
+  <!--src="../../assets/images/faces/face3.jpg"-->
+  <!--alt="profile image"-->
+  <!--/>-->
+  <!--</div>-->
+  <!--<div class="ticket-details col-md-9">-->
+  <!--<div class="d-flex">-->
+  <!--<p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">John Doe :</p>-->
+  <!--<p class="text-primary mr-1 mb-0">[#23246]</p>-->
+  <!--<p class="mb-0 ellipsis">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar.</p>-->
+  <!--</div>-->
+  <!--<p class="text-gray ellipsis mb-2">-->
+  <!--Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus. Lorem ipsum dolor sit amet.-->
+  <!--</p>-->
+  <!--<div class="row text-gray d-md-flex d-none">-->
+  <!--<div class="col-4 d-flex">-->
+  <!--<small class="mb-0 mr-2 text-muted">Last responded :</small>-->
+  <!--<small class="Last-responded mr-2 mb-0 text-muted">3 hours ago</small>-->
+  <!--</div>-->
+  <!--<div class="col-4 d-flex">-->
+  <!--<small class="mb-0 mr-2 text-muted">Due in :</small>-->
+  <!--<small class="Last-responded mr-2 mb-0 text-muted">2 Days</small>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="ticket-actions col-md-2">-->
+  <!--<div class="btn-group dropdown">-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-success dropdown-toggle btn-sm"-->
+  <!--data-toggle="dropdown"-->
+  <!--aria-haspopup="true"-->
+  <!--aria-expanded="false"-->
+  <!--&gt;-->
+  <!--Manage-->
+  <!--</button>-->
+  <!--<div class="dropdown-menu">-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>-->
+  <!--<div class="dropdown-divider"></div>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>-->
+  <!--<a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--Managa tickets ends-->
 </div>
 
-<ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+<!--<ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>-->

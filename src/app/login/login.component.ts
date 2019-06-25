@@ -99,13 +99,12 @@ export class LoginComponent implements OnInit {
           log.debug(`${credentials.email} successfully logged in`);
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
-          console.log('onboardingView mf: ', onboard);
-          if (roleType === 'retailer_role' && onboard === 'yes') {
-            console.log('in retial');
+          // console.log('onboardingView mf: ', onboard);
+          if (roleType === 'retailer_role' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
-          } else if (roleType === 'distributor_role' && onboard === 'yes') {
+          } else if (roleType === 'distributor_role' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
-          } else if (onboard === 'no') {
+          } else if (!onboard) {
             console.log('Working');
             this.route.queryParams.subscribe(params => this.router.navigate(['/boarding'], { replaceUrl: true }));
           } else {

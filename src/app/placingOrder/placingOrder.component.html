@@ -223,7 +223,6 @@
       </div>
     </div>
     <div class="row btn-order-submit" *ngIf="order_list.length > 0 && show_order_qauntity_error_index.length == 0">
-      {{ show_order_qauntity_error_index.length }}
       <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" (click)="callAlertModal(alertModal)">
         Submit
       </button>
@@ -263,3 +262,10 @@
     <button type="submit" class="btn btn-success mr-2" (click)="modal.close('Save click')">Submit</button>
   </div>
 </ng-template>
+
+<!--Your order portal is closed-->
+
+<!--<div>-->
+<!--<img class="delivery" src="../../assets/images/home/delivery.svg">-->
+<!--<span>Can't place order now, portal is closed</span>-->
+<!--</div>-->

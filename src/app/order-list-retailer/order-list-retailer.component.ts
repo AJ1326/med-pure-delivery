@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 
 @Component({
-  selector: 'app-order-list',
+  selector: 'app-retailer-order-list',
   templateUrl: './order-list-retailer.component.html',
   styleUrls: ['./order-list-retailer.component.scss']
 })

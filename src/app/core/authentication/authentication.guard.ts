@@ -57,7 +57,7 @@ export class AuthenticationBoardingGuard implements CanActivate {
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authenticationService.onboardingView() === 'no') {
+    if (this.authenticationService.onboardingView()) {
       return true;
     }
 

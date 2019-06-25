@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Route } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./siidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
+
+  public openOrder(): void {
+    this.router.navigate(['/retailer/order'], { replaceUrl: true });
+  }
 
   ngOnInit() {}
 }

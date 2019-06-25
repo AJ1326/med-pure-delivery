@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { LoginService } from '@app/login/login.service';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpResponse } from '@angular/common/http';
 // import {CookieService} from "ngx-cookie-service";
 
 export interface Credentials {
@@ -50,19 +51,19 @@ export class AuthenticationService {
   login(context: LoginContext): Observable<Credentials> {
     // Replace by proper authentication call
     // return this.http.post<Credentials>(`${URLS.LOGIN_API}`, context, {withCredentials: true});
-    this.logged_in_role = {
-      key: 'f220702e6f2ae9c515ffcd7c2870cceca0ee0347',
-      role: ['retailer_role'],
-      agreement: [
-        {
-          agreement_type: 'no'
-        }
-      ],
-      permissions: ['can_cancel_orders', 'can_place_orders', 'can_view_products', 'can_view_self_orders_as_retailer']
-    };
+    // this.logged_in_role = {
+    //   key: 'f220702e6f2ae9c515ffcd7c2870cceca0ee0347',
+    //     role: ['retailer_role'],
+    //     agreement: [
+    //     {
+    //       agreement_type: 'no'
+    //     }
+    //   ],
+    //     permissions: ['can_cancel_orders', 'can_place_orders', 'can_view_products', 'can_view_self_orders_as_retailer']
+    // };
     // Login service call
 
-    // return this.LoginService.login(context);
+    return this.LoginService.login(context);
     //
     // .subscribe(
     //   (credentials: any) => {
@@ -75,7 +76,7 @@ export class AuthenticationService {
     // );
 
     // this.setCredentials(this.logged_in_role);
-    return of(this.logged_in_role);
+    // return of(this.logged_in_role);
   }
 
   /**
@@ -84,6 +85,7 @@ export class AuthenticationService {
    */
   logout(): Observable<boolean> {
     // Customize credentials invalidation here
+    this.cookieService.deleteAll();
     this.setCredentials();
     return of(true);
   }
@@ -112,8 +114,8 @@ export class AuthenticationService {
     let boarding = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (boarding) {
       boarding = JSON.parse(boarding);
-      console.log('lolololo', boarding['agreement'][0]['agreement_type']);
-      const boardValue = boarding['agreement'][0]['agreement_type'];
+      // console.log('lolololo', boarding['agreement_signed']
+      const boardValue = boarding['agreement_signed'];
       return boardValue;
     } else {
       return false;
@@ -144,7 +146,7 @@ export class AuthenticationService {
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
-      this.cookieService.set('sessionid', JSON.stringify(credentials));
+      // this.cookieService.set('sessionid', JSON.stringify(credentials));
     } else {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);

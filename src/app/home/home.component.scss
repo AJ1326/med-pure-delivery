@@ -7,3 +7,33 @@ q {
   font-size: 1.2rem;
   quotes: "« " " »";
 }
+
+.main-panel {
+  width: 100% !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+.empty_cart {
+  width: 35%;
+  display: table;
+  margin: auto;
+  margin-top: 14%;
+}
+
+.card-statistics {
+  cursor: pointer;
+}
+
+.card-statistics:hover {
+  box-shadow: 2px 3px 11px 0px #dee7f1;
+  //background: linear-gradient(120deg, #0ffbe7, #033263);
+  border: 1px solid #00000061;
+}
+
+.active_card {
+  background: linear-gradient(120deg, #94e8e1, #71b7ff);
+  border: 1px solid #00000024;
+}

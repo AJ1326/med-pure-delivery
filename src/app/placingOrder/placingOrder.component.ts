@@ -11,53 +11,6 @@ import { Route, Router } from '@angular/router';
 
 const log = new Logger('Placing Order');
 
-const items = [
-  {
-    distributor: 'abc Test',
-    discount: null,
-    stock: 100,
-    company: 'AD',
-    pack: '1x10',
-    rate: 250,
-    mrp: 350,
-    vat: 6,
-    rating: 4
-  },
-  {
-    distributor: 'abc Test2',
-    discount: 10,
-    stock: 50,
-    company: 'AD',
-    pack: '1x10',
-    rate: 250,
-    mrp: 350,
-    vat: 6,
-    rating: 5
-  },
-  {
-    distributor: 'abc Test3',
-    discount: 5,
-    stock: 80,
-    company: 'AD',
-    pack: '1x10',
-    rate: 250,
-    mrp: 350,
-    vat: 6,
-    rating: 3
-  },
-  {
-    distributor: 'abc Test4',
-    discount: null,
-    stock: 70,
-    company: 'AD',
-    pack: '1x10',
-    rate: 250,
-    mrp: 350,
-    vat: 6,
-    rating: 4
-  }
-];
-
 const WIKI_URL = 'products/?search=';
 const PARAMS = new HttpParams({
   fromObject: {
@@ -126,15 +79,15 @@ export class PlacingOrderComponent implements OnInit {
     private _hotkeysService: HotkeysService,
     public route: Router
   ) {
-    this._hotkeysService.add(
-      new Hotkey(
-        'command+h',
-        (event: KeyboardEvent): boolean => {
-          this.route.navigateByUrl('/');
-          return false; // Prevent bubbling
-        }
-      )
-    );
+    // this._hotkeysService.add(
+    //   new Hotkey(
+    //     'command+h',
+    //     (event: KeyboardEvent): boolean => {
+    //       this.route.navigateByUrl('/');
+    //       return false; // Prevent bubbling
+    //     }
+    //   )
+    // );
   }
 
   selectedItem(productname: any) {
@@ -154,7 +107,6 @@ export class PlacingOrderComponent implements OnInit {
         error => {
           log.debug(`Login error: ${error}`);
           this.error = error;
-          this.distributor_list = items;
         }
       );
   }
@@ -162,7 +114,7 @@ export class PlacingOrderComponent implements OnInit {
   addOrder(slug: string, orderNumber: number) {
     this.calldisableBtnFunction(slug);
     const addOrder = this.distributor_list[orderNumber];
-    this.order_list = this.order_list.concat(addOrder);
+    this.order_list = this.order_list.concat(JSON.parse(JSON.stringify(addOrder)));
   }
 
   removeOrder(slug: string, orderNumber: number) {
@@ -240,12 +192,16 @@ export class PlacingOrderComponent implements OnInit {
     );
   }
 
-  private submitOrder(order: []): void {
-    order.map(data => {
+  private submitOrder(order: any): void {
+    console.log(order, 'order');
+    order.map((data: any) => {
       delete data['company'];
       delete data['discount'];
-      delete data['distributor'];
+      data['distributor'] = data['distributor_slug'];
+      data['product'] = data['product_slug'];
       delete data['mrp'];
+      delete data['distributor_slug'];
+      delete data['product_slug'];
       delete data['pack'];
       delete data['rate'];
       delete data['rating'];
@@ -264,6 +220,9 @@ export class PlacingOrderComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
+          this.distributor_list = [];
+          this.order_list = [];
+          this.distributor_list_order_index = [];
           this.success_message = 'Your order has been placed.';
         },
         error => {
@@ -283,8 +242,14 @@ export class PlacingOrderComponent implements OnInit {
   private closeAlertPopUp(): void {}
 
   private valueChange(event: number, order_index: number, max_order: number, order_uuid: string): void {
-    this.order_list.map((i, index) => {
+    this.order_list.map((data, index) => {
       if (index === order_index) {
+        if (event) {
+          data['stock'] = event;
+        } else {
+          data['stock'] = 1;
+        }
+        console.log('order list', this.order_list[order_index]['stock']);
         if (event > +max_order) {
           if (!(this.show_order_qauntity_error_index.indexOf(order_uuid) > -1)) {
             this.show_order_qauntity_error_index.push(order_uuid);
@@ -295,9 +260,11 @@ export class PlacingOrderComponent implements OnInit {
             this.show_order_qauntity_error_index.splice(index, 1);
           }
         }
-        return { ...i, stock: event };
+        // console.log('event', 'i' , event, i);
+        // return { ...i, stock: event };
       }
-      return { ...i };
+      // console.log('event 2', 'i 2' , event, i);
+      // return { ...i };
     });
   }
 
@@ -311,11 +278,11 @@ export class PlacingOrderComponent implements OnInit {
     }
   }
 
-  ratingComponentClick(clickObj: any): void {
-    const item = items.find((i: any) => i.id === clickObj.itemId);
-    if (!!item) {
-      item.rating = clickObj.rating;
-      this.ratingClicked = clickObj.rating;
-    }
-  }
+  // ratingComponentClick(clickObj: any): void {
+  //   const item = items.find((i: any) => i.id === clickObj.itemId);
+  //   if (!!item) {
+  //     item.rating = clickObj.rating;
+  //     this.ratingClicked = clickObj.rating;
+  //   }
+  // }
 }

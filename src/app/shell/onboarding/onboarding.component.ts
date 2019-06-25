@@ -21,7 +21,7 @@ export class OnboardingComponent implements OnInit {
 
   showTab(n: any): void {
     // This function will display the specified tab of the form ...
-    const x = document.getElementsByClassName('tab');
+    const x = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>;
     x[n].style.display = 'block';
     // ... and fix the Previous/Next buttons:
     if (n === 0) {
@@ -40,7 +40,7 @@ export class OnboardingComponent implements OnInit {
 
   nextPrev(n: any) {
     // This function will figure out which tab to display
-    const x = document.getElementsByClassName('tab');
+    const x = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>;
     // Exit the function if any field in the current tab is invalid:
     if (n === 1 && !this.validateForm()) return false;
     // Hide the current tab:
@@ -85,7 +85,7 @@ export class OnboardingComponent implements OnInit {
 
   fixStepIndicator(n: any) {
     // This function removes the 'active' class of all steps...
-    const i,
+    let i,
       x = document.getElementsByClassName('step');
     for (i = 0; i < x.length; i++) {
       x[i].className = x[i].className.replace(' active', '');

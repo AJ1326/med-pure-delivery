@@ -14,73 +14,101 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-success btn-block">
+        <button class="btn btn-success btn-block" (click)="openOrder()">
           Order Data
           <i class="mdi mdi-plus"></i>
         </button>
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" [routerLink]="['/retailer/home']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Home</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <i class="menu-icon mdi mdi-content-copy"></i>
-        <span class="menu-title">Reports</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/buttons.html">Order placed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/typography.html">Feedback requests</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/typography.html">Distributors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/typography.html">Add new medicine</a>
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#request" aria-expanded="false" aria-controls="ui-basic">
-        <i class="menu-icon mdi mdi-content-copy"></i>
-        <span class="menu-title">Request</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="request">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/buttons.html">Leave request</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/typography.html">Re-ambursment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/typography.html">HR request</a>
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="pages/forms/basic_elements.html">
-        <i class="menu-icon mdi mdi-backup-restore"></i>
-        <span class="menu-title">Sub role</span>
+      <a class="nav-link" [routerLink]="['/retailer/profile']">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Profile</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/charts/chartjs.html">
-        <i class="menu-icon mdi mdi-chart-line"></i>
-        <span class="menu-title">Team</span>
+      <a class="nav-link" [routerLink]="['/retailer/feedback']">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Feedback</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/retailer/change-password']">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">Change password</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/retailer/about']">
+        <i class="menu-icon mdi mdi-television"></i>
+        <span class="menu-title">About</span>
+      </a>
+    </li>
+
+    <!--Reports-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">-->
+    <!--<i class="menu-icon mdi mdi-content-copy"></i>-->
+    <!--<span class="menu-title">Reports</span>-->
+    <!--<i class="menu-arrow"></i>-->
+    <!--</a>-->
+    <!--<div class="collapse" id="ui-basic">-->
+    <!--<ul class="nav flex-column sub-menu">-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/buttons.html">Order placed</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/typography.html">Feedback requests</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/typography.html">Distributors</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/typography.html">Add new medicine</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--End reports-->
+
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" data-toggle="collapse" href="#request" aria-expanded="false" aria-controls="ui-basic">-->
+    <!--<i class="menu-icon mdi mdi-content-copy"></i>-->
+    <!--<span class="menu-title">Request</span>-->
+    <!--<i class="menu-arrow"></i>-->
+    <!--</a>-->
+    <!--<div class="collapse" id="request">-->
+    <!--<ul class="nav flex-column sub-menu">-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/buttons.html">Leave request</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/typography.html">Re-ambursment</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/ui-features/typography.html">HR request</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/forms/basic_elements.html">-->
+    <!--<i class="menu-icon mdi mdi-backup-restore"></i>-->
+    <!--<span class="menu-title">Sub role</span>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" href="pages/charts/chartjs.html">-->
+    <!--<i class="menu-icon mdi mdi-chart-line"></i>-->
+    <!--<span class="menu-title">Team</span>-->
+    <!--</a>-->
+    <!--</li>-->
     <!--<li class="nav-item">-->
     <!--<a class="nav-link" href="pages/tables/basic-table.html">-->
     <!--<i class="menu-icon mdi mdi-table"></i>-->

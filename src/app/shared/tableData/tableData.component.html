@@ -1,16 +1,62 @@
 <form>
-  <div class="container">
-    <div class="search-box" id="SBox">
-      <input
-        id="search"
-        type="text"
-        name="searchTerm"
-        [(ngModel)]="service.searchTerm"
-        placeholder="Search by order list."
-      />
-      <div class="also search-link" onclick="searchbox(0)" id="searchclick"></div>
-      <span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>
-      <!--<a class="fa fa-cog also setting"></a>-->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="container">
+        <div class="search-box" id="SBox">
+          <input
+            id="search"
+            type="text"
+            name="searchTerm"
+            [(ngModel)]="service.searchTerm"
+            placeholder="Search by order list."
+          />
+          <div class="also search-link" id="searchclick"></div>
+          <!--<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>-->
+          <!--<a class="fa fa-cog also setting"></a>-->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 filter_start_date">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          style="height: 47px"
+          name="dp"
+          [displayMonths]="displayMonths"
+          [navigation]="navigation"
+          [outsideDays]="outsideDays"
+          [showWeekNumbers]="showWeekNumbers"
+          ngbDatepicker
+          #startdate="ngbDatepicker"
+        />
+        <div class="input-group-append" style="height: 47px">
+          <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 filter_end_date">
+      <div class="input-group">
+        <div class="input-group-append" style="height: 47px">
+          <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          style="height: 47px"
+          name="dp"
+          [displayMonths]="displayMonths"
+          [navigation]="navigation"
+          [outsideDays]="outsideDays"
+          [showWeekNumbers]="showWeekNumbers"
+          ngbDatepicker
+          #enddate="ngbDatepicker"
+        />
+      </div>
     </div>
   </div>
 
@@ -20,28 +66,173 @@
   <!--</div>-->
 
   <ngb-accordion #acc="ngbAccordion">
-    <ngb-panel *ngFor="let order of (orderlist$ | async)" title="{{ order.order_number }}">
+    <ngb-panel *ngFor="let order of (orderlist$ | async)">
+      <ng-template ngbPanelTitle>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="sub-accordian-heading">Order on</span>
+          </div>
+          <div class="col-md-2">
+            <span class="sub-accordian-heading">Amount</span>
+          </div>
+          <div class="col-md-5"></div>
+          <div class="col-md-2">
+            <span class="sub-accordian-heading">ORDER # 171-7965261-3449103</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span>26 June 2019</span>
+          </div>
+          <div class="col-md-2">
+            <span>346</span>
+          </div>
+          <div class="col-md-5"></div>
+        </div>
+      </ng-template>
       <ng-template ngbPanelContent>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col" sortable="product_name" (sort)="onSort($event)">Product Name</th>
-              <th scope="col" sortable="qauntity" (sort)="onSort($event)">Qauntity</th>
-              <th scope="col" sortable="Price" (sort)="onSort($event)">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="tr-color" *ngFor="let prod of order.product">
-              <th scope="row">{{ prod.id }}</th>
-              <td>
-                <ngb-highlight [result]="prod.product_name" [term]="service.searchTerm"></ngb-highlight>
-              </td>
-              <td><ngb-highlight [result]="prod.qauntity | number" [term]="service.searchTerm"></ngb-highlight></td>
-              <td><ngb-highlight [result]="prod.price | number" [term]="service.searchTerm"></ngb-highlight></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="wrap cf">
+          <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
+          <div class="heading cf">
+            <h1>Order</h1>
+            <!--<button  (click)="openAlertModal(content)" class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">Re-order</button>-->
+            <a href="/" class="continue">Re-order</a>
+            <!--//Product data -->
+          </div>
+          <div class="cart">
+            <!--    <ul class="tableHead">
+                  <li class="prodHeader">Product</li>
+                  <li>Quantity</li>
+                  <li>Total</li>
+                   <li>Remove</li>
+                </ul>-->
+            <ul class="cartWrap">
+              <li class="items odd">
+                <div class="infoWrap">
+                  <div class="cartSection">
+                    <!--<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />-->
+                    <p class="itemNumber">#QUE-007544-002</p>
+                    <h3>Item Name 1</h3>
+
+                    <p><input type="text" class="qty" placeholder="3" /> x $5.00</p>
+
+                    <p class="stockStatus">In Stock</p>
+                  </div>
+
+                  <div class="prodTotal cartSection">
+                    <p>$15.00</p>
+                  </div>
+                  <!--<div class="cartSection removeWrap">-->
+                  <!--<a href="#" class="remove">x</a>-->
+                  <!--</div>-->
+                </div>
+              </li>
+              <li class="items even">
+                <div class="infoWrap">
+                  <div class="cartSection">
+                    <!--<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />-->
+                    <p class="itemNumber">#QUE-007544-002</p>
+                    <h3>Item Name 1</h3>
+
+                    <p><input type="text" class="qty" placeholder="3" /> x $5.00</p>
+
+                    <p class="stockStatus">In Stock</p>
+                  </div>
+
+                  <div class="prodTotal cartSection">
+                    <p>$15.00</p>
+                  </div>
+                  <!--<div class="cartSection removeWrap">-->
+                  <!--<a href="#" class="remove">x</a>-->
+                  <!--</div>-->
+                </div>
+              </li>
+
+              <!--<li class="items odd">-->
+              <!--<div class="infoWrap">-->
+              <!--<div class="cartSection">-->
+
+              <!--&lt;!&ndash;<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />&ndash;&gt;-->
+              <!--<p class="itemNumber">#QUE-007544-002</p>-->
+              <!--<h3>Item Name 1</h3>-->
+
+              <!--<p> <input type="text"  class="qty" placeholder="3"/> x $5.00</p>-->
+
+              <!--<p class="stockStatus out"> Out of Stock</p>-->
+              <!--</div>-->
+
+              <!--<div class="prodTotal cartSection">-->
+              <!--<p>$15.00</p>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div class="cartSection removeWrap">&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="#" class="remove">x</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--</div>-->
+              <!--</li>-->
+              <!--<li class="items even">-->
+              <!--<div class="infoWrap">-->
+              <!--<div class="cartSection info">-->
+
+              <!--&lt;!&ndash;<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />&ndash;&gt;-->
+              <!--<p class="itemNumber">#QUE-007544-002</p>-->
+              <!--<h3>Item Name 1</h3>-->
+
+              <!--<p> <input type="text"  class="qty" placeholder="3"/> x $5.00</p>-->
+
+              <!--<p class="stockStatus"> In Stock</p>-->
+
+              <!--</div>-->
+
+              <!--<div class="prodTotal cartSection">-->
+              <!--<p>$15.00</p>-->
+              <!--</div>-->
+
+              <!--&lt;!&ndash;<div class="cartSection removeWrap">&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="#" class="remove">x</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div class="special"><div class="specialContent">Free gift with purchase!, gift wrap, etc!!</div></div>&ndash;&gt;-->
+              <!--</li>-->
+
+              <!--<li class="items even">Item 2</li>-->
+            </ul>
+          </div>
+
+          <!--<div class="promoCode"><label for="promo">Have A Promo Code?</label><input type="text" name="promo" placholder="Enter Code" />-->
+          <!--<a href="#" class="btn"></a></div>-->
+
+          <!--<div class="subtotal cf">-->
+          <!--<ul>-->
+          <!--<li class="totalRow"><span class="label">Subtotal</span><span class="value">$35.00</span></li>-->
+
+          <!--<li class="totalRow"><span class="label">Shipping</span><span class="value">$5.00</span></li>-->
+
+          <!--<li class="totalRow"><span class="label">Tax</span><span class="value">$4.00</span></li>-->
+          <!--<li class="totalRow final"><span class="label">Total</span><span class="value">$44.00</span></li>-->
+          <!--<li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>-->
+          <!--</ul>-->
+          <!--</div>-->
+        </div>
+        <!--<table class="table table-striped">-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th scope="col">#</th>-->
+        <!--<th scope="col" sortable="product_name" (sort)="onSort($event)">Product Name</th>-->
+        <!--<th scope="col" sortable="qauntity" (sort)="onSort($event)">Qauntity</th>-->
+        <!--<th scope="col" sortable="Price" (sort)="onSort($event)">Price</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr class="tr-color" *ngFor="let prod of order.product">-->
+        <!--<th scope="row">{{ prod.id }}</th>-->
+        <!--<td>-->
+        <!--<ngb-highlight [result]="prod.product_name" [term]="service.searchTerm"></ngb-highlight>-->
+        <!--</td>-->
+        <!--<td><ngb-highlight [result]="prod.qauntity | number" [term]="service.searchTerm"></ngb-highlight></td>-->
+        <!--<td><ngb-highlight [result]="prod.price | number" [term]="service.searchTerm"></ngb-highlight></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
@@ -62,3 +253,7 @@
     </select>
   </div>
 </form>
+
+<ng-template #content let-modal>
+  <app-alert [alertModalRefference]="modalReference" (messageEvent)="receiveMessage($event)"></app-alert>
+</ng-template>
