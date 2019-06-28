@@ -10,6 +10,7 @@ import { AuthenticationService, I18nService } from '@app/core';
 })
 export class HeaderComponent implements OnInit {
   menuHidden = true;
+  user_info: any;
 
   constructor(
     private router: Router,
@@ -17,7 +18,9 @@ export class HeaderComponent implements OnInit {
     private i18nService: I18nService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user_info = JSON.parse(localStorage.getItem('userInfo'));
+  }
 
   toggleMenu() {
     this.menuHidden = !this.menuHidden;

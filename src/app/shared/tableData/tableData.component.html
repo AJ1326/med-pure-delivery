@@ -23,6 +23,7 @@
           placeholder="yyyy-mm-dd"
           style="height: 47px"
           name="dp"
+          [(ngModel)]="startdatevalue"
           [displayMonths]="displayMonths"
           [navigation]="navigation"
           [outsideDays]="outsideDays"
@@ -66,7 +67,7 @@
   <!--</div>-->
 
   <ngb-accordion #acc="ngbAccordion">
-    <ngb-panel *ngFor="let order of (orderlist$ | async)">
+    <ngb-panel *ngFor="let order of orderListData">
       <ng-template ngbPanelTitle>
         <div class="row">
           <div class="col-md-2">
@@ -77,26 +78,40 @@
           </div>
           <div class="col-md-5"></div>
           <div class="col-md-2">
-            <span class="sub-accordian-heading">ORDER # 171-7965261-3449103</span>
+            <span class="sub-accordian-heading">ORDER # {{ order.order_id }}</span>
           </div>
         </div>
         <div class="row">
           <div class="col-md-2">
-            <span>26 June 2019</span>
+            <span style="color: #00000087;">{{ order.order_date }}</span>
           </div>
           <div class="col-md-2">
-            <span>346</span>
+            <span>{{ order.total_amount }}</span>
           </div>
           <div class="col-md-5"></div>
         </div>
       </ng-template>
       <ng-template ngbPanelContent>
-        <div class="wrap cf">
+        <div class="wrap cf" style="margin-top: -30px;">
           <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
           <div class="heading cf">
             <h1>Order</h1>
-            <!--<button  (click)="openAlertModal(content)" class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">Re-order</button>-->
-            <a href="/" class="continue">Re-order</a>
+            <div *ngIf="role_type === 'distributor'" style="text-align: right;">
+              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
+                Accepted
+              </button>
+              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">
+                Rejected
+              </button>
+            </div>
+            <div *ngIf="role_type === 'retailer'" style="text-align: right;">
+              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
+                Re-order
+              </button>
+            </div>
+            <!--<a href="/" *ngIf="role_type === 'retailer'" class="continue">Re-order</a>-->
+            <!--<a *ngIf="role_type === 'distributor'" class="continue">Accepted</a>-->
+            <!--<a *ngIf="role_type === 'distributor'" class="continue">Rejected</a>-->
             <!--//Product data -->
           </div>
           <div class="cart">
@@ -107,46 +122,76 @@
                    <li>Remove</li>
                 </ul>-->
             <ul class="cartWrap">
-              <li class="items odd">
+              <li
+                class="items"
+                *ngFor="let products of order.order_details; let i = index"
+                [attr.data-index]="i"
+                [ngClass]="i % 2 === 0 ? 'even' : 'odd'"
+              >
                 <div class="infoWrap">
                   <div class="cartSection">
                     <!--<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />-->
-                    <p class="itemNumber">#QUE-007544-002</p>
-                    <h3>Item Name 1</h3>
+                    <p class="itemNumber">ORDER # {{ order.order_id }}</p>
+                    <h3>{{ products.product['name'] }}</h3>
+                    <!--<span>{{products.distributor['name']}}</span>-->
 
-                    <p><input type="text" class="qty" placeholder="3" /> x $5.00</p>
+                    <div class="footer-order-data-sub-details">
+                      <strong class="sub-order-dropdown-heading">Units ordered :</strong
+                      ><span class="product-sub-details">{{ products.quantity }}</span>
+                      <strong class="sub-order-dropdown-heading">Price:</strong
+                      ><i class="fa fa-inr" aria-hidden="true"></i
+                      ><span class="product-sub-details">{{ products.product.price }}</span>
+                      <strong *ngIf="role_type === 'retailer'" class="sub-order-dropdown-heading"
+                        >Distributor name:</strong
+                      >
+                      <span *ngIf="role_type === 'retailer'" class="product-sub-details">{{
+                        products['distributor']['name']
+                      }}</span>
+                      <strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"
+                        >Retailer name:</strong
+                      >
+                      <span *ngIf="role_type === 'distributor'" class="product-sub-details">{{
+                        products['retailer']['name']
+                      }}</span>
+                      <!--<input type="text" class="qty" placeholder="{{products.quantity}}" />x<i class="fa fa-inr" aria-hidden="true"></i>-->
+                      <!--{{products.product.price}} -->
+                    </div>
 
-                    <p class="stockStatus">In Stock</p>
+                    <!--<p class="stockStatus" *ngIf="products.product.available_quantity > products.quantity">In Stock</p>-->
+                    <!--<p class="stockStatus out" *ngIf="products.product.available_quantity < products.quantity">Out of Stock</p>-->
                   </div>
 
                   <div class="prodTotal cartSection">
-                    <p>$15.00</p>
+                    <p style="font-size: 20px;">
+                      <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                      ><span>{{ products.quantity * products.product.price }}</span>
+                    </p>
                   </div>
                   <!--<div class="cartSection removeWrap">-->
                   <!--<a href="#" class="remove">x</a>-->
                   <!--</div>-->
                 </div>
               </li>
-              <li class="items even">
-                <div class="infoWrap">
-                  <div class="cartSection">
-                    <!--<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />-->
-                    <p class="itemNumber">#QUE-007544-002</p>
-                    <h3>Item Name 1</h3>
+              <!--<li class="items even">-->
+              <!--<div class="infoWrap">-->
+              <!--<div class="cartSection">-->
+              <!--&lt;!&ndash;<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />&ndash;&gt;-->
+              <!--<p class="itemNumber">#QUE-007544-002</p>-->
+              <!--<h3>Item Name 1</h3>-->
 
-                    <p><input type="text" class="qty" placeholder="3" /> x $5.00</p>
+              <!--<p><input type="text" class="qty" placeholder="3" /> x $5.00</p>-->
 
-                    <p class="stockStatus">In Stock</p>
-                  </div>
+              <!--<p class="stockStatus">In Stock</p>-->
+              <!--</div>-->
 
-                  <div class="prodTotal cartSection">
-                    <p>$15.00</p>
-                  </div>
-                  <!--<div class="cartSection removeWrap">-->
-                  <!--<a href="#" class="remove">x</a>-->
-                  <!--</div>-->
-                </div>
-              </li>
+              <!--<div class="prodTotal cartSection">-->
+              <!--<p>$15.00</p>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div class="cartSection removeWrap">&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="#" class="remove">x</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--</div>-->
+              <!--</li>-->
 
               <!--<li class="items odd">-->
               <!--<div class="infoWrap">-->

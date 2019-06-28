@@ -36,11 +36,11 @@ function sort(orders: OrderList[], column: string, direction: string): OrderList
 }
 
 function matches(orderlist: OrderList, term: string, pipe: PipeTransform) {
-  return (
-    orderlist.name.toLowerCase().includes(term) ||
-    pipe.transform(orderlist.product.map(product => product.product_name)).includes(term) ||
-    pipe.transform(orderlist.order_number).includes(term)
-  );
+  // return (
+  //   orderlist.name.toLowerCase().includes(term) ||
+  //   pipe.transform(orderlist.product.map(product => product.product_name)).includes(term) ||
+  //   pipe.transform(orderlist.order_number).includes(term)
+  // );
 }
 
 @Injectable({ providedIn: 'root' })

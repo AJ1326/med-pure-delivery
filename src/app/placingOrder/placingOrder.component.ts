@@ -8,6 +8,8 @@ import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
 import { Logger } from '@app/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { Route, Router } from '@angular/router';
+import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 const log = new Logger('Placing Order');
 
@@ -67,17 +69,19 @@ export class PlacingOrderComponent implements OnInit {
   //Rating
   rating: number;
   ratingClicked: number;
-  success_message: string;
+  message: string;
   modalReference: any;
   show_order_qauntity_error_index: any[] = [];
   distributor_list_order_index: any[] = [];
+  product_name: string;
 
   constructor(
     private distributorService: PlacingOrderService,
     private modalService: NgbModal,
     private _service: WikipediaService,
     private _hotkeysService: HotkeysService,
-    public route: Router
+    public route: Router,
+    private toastr: ToastrService
   ) {
     // this._hotkeysService.add(
     //   new Hotkey(
@@ -91,7 +95,7 @@ export class PlacingOrderComponent implements OnInit {
   }
 
   selectedItem(productname: any) {
-    console.log('productname:', productname);
+    this.product_name = productname['item']['name'];
     this.isLoading = true;
     this.distributorService
       .distributorList(productname['item']['slug'])
@@ -114,7 +118,9 @@ export class PlacingOrderComponent implements OnInit {
   addOrder(slug: string, orderNumber: number) {
     this.calldisableBtnFunction(slug);
     const addOrder = this.distributor_list[orderNumber];
-    this.order_list = this.order_list.concat(JSON.parse(JSON.stringify(addOrder)));
+    let cloned_order = _.cloneDeep(addOrder);
+    cloned_order.quantity = 3;
+    this.order_list = this.order_list.concat(cloned_order);
   }
 
   removeOrder(slug: string, orderNumber: number) {
@@ -156,7 +162,7 @@ export class PlacingOrderComponent implements OnInit {
   formatter = (x: { name: string }) => x.name;
 
   ngOnInit() {
-    this.success_message = 'Welcome !!!!';
+    this.message = 'Welcome !!!!';
   }
 
   public openModal(content: any) {
@@ -208,7 +214,7 @@ export class PlacingOrderComponent implements OnInit {
       delete data['pack'];
       delete data['vat'];
       delete data['uuid'];
-      data['quantity'] = data['stock'];
+      // data['quantity'] = data['stock'];
       delete data['stock'];
     });
     this.distributorService
@@ -220,15 +226,22 @@ export class PlacingOrderComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
+          this.product_name = '';
           this.distributor_list = [];
           this.order_list = [];
           this.distributor_list_order_index = [];
-          this.success_message = 'Your order has been placed.';
+          this.message = 'Your order has been placed.';
+          this.toastr.success(this.message);
         },
         error => {
           log.debug(`Login error: ${error}`);
+          this.product_name = '';
+          this.distributor_list = [];
+          this.order_list = [];
+          this.distributor_list_order_index = [];
           this.error = error;
-          this.success_message = 'Some error is occurred.';
+          this.message = 'Some error is occurred.';
+          this.toastr.error(this.message);
         }
       );
   }
@@ -241,31 +254,18 @@ export class PlacingOrderComponent implements OnInit {
 
   private closeAlertPopUp(): void {}
 
-  private valueChange(event: number, order_index: number, max_order: number, order_uuid: string): void {
-    this.order_list.map((data, index) => {
-      if (index === order_index) {
-        if (event) {
-          data['stock'] = event;
-        } else {
-          data['stock'] = 1;
-        }
-        console.log('order list', this.order_list[order_index]['stock']);
-        if (event > +max_order) {
-          if (!(this.show_order_qauntity_error_index.indexOf(order_uuid) > -1)) {
-            this.show_order_qauntity_error_index.push(order_uuid);
-          }
-        } else {
-          const index = this.show_order_qauntity_error_index.indexOf(order_uuid);
-          if (index > -1) {
-            this.show_order_qauntity_error_index.splice(index, 1);
-          }
-        }
-        // console.log('event', 'i' , event, i);
-        // return { ...i, stock: event };
+  private valueChange(order_index: number, order: any, $event: any): void {
+    order.quantity = $event;
+    const index = this.show_order_qauntity_error_index.indexOf(order.uuid);
+    if (order.quantity > order.stock) {
+      if (index === -1) {
+        this.show_order_qauntity_error_index.push(order.uuid);
       }
-      // console.log('event 2', 'i 2' , event, i);
-      // return { ...i };
-    });
+    } else {
+      if (index > -1) {
+        this.show_order_qauntity_error_index.splice(index, 1);
+      }
+    }
   }
 
   private findExceedOrder(val: number): boolean {

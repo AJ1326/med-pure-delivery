@@ -7,45 +7,48 @@
             <img src="../../../assets/images/faces/AJ.png" alt="profile image" />
           </div>
           <div class="text-wrapper">
-            <p class="profile-name">Abhishek Jaimini</p>
+            <p class="profile-name">{{ user_info.name }}</p>
             <div>
-              <small class="designation text-muted">Retailer ID</small>
+              <small *ngIf="role_type === 'retailer'" class="designation text-muted"
+                >Retailer #{{ user_info.shop_name }}</small
+              >
+              <small *ngIf="role_type === 'distributor'" class="designation text-muted">Distributor ID</small>
               <span class="status-indicator online"></span>
             </div>
           </div>
         </div>
-        <button class="btn btn-success btn-block" (click)="openOrder()">
+        <button *ngIf="role_type === 'retailer'" class="btn btn-success btn-block" (click)="openOrder()">
           Order Data
           <i class="mdi mdi-plus"></i>
         </button>
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/retailer/home']">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/home']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Home</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/retailer/profile']">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/profile']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Profile</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/retailer/feedback']">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/feedback']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Feedback</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/retailer/change-password']">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/change-password']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Change password</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/retailer/about']">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/about']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">About</span>
       </a>

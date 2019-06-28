@@ -7,7 +7,7 @@ import { Country } from '@app/home/country';
 import { COUNTRIES } from '@app/home/countries';
 
 const routes = {
-  quote: (c: RandomQuoteContext) => `/jokes/random?category=${c.category}`
+  // quote: (c: RandomQuoteContext) => `/jokes/random?category=${c.category}`
 };
 
 export interface RandomQuoteContext {
@@ -83,15 +83,15 @@ export class QuoteService {
     this._search$.next();
   }
 
-  getRandomQuote(context: RandomQuoteContext): Observable<string> {
-    return this.httpClient
-      .cache()
-      .get(routes.quote(context))
-      .pipe(
-        map((body: any) => body.value),
-        catchError(() => of('Error, could not load joke :-('))
-      );
-  }
+  // getRandomQuote(context: RandomQuoteContext): Observable<string> {
+  //   return this.httpClient
+  //     .cache()
+  //     .get(routes.quote(context))
+  //     .pipe(
+  //       map((body: any) => body.value),
+  //       catchError(() => of('Error, could not load joke :-('))
+  //     );
+  // }
 
   get countries$() {
     return this._countries$.asObservable();

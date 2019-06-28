@@ -99,7 +99,7 @@ input:focus {
 //Remote
 //@import "compass/css3";
 
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400, 400italic|Montserrat:400, 700);
+//@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400, 700);
 //@import "compass/reset";
 $fontSans: "Montserrat", sans-serif;
 $fontSerif: "Droid Serif", serif;
@@ -163,7 +163,7 @@ img {
 // CART HEADER
 .heading {
   padding: 1em 0;
-  border-bottom: 1px solid #d0d0d0;
+  //border-bottom: 1px solid #d0d0d0;
 
   h1 {
     font-family: $fontSerif;
@@ -244,7 +244,7 @@ img {
     .cartSection {
       display: table-cell;
 
-      vertical-align: middle;
+      //vertical-align: middle;
 
       .itemNumber {
         font-size: 0.75em;
@@ -558,4 +558,42 @@ a.remove {
 .filter_end_date {
   margin-top: -25px;
   margin-left: -24px;
+}
+
+.sub-order-dropdown-heading {
+  color: #4da4e0;
+  margin-left: 11px;
+}
+
+.product-sub-details {
+  margin-left: 3px;
+  font-size: 15px;
+}
+
+.infoWrap {
+  padding: 12px;
+}
+
+.footer-order-data-sub-details {
+  margin-top: 25px;
+  margin-bottom: -6px;
+  margin-left: -11px;
+}
+
+.card {
+  border: 1px solid #00000026 !important;
+}
+
+.btn-accept {
+  background-color: #4ca4e1;
+  padding: 5px;
+  padding-left: 23px;
+  color: #f2f7fb;
+}
+
+.btn-reject {
+  background-color: #ce01018c;
+  padding: 5px;
+  padding-left: 23px;
+  color: #f2f7fb;
 }

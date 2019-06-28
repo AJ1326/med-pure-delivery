@@ -8,12 +8,12 @@ import env from './.env';
 export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
-  serverUrl: 'http://localhost:8005/api/',
+  serverUrl: 'http://192.168.0.105:8000/api/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR'],
   APIserverUrl: '',
   cookieDomain: 'localhost',
-  userSessionTimeout: 900, // in seconds
+  userSessionTimeout: 900 // in seconds
 };
 
 /*

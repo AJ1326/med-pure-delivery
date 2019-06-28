@@ -7,11 +7,13 @@ export const URL: string = environment.APIserverUrl;
 export const URLS = {
   //Authentication
   LOGIN_API: `rest-auth/login/`,
+  USER_INFO_API: `user/`,
   SIGN_UP_API: `rest-auth/sign-up/`,
   FORGOT_PASSWORD_API: `rest-auth/sign-up/`,
   REFRESH_TOKEN: `token-refresh/`,
 
   //List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
-  ORDER_LIST_PLACED_API: `orders/retailer/`
+  ORDER_LIST_PLACED_API: `orders/retailer/`,
+  DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`
 };

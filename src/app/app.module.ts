@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
 import {
@@ -27,7 +27,9 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { OrderListRetailerRoutingModule } from '@app/order-list-retailer/order-list-retailer-routing.module';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileModule } from '@app/profile/profile.module';
+import { ProfileRoutingModule } from '@app/profile/profile-routing.module';
 import { FeedbackModule } from '@app/feedback/feedback.module';
+import { OrderListModule } from '@app/orderList/order-list.module';
 
 @NgModule({
   imports: [
@@ -46,11 +48,13 @@ import { FeedbackModule } from '@app/feedback/feedback.module';
     FeedbackModule,
     OrderListRoutingModule,
     OrderListRetailerRoutingModule,
+    OrderListModule,
     LoginModule,
     PlacingOrderModule,
-    AppRoutingModule,
     ProfileModule,
-    ChangePasswordModule // must be imported as the last module as it contains the fallback route
+    ProfileRoutingModule,
+    ChangePasswordModule, // must be imported as the last module as it contains the fallback route,
+    AppRoutingModule
   ],
   declarations: [AppComponent],
   providers: [

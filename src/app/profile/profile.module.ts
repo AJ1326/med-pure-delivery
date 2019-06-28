@@ -8,7 +8,7 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, ProfileRoutingModule],
+  imports: [CommonModule, TranslateModule, CoreModule, SharedModule],
   declarations: [ProfileComponent]
 })
 export class ProfileModule {}

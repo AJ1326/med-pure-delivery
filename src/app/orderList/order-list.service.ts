@@ -9,14 +9,10 @@ import { Utils } from '@app/shared/utils/utils';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderListRetailerService {
+export class OrderListService {
   constructor(private http: HttpClient) {}
 
-  distributorList(payload: any) {
-    return this.http.get(`${URLS.DISTRIBUTOR_LIST__API}` + payload);
-  }
-
-  orderListData() {
-    return this.http.get(`${URLS.ORDER_LIST_PLACED_API}`, { withCredentials: true });
+  distributorList() {
+    return this.http.get(`${URLS.DISTRIBUTOR_ORDER_LIST_PLACED_API}`, { withCredentials: true });
   }
 }

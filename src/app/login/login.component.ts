@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
         credentials => {
           console.log('yolo mf: ', credentials);
           this.authenticationService.setCredentials(credentials);
+          this.userInfo();
           log.debug(`${credentials.email} successfully logged in`);
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
@@ -119,6 +120,19 @@ export class LoginComponent implements OnInit {
           this.error = error;
         }
       );
+  }
+
+  public userInfo(): void {
+    this.authenticationService.userInfo().subscribe(
+      (data: any) => {
+        localStorage.setItem('userInfo', JSON.stringify(data));
+      },
+      error => {
+        log.debug(`Login user info error: ${error}`);
+        console.log(error, 'Error');
+        this.error = error;
+      }
+    );
   }
 
   signUp() {

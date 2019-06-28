@@ -1,7 +1,7 @@
-<!--<div class="order-list-header">-->
-<!--<h1 class="heading-tag">Order list</h1>-->
-<!--<hr class="hr-tag" />-->
-<!--</div>-->
-<div class="order_list">
-  <app-table></app-table>
+<div *ngIf="retailorderList.length > 0" class="order_list">
+  <app-table [orderListData]="retailorderList" [role_type]="'retailer'"></app-table>
+</div>
+
+<div *ngIf="retailorderList.length <= 0">
+  <img class="empty_cart" src="../../assets/images/home/empty_cart.svg" />
 </div>

@@ -1,5 +1,5 @@
 <div>
-  <app-message-bar [messageBarEvent]="success_message"></app-message-bar>
+  <app-message-bar [messageBarEvent]="message"></app-message-bar>
 </div>
 
 <ng-template #alertModal let-modal>
@@ -40,6 +40,9 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">List of distributors</h4>
+              <span class="product-display"
+                ><strong>{{ product_name }}</strong></span
+              >
               <!--<p class="card-description">-->
               <!--Add class-->
               <!--<code>.table-striped</code>-->
@@ -153,6 +156,9 @@
                         Distributor name
                       </th>
                       <th>
+                        Product
+                      </th>
+                      <th>
                         Company
                       </th>
                       <th>
@@ -191,6 +197,9 @@
                         {{ order.distributor }}
                       </td>
                       <td>
+                        {{ order.product_name }}
+                      </td>
+                      <td>
                         {{ order.company }}
                       </td>
                       <td>
@@ -201,8 +210,8 @@
                           style="width: 100% !important;"
                           type="number"
                           [max]="order.stock"
-                          [ngModel]="1"
-                          (ngModelChange)="valueChange($event, i, order.stock, order['uuid'])"
+                          [(ngModel)]="order.quantity"
+                          (ngModelChange)="valueChange(i, order, $event)"
                           min="1"
                         />
                       </td>

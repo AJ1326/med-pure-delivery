@@ -13,6 +13,13 @@ export interface Credentials {
   permissions: Array<string>;
 }
 
+export interface UserInfo {
+  // Customize received credentials here
+  name: string;
+  email: string;
+  shop_name: string;
+}
+
 export interface LoginContext {
   email: string;
   password: string;
@@ -79,6 +86,10 @@ export class AuthenticationService {
     // return of(this.logged_in_role);
   }
 
+  userInfo(): Observable<UserInfo> {
+    return this.LoginService.userinfo();
+  }
+
   /**
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.
@@ -140,12 +151,13 @@ export class AuthenticationService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  public setCredentials(credentials?: Credentials, remember?: boolean) {
+  public setCredentials(credentials?: Credentials, remember?: true) {
     this._credentials = credentials || null;
 
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
+      localStorage.setItem(credentialsKey, JSON.stringify(credentials));
       // this.cookieService.set('sessionid', JSON.stringify(credentials));
     } else {
       sessionStorage.removeItem(credentialsKey);

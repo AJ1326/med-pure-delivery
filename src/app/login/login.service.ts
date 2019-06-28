@@ -5,7 +5,7 @@ import { URLS } from '@app/core/common/url-constant';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Utils } from '@app/shared/utils/utils';
-import { Credentials } from '@app/core';
+import { Credentials, UserInfo } from '@app/core';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,9 @@ export class LoginService {
 
   forgot(payload: any) {
     return this.http.post(`${URLS.FORGOT_PASSWORD_API}`, payload);
+  }
+
+  userinfo() {
+    return this.http.get<UserInfo>(`${URLS.USER_INFO_API}`, { withCredentials: true });
   }
 }

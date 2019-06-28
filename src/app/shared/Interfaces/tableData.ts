@@ -1,13 +1,24 @@
 export interface OrderList {
-  id: number;
-  name: string;
-  order_number: string;
-  product: Array<ProductList>;
+  order_id?: string;
+  order_date: string;
+  total_amount: number;
+  order_details: Array<ProductList>;
 }
 
 export interface ProductList {
-  id?: number;
-  qauntity?: string;
-  price?: string;
-  product_name?: string;
+  quantity: number;
+  product: ProductInfo;
+  distributor: DistributorInfo;
+}
+
+export interface ProductInfo {
+  available_quantity: number;
+  price: number;
+  name: string;
+  slug: string;
+}
+
+export interface DistributorInfo {
+  name: string;
+  slug: string;
 }
