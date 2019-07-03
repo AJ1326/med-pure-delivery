@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Route } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -7,14 +7,24 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./siidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnChanges, OnInit {
   role_type: any;
   user_info: any;
+  displaySideBar: boolean;
+
+  @Input() sideBarDisplay: boolean;
 
   constructor(private router: Router) {}
 
   public openOrder(): void {
     this.router.navigate(['/retailer/order'], { replaceUrl: true });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const sideBarDisplayValue: SimpleChange = changes.sideBarDisplay;
+    this.displaySideBar = sideBarDisplayValue.currentValue;
+    // console.log('prev value: ', sideBarDisplayValue.previousValue);
+    // console.log('got name: ', sideBarDisplayValue.currentValue);
   }
 
   ngOnInit() {

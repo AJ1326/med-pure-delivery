@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
@@ -11,6 +11,10 @@ import { AuthenticationService, I18nService } from '@app/core';
 export class HeaderComponent implements OnInit {
   menuHidden = true;
   user_info: any;
+  displaySideBar = true;
+  role_type: string;
+
+  @Output() sideBarDisplay = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
@@ -20,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.user_info = JSON.parse(localStorage.getItem('userInfo'));
+    this.role_type = this.user_info.role[0].substring(0, this.user_info.role[0].indexOf('_'));
   }
 
   toggleMenu() {
@@ -45,5 +50,11 @@ export class HeaderComponent implements OnInit {
   get username(): string | null {
     const credentials = this.authenticationService.credentials;
     return credentials ? credentials.email : null;
+  }
+
+  toggleSideBar(): void {
+    this.displaySideBar = !this.displaySideBar;
+    console.log('hdsfgsfgfkdfkjg', this.displaySideBar);
+    this.sideBarDisplay.emit(this.displaySideBar);
   }
 }

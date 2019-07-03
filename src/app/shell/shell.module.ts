@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionConfig, NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
@@ -22,6 +22,7 @@ import { OnboardingComponent } from '@app/shell/onboarding/onboarding.component'
     BoardingShellComponent,
     OnboardheaderComponent,
     OnboardingComponent
-  ]
+  ],
+  providers: [NgbAccordionConfig]
 })
 export class ShellModule {}

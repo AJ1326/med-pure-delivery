@@ -12,7 +12,10 @@ import { Utils } from '@app/shared/utils/utils';
 export class OrderListService {
   constructor(private http: HttpClient) {}
 
-  distributorList() {
-    return this.http.get(`${URLS.DISTRIBUTOR_ORDER_LIST_PLACED_API}`, { withCredentials: true });
+  distributorList(startdate: any, enddate: any) {
+    return this.http.get(
+      `${URLS.DISTRIBUTOR_ORDER_LIST_PLACED_API + '?start_date=' + startdate + '&end_date=' + enddate}}`,
+      { withCredentials: true }
+    );
   }
 }

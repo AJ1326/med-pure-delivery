@@ -13,7 +13,14 @@ import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from '@app/shared/directives/sortable.directive';
 import { CountryService } from '@app/shared/tableData/tableData.service';
 import { OrderList } from '@app/shared/Interfaces/tableData';
-import { ModalDismissReasons, NgbAccordionConfig, NgbCalendar, NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ModalDismissReasons,
+  NgbAccordionConfig,
+  NgbCalendar,
+  NgbDate,
+  NgbDateParserFormatter,
+  NgbModal
+} from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +29,6 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-table',
   templateUrl: './tableData.component.html',
   styleUrls: ['./tableData.component.scss'],
-  providers: [NgbAccordionConfig],
   encapsulation: ViewEncapsulation.None
 })
 export class TableDataComponent implements OnInit, OnDestroy {
@@ -34,15 +40,10 @@ export class TableDataComponent implements OnInit, OnDestroy {
   order_list: [];
   isLoading = true;
   alert_message: string;
-  //Date
-  displayMonths = 1;
-  navigation = 'select';
-  showWeekNumbers = false;
-  outsideDays = 'visible';
+
   //Order data
   @Input() orderListData: any = [];
   @Input() role_type: string;
-  startdatevalue: NgbDateStruct;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -56,7 +57,6 @@ export class TableDataComponent implements OnInit, OnDestroy {
     this.orderlist$ = service.orderlist$;
     this.total$ = service.total$;
     config.closeOthers = true;
-    this.startdatevalue = calendar.getToday();
     config.type = 'info';
     console.log('role_type', this.orderListData);
     //date
@@ -139,14 +139,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
     this.service.sortDirection = direction;
   }
 
-  ngOnInit() {
-    this.dateParser();
-  }
-
-  private dateParser(): void {
-    const date = this.startdatevalue.day + '-' + this.startdatevalue.month + '-' + this.startdatevalue.year;
-    console.log('date', date);
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {}
 }

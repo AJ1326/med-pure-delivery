@@ -6,9 +6,11 @@ import { OrderListRetailerRoutingModule } from './order-list-retailer-routing.mo
 import { OrderListRetailerComponent } from './order-list-retailer.component';
 import { SharedModule } from '@app/shared';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, SharedModule, OrderListRetailerRoutingModule],
+  imports: [CommonModule, TranslateModule, SharedModule, NgbModule, FormsModule, OrderListRetailerRoutingModule],
   declarations: [OrderListRetailerComponent],
   providers: [OrderListRetailerService],
   exports: [OrderListRetailerComponent]

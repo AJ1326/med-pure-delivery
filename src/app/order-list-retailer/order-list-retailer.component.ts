@@ -1,106 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { environment } from '@env/environment';
 import { finalize } from 'rxjs/operators';
-import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
-// import {log} from "@util";
-
-// const dataorder = [
-//   {
-//     "order_id": "a50f67db-0c10-4b18-81c3-a9688149e0c5",
-//     "order_date": "2019-06-25",
-//     "total_amount": 150000,
-//     "order_details": [
-//       {
-//         "quantity": 1,
-//         "product": {
-//           'available_quantity': 300,
-//           'price': 234,
-//           "name": "EVICT XF 90ML SLN",
-//           "slug": "evict-xf-90ml-sln"
-//         },
-//         "distributor": {
-//           "name": "abc Test",
-//           "slug": "abc-test"
-//         }
-//       },
-//       {
-//         "quantity": 1,
-//         "product": {
-//           "name": "CYP-L DROP",
-//           "slug": "cyp-l-drop"
-//         },
-//         "distributor": {
-//           "name": "abc Test",
-//           "slug": "abc-test"
-//         }
-//       }
-//     ]
-//   },
-//   {
-//     "order_id": "a50f67db-0c10-4b18-81c3-a9688149e0c5",
-//     "order_date": "2019-06-25",
-//     "order_details": [
-//       {
-//         "total_amount": 150000,
-//         "quantity": 1,
-//         "product": {
-//           'available_quantity': 300,
-//           'price': 234,
-//           "name": "EVICT XF 90ML SLN",
-//           "slug": "evict-xf-90ml-sln"
-//         },
-//         "distributor": {
-//           "name": "abc Test",
-//           "slug": "abc-test"
-//         }
-//       },
-//       {
-//         "quantity": 1,
-//         "product": {
-//           "name": "CYP-L DROP",
-//           "slug": "cyp-l-drop"
-//         },
-//         "distributor": {
-//           "name": "abc Test",
-//           "slug": "abc-test"
-//         }
-//       }
-//     ]
-//   },
-//   {
-//     "order_id": "a50f67db-0c10-4b18-81c3-a9688149e0c5",
-//     "order_date": "2019-06-25",
-//     "order_details": [
-//       {
-//         "total_amount": 150000,
-//         "quantity": 1,
-//         "product": {
-//           'available_quantity': 300,
-//           'price': 234,
-//           "name": "EVICT XF 90ML SLN",
-//           "slug": "evict-xf-90ml-sln"
-//         },
-//         "distributor": {
-//           "name": "abc Test",
-//           "slug": "abc-test"
-//         }
-//       },
-//       {
-//         "quantity": 1,
-//         "product": {
-//           "name": "CYP-L DROP",
-//           "slug": "cyp-l-drop"
-//         },
-//         "distributor": {
-//           "name": "abc Test",
-//           "slug": "abc-test"
-//         }
-//       }
-//     ]
-//   }
-// ]
+import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-retailer-order-list',
@@ -113,16 +16,34 @@ export class OrderListRetailerComponent implements OnInit {
   isLoading: false;
   error: string;
   retailorderList: any[] = [];
+  startDate: any;
+  endDate: any;
+  //Date
+  displayMonths = 1;
+  navigation = 'select';
+  showWeekNumbers = false;
+  outsideDays = 'visible';
 
-  constructor(private orderListRetailerService: OrderListRetailerService) {}
+  @Input() orderListByFilterData: string;
+  constructor(private orderListRetailerService: OrderListRetailerService, public calendar: NgbCalendar) {}
 
   ngOnInit() {
-    this.retailOrderList();
+    this.retailOrderList('', '');
   }
 
-  private retailOrderList(): void {
+  private setStartDateFilter(event: any): void {
+    console.log('event', event);
+    // this.startdatevalue = event;
+  }
+
+  private setEndDateFilter(event: any): void {
+    console.log('event', event);
+    // this.enddatevalue = event;
+  }
+
+  private retailOrderList(startdate: any, enddate: any): void {
     this.orderListRetailerService
-      .orderListData()
+      .orderListData(startdate, enddate)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -140,5 +61,17 @@ export class OrderListRetailerComponent implements OnInit {
           this.success_message = 'Some error is occurred.';
         }
       );
+  }
+
+  private changeDate(date: any): void {
+    const startDate =
+      this.startDate === undefined || this.startDate === null
+        ? ''
+        : this.startDate.day + '-' + this.startDate.month + '-' + this.startDate.year;
+    const endDate =
+      this.endDate === undefined || this.endDate === null
+        ? ''
+        : this.endDate.day + '-' + this.endDate.month + '-' + this.endDate.year;
+    this.retailOrderList(startDate, endDate);
   }
 }

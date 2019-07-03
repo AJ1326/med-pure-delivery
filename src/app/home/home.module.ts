@@ -11,6 +11,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { OrderListRetailerModule } from '@app/order-list-retailer/order-list-retailer.module';
+import { OrderListModule } from '@app/orderList/order-list.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { OrderListRetailerModule } from '@app/order-list-retailer/order-list-ret
     FormsModule,
     Ng2SmartTableModule,
     NgbModule.forRoot(),
-    OrderListRetailerModule
+    OrderListRetailerModule,
+    OrderListModule
   ],
   declarations: [HomeComponent],
   providers: [QuoteService],

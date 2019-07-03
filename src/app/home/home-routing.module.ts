@@ -9,6 +9,10 @@ const routes: Routes = [
   Shell.retailerShell([
     { path: '', redirectTo: '/retailer/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
+  ]),
+  Shell.distributorShell([
+    { path: '', redirectTo: '/distributor/home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
   ])
 ];
 

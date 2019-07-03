@@ -18,79 +18,9 @@ export class HomeComponent implements OnInit {
   isLoading: boolean;
   countries$: Observable<Country[]>;
   total$: Observable<number>;
-  // settings = {
-  //   columns: {
-  //     id: {
-  //       title: 'ID'
-  //     },
-  //     name: {
-  //       title: 'Full Name'
-  //     },
-  //     username: {
-  //       title: 'User Name'
-  //     },
-  //     email: {
-  //       title: 'Email'
-  //     }
-  //   }
-  // };
-
-  // data = [
-  //   {
-  //     id: 1,
-  //     name: 'Leanne Graham',
-  //     username: 'Bret',
-  //     email: 'Sincere@april.biz'
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Ervin Howell',
-  //     username: 'Antonette',
-  //     email: 'Shanna@melissa.tv'
-  //   },
-  //   {
-  //     id: 1,
-  //     name: 'Leanne Graham',
-  //     username: 'Bret',
-  //     email: 'Sincere@april.biz'
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Ervin Howell',
-  //     username: 'Antonette',
-  //     email: 'Shanna@melissa.tv'
-  //   },
-  //   {
-  //     id: 1,
-  //     name: 'Leanne Graham',
-  //     username: 'Bret',
-  //     email: 'Sincere@april.biz'
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Ervin Howell',
-  //     username: 'Antonette',
-  //     email: 'Shanna@melissa.tv'
-  //   },
-  //   {
-  //     id: 1,
-  //     name: 'Leanne Graham',
-  //     username: 'Bret',
-  //     email: 'Sincere@april.biz'
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Ervin Howell',
-  //     username: 'Antonette',
-  //     email: 'Shanna@melissa.tv'
-  //   },
-  //   {
-  //     id: 11,
-  //     name: 'Nicholas DuBuque',
-  //     username: 'Nicholas.Stanton',
-  //     email: 'Rey.Padberg@rosamond.biz'
-  //   }
-  // ];
+  filterCard: string;
+  user_info: any = [];
+  role_type: string;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -101,16 +31,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    // this.quoteService
-    //   .getRandomQuote({ category: 'dev' })
-    //   .pipe(
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //     })
-    //   )
-    //   .subscribe((quote: string) => {
-    //     this.quote = quote;
-    //   });
+    this.user_info = JSON.parse(localStorage.getItem('userInfo'));
+    this.role_type = this.user_info['role'][0].substring(0, this.user_info['role'][0].indexOf('_'));
+    console.log(this.role_type);
+    const pageURL = window.location.href;
+    const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -137,5 +62,6 @@ export class HomeComponent implements OnInit {
     }
     const add_element = document.getElementById(id_value);
     add_element.classList.add('active_card');
+    this.filterCard = id_value;
   }
 }

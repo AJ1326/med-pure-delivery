@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { extract } from '@app/core';
-import { OrderListComponent } from './order-list.component';
 import { Shell } from '@app/shell/shell.service';
+import { ComingSoonComponent } from '@app/coming-soon/coming-soon.component';
 
 const routes: Routes = [
+  Shell.retailerShell([
+    { path: 'coming-soon', component: ComingSoonComponent, data: { title: extract('coming-soon') } }
+  ]),
   Shell.distributorShell([
-    // { path: 'order-list', redirectTo: '/distributor/order-list', pathMatch: 'full' },
-    { path: 'order-list', component: OrderListComponent, data: { title: extract('Order list') } }
+    { path: 'coming-soon', component: ComingSoonComponent, data: { title: extract('coming-soon') } }
   ])
 ];
 
@@ -17,4 +19,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class OrderListRoutingModule {}
+export class ComingSoonRoutingModule {}

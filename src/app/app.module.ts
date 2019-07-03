@@ -30,6 +30,9 @@ import { ProfileModule } from '@app/profile/profile.module';
 import { ProfileRoutingModule } from '@app/profile/profile-routing.module';
 import { FeedbackModule } from '@app/feedback/feedback.module';
 import { OrderListModule } from '@app/orderList/order-list.module';
+import { HomeRoutingModule } from '@app/home/home-routing.module';
+import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
+import { ComingSoonRoutingModule } from '@app/coming-soon/coming-soon-routing.module';
 
 @NgModule({
   imports: [
@@ -52,7 +55,10 @@ import { OrderListModule } from '@app/orderList/order-list.module';
     LoginModule,
     PlacingOrderModule,
     ProfileModule,
+    ComingSoonModule,
     ProfileRoutingModule,
+    ComingSoonRoutingModule,
+    HomeRoutingModule,
     ChangePasswordModule, // must be imported as the last module as it contains the fallback route,
     AppRoutingModule
   ],

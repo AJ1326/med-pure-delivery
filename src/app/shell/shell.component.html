@@ -1,12 +1,12 @@
 <div class="container-scroller">
   <!-- partial:partials/_navbar.html -->
-  <app-header></app-header>
+  <app-header (sideBarDisplay)="displaySideBar($event)"></app-header>
   <!-- partial -->
   <div class="container-fluid page-body-wrapper">
-    <app-sidebar></app-sidebar>
-    <div class="main-panel">
+    <app-sidebar [sideBarDisplay]="sideBarDisplay"></app-sidebar>
+    <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
       <router-outlet></router-outlet>
-      <app-footer class="footer"></app-footer>
+      <app-footer [ngClass]="!sideBarDisplay ? 'sidebar-active-footer' : 'footer'"></app-footer>
     </div>
   </div>
 </div>

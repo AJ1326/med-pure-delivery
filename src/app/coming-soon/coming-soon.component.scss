@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand|Raleway:600&display=swap");
+
+:root {
+  --dark-blue: #78aac3;
+  --light-blue: #c4deee;
+  --medium-blue: #97c8d6;
+  --orange: #eeab73;
+  --yellow: #f3cd86;
+  --peach: #f5a281;
+}
+
+@keyframes fadeIn {
+  from {
+    top: 20%;
+    opacity: 0;
+  }
+  to {
+    top: 100;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    top: 20%;
+    opacity: 0;
+  }
+  to {
+    top: 100;
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  position: absolute;
+  left: 52%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  animation: fadeIn 1000ms ease;
+  -webkit-animation: fadeIn 1000ms ease;
+}
+
+h1 {
+  text-align: center;
+  line-height: 1;
+  font-weight: 700;
+  font-size: 50px;
+  font-family: Raleway;
+  letter-spacing: 3px;
+}
+
+.dark-blue-text {
+  color: var(--dark-blue);
+  text-align: center;
+}
+
+.light-blue-text {
+  color: var(--light-blue);
+}
+
+.medium-blue-text {
+  color: var(--medium-blue);
+}
+
+.orange-text {
+  color: var(--orange);
+}
+
+.yellow-text {
+  color: var(--yellow);
+}
+
+.peach-text {
+  color: var(--peach);
+}
+
+p {
+  font-family: Quicksand;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.icons {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.fab {
+  color: white;
+  background: var(--peach);
+  height: 20px;
+  width: 20px;
+  padding: 15px;
+  margin: 0 10px;
+  border-radius: 50%;
+  border: 2px solid var(--peach);
+  transition: all 200ms ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.fab:hover,
+.fab:active {
+  color: var(--peach);
+  background: none;
+  cursor: pointer !important;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  text-decoration: none;
+}
+
+.image-construction {
+  width: 68%;
+}

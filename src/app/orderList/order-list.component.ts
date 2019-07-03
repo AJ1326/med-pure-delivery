@@ -16,26 +16,21 @@ export class OrderListComponent implements OnInit {
   isLoading: false;
   error: string;
   distributor_orderList: any[] = [];
+  //Date
+  displayMonths = 1;
+  navigation = 'select';
+  showWeekNumbers = false;
+  outsideDays = 'visible';
+  startDate: any;
+  endDate: any;
 
-  constructor(private orderListDistributorService: OrderListService) {}
-
-  selectFilterCard(id_value: string): void {
-    const filterCardArray = ['order-list', 're-order-list', 'open-order-list', 'closed-order-list'];
-    const index = filterCardArray.indexOf(id_value);
-    if (index > -1) {
-      filterCardArray.splice(index, 1);
-    }
-    for (let i = 0; i < filterCardArray.length; i++) {
-      const remove_element = document.getElementById(filterCardArray[i]);
-      remove_element.classList.remove('active_card');
-    }
-    const add_element = document.getElementById(id_value);
-    add_element.classList.add('active_card');
+  constructor(private orderListDistributorService: OrderListService) {
+    console.log('hsdgfjhasgfashjdfgkasjfgashj');
   }
 
-  private distributorOrderList(): void {
+  private distributorOrderList(startdate: any, enddate: any): void {
     this.orderListDistributorService
-      .distributorList()
+      .distributorList(startdate, enddate)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -54,7 +49,19 @@ export class OrderListComponent implements OnInit {
       );
   }
 
+  private changeDate(date: any): void {
+    const startDate =
+      this.startDate === undefined || this.startDate === null
+        ? ''
+        : this.startDate.day + '-' + this.startDate.month + '-' + this.startDate.year;
+    const endDate =
+      this.endDate === undefined || this.endDate === null
+        ? ''
+        : this.endDate.day + '-' + this.endDate.month + '-' + this.endDate.year;
+    this.distributorOrderList(startDate, endDate);
+  }
+
   ngOnInit() {
-    this.distributorOrderList();
+    this.distributorOrderList('', '');
   }
 }
