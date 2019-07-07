@@ -6,6 +6,7 @@ import { NgbdSortableHeader, SortEvent } from '@app/shared/directives/sortable.d
 import { Observable } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { Country } from '@app/home/country';
+import { AuthenticationService } from '@app/core';
 
 @Component({
   selector: 'app-home',
@@ -24,15 +25,15 @@ export class HomeComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public quoteService: QuoteService) {
+  constructor(public quoteService: QuoteService, private authenticationService: AuthenticationService) {
     this.countries$ = quoteService.countries$;
     this.total$ = quoteService.total$;
   }
 
   ngOnInit() {
     this.isLoading = true;
-    this.user_info = JSON.parse(localStorage.getItem('userInfo'));
-    this.role_type = this.user_info['role'][0].substring(0, this.user_info['role'][0].indexOf('_'));
+    this.user_info = this.authenticationService.userInfo();
+    this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
     console.log(this.role_type);
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);

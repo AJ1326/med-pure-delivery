@@ -1,0 +1,21 @@
+<!--<div class="image-upload anim-block">-->
+<!--<label for="file-input">-->
+<!--<img class="img-upload" src="../../assets/images/upload/upload.svg"/>-->
+<!--</label>-->
+<!--<input type="file"-->
+<!--id="file"-->
+<!--(change)="handleFileInput($event.target.files)">-->
+<!--</div>-->
+
+<div class="upload-centre">
+  <br />
+  <br />
+  <img class="img-upload" src="../../assets/images/upload/upload.svg" />
+  <!--<span class="head">Upload Button Re-Imagined</span>-->
+  <br />
+  <br />
+  <div class="fileUpload blue-btn btn width100">
+    <span>Upload your products</span>
+    <input type="file" class="uploadlogo" (change)="handleFileInput($event.target.files)" />
+  </div>
+</div>

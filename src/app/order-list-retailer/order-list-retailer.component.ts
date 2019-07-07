@@ -51,7 +51,7 @@ export class OrderListRetailerComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
-          this.retailorderList = data['orders'];
+          this.retailorderList = data['results'];
           console.log(this.retailorderList);
           this.success_message = 'Your order has been placed.';
         },

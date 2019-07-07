@@ -6,6 +6,8 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { OrderList } from '@app/shared/Interfaces/tableData';
 import { SortDirection } from '@app/shared/directives/sortable.directive';
 import { ORDERLIST } from '@app/shared/dummydataTable/order-list';
+import { URLS } from '@app/core/common/url-constant';
+import { HttpClient } from '@angular/common/http';
 
 interface SearchResult {
   orders: OrderList[];
@@ -44,7 +46,7 @@ function matches(orderlist: OrderList, term: string, pipe: PipeTransform) {
 }
 
 @Injectable({ providedIn: 'root' })
-export class CountryService {
+export class TableDataService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _orderlist$ = new BehaviorSubject<OrderList[]>([]);
@@ -58,22 +60,25 @@ export class CountryService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$
-      .pipe(
-        tap(() => this._loading$.next(true)),
-        debounceTime(200),
-        switchMap(() => this._search()),
-        delay(200),
-        tap(() => this._loading$.next(false))
-      )
-      .subscribe(result => {
-        this._orderlist$.next(result.orders);
-        this._total$.next(result.total);
-      });
+  constructor(private pipe: DecimalPipe, private http: HttpClient) {}
 
-    this._search$.next();
-  }
+  // getOrderList(orders: any): void {
+  //   // this._orderlist$.next(orders);
+  //   this._search$
+  //     .pipe(
+  //       tap(() => this._loading$.next(true)),
+  //       debounceTime(200),
+  //       switchMap(() => this._search()),
+  //       delay(200),
+  //       tap(() => this._loading$.next(false))
+  //     )
+  //     .subscribe(result => {
+  //       this._orderlist$.next(result.orders);
+  //       this._total$.next(result.total);
+  //     });
+  //
+  //   this._search$.next();
+  // }
 
   get orderlist$() {
     return this._orderlist$.asObservable();
@@ -115,18 +120,19 @@ export class CountryService {
     this._search$.next();
   }
 
-  private _search(): Observable<SearchResult> {
-    const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
+  // private _search(): Observable<SearchResult> {
+  //   const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
-    // 1. sort
-    let order_lists = sort(ORDERLIST, sortColumn, sortDirection);
+  // 1. sort
 
-    // 2. filter
-    order_lists = order_lists.filter(product => matches(product, searchTerm, this.pipe));
-    const total = order_lists.length;
+  // let order_lists = sort(OrderList ,sortColumn, sortDirection);
 
-    // 3. paginate
-    order_lists = order_lists.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({ orders: order_lists, total });
-  }
+  // 2. filter
+  // order_lists = order_lists.filter(product => matches(product, searchTerm, this.pipe));
+  // const total = order_lists.length;
+
+  // 3. paginate
+  // order_lists = order_lists.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+  // return of({ orders: order_lists, total });
+  // }
 }

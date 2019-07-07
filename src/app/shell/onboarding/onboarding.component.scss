@@ -18,6 +18,7 @@ input {
   font-size: 17px;
   font-family: Raleway;
   border: 1px solid #aaaaaa;
+  margin-top: 22px;
 }
 
 /* Mark input boxes that gets an error on validation: */
@@ -59,4 +60,23 @@ input.invalid {
 
 .box-shadow-boarding {
   box-shadow: 0px 1px 8px rgba(22, 52, 64, 0.5);
+}
+
+.invalid-error-msg {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.btn-outline-dark {
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 12px;
+}
+
+.btn-outline-success {
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 12px;
 }

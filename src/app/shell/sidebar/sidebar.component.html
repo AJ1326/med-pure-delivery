@@ -7,10 +7,10 @@
             <img src="../../../assets/images/faces/AJ.png" alt="profile image" />
           </div>
           <div class="text-wrapper">
-            <p class="profile-name">{{ user_info.name }}</p>
+            <p class="profile-name">{{ user_info['name'] }}</p>
             <div>
               <small *ngIf="role_type === 'retailer'" class="designation text-muted"
-                >Retailer #{{ user_info.shop_name }}</small
+                >Retailer #{{ user_info['shop_name'] }}</small
               >
               <small *ngIf="role_type === 'distributor'" class="designation text-muted">Distributor ID</small>
               <span class="status-indicator online"></span>

@@ -14,7 +14,6 @@ export class ShellComponent implements OnInit {
   ngOnInit() {}
 
   displaySideBar(display: boolean): void {
-    console.log('display', display);
     this.sideBarDisplay = display;
   }
 }

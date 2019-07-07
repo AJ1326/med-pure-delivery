@@ -14,7 +14,7 @@ import { InlineEditComponent } from '@app/shared/inline-edit-component/inline-ed
 import { FormsModule } from '@angular/forms';
 import { TableDataComponent } from '@app/shared/tableData/tableData.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { CountryService } from '@app/shared/tableData/tableData.service';
+import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { HotkeyModule } from 'angular2-hotkeys';
 
@@ -39,7 +39,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
   ],
   providers: [
     NgbRatingConfig,
-    CountryService,
+    TableDataService,
     DecimalPipe,
     {
       provide: HTTP_INTERCEPTORS,

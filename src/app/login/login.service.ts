@@ -18,7 +18,7 @@ export class LoginService {
   }
 
   signup(payload: any) {
-    return this.http.post(`${URLS.SIGN_UP_API}`, payload);
+    return this.http.post(`${URLS.ON_BOARD_API}`, payload);
   }
 
   forgot(payload: any) {

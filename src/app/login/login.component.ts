@@ -36,11 +36,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    let role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
+    const role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (role) {
       const roleType = this.authenticationService.permissionView();
       if (roleType === 'retailer_role') {
-        console.log('in retial');
         this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
       } else if (roleType === 'distributor_role') {
         this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
@@ -82,7 +81,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('this.loginForm.value', this.loginForm.value);
     this.isLoading = true;
     this.authenticationService
       .login(this.loginForm.value)
@@ -96,11 +94,11 @@ export class LoginComponent implements OnInit {
         credentials => {
           console.log('yolo mf: ', credentials);
           this.authenticationService.setCredentials(credentials);
-          this.userInfo();
-          log.debug(`${credentials.email} successfully logged in`);
+          // this.userInfo();
+          log.debug(`${credentials.user} successfully logged in`);
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
-          // console.log('onboardingView mf: ', onboard);
+          console.log('onboardingView mf: ', onboard);
           if (roleType === 'retailer_role' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
           } else if (roleType === 'distributor_role' && onboard) {
@@ -122,24 +120,24 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  public userInfo(): void {
-    this.authenticationService.userInfo().subscribe(
-      (data: any) => {
-        localStorage.setItem('userInfo', JSON.stringify(data));
-      },
-      error => {
-        log.debug(`Login user info error: ${error}`);
-        console.log(error, 'Error');
-        this.error = error;
-      }
-    );
-  }
+  // public userInfo(): void {
+  //   this.authenticationService.userInfo().subscribe(
+  //     (data: any) => {
+  //       localStorage.setItem('userInfo', JSON.stringify(data));
+  //     },
+  //     error => {
+  //       log.debug(`Login user info error: ${error}`);
+  //       console.log(error, 'Error');
+  //       this.error = error;
+  //     }
+  //   );
+  // }
 
   signUp() {
     console.log('this.loginForm.value', this.signUpForm.value);
     this.isLoading = true;
     this.authenticationService
-      .login(this.signUpForm.value)
+      .signup(this.signUpForm.value)
       .pipe(
         finalize(() => {
           this.loginForm.markAsPristine();
@@ -147,14 +145,14 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe(
-        credentials => {
-          log.debug(`${credentials.email} successfully logged in`);
-          return this.LoginService.login(this.loginForm.value).subscribe(result => {
-            console.log(result, 'result');
-            this.route.queryParams.subscribe(params =>
-              this.router.navigate([params.redirect || '/'], { replaceUrl: true })
-            );
-          });
+        data => {
+          log.debug(`${data} successfully logged in`);
+          // return this.LoginService.login(this.loginForm.value).subscribe(result => {
+          //   console.log(result, 'result');
+          //   this.route.queryParams.subscribe(params =>
+          //     this.router.navigate([params.redirect || '/'], { replaceUrl: true })
+          //   );
+          // });
         },
         error => {
           log.debug(`Login error: ${error}`);
@@ -189,9 +187,9 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required]
     });
     this.signUpForm = this.formBuilder.group({
-      username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      phone_number: ['', Validators.required],
+      user_type: ['']
     });
   }
 }

@@ -245,7 +245,7 @@ input::placeholder {
   top: 50%;
   left: 30px;
   width: calc(50% - 30px);
-  min-height: 420px;
+  min-height: 477px;
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
@@ -387,4 +387,15 @@ input::placeholder {
   .user_options-unregistered {
     padding: 50px 45px;
   }
+}
+
+.select-role-type {
+  width: 100%;
+  border-radius: 0px;
+  color: #848990;
+  height: 40px;
+  margin-top: 2px;
+  border: 0px;
+  background-color: white;
+  border-bottom: 1px solid #bfbaba;
 }

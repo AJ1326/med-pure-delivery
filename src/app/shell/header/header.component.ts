@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { AuthenticationService, I18nService } from '@app/core';
 export class HeaderComponent implements OnInit {
   menuHidden = true;
   user_info: any;
-  displaySideBar = true;
+  displaySideBar = false;
   role_type: string;
 
   @Output() sideBarDisplay = new EventEmitter<boolean>();
@@ -19,12 +20,22 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private i18nService: I18nService
-  ) {}
+    private i18nService: I18nService,
+    config: NgbModalConfig,
+    private modalService: NgbModal
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   ngOnInit() {
-    this.user_info = JSON.parse(localStorage.getItem('userInfo'));
-    this.role_type = this.user_info.role[0].substring(0, this.user_info.role[0].indexOf('_'));
+    this.user_info = this.authenticationService.userInfo();
+    console.log(this.user_info);
+    this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
+  }
+
+  open(content: any) {
+    this.modalService.open(content);
   }
 
   toggleMenu() {
@@ -48,8 +59,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get username(): string | null {
-    const credentials = this.authenticationService.credentials;
-    return credentials ? credentials.email : null;
+    return this.user_info['name'];
   }
 
   toggleSideBar(): void {

@@ -1,22 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
 import { style } from '@angular/animations';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-on-boarding',
   templateUrl: './onboarding.component.html',
-  styleUrls: ['./onboarding.component.scss']
+  styleUrls: ['./onboarding.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class OnboardingComponent implements OnInit {
   currentTab = 0; // Current tab is set to be the first tab (0)
+  onBoardingForm: FormGroup;
+  submitted = false;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    console.log('working!!!!!!!');
     this.showTab(this.currentTab); // Display the current tab
+    this.onBoardingForm = this.formBuilder.group({
+      firstName: ['', Validators.required()],
+      lastName: ['', Validators.required()],
+      day: ['', Validators.required()],
+      month: ['', Validators.required()],
+      year: ['', Validators.required()],
+      email: ['', [Validators.required(), Validators.email()]],
+      phone_number: ['', Validators.required()],
+      address: ['', Validators.required()],
+      shop_number: ['', Validators.required()],
+      certification_number: ['', Validators.required()],
+      city: ['', Validators.required()],
+      state: ['', Validators.required()],
+      zip_code: ['', [Validators.required(), Validators.validZipCode()]],
+      user_name: ['', Validators.required()],
+      password: ['', [Validators.required(), Validators.minLength(6)]],
+      confirm_password: ['', [Validators.required(), Validators.minLength(6)]]
+    });
+  }
+
+  f() {
+    return this.onBoardingForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.onBoardingForm.invalid) {
+      return;
+    }
+
+    alert('SUCCESS!! :-)');
   }
 
   showTab(n: any): void {
@@ -50,6 +88,7 @@ export class OnboardingComponent implements OnInit {
     // if you have reached the end of the form... :
     if (this.currentTab >= x.length) {
       // ...the form gets submitted:
+      console.log('this.onBoardingForm.invalid', this.onBoardingForm);
       // document.getElementById('regForm').submit();
       console.log('Form is submitted !!!!!!!!');
       return false;
@@ -68,8 +107,10 @@ export class OnboardingComponent implements OnInit {
     y = x[this.currentTab].getElementsByTagName('input');
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
-      // If a field is empty...
-      if (y[i].value === '') {
+      // If a field is empty.
+      const element_control = this.onBoardingForm.controls[y[i].getAttribute('formControlName')];
+      element_control.markAsTouched({ onlySelf: true });
+      if (y[i].value === '' || element_control.invalid) {
         // add an 'invalid' class to the field:
         y[i].className += 'invalid';
         // and set the current valid status to false:

@@ -197,24 +197,6 @@
               <input
                 type="text"
                 class="form-control forms_field-input"
-                formControlName="username"
-                autocomplete="username"
-                [placeholder]="'Username' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="signUpForm.controls.username.valid || signUpForm.controls.username.untouched"
-                class="text-danger"
-                translate
-              >
-                Username is required
-              </small>
-            </div>
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
                 formControlName="email"
                 autocomplete="email"
                 [placeholder]="'Email address' | translate"
@@ -231,20 +213,34 @@
             </div>
             <div class="forms_field">
               <input
-                type="password"
+                type="text"
                 class="form-control forms_field-input"
-                formControlName="password"
-                autocomplete="password"
-                [placeholder]="'Password' | translate"
+                formControlName="phone_number"
+                autocomplete="phone_number"
+                [placeholder]="'phone_number' | translate"
                 required
               />
               <small
-                [hidden]="signUpForm.controls.password.valid || signUpForm.controls.password.untouched"
+                [hidden]="signUpForm.controls.phone_number.valid || signUpForm.controls.phone_number.untouched"
                 class="text-danger"
                 translate
               >
-                Password is required
+                phone_number is required
               </small>
+            </div>
+            <div class="forms_field">
+              <select class="select-role-type" formControlName="user_type">
+                <option value="retailer" selected>Retailer</option>
+                <option value="distributor">Distributor</option>
+                <option value="delivery">Delivery</option>
+              </select>
+              <!--<small-->
+              <!--[hidden]="signUpForm.controls.phone_number.valid || signUpForm.controls.phone_number.untouched"-->
+              <!--class="text-danger"-->
+              <!--translate-->
+              <!--&gt;-->
+              <!--phone_number is required-->
+              <!--</small>-->
             </div>
           </fieldset>
           <div class="forms_buttons">

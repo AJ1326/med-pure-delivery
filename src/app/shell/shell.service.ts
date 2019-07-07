@@ -15,7 +15,7 @@ export class Shell {
       path: 'distributor',
       component: ShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard, AuthenticationPermissionDistributorGuard],
+      canActivate: [AuthenticationGuard, AuthenticationPermissionDistributorGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
@@ -34,7 +34,7 @@ export class Shell {
       path: 'retailer',
       component: ShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard],
+      canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
@@ -46,7 +46,7 @@ export class Shell {
       path: 'boarding',
       component: BoardingShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard, AuthenticationBoardingGuard],
+      canActivate: [AuthenticationGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }

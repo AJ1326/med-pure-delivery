@@ -17,12 +17,12 @@ const routes: Routes = [
   //     component: OrderListComponent,
   //   },
   // ]),
-  // Shell.onboardingShell([
-  //   {
-  //     path: 'boarding',
-  //     component: BoardingShellComponent
-  //   }
-  // ]),
+  Shell.onboardingShell([
+    {
+      path: 'boarding',
+      component: BoardingShellComponent
+    }
+  ]),
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

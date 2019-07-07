@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from '@app/shared/directives/sortable.directive';
-import { CountryService } from '@app/shared/tableData/tableData.service';
+import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { OrderList } from '@app/shared/Interfaces/tableData';
 import {
   ModalDismissReasons,
@@ -48,16 +48,18 @@ export class TableDataComponent implements OnInit, OnDestroy {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    public service: CountryService,
+    public service: TableDataService,
     config: NgbAccordionConfig,
     private modalService: NgbModal,
     private distributorService: PlacingOrderService,
-    calendar: NgbCalendar
+    calendar: NgbCalendar,
+    private tableDataService: TableDataService
   ) {
     this.orderlist$ = service.orderlist$;
     this.total$ = service.total$;
     config.closeOthers = true;
     config.type = 'info';
+    // this.tableDataService.getOrderList(this.orderListData);
     console.log('role_type', this.orderListData);
     //date
   }
