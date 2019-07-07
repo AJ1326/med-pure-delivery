@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   signUpForm: FormGroup;
   isLoading = false;
   setForgetPass = false;
+  onBoardingSuccess = false;
 
   constructor(
     private router: Router,
@@ -147,6 +148,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           log.debug(`${data} successfully logged in`);
+          this.onBoardingSuccess = true;
+          this.signUpForm.reset();
+          setTimeout(function() {
+            this.onBoardingSuccess = false;
+          }, 2000);
           // return this.LoginService.login(this.loginForm.value).subscribe(result => {
           //   console.log(result, 'result');
           //   this.route.queryParams.subscribe(params =>

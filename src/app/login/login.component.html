@@ -152,7 +152,7 @@
         <h2 class="forms_title">Forget password</h2>
         <form class="forms_form" (ngSubmit)="forget()" [formGroup]="forgetPasswordForm" novalidate>
           <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-            Username or password incorrect.
+            Email address is incorrect.
           </div>
           <fieldset class="forms_fieldset">
             <div class="forms_field">
@@ -192,6 +192,13 @@
       <div class="user_forms-signup">
         <h2 class="forms_title">Sign Up</h2>
         <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
+          <div
+            [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
+            [hidden]="!onBoardingSuccess || isLoading"
+            translate
+          >
+            On-boarding email has been sent to you.
+          </div>
           <fieldset class="forms_fieldset">
             <div class="forms_field">
               <input
