@@ -1,17 +1,17 @@
-<div *ngIf="retailorderList.length > 0; else other_content" class="order_list">
+<div class="order_list">
   <div class="row">
-    <div class="col-md-6">
-      <div class="container">
-        <div class="search-box" id="SBox">
-          <!--[(ngModel)]="service.searchTerm"-->
-          <input id="search" type="text" name="searchTerm" placeholder="Search by order list." />
-          <div class="also search-link" id="searchclick"></div>
-          <!--<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>-->
-          <!--<a class="fa fa-cog also setting"></a>-->
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2 filter_start_date">
+    <!--<div class="col-md-6">-->
+    <!--<div class="container">-->
+    <!--<div class="search-box" id="SBox">-->
+    <!--&lt;!&ndash;[(ngModel)]="service.searchTerm"&ndash;&gt;-->
+    <!--<input id="search" type="text" name="searchTerm" placeholder="Search by order list." />-->
+    <!--<div class="also search-link" id="searchclick"></div>-->
+    <!--&lt;!&ndash;<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="fa fa-cog also setting"></a>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-2 filter_start_date offset-md-8">
       <div class="input-group">
         <input
           class="form-control"
@@ -19,7 +19,7 @@
           style="height: 47px"
           name="dp"
           [(ngModel)]="startDate"
-          (ngModelChange)="changeDate($event)"
+          (ngModelChange)="changeStartDate($event)"
           [displayMonths]="displayMonths"
           [navigation]="navigation"
           [outsideDays]="outsideDays"
@@ -46,7 +46,7 @@
           style="height: 47px"
           name="dp"
           [(ngModel)]="endDate"
-          (ngModelChange)="changeDate($event)"
+          (ngModelChange)="changeEndDate($event)"
           [displayMonths]="displayMonths"
           [navigation]="navigation"
           [outsideDays]="outsideDays"
@@ -61,12 +61,12 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2">
-      <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
-        Filter
-      </button>
-    </div>
+    <!--<div class="col-md-2">-->
+    <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+    <!--Filter-->
+    <!--</button>-->
+    <!--</div>-->
   </div>
-  <app-table [orderListData]="retailorderList" [role_type]="'retailer'"></app-table>
+  <app-table [role_type]="'retailer'" [startDate]="'startDate'" [endDate]="'startDate'"></app-table>
 </div>
-<ng-template #other_content><img class="empty_cart" src="../../assets/images/home/empty_cart.svg"/></ng-template>
+<!--<ng-template #other_content><img class="empty_cart" src="../../assets/images/home/empty_cart.svg"/></ng-template>-->

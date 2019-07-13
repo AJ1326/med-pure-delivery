@@ -4,6 +4,7 @@ import { environment } from '@env/environment';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
 import { OrderListService } from '@app/orderList/order-list.service';
 import { finalize } from 'rxjs/operators';
+import { TableDataService } from '@app/shared/tableData/tableData.service';
 
 @Component({
   selector: 'app-order-list',
@@ -15,7 +16,7 @@ export class OrderListComponent implements OnInit {
   success_message: string;
   isLoading: false;
   error: string;
-  distributor_orderList: any[] = [];
+  distributorOrderList: any[];
   //Date
   displayMonths = 1;
   navigation = 'select';
@@ -23,45 +24,32 @@ export class OrderListComponent implements OnInit {
   outsideDays = 'visible';
   startDate: any;
   endDate: any;
+  pageCount = 0;
 
-  constructor(private orderListDistributorService: OrderListService) {
-    console.log('hsdgfjhasgfashjdfgkasjfgashj');
-  }
-
-  private distributorOrderList(startdate: any, enddate: any): void {
-    this.orderListDistributorService
-      .distributorList(startdate, enddate)
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        (data: []) => {
-          this.distributor_orderList = data['orders'];
-          this.success_message = 'Your order has been placed.';
-        },
-        (error: any) => {
-          // log.debug(`Login error: ${error}`);
-          this.error = error;
-          this.success_message = 'Some error is occurred.';
-        }
-      );
-  }
-
-  private changeDate(date: any): void {
-    const startDate =
-      this.startDate === undefined || this.startDate === null
-        ? ''
-        : this.startDate.day + '-' + this.startDate.month + '-' + this.startDate.year;
-    const endDate =
-      this.endDate === undefined || this.endDate === null
-        ? ''
-        : this.endDate.day + '-' + this.endDate.month + '-' + this.endDate.year;
-    this.distributorOrderList(startDate, endDate);
+  constructor(private orderListDistributorService: OrderListService, private tableservice: TableDataService) {
+    tableservice.orderlist$.subscribe(data => {
+      this.distributorOrderList = data;
+    });
   }
 
   ngOnInit() {
-    this.distributorOrderList('', '');
+    this.tableservice._search();
+  }
+
+  private changeStartDate(date: any): void {
+    const startD =
+      this.startDate === undefined || this.startDate === null
+        ? ''
+        : this.startDate.year + '-' + this.startDate.month + '-' + this.startDate.day;
+
+    this.tableservice.startDate = startD;
+  }
+
+  private changeEndDate(date: any): void {
+    const endD =
+      this.endDate === undefined || this.endDate === null
+        ? ''
+        : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
+    this.tableservice.endDate = endD;
   }
 }

@@ -1,80 +1,71 @@
-<div class="content-wrapper">
-  <div *ngIf="distributor_orderList.length > 0" class="order_list">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="container">
-          <div class="search-box" id="SBox">
-            <!--[(ngModel)]="service.searchTerm"-->
-            <input id="search" type="text" name="searchTerm" placeholder="Search by order list." />
-            <div class="also search-link" id="searchclick"></div>
-            <!--<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>-->
-            <!--<a class="fa fa-cog also setting"></a>-->
-          </div>
+<div class="order_list">
+  <div class="row">
+    <!--<div class="col-md-6">-->
+    <!--<div class="container">-->
+    <!--<div class="search-box" id="SBox">-->
+    <!--&lt;!&ndash;[(ngModel)]="service.searchTerm"&ndash;&gt;-->
+    <!--<input id="search" type="text" name="searchTerm" placeholder="Search by order list." />-->
+    <!--<div class="also search-link" id="searchclick"></div>-->
+    <!--&lt;!&ndash;<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="fa fa-cog also setting"></a>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-2 filter_start_date offset-md-8">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          style="height: 47px"
+          name="dp"
+          [(ngModel)]="startDate"
+          (ngModelChange)="changeStartDate($event)"
+          [displayMonths]="displayMonths"
+          [navigation]="navigation"
+          [outsideDays]="outsideDays"
+          [showWeekNumbers]="showWeekNumbers"
+          ngbDatepicker
+          #startdate="ngbDatepicker"
+        />
+        <div class="input-group-append" style="height: 47px">
+          <button
+            class="btn btn-outline-secondary calendar icon-calender-btn"
+            (click)="startdate.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar icon-calender-custom" aria-hidden="true"></i>
+          </button>
         </div>
-      </div>
-      <div class="col-md-2 filter_start_date">
-        <div class="input-group">
-          <input
-            class="form-control"
-            placeholder="yyyy-mm-dd"
-            style="height: 47px"
-            name="dp"
-            [(ngModel)]="startDate"
-            (ngModelChange)="changeDate($event)"
-            [displayMonths]="displayMonths"
-            [navigation]="navigation"
-            [outsideDays]="outsideDays"
-            [showWeekNumbers]="showWeekNumbers"
-            ngbDatepicker
-            #startdate="ngbDatepicker"
-          />
-          <div class="input-group-append" style="height: 47px">
-            <button
-              class="btn btn-outline-secondary calendar icon-calender-btn"
-              (click)="startdate.toggle()"
-              type="button"
-            >
-              <i class="fa fa-calendar icon-calender-custom" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2 filter_end_date">
-        <div class="input-group">
-          <input
-            class="form-control"
-            placeholder="yyyy-mm-dd"
-            style="height: 47px"
-            name="dp"
-            [(ngModel)]="endDate"
-            (ngModelChange)="changeDate($event)"
-            [displayMonths]="displayMonths"
-            [navigation]="navigation"
-            [outsideDays]="outsideDays"
-            [showWeekNumbers]="showWeekNumbers"
-            ngbDatepicker
-            #enddate="ngbDatepicker"
-          />
-          <div class="input-group-append" style="height: 47px">
-            <button
-              class="btn btn-outline-secondary calendar icon-calender-btn"
-              (click)="enddate.toggle()"
-              type="button"
-            >
-              <i class="fa fa-calendar icon-calender-custom" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
-          Filter
-        </button>
       </div>
     </div>
-    <app-table [orderListData]="distributor_orderList" [role_type]="'distributor'"></app-table>
+    <div class="col-md-2 filter_end_date">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          style="height: 47px"
+          name="dp"
+          [(ngModel)]="endDate"
+          (ngModelChange)="changeEndDate($event)"
+          [displayMonths]="displayMonths"
+          [navigation]="navigation"
+          [outsideDays]="outsideDays"
+          [showWeekNumbers]="showWeekNumbers"
+          ngbDatepicker
+          #enddate="ngbDatepicker"
+        />
+        <div class="input-group-append" style="height: 47px">
+          <button class="btn btn-outline-secondary calendar icon-calender-btn" (click)="enddate.toggle()" type="button">
+            <i class="fa fa-calendar icon-calender-custom" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!--<div class="col-md-2">-->
+    <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+    <!--Filter-->
+    <!--</button>-->
+    <!--</div>-->
   </div>
-  <div *ngIf="distributor_orderList.length <= 0">
-    <img class="empty_cart" src="../../assets/images/home/empty_cart.svg" />
-  </div>
+  <app-table [role_type]="'distributor'" [startDate]="'startDate'" [endDate]="'startDate'"></app-table>
 </div>

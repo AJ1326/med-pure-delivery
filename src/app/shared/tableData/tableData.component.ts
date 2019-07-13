@@ -24,6 +24,7 @@ import {
 import { finalize } from 'rxjs/operators';
 import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { OrderListService } from '@app/orderList/order-list.service';
 
 @Component({
   selector: 'app-table',
@@ -37,41 +38,50 @@ export class TableDataComponent implements OnInit, OnDestroy {
   orderlist$: Observable<OrderList[]>;
   total$: Observable<number>;
   modalReference: any;
-  order_list: [];
   isLoading = true;
   alert_message: string;
+  orderListDataFilter: any;
 
-  //Order data
-  @Input() orderListData: any = [];
+  // Order data
+  orderListData: any = [];
   @Input() role_type: string;
+  @Input() startDate: string;
+  @Input() endDate: string;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    public service: TableDataService,
     config: NgbAccordionConfig,
     private modalService: NgbModal,
-    private distributorService: PlacingOrderService,
+    private orderListService: OrderListService,
     calendar: NgbCalendar,
-    private tableDataService: TableDataService
+    public tableDataService: TableDataService
   ) {
-    this.orderlist$ = service.orderlist$;
-    this.total$ = service.total$;
+    tableDataService.orderlist$.subscribe((data: any) => {
+      this.orderListData = data;
+    });
+
+    console.log('fuck you:  ', this.orderListData);
+    this.total$ = tableDataService.total$;
     config.closeOthers = true;
     config.type = 'info';
     // this.tableDataService.getOrderList(this.orderListData);
     console.log('role_type', this.orderListData);
-    //date
+    // date
   }
 
-  public openAlertModal(content: any, orderData: any): void {
-    this.order_list = orderData;
-    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-    this.modalReference.result.then(
-      (result: any) => {
+  ngOnInit() {}
+
+  ngOnDestroy(): void {}
+
+  open(content: any, data?: any) {
+    this.orderListDataFilter = data;
+    console.log('this.reOrderList:', this.orderListDataFilter);
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      result => {
         this.closeResult = `Closed with: ${result}`;
       },
-      (reason: any) => {
+      reason => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
@@ -87,61 +97,71 @@ export class TableDataComponent implements OnInit, OnDestroy {
     }
   }
 
-  private receiveMessage(accept_type: any): void {
-    if (accept_type === 'Yes') {
-      this.submitOrder(this.order_list);
-    }
+  public submitAlert(): void {
+    this.orderListService.rejectOrderByDistributor(this.orderListDataFilter).subscribe((data: any) => {});
   }
 
-  private submitOrder(order: any): void {
-    order.map((data: any) => {
-      delete data['company'];
-      delete data['discount'];
-      data['distributor'] = data['distributor_slug'];
-      data['product'] = data['product_slug'];
-      delete data['mrp'];
-      delete data['distributor_slug'];
-      delete data['product_slug'];
-      delete data['pack'];
-      delete data['rate'];
-      delete data['rating'];
-      delete data['pack'];
-      delete data['vat'];
-      delete data['uuid'];
-      data['quantity'] = data['stock'];
-      delete data['stock'];
-    });
-    this.distributorService
-      .orderListPlaced(order)
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        (data: []) => {
-          this.order_list = [];
-          this.alert_message = 'Your order has been placed.';
-        },
-        error => {
-          this.alert_message = 'Some error is occurred.';
-        }
-      );
-  }
+  // private receiveMessage(accept_type: any): void {
+  //   if (accept_type === 'Yes') {
+  //     this.submitOrder();
+  //   }
+  // }
 
-  onSort({ column, direction }: SortEvent) {
-    // resetting other headers
-    this.headers.forEach(header => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
-  }
-
-  ngOnInit() {}
-
-  ngOnDestroy(): void {}
+  // private submitOrder(order: any): void {
+  //   order.map((data: any) => {
+  //     delete data['company'];
+  //     delete data['discount'];
+  //     data['distributor'] = data['distributor_slug'];
+  //     data['product'] = data['product_slug'];
+  //     delete data['mrp'];
+  //     delete data['distributor_slug'];
+  //     delete data['product_slug'];
+  //     delete data['pack'];
+  //     delete data['rate'];
+  //     delete data['rating'];
+  //     delete data['pack'];
+  //     delete data['vat'];
+  //     delete data['uuid'];
+  //     data['quantity'] = data['stock'];
+  //     delete data['stock'];
+  //   });
+  //   this.distributorService
+  //     .orderListPlaced(order)
+  //     .pipe(
+  //       finalize(() => {
+  //         this.isLoading = false;
+  //       })
+  //     )
+  //     .subscribe(
+  //       (data: []) => {
+  //         // this.reOrderList = [];
+  //         this.alert_message = 'Your order has been placed.';
+  //       },
+  //       error => {
+  //         this.alert_message = 'Some error is occurred.';
+  //       }
+  //     );
+  // }
+  //
+  // private OrderList(): void {
+  //   this.tableDataService._search();
+  //     // .pipe(
+  //     //   finalize(() => {
+  //     //     this.isLoading = false;
+  //     //   })
+  //     // )
+  //     // .subscribe(
+  //     //   (data: []) => {
+  //     //     this.retailorderList = data['results'];
+  //     //     this.pageCount = data['results'];
+  //     //     console.log(this.retailorderList);
+  //     //     this.success_message = 'Your order has been placed.';
+  //     //   },
+  //     //   (error: any) => {
+  //     //     // log.debug(`Login error: ${error}`);
+  //     //     this.error = error;
+  //     //     this.success_message = 'Some error is occurred.';
+  //     //   }
+  //     // );
+  // }
 }

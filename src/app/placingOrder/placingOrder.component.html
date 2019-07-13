@@ -112,12 +112,15 @@
                       <td>{{ dist.vat }}%</td>
                       <td>
                         <div
-                          _ngcontent-c17=""
-                          *ngIf="distributor_list_order_index.indexOf(dist['uuid']) > -1; else other_btn_content"
+                          *ngIf="
+                            distributor_list_order_index.indexOf(dist['uuid']) > -1 || dist.stock <= 0;
+                            else other_btn_content
+                          "
                           disabled
+                          [ngClass]="dist.stock <= 0 ? 'not-btn' : 'add-btn'"
                           class="badge badge-primary add-btn add-btn-disable"
                         >
-                          Add
+                          <span>{{ dist.stock <= 0 ? 'Not available' : 'Add' }}</span>
                         </div>
                         <ng-template #other_btn_content>
                           <div class="badge badge-primary add-btn" (click)="addOrder(dist['uuid'], i)">Add</div>

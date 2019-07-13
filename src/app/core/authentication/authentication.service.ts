@@ -126,8 +126,8 @@ export class AuthenticationService {
   }
 
   userInfoType(): string {
-    const user_info = this._credentials['user']['roles'][0];
-    const role_type = user_info.roles[0].substring(0, user_info.roles[0].indexOf('_'));
+    const role = this._credentials['user']['roles'][0];
+    const role_type = role.substring(0, role.indexOf('_'));
     if (role_type) {
       return role_type;
     } else {

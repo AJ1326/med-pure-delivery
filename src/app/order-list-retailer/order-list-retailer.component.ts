@@ -4,6 +4,7 @@ import { environment } from '@env/environment';
 import { finalize } from 'rxjs/operators';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
 import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { TableDataService } from '@app/shared/tableData/tableData.service';
 
 @Component({
   selector: 'app-retailer-order-list',
@@ -15,20 +16,29 @@ export class OrderListRetailerComponent implements OnInit {
   success_message: string;
   isLoading: false;
   error: string;
-  retailorderList: any[] = [];
+  retailorderList: any[];
   startDate: any;
   endDate: any;
-  //Date
+  // Date
   displayMonths = 1;
   navigation = 'select';
   showWeekNumbers = false;
   outsideDays = 'visible';
+  pageCount = 0;
 
   @Input() orderListByFilterData: string;
-  constructor(private orderListRetailerService: OrderListRetailerService, public calendar: NgbCalendar) {}
+  constructor(
+    private orderListRetailerService: OrderListRetailerService,
+    public calendar: NgbCalendar,
+    private tableservice: TableDataService
+  ) {
+    tableservice.orderlist$.subscribe(data => {
+      this.retailorderList = data;
+    });
+  }
 
   ngOnInit() {
-    this.retailOrderList('', '');
+    this.tableservice._search();
   }
 
   private setStartDateFilter(event: any): void {
@@ -42,36 +52,42 @@ export class OrderListRetailerComponent implements OnInit {
   }
 
   private retailOrderList(startdate: any, enddate: any): void {
-    this.orderListRetailerService
-      .orderListData(startdate, enddate)
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        (data: []) => {
-          this.retailorderList = data['results'];
-          console.log(this.retailorderList);
-          this.success_message = 'Your order has been placed.';
-        },
-        (error: any) => {
-          // log.debug(`Login error: ${error}`);
-          this.error = error;
-          this.success_message = 'Some error is occurred.';
-        }
-      );
+    // this.orderListRetailerService
+    // .orderListData(startdate, enddate, 1)
+    // .pipe(
+    //   finalize(() => {
+    //     this.isLoading = false;
+    //   })
+    // )
+    // .subscribe(
+    //   (data: []) => {
+    //     this.retailorderList = data['results'];
+    //     this.pageCount = data['count'];
+    //     console.log(this.retailorderList);
+    //     this.success_message = 'Your order has been placed.';
+    //   },
+    //   (error: any) => {
+    //     // log.debug(`Login error: ${error}`);
+    //     this.error = error;
+    //     this.success_message = 'Some error is occurred.';
+    //   }
+    // );
   }
 
-  private changeDate(date: any): void {
-    const startDate =
+  private changeStartDate(date: any): void {
+    const startD =
       this.startDate === undefined || this.startDate === null
         ? ''
-        : this.startDate.day + '-' + this.startDate.month + '-' + this.startDate.year;
-    const endDate =
+        : this.startDate.year + '-' + this.startDate.month + '-' + this.startDate.day;
+
+    this.tableservice.startDate = startD;
+  }
+
+  private changeEndDate(date: any): void {
+    const endD =
       this.endDate === undefined || this.endDate === null
         ? ''
-        : this.endDate.day + '-' + this.endDate.month + '-' + this.endDate.year;
-    this.retailOrderList(startDate, endDate);
+        : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
+    this.tableservice.endDate = endD;
   }
 }

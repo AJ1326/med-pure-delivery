@@ -1,10 +1,10 @@
-<form>
+<form style="margin-top: 20px">
   <ngb-accordion #acc="ngbAccordion">
     <ngb-panel *ngFor="let order of orderListData">
       <ng-template ngbPanelTitle>
         <div class="row">
           <div class="col-md-2">
-            <span class="sub-accordian-heading">Order on</span>
+            <span class="sub-accordian-heading">Ordered on</span>
           </div>
           <div class="col-md-2">
             <span class="sub-accordian-heading">Amount</span>
@@ -24,21 +24,30 @@
           <div class="col-md-5"></div>
         </div>
       </ng-template>
+      <div class="profile-image">
+        <!--<span class="img-xs rounded-circle profile_circle"><strong>{{ user_info['name'].charAt(0).toUpperCase() }}</strong></span>-->
+        <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+        <!--<img class="img-xs rounded-circle" src="../../../assets/images/faces/avatar.png" alt="profile image" />-->
+      </div>
       <ng-template ngbPanelContent>
         <div class="wrap cf" style="margin-top: -30px;">
           <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
-          <div class="heading cf">
-            <h1>Order</h1>
-            <div *ngIf="role_type === 'distributor'" style="text-align: right;">
-              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
-                Accepted
-              </button>
-              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">
-                Rejected
-              </button>
-            </div>
-            <div *ngIf="role_type === 'retailer'" style="text-align: right;">
-              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
+          <div *ngIf="role_type === 'retailer'" class="heading cf">
+            <h1>Product detail</h1>
+            <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+            <!--Accepted-->
+            <!--</button>-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
+            <!--Rejected-->
+            <!--</button>-->
+            <!--</div>-->
+            <div style="text-align: right;">
+              <button
+                (click)="open(Reorder, order)"
+                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
+                type="button"
+              >
                 Re-order
               </button>
             </div>
@@ -52,7 +61,7 @@
                 [ngClass]="i % 2 === 0 ? 'even' : 'odd'"
               >
                 <div class="infoWrap">
-                  <div class="cartSection">
+                  <div class="cartSection cart-full-box">
                     <p class="itemNumber">ORDER # {{ order.order_id }}</p>
                     <h3>{{ products.product['name'] }}</h3>
                     <div class="footer-order-data-sub-details">
@@ -75,12 +84,29 @@
                       }}</span>
                     </div>
                   </div>
-                  <div class="prodTotal cartSection">
-                    <p style="font-size: 20px;">
-                      <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
-                      ><span>{{ products.quantity * products.product.price }}</span>
-                    </p>
+
+                  <div
+                    *ngIf="products['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
+                    class="badge badge-retailer-status add-btn"
+                    ngbTooltip="Rejected by distributor"
+                  >
+                    cancelled
                   </div>
+                  <button
+                    *ngIf="role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')"
+                    class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
+                    (click)="open(Reject, products)"
+                    type="button"
+                  >
+                    Reject
+                  </button>
+                  <!--<div *ngIf="role_type === 'distributor'" class="badge badge-distributor-status add-btn">Reject</div>-->
+                </div>
+                <div class="prodTotal cartSection cart-amount">
+                  <p style="font-size: 20px; margin-top: -10px">
+                    <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                    ><span>{{ products.quantity * products.product.price }}</span>
+                  </p>
                 </div>
               </li>
             </ul>
@@ -94,12 +120,12 @@
     <ngb-pagination
       class="pagination-separated"
       [collectionSize]="total$ | async"
-      [(page)]="service.page"
-      [pageSize]="service.pageSize"
+      [(page)]="tableDataService.page"
+      [pageSize]="tableDataService.pageSize"
     >
     </ngb-pagination>
 
-    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tableDataService.pageSize">
       <option [ngValue]="10">10</option>
       <option [ngValue]="25">25</option>
       <option [ngValue]="50">50</option>
@@ -107,6 +133,44 @@
   </div>
 </form>
 
-<ng-template #content let-modal>
-  <app-alert [alertModalRefference]="modalReference" (messageEvent)="receiveMessage($event)"></app-alert>
+<ng-template #Reject let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="font-size: 18px;">Are you sure ?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-rounded btn-fw btn-yes" type="button" (click)="submitAlert()">
+      Yes
+    </button>
+    <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">
+      No
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #Reorder let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-reorder">Order list</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Product list</label>
+        <div class="input-group"></div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">
+      Yes
+    </button>
+    <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button">
+      No
+    </button>
+  </div>
 </ng-template>

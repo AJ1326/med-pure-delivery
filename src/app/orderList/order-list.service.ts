@@ -12,9 +12,10 @@ import { Utils } from '@app/shared/utils/utils';
 export class OrderListService {
   constructor(private http: HttpClient) {}
 
-  distributorList(startdate: any, enddate: any) {
-    return this.http.get(
-      `${URLS.DISTRIBUTOR_ORDER_LIST_PLACED_API + '?start_date=' + startdate + '&end_date=' + enddate}}`,
+  rejectOrderByDistributor(payload: any) {
+    return this.http.put(
+      `${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload.uuid + '/',
+      { status: 'rejected_by_distributor' },
       { withCredentials: true }
     );
   }

@@ -16,9 +16,20 @@ export class OrderListRetailerService {
     return this.http.get(`${URLS.DISTRIBUTOR_LIST__API}` + payload);
   }
 
-  orderListData(startdate: any, enddate: any) {
-    return this.http.get(`${URLS.ORDER_LIST_PLACED_API + '?start_date=' + startdate + '&end_date=' + enddate}`, {
-      withCredentials: true
-    });
+  orderListData(startdate: string, enddate: string, page: any, limit: number, role: string) {
+    return this.http.get(
+      `${URLS.ORDER_LIST_PLACED_API[role] +
+        '?start_date=' +
+        startdate +
+        '&end_date=' +
+        enddate +
+        '&page=' +
+        page +
+        '&limit=' +
+        limit}`,
+      {
+        withCredentials: true
+      }
+    );
   }
 }

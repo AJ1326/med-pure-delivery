@@ -46,8 +46,8 @@
     <a class="navbar-brand brand-logo" (click)="toggleSideBar()">
       <img style="height: 39px; !important;" src="../../../assets/images/medpure-logo.png" alt="logo" />
     </a>
-    <a class="navbar-brand brand-logo-mini" href="index.html">
-      <img src="../../../assets/images/logo-mini.svg" alt="logo" />
+    <a class="navbar-brand brand-logo-mini" [routerLink]="['/']">
+      <img src="../../../assets/images/logo_medpure.jpeg" alt="logo" />
     </a>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -191,7 +191,8 @@
       <li class="nav-item dropdown d-none d-xl-inline-block">
         <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
           <span class="profile-text">Hello, {{ user_info['name'] }} !</span>
-          <img class="img-xs rounded-circle" src="../../../assets/images/faces/AJ.png" alt="Profile image" />
+          <!--<span class="img-xs rounded-circle profile_circle"><strong>{{ user_info['name'].charAt(0).toUpperCase() }}</strong></span>-->
+          <img class="img-xs rounded-circle" src="../../../assets/images/faces/avatar.png" alt="Profile image" />
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
           <a class="dropdown-item p-0">

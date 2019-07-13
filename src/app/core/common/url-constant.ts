@@ -14,7 +14,11 @@ export const URLS = {
 
   //List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
-  ORDER_LIST_PLACED_API: `orders/retailer/`,
-  DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`,
+  ORDER_LIST_PLACED_API: {
+    retailer: `orders/retailer/`,
+    distributor: `orders/distributor/`
+  },
+  // ORDER_LIST_PLACED_API: `orders/retailer/`,
+  // DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`,
   UPLOAD_LIST_API: `uploads/distributor_product_list/`
 };

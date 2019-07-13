@@ -17,6 +17,6 @@ export class PlacingOrderService {
   }
 
   orderListPlaced(payload: any) {
-    return this.http.post(`${URLS.ORDER_LIST_PLACED_API}`, payload, { withCredentials: true });
+    return this.http.post(`${URLS.ORDER_LIST_PLACED_API['retailer']}`, payload, { withCredentials: true });
   }
 }

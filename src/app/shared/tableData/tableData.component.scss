@@ -552,12 +552,12 @@ a.remove {
 
 .filter_start_date {
   margin-top: -25px;
-  margin-left: 8px;
+  //margin-left: 8px;
 }
 
 .filter_end_date {
   margin-top: -25px;
-  margin-left: -24px;
+  //margin-left: -24px;
 }
 
 .sub-order-dropdown-heading {
@@ -597,3 +597,64 @@ a.remove {
   padding-left: 23px;
   color: #f2f7fb;
 }
+
+.cart-amount {
+  float: right;
+  margin-top: -31px;
+  padding-right: 35px;
+}
+
+.cart-full-box {
+  width: 100%;
+}
+
+.badge-retailer-status {
+  color: #fff !important;
+  background-color: #f96666 !important;
+  //padding: 5px !important;
+  border-radius: 10px !important;
+  border-color: #f96666;
+}
+
+.badge-distributor-status {
+  color: #fff !important;
+  background-color: #f96666 !important;
+  padding: 5px !important;
+  border-radius: 10px !important;
+  border-color: #f96666;
+}
+
+.distributor-reject {
+  min-width: 96px !important;
+  border-radius: 9px !important;
+  background-color: white !important;
+  color: red;
+  border-color: red;
+}
+
+.distributor-reject:hover {
+  min-width: 96px !important;
+  border-radius: 9px !important;
+  background-color: red !important;
+  box-shadow: 2px 3px 4px 1px #c5a6a6;
+  color: white;
+  border-color: red;
+}
+
+// Alert modal button
+
+//.btn-yes {
+//  background-color: #90ee9091;
+//}
+//
+//.btn-yes:hover {
+//  background-color: #74ef74;
+//}
+//
+//.btn-no {
+//  background-color: #e61a1a6b;
+//}
+//
+//.btn-no:hover {
+//  background-color: #e61a1ae6;
+//}
