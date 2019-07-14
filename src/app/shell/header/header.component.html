@@ -59,78 +59,84 @@
         </a>
       </li>
       <li class="nav-item active">
-        <a href="#" class="nav-link"> <i class="mdi mdi-elevation-rise"></i>Orders</a>
+        <a *ngIf="role_type === 'retailer'" [routerLink]="['/' + role_type + '/orders']" class="nav-link">
+          <i class="mdi mdi-elevation-rise"></i>Orders</a
+        >
+        <a *ngIf="role_type === 'distributor'" [routerLink]="['/' + role_type + '/upload']" class="nav-link">
+          <i class="mdi fa fa-cloud-upload"></i>Upload</a
+        >
       </li>
       <!--<li class="nav-item">-->
       <!--<a href="#" class="nav-link"> <i class="mdi mdi-bookmark-plus-outline"></i>Reports</a>-->
       <!--</li>-->
     </ul>
     <ul class="navbar-nav navbar-nav-right">
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link count-indicator dropdown-toggle"
-          id="messageDropdown"
-          href="#"
-          data-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="mdi mdi-file-document-box"></i>
-          <span class="count">7</span>
-        </a>
-        <!--Chat message-->
-        <!--<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">-->
-        <!--<div class="dropdown-item">-->
-        <!--<p class="mb-0 font-weight-normal float-left">You have 7 unread mails</p>-->
-        <!--<span class="badge badge-info badge-pill float-right">View all</span>-->
-        <!--</div>-->
-        <!--<div class="dropdown-divider"></div>-->
-        <!--<a class="dropdown-item preview-item">-->
-        <!--<div class="preview-thumbnail">-->
-        <!--<img src="../../../assets/images/faces/face4.jpg" alt="image" class="profile-pic" />-->
-        <!--</div>-->
-        <!--<div class="preview-item-content flex-grow">-->
-        <!--<h6 class="preview-subject ellipsis font-weight-medium text-dark">-->
-        <!--David Grey-->
-        <!--<span class="float-right font-weight-light small-text">1 Minutes ago</span>-->
-        <!--</h6>-->
-        <!--<p class="font-weight-light small-text">-->
-        <!--The meeting is cancelled-->
-        <!--</p>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--<div class="dropdown-divider"></div>-->
-        <!--<a class="dropdown-item preview-item">-->
-        <!--<div class="preview-thumbnail">-->
-        <!--<img src="../../../assets/images/faces/face2.jpg" alt="image" class="profile-pic" />-->
-        <!--</div>-->
-        <!--<div class="preview-item-content flex-grow">-->
-        <!--<h6 class="preview-subject ellipsis font-weight-medium text-dark">-->
-        <!--Tim Cook-->
-        <!--<span class="float-right font-weight-light small-text">15 Minutes ago</span>-->
-        <!--</h6>-->
-        <!--<p class="font-weight-light small-text">-->
-        <!--New product launch-->
-        <!--</p>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--<div class="dropdown-divider"></div>-->
-        <!--<a class="dropdown-item preview-item">-->
-        <!--<div class="preview-thumbnail">-->
-        <!--<img src="../../../assets/images/faces/face3.jpg" alt="image" class="profile-pic" />-->
-        <!--</div>-->
-        <!--<div class="preview-item-content flex-grow">-->
-        <!--<h6 class="preview-subject ellipsis font-weight-medium text-dark">-->
-        <!--Johnson-->
-        <!--<span class="float-right font-weight-light small-text">18 Minutes ago</span>-->
-        <!--</h6>-->
-        <!--<p class="font-weight-light small-text">-->
-        <!--Upcoming board meeting-->
-        <!--</p>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--</div>-->
-        <!--End chat message-->
-      </li>
+      <!--<li class="nav-item dropdown">-->
+      <!--<a-->
+      <!--class="nav-link count-indicator dropdown-toggle"-->
+      <!--id="messageDropdown"-->
+      <!--href="#"-->
+      <!--data-toggle="dropdown"-->
+      <!--aria-expanded="false"-->
+      <!--&gt;-->
+      <!--<i class="mdi mdi-file-document-box"></i>-->
+      <!--<span class="count">7</span>-->
+      <!--</a>-->
+
+      <!--Chat message-->
+      <!--<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">-->
+      <!--<div class="dropdown-item">-->
+      <!--<p class="mb-0 font-weight-normal float-left">You have 7 unread mails</p>-->
+      <!--<span class="badge badge-info badge-pill float-right">View all</span>-->
+      <!--</div>-->
+      <!--<div class="dropdown-divider"></div>-->
+      <!--<a class="dropdown-item preview-item">-->
+      <!--<div class="preview-thumbnail">-->
+      <!--<img src="../../../assets/images/faces/face4.jpg" alt="image" class="profile-pic" />-->
+      <!--</div>-->
+      <!--<div class="preview-item-content flex-grow">-->
+      <!--<h6 class="preview-subject ellipsis font-weight-medium text-dark">-->
+      <!--David Grey-->
+      <!--<span class="float-right font-weight-light small-text">1 Minutes ago</span>-->
+      <!--</h6>-->
+      <!--<p class="font-weight-light small-text">-->
+      <!--The meeting is cancelled-->
+      <!--</p>-->
+      <!--</div>-->
+      <!--</a>-->
+      <!--<div class="dropdown-divider"></div>-->
+      <!--<a class="dropdown-item preview-item">-->
+      <!--<div class="preview-thumbnail">-->
+      <!--<img src="../../../assets/images/faces/face2.jpg" alt="image" class="profile-pic" />-->
+      <!--</div>-->
+      <!--<div class="preview-item-content flex-grow">-->
+      <!--<h6 class="preview-subject ellipsis font-weight-medium text-dark">-->
+      <!--Tim Cook-->
+      <!--<span class="float-right font-weight-light small-text">15 Minutes ago</span>-->
+      <!--</h6>-->
+      <!--<p class="font-weight-light small-text">-->
+      <!--New product launch-->
+      <!--</p>-->
+      <!--</div>-->
+      <!--</a>-->
+      <!--<div class="dropdown-divider"></div>-->
+      <!--<a class="dropdown-item preview-item">-->
+      <!--<div class="preview-thumbnail">-->
+      <!--<img src="../../../assets/images/faces/face3.jpg" alt="image" class="profile-pic" />-->
+      <!--</div>-->
+      <!--<div class="preview-item-content flex-grow">-->
+      <!--<h6 class="preview-subject ellipsis font-weight-medium text-dark">-->
+      <!--Johnson-->
+      <!--<span class="float-right font-weight-light small-text">18 Minutes ago</span>-->
+      <!--</h6>-->
+      <!--<p class="font-weight-light small-text">-->
+      <!--Upcoming board meeting-->
+      <!--</p>-->
+      <!--</div>-->
+      <!--</a>-->
+      <!--</div>-->
+      <!--End chat message-->
+      <!--</li>-->
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
           <i class="mdi mdi-bell"></i>
@@ -209,7 +215,7 @@
             </div>
           </a>
           <a class="dropdown-item mt-2" [routerLink]="['/' + role_type + '/profile']">
-            Manage Accounts
+            Profile
           </a>
           <a class="dropdown-item" [routerLink]="['/' + role_type + '/change-password']">
             Change Password

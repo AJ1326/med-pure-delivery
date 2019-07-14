@@ -134,10 +134,16 @@ export class TableDataService {
     this._set({ pageSize });
   }
   set startDate(startDate: string) {
-    this._set({ startDate });
+    const page = 1;
+    this._set({ startDate, page });
   }
   set endDate(endDate: string) {
-    this._set({ endDate });
+    const page = 1;
+    this._set({ endDate, page });
+  }
+  updateDate(startDate: string, endDate: string) {
+    const page = 1;
+    this._set({ endDate, startDate, page });
   }
   // set searchTerm(searchTerm: string) {
   //   this._set({ searchTerm });

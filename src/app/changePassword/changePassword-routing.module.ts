@@ -8,6 +8,9 @@ import { ChangePasswordComponent } from '@app/changePassword/changePassword.comp
 const routes: Routes = [
   Shell.retailerShell([
     { path: 'change-password', component: ChangePasswordComponent, data: { title: extract('Change Password') } }
+  ]),
+  Shell.distributorShell([
+    { path: 'change-password', component: ChangePasswordComponent, data: { title: extract('Change Password') } }
   ])
 ];
 

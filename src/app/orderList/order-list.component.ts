@@ -36,7 +36,7 @@ export class OrderListComponent implements OnInit {
     this.tableservice._search();
   }
 
-  private changeStartDate(date: any): void {
+  public changeStartDate(date: any): void {
     const startD =
       this.startDate === undefined || this.startDate === null
         ? ''
@@ -45,11 +45,23 @@ export class OrderListComponent implements OnInit {
     this.tableservice.startDate = startD;
   }
 
-  private changeEndDate(date: any): void {
+  public changeEndDate(date: any): void {
     const endD =
       this.endDate === undefined || this.endDate === null
         ? ''
         : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
     this.tableservice.endDate = endD;
+  }
+
+  updateDate() {
+    const startD =
+      this.startDate === undefined || this.startDate === null
+        ? ''
+        : this.startDate.year + '-' + this.startDate.month + '-' + this.startDate.day;
+    const endD =
+      this.endDate === undefined || this.endDate === null
+        ? ''
+        : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
+    this.tableservice.updateDate(startD, endD);
   }
 }

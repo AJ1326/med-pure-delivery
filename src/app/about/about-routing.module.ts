@@ -6,7 +6,8 @@ import { Shell } from '@app/shell/shell.service';
 import { AboutComponent } from './about.component';
 
 const routes: Routes = [
-  Shell.retailerShell([{ path: 'profile', component: AboutComponent, data: { title: extract('Profile') } }])
+  Shell.retailerShell([{ path: 'about-us', component: AboutComponent, data: { title: extract('about-us') } }]),
+  Shell.distributorShell([{ path: 'about-us', component: AboutComponent, data: { title: extract('bout-us') } }])
 ];
 
 @NgModule({

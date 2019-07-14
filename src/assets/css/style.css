@@ -17157,6 +17157,7 @@ input:focus {
   display: -webkit-flex;
   display: flex;
   margin-bottom: 30px;
+  width: 100%;
 }
 .sidebar .nav .nav-item.nav-profile .nav-link .user-wrapper .profile-image {
   width: 40px;
@@ -17757,7 +17758,9 @@ html {
 }
 
 .container-scroller {
-  overflow: hidden;
+  /*overflow: hidden;*/
+  position: relative;
+  min-height: 100vh;
 }
 
 .scroll-container {
@@ -20175,7 +20178,7 @@ ul li {
 /* === Landing screens === */
 /* Auth */
 .auth.auth-bg-1 {
-  background: url('../images/auth/login_1.jpg');
+  /*background: url('../images/change-password/changePassbg.png');*/
   background-size: cover;
 }
 

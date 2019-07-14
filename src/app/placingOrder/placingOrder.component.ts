@@ -199,7 +199,6 @@ export class PlacingOrderComponent implements OnInit {
   }
 
   private submitOrder(order: any): void {
-    console.log(order, 'order');
     order.map((data: any) => {
       delete data['company'];
       delete data['discount'];

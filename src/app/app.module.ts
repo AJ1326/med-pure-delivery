@@ -36,6 +36,7 @@ import { ComingSoonRoutingModule } from '@app/coming-soon/coming-soon-routing.mo
 import { UploadModule } from '@app/upload/upload.module';
 import { UploadRoutingModule } from '@app/upload/upload-routing.module';
 import { PlacingOrderRoutingModule } from '@app/placingOrder/placingOrder-routing.module';
+import { AboutRoutingModule } from '@app/about/about-routing.module';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { PlacingOrderRoutingModule } from '@app/placingOrder/placingOrder-routin
     ComingSoonModule,
     ProfileRoutingModule,
     UploadRoutingModule,
+    AboutRoutingModule,
     ComingSoonRoutingModule,
     PlacingOrderRoutingModule,
     HomeRoutingModule,

@@ -40,6 +40,35 @@ export class OrderListRetailerComponent implements OnInit {
   ngOnInit() {
     this.tableservice._search();
   }
+  //
+  // public changeStartDate(date: any): void {
+  //   const startD =
+  //     this.startDate === undefined || this.startDate === null
+  //       ? ''
+  //       : this.startDate.year + '-' + this.startDate.month + '-' + this.startDate.day;
+  //
+  //   this.tableservice.startDate = startD;
+  // }
+  //
+  // public changeEndDate(date: any): void {
+  //   const endD =
+  //     this.endDate === undefined || this.endDate === null
+  //       ? ''
+  //       : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
+  //   this.tableservice.endDate = endD;
+  // }
+
+  updateDate() {
+    const startD =
+      this.startDate === undefined || this.startDate === null
+        ? ''
+        : this.startDate.year + '-' + this.startDate.month + '-' + this.startDate.day;
+    const endD =
+      this.endDate === undefined || this.endDate === null
+        ? ''
+        : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
+    this.tableservice.updateDate(startD, endD);
+  }
 
   private setStartDateFilter(event: any): void {
     console.log('event', event);
@@ -72,22 +101,5 @@ export class OrderListRetailerComponent implements OnInit {
     //     this.success_message = 'Some error is occurred.';
     //   }
     // );
-  }
-
-  private changeStartDate(date: any): void {
-    const startD =
-      this.startDate === undefined || this.startDate === null
-        ? ''
-        : this.startDate.year + '-' + this.startDate.month + '-' + this.startDate.day;
-
-    this.tableservice.startDate = startD;
-  }
-
-  private changeEndDate(date: any): void {
-    const endD =
-      this.endDate === undefined || this.endDate === null
-        ? ''
-        : this.endDate.year + '-' + this.endDate.month + '-' + this.endDate.day;
-    this.tableservice.endDate = endD;
   }
 }

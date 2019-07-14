@@ -14,14 +14,22 @@
             <span class="sub-accordian-heading">ORDER # {{ order.order_id }}</span>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 10px;">
           <div class="col-md-2">
             <span style="color: #00000087;">{{ order.order_date }}</span>
           </div>
           <div class="col-md-2">
             <span>{{ order.total_amount }}</span>
           </div>
-          <div class="col-md-5"></div>
+          <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">
+            <button
+              class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
+              type="button"
+              (click)="csvDownload(order.uuid); $event.stopPropagation()"
+            >
+              CSV
+            </button>
+          </div>
         </div>
       </ng-template>
       <div class="profile-image">
@@ -105,7 +113,7 @@
                 <div class="prodTotal cartSection cart-amount">
                   <p style="font-size: 20px; margin-top: -10px">
                     <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
-                    ><span>{{ products.quantity * products.product.price }}</span>
+                    ><span>{{ (products.quantity * products.product.price).toFixed(2) }}</span>
                   </p>
                 </div>
               </li>
@@ -141,7 +149,11 @@
     </button>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success btn-rounded btn-fw btn-yes" type="button" (click)="submitAlert()">
+    <button
+      class="btn btn-success btn-rounded btn-fw btn-yes"
+      type="button"
+      (click)="submitAlert(); modal.dismiss('yes click')"
+    >
       Yes
     </button>
     <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">

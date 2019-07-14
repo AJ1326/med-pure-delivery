@@ -11,7 +11,7 @@
     <!--</div>-->
     <!--</div>-->
     <!--</div>-->
-    <div class="col-md-2 filter_start_date offset-md-8">
+    <div class="col-md-2 filter_start_date offset-md-6">
       <div class="input-group">
         <input
           class="form-control"
@@ -19,7 +19,6 @@
           style="height: 47px"
           name="dp"
           [(ngModel)]="startDate"
-          (ngModelChange)="changeStartDate($event)"
           [displayMonths]="displayMonths"
           [navigation]="navigation"
           [outsideDays]="outsideDays"
@@ -46,7 +45,6 @@
           style="height: 47px"
           name="dp"
           [(ngModel)]="endDate"
-          (ngModelChange)="changeEndDate($event)"
           [displayMonths]="displayMonths"
           [navigation]="navigation"
           [outsideDays]="outsideDays"
@@ -61,11 +59,15 @@
         </div>
       </div>
     </div>
-    <!--<div class="col-md-2">-->
-    <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
-    <!--Filter-->
-    <!--</button>-->
-    <!--</div>-->
+    <div class="col-md-2">
+      <button
+        class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
+        type="button"
+        (click)="updateDate()"
+      >
+        Filter
+      </button>
+    </div>
   </div>
   <app-table [role_type]="'distributor'" [startDate]="'startDate'" [endDate]="'startDate'"></app-table>
 </div>

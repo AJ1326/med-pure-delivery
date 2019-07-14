@@ -17,19 +17,15 @@ export class OrderListRetailerService {
   }
 
   orderListData(startdate: string, enddate: string, page: any, limit: number, role: string) {
-    return this.http.get(
-      `${URLS.ORDER_LIST_PLACED_API[role] +
-        '?start_date=' +
-        startdate +
-        '&end_date=' +
-        enddate +
-        '&page=' +
-        page +
-        '&limit=' +
-        limit}`,
-      {
-        withCredentials: true
-      }
-    );
+    let qstring = '?page=' + page + '&limit=' + limit;
+    if (startdate) {
+      qstring += '&start_date=' + startdate;
+    }
+    if (enddate) {
+      qstring += '&end_date=' + enddate;
+    }
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API[role] + qstring}`, {
+      withCredentials: true
+    });
   }
 }

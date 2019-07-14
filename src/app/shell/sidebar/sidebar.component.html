@@ -19,8 +19,8 @@
           </div>
         </div>
         <button *ngIf="role_type === 'retailer'" class="btn btn-success btn-block" (click)="openOrder()">
-          Order Data
-          <i class="mdi mdi-plus"></i>
+          Place Order
+          <!--<i class="mdi mdi-plus"></i>-->
         </button>
       </div>
     </li>
@@ -30,26 +30,26 @@
         <span class="menu-title">Home</span>
       </a>
     </li>
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" [routerLink]="['/' + role_type + '/profile']">-->
+    <!--<i class="menu-icon mdi mdi-television"></i>-->
+    <!--<span class="menu-title">Profile</span>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" [routerLink]="['/' + role_type + '/feedback']">-->
+    <!--<i class="menu-icon mdi mdi-television"></i>-->
+    <!--<span class="menu-title">Feedback</span>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+    <!--<a class="nav-link" [routerLink]="['/' + role_type + '/change-password']">-->
+    <!--<i class="menu-icon mdi mdi-television"></i>-->
+    <!--<span class="menu-title">Change password</span>-->
+    <!--</a>-->
+    <!--</li>-->
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/' + role_type + '/profile']">
-        <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">Profile</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/' + role_type + '/feedback']">
-        <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">Feedback</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/' + role_type + '/change-password']">
-        <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">Change password</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/' + role_type + '/about']">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/about-us']">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">About</span>
       </a>

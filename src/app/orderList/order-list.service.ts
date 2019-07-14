@@ -19,4 +19,8 @@ export class OrderListService {
       { withCredentials: true }
     );
   }
+
+  downloadCsvDistributor(payload: string) {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload + '/compiled_order_csv');
+  }
 }

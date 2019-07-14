@@ -63,9 +63,9 @@
                       <th>
                         Stock
                       </th>
-                      <th>
-                        Discount
-                      </th>
+                      <!--<th>-->
+                      <!--Discount-->
+                      <!--</th>-->
                       <th>
                         Company
                       </th>
@@ -78,9 +78,9 @@
                       <th>
                         Rate
                       </th>
-                      <th>
-                        Vat
-                      </th>
+                      <!--<th>-->
+                      <!--Vat-->
+                      <!--</th>-->
                       <th>
                         Add
                       </th>
@@ -100,16 +100,18 @@
                       <td>
                         {{ dist.stock }}
                       </td>
-                      <td>{{ dist.discount }}%</td>
+                      <!--<td>{{ dist.discount }}%</td>-->
                       <td>
                         {{ dist.company }}
                       </td>
                       <td>
                         {{ dist.pack }}
                       </td>
-                      <td><i class="fa fa-inr" aria-hidden="true"></i> {{ dist.mrp }}</td>
-                      <td><i class="fa fa-inr" aria-hidden="true"></i> {{ dist.rate }}</td>
-                      <td>{{ dist.vat }}%</td>
+                      <td><i *ngIf="dist.mrp" class="fa fa-inr" aria-hidden="true"></i> {{ dist.mrp }}</td>
+                      <td>
+                        <i *ngIf="dist.selling_price" class="fa fa-inr" aria-hidden="true"></i> {{ dist.selling_price }}
+                      </td>
+                      <!--<td>{{ dist.vat }}%</td>-->
                       <td>
                         <div
                           *ngIf="
