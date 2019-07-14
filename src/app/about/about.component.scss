@@ -8,9 +8,9 @@
   --yellow: #fde74c;
 }
 /* Reset */
-*,
-*::after,
-*::before {
+.about-us,
+.about-us::after,
+.about-us::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -21,14 +21,14 @@
 //html{
 //  font-family: sans-serif;
 //}
-//body{
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  width: 100%;
-//  min-height: 100vh;
-//  background: var(--bg);
-//}
+.about-us {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+}
 main {
   min-width: 800px;
   height: 300px;
@@ -59,7 +59,7 @@ main {
 .ad {
   position: absolute;
   top: 150px;
-  left: 80px;
+  left: 56px;
   transform: rotateY(-20deg);
   font-size: 10px;
   padding: 2px 5px;
