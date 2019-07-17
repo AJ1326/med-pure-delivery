@@ -139,7 +139,7 @@ img {
 .wrap {
   margin: 0 auto;
   padding: 1em 0;
-  width: 87%;
+  width: 96%;
   margin-bottom: -1em;
 }
 
@@ -169,6 +169,9 @@ img {
     font-family: $fontSerif;
     font-size: 2em;
     float: left;
+    @media (max-width: 768px) and (min-width: 600px) {
+      font-size: 22px;
+    }
   }
   a.continue {
     &:link,
@@ -658,3 +661,45 @@ a.remove {
 //.btn-no:hover {
 //  background-color: #e61a1ae6;
 //}
+
+//Mobile view implementation
+
+@media (max-width: 768px) and (min-width: 600px) {
+  .media-sub-accordian-heading {
+    margin-left: -47px;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 600px) {
+  .accordion > .card .card-header {
+    margin-bottom: -1px;
+    height: 100px;
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .desktop-view {
+    display: none;
+  }
+  .mobile-view {
+    display: block;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .desktop-view {
+    //display: none;
+  }
+  .mobile-view {
+    display: block;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .mobile-view {
+    display: none;
+  }
+}

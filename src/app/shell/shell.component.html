@@ -6,7 +6,7 @@
     <app-sidebar [sideBarDisplay]="sideBarDisplay"></app-sidebar>
     <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
       <router-outlet></router-outlet>
-      <app-footer [ngClass]="!sideBarDisplay ? 'sidebar-active-footer' : 'footer'"></app-footer>
+      <app-footer></app-footer>
     </div>
   </div>
 </div>

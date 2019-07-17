@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   setForgetPass = false;
   onBoardingSuccess = false;
+  loginMobileOpen = false;
 
   constructor(
     private router: Router,
@@ -79,6 +80,22 @@ export class LoginComponent implements OnInit {
         false
       );
     }
+  }
+
+  // var open = false;
+  //
+  onMouseEnter() {
+    document.querySelector('.login-wrapper').classList.add('login-page-wrapper');
+  }
+
+  onMouseLeave() {
+    document.querySelector('.login-wrapper').classList.remove('login-page-wrapper');
+  }
+
+  openLogin(event: any) {
+    event.stopPropagation();
+    this.loginMobileOpen ? this.onMouseLeave() : this.onMouseEnter();
+    this.loginMobileOpen = !this.loginMobileOpen;
   }
 
   login() {
