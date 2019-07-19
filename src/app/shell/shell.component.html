@@ -3,7 +3,7 @@
   <app-header (sideBarDisplay)="displaySideBar($event)"></app-header>
   <!-- partial -->
   <div class="container-fluid page-body-wrapper">
-    <app-sidebar [sideBarDisplay]="sideBarDisplay"></app-sidebar>
+    <app-sidebar class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
     <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
       <router-outlet></router-outlet>
       <app-footer></app-footer>

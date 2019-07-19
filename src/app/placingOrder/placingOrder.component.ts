@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -52,6 +52,7 @@ export class WikipediaService {
   templateUrl: './placingOrder.component.html',
   styleUrls: ['./placingOrder.component.scss'],
   providers: [WikipediaService]
+  // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
   version: string = environment.version;

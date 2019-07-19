@@ -8230,8 +8230,10 @@ jsc*/
   define('ephox.katamari.api.Future', [
     'ephox.katamari.api.LazyValue',
     'ephox.katamari.async.Bounce'
-  ], /** A future value that is evaluated on demand. The base function is re-evaluated each time 'get' is called. */
-  function(LazyValue, Bounce) {
+  ] /** A future value that is evaluated on demand. The base function is re-evaluated each time 'get' is called. */, function(
+    LazyValue,
+    Bounce
+  ) {
     var nu = function(baseFn) {
       var get = function(callback) {
         baseFn(Bounce.bounce(callback));
@@ -20713,8 +20715,7 @@ jsc*/
   ], /*
    * Direct attribute manipulation has been around since IE8, but
    * was apparently unstable until IE10.
-   */
-  function(Type, Arr, Obj, Node, Error, console) {
+   */ function(Type, Arr, Obj, Node, Error, console) {
     var rawSet = function(dom, key, value) {
       /*
        * JQuery coerced everything to a string, and silently did nothing on text node/null/undefined.

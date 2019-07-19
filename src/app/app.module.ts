@@ -37,6 +37,7 @@ import { UploadModule } from '@app/upload/upload.module';
 import { UploadRoutingModule } from '@app/upload/upload-routing.module';
 import { PlacingOrderRoutingModule } from '@app/placingOrder/placingOrder-routing.module';
 import { AboutRoutingModule } from '@app/about/about-routing.module';
+import { PwaService } from '@app/pwa.service';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { AboutRoutingModule } from '@app/about/about-routing.module';
     AuthenticationPermissionRetailerGuard,
     AuthenticationPermissionDistributorGuard,
     AuthenticationBoardingGuard,
-    CookieService
+    CookieService,
+    PwaService
   ],
   bootstrap: [AppComponent]
 })

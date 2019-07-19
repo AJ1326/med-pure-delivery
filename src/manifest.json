@@ -1,14 +1,16 @@
 {
-  "name": "ngX-Rocket",
-  "short_name": "ngX-Rocket",
+  "name": "Medpure",
+  "short_name": "Medpure",
   "theme_color": "#488aff",
   "background_color": "#488aff",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",
-  "icons": [{
-    "src": "assets/ngx-rocket-logo.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }]
+  "icons": [
+    {
+      "src": "assets/images/logo_medpure.jpeg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

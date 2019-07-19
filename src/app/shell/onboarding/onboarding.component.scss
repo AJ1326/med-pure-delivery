@@ -1,11 +1,15 @@
 /* Style the form */
 #rForm {
   background-color: #ffffff;
-  margin: 150px auto;
+  //margin: 150px auto;
   padding: 2%;
-  width: 70%;
-  min-width: 350px;
-  max-width: 750px;
+  //width: 70%;
+  //min-width: 350px;
+  //max-width: 750px;
+  top: 5%;
+  margin: auto;
+  display: table;
+  width: 42% !important;
 }
 
 #regForm {
@@ -79,4 +83,97 @@ input.invalid {
   padding-left: 18px;
   padding-right: 18px;
   border-radius: 12px;
+}
+
+.on_boarding_profile_icons {
+  width: 56%;
+  margin: auto;
+  display: table;
+}
+
+.card .card-body {
+  padding: 0 !important;
+}
+
+.onboarding_message {
+  font-size: 31px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: auto;
+  display: table;
+  margin-top: 20px;
+  font-weight: 200;
+}
+
+.onboarding_message_sub {
+  font-size: 28px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: auto;
+  display: table;
+  font-weight: 200;
+}
+
+.onboarding_name {
+  text-decoration: underline;
+  color: #0ba1b5;
+}
+
+.onboarding_heading {
+  margin: auto;
+  display: table;
+  font-size: 20px;
+}
+
+.onboarding_information_message {
+  margin: auto;
+  display: table;
+  font-size: 19px;
+  margin-top: 15px;
+  font-weight: 100;
+}
+
+.med {
+  color: #61c3cf;
+  font-size: 25px;
+  margin-left: 4px;
+}
+
+.pure {
+  color: #ba2671;
+  font-size: 25px;
+}
+
+.onboarding_birthday {
+  margin: auto;
+  display: table;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+@media screen and (max-width: 1024px) {
+  #rForm {
+    width: 52% !important;
+  }
+}
+
+@media screen and (max-width: 784px) {
+  #rForm {
+    width: 96% !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #rForm {
+    width: 96% !important;
+  }
+  .onboarding_message {
+    font-size: 15px;
+  }
+  .onboarding_message_sub {
+    font-size: 15px;
+  }
+  .onboarding_information_message {
+    font-size: 14px;
+  }
 }

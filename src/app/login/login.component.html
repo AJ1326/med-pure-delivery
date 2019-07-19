@@ -267,31 +267,135 @@
 </section>
 
 <section class="mobile_view">
-  <div class="login-wrapper login-page-wrapper">
-    <div class="login-page">
+  <div class="login-wrapper">
+    <div *ngIf="form_type === 'login'" class="login-page">
       <div>Log in</div>
-      <div><input placeholder="login" /></div>
-      <div><input placeholder="password" /></div>
-      <button><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></button>
+      <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+        Username or password incorrect.
+      </div>
+      <form class="forms_form" [formGroup]="loginForm" novalidate>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="email"
+            autocomplete="email"
+            [placeholder]="'Email address' | translate"
+            required
+            autofocus
+          />
+          <small
+            [hidden]="loginForm.controls.email.valid || loginForm.controls.email.untouched"
+            class="text-danger"
+            translate
+          >
+            Email is required
+          </small>
+        </div>
+        <div>
+          <input
+            type="password"
+            class="form-control forms_field-input"
+            formControlName="password"
+            autocomplete="current-password"
+            [placeholder]="'Password' | translate"
+            required
+          />
+          <small
+            [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
+            class="text-danger"
+            translate
+          >
+            Password is required
+          </small>
+        </div>
+        <button (click)="login()" [disabled]="loginForm.invalid || isLoading">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+        </button>
+        <a class="forms_forgot_password_mobile" (click)="forgetPassword()">Forgot password?</a>
+      </form>
+    </div>
+    <div *ngIf="form_type === 'sign-up'" class="login-page">
+      <div>Sign up</div>
+      <div
+        [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
+        [hidden]="!onBoardingSuccess || isLoading"
+        translate
+      >
+        On-boarding email has been sent to you.
+      </div>
+      <form class="forms_form" [formGroup]="signUpForm" novalidate>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="email"
+            autocomplete="email"
+            [placeholder]="'Email address' | translate"
+            required
+            autofocus
+          />
+          <small
+            [hidden]="signUpForm.controls.email.valid || signUpForm.controls.email.untouched"
+            class="text-danger"
+            translate
+          >
+            Email is required
+          </small>
+        </div>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="phone_number"
+            autocomplete="phone_number"
+            [placeholder]="'phone number' | translate"
+            required
+          />
+          <small
+            [hidden]="signUpForm.controls.phone_number.valid || signUpForm.controls.phone_number.untouched"
+            class="text-danger"
+            translate
+          >
+            phone_number is required
+          </small>
+        </div>
+        <div>
+          <select class="select-role-type-mobile" formControlName="user_type">
+            <option value="retailer" selected>Retailer</option>
+            <option value="distributor">Distributor</option>
+            <option value="delivery">Delivery</option>
+          </select>
+        </div>
+        <button (click)="signUp()" [disabled]="signUpForm.invalid || isLoading">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+        </button>
+      </form>
     </div>
   </div>
-  <i class="fas fa-user-circle" (click)="openLogin($event)"></i>
+  <i style="z-index: 99" class="fas fa-user-circle" (click)="openLogin('login')"></i>
 
   <div class="description">
-    <img class="logo_login" (click)="openLogin($event)" src="../../assets/images/logo.png" />
+    <img class="logo_login" src="../../assets/images/logo.png" />
     <div>
       <button
         class="continue login_mobile_btn btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
         type="button"
+        (click)="openLogin('login')"
       >
         Login
       </button>
       <button
         class="continue signup_mobile_btn btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
         type="button"
+        (click)="openLogin('sign-up')"
       >
         Sign-up
       </button>
     </div>
   </div>
+
+  <img class="trial_img" src="../../assets/images/drug_down_view.jpg" alt="" />
 </section>

@@ -17,3 +17,13 @@
   position: absolute;
   bottom: 0;
 }
+
+.sidebar_mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar_mobile {
+    display: block;
+  }
+}

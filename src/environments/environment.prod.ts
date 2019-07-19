@@ -3,8 +3,16 @@ import env from './.env';
 
 export const environment = {
   production: true,
+  // version: env.npm_package_version,
+  // serverUrl: 'https://api.chucknorris.io',
+  // defaultLanguage: 'en-US',
+  // supportedLanguages: ['en-US', 'fr-FR']
+  // environment.ts
   version: env.npm_package_version,
-  serverUrl: 'https://api.chucknorris.io',
+  serverUrl: 'http://localhost:8005/api/',
   defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US', 'fr-FR']
+  supportedLanguages: ['en-US', 'fr-FR'],
+  APIserverUrl: '',
+  cookieDomain: 'localhost',
+  userSessionTimeout: 900 // in seconds
 };

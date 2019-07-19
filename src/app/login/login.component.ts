@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   setForgetPass = false;
   onBoardingSuccess = false;
   loginMobileOpen = false;
+  form_type: string;
 
   constructor(
     private router: Router,
@@ -92,7 +93,8 @@ export class LoginComponent implements OnInit {
     document.querySelector('.login-wrapper').classList.remove('login-page-wrapper');
   }
 
-  openLogin(event: any) {
+  openLogin(formType: string) {
+    this.form_type = formType;
     event.stopPropagation();
     this.loginMobileOpen ? this.onMouseLeave() : this.onMouseEnter();
     this.loginMobileOpen = !this.loginMobileOpen;

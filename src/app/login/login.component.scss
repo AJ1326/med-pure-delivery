@@ -414,6 +414,11 @@
 @media only screen and (max-width: 951px) {
   @import url("https://fonts.googleapis.com/css?family=Nanum+Myeongjo");
 
+  body {
+    background-color: white;
+    font-family: "Nanum Myeongjo", serif;
+  }
+
   .mobile_view {
     display: block;
   }
@@ -422,20 +427,16 @@
     display: none;
   }
 
-  body {
-    background-color: white;
-    font-family: "Nanum Myeongjo", serif;
-  }
-
   .login-wrapper {
+    z-index: 11;
     position: absolute;
     top: 0%;
     right: 0%;
-    background-color: #000033;
+    background: linear-gradient(120deg, rgb(0, 228, 208), rgb(89, 131, 232));
     width: 100px;
     height: 100px;
     border-radius: 0 0 0 100%;
-    transition: 1s;
+    transition: 0.5s;
     overflow: hidden;
     box-shadow: 0px 0px 25px 2px rgba(128, 128, 128, 0.5);
   }
@@ -453,8 +454,8 @@
   }
 
   input {
-    width: 0px;
-    transition: width 2s;
+    //width: 0px;
+    transition: width 0.5s;
   }
 
   .login-page-wrapper {
@@ -465,20 +466,21 @@
       visibility: visible;
       color: white;
       position: absolute;
-      top: 100px;
-      right: 0px;
-      width: 200px;
-      transition: 0.5s ease-in-out;
+      top: 73px;
+      right: 37px;
+      width: 58%;
+      transition: 0.5s;
     }
 
     input {
-      margin-top: 20px;
-      background-color: transparent;
       outline: 0;
       border: none;
-      border-bottom: 1px solid white;
       color: white;
-      width: 150px;
+      width: 100%;
+      height: 29px;
+      font-size: 11px;
+      font-weight: 300;
+      margin-top: 11px;
     }
 
     button {
@@ -498,6 +500,7 @@
   }
 
   .description {
+    z-index: 8;
     color: #333;
     position: absolute;
     padding-left: 15px;
@@ -506,25 +509,51 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: -1;
   }
 
   .logo_login {
-    width: 70%;
-    margin-left: 64px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
   }
   .login_mobile_btn {
     background-color: #6acad7;
     width: 100%;
     margin-top: 34px;
-    font-size: 29px;
+    font-size: 21px;
     color: white;
   }
   .signup_mobile_btn {
     background-color: #d355a4;
     width: 100%;
     margin-top: 15px;
-    font-size: 29px;
+    font-size: 21px;
     color: white;
+  }
+
+  .trial_img {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .select-role-type-mobile {
+    width: 100%;
+    height: 29px;
+    font-size: 11px;
+    font-weight: 300;
+    margin-top: 11px;
+    padding: 0.375rem 0.75rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+
+  .forms_forgot_password_mobile {
+    margin-left: 28px;
+    font-size: 14px;
+    text-decoration: underline !important;
+    cursor: pointer;
   }
 }
