@@ -31,7 +31,7 @@
 }
 
 .icon-calender-btn {
-  margin-top: 0px;
+  margin-top: 0;
   padding-top: 11px;
 }
 
@@ -44,7 +44,14 @@
 }
 
 //Mobile view implementation
+@media only screen and (max-width: 768px) {
+  .filter_btn_mobile_view {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 0;
+  }
 
-//@media (max-width:1024px) and (min-width:400px) {
-//
-//}​
+  .filter_end_date {
+    margin-top: 8px;
+  }
+}

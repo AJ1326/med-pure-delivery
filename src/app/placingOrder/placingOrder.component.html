@@ -159,6 +159,9 @@
               <div *ngIf="order_list.length > 0" class="badge badge-pill badge-primary">{{ order_list.length }}</div>
             </ng-template>
             <ng-template ngbTabContent>
+              <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0"
+                >*Qauntity can't exceed the max value.</span
+              >
               <div class="container" *ngIf="order_list.length > 0; else emptyCart">
                 <div class="row">
                   <div class="cart2 col-lg-9 col-xs-12">
@@ -178,26 +181,38 @@
                         [attr.data-index]="i"
                       >
                         <div class="col-xs-6">
+                          <div
+                            *ngIf="
+                              show_order_qauntity_error_index.indexOf(order['uuid']) > -1;
+                              else other_btn_content_quantity
+                            "
+                          >
+                            <span>
+                              <i class="fa fa-exclamation-triangle fa-error-max-quantity" aria-hidden="true"></i>
+                            </span>
+                          </div>
                           <!--<div>-->
                           <!--<img src="http://www.coolmix.nl/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone_4s_front.jpg">-->
                           <!--</div>-->
                           <div>
-                            <span
+                            <span style="font-weight: 300;"
                               >{{ order.company }} by {{ order.distributor }}<br />
-                              <span>{{ order.product_name }}</span>
+                              <span>{{ order.product_name }}</span
+                              ><br />
                               <span>Pack: {{ order.pack }}</span>
                             </span>
                           </div>
                         </div>
-                        <span class="col-xs-2" style="z-index: 9999;">
+                        <span class="col-xs-2" style="z-index: 9999; margin-top: -2px;">
                           <input
+                            class="mobile_quantity"
                             type="number"
                             [max]="order.stock"
                             [(ngModel)]="order.quantity"
                             (ngModelChange)="valueChange(i, order, $event)"
                             min="1"
                           />
-                          <a>Quantity</a>
+                          <a style="margin-left: 5px;">Quantity</a>
                         </span>
                         <span class="text-right col-xs-2" style="margin-top: -25px !important;">
                           <strong>{{ (order.quantity * order.selling_price).toFixed(2) }}</strong

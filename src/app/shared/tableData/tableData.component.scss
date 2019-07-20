@@ -528,11 +528,6 @@ a.remove {
   color: black;
 }
 
-.sub-accordian-heading {
-  font-size: 12px;
-  font-weight: 100;
-}
-
 //Date filter
 .custom-day {
   text-align: center;
@@ -702,4 +697,76 @@ a.remove {
   .mobile-view {
     display: none;
   }
+}
+
+@media only screen and (max-width: 900px) {
+  .card {
+    margin-top: 10px;
+  }
+
+  .card-header .bg-info {
+    padding: 0 !important;
+  }
+
+  .content-wrapper {
+    padding: 0.3rem 0.3rem;
+  }
+
+  .product_detail {
+    font-size: 22px;
+    display: table;
+    margin-top: 23px;
+    text-align: center;
+  }
+
+  .reorder_btn {
+    width: 100%;
+    margin-top: 6px;
+    border-radius: 0 !important;
+  }
+
+  .infoWrap {
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  .sub-order-dropdown-heading {
+    color: #4da4e0;
+  }
+}
+
+.sub-accordian-heading {
+  font-size: 15px !important;
+  font-weight: 300 !important;
+}
+
+.total_amount_display {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.btn .btn-link {
+  margin-bottom: -12px !important;
+}
+
+.btn .btn-link {
+  margin-bottom: -12px;
+}
+
+.itemNumber {
+  font-size: 12px;
+}
+
+.itemNumber h3 {
+  font-size: 16px;
+}
+
+.cancel_btn {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.btn:after {
+  padding: 0 !important;
 }

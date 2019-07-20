@@ -41,3 +41,16 @@
 .btn-accept {
   margin-top: -29px;
 }
+
+//Mobile view implementation
+@media only screen and (max-width: 768px) {
+  .filter_btn_mobile_view {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 0px;
+  }
+
+  .filter_end_date {
+    margin-top: 8px;
+  }
+}

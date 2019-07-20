@@ -50,7 +50,12 @@ input#search-bar {
 }
 
 .add-btn {
-  width: 44px;
+  font-weight: 300;
+  width: 83px !important;
+  /* background-color: #d20c0c; */
+  opacity: 1;
+  font-size: 15px;
+  border: 0;
   padding: 5px;
 }
 
@@ -119,8 +124,12 @@ input#search-bar {
 }
 
 .not-btn {
-  width: 78px;
-  background-color: red;
+  width: 91px !important;
+  background-color: #d20c0c;
+  opacity: 1;
+  font-size: 12px;
+  font-weight: 300;
+  border: 0;
 }
 
 //Mobile view placing orders
@@ -351,4 +360,10 @@ div.container .cart2 .cart-bottom {
   display: table;
   width: 50%;
   margin-top: 43px;
+}
+
+.mobile_quantity {
+  border: 1px solid;
+  margin-top: 15px;
+  width: 12%;
 }

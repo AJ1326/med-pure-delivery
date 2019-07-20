@@ -17,6 +17,15 @@
   font-size: 17px;
 }
 
+.nav-item-header-btn {
+  text-decoration: underline;
+}
+
+.nav-item-header-btn:hover {
+  text-decoration: underline;
+  box-shadow: 2px -4px 5px 7px #382f2f12;
+}
+
 //.desktop_view{
 //  display: block !important;
 //}

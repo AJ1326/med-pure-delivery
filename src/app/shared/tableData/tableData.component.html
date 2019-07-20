@@ -5,7 +5,7 @@
       <ng-template ngbPanelTitle>
         <div class="row desktop-view">
           <div class="col-md-2">
-            <span class="sub-accordian-heading">Ordered on</span>
+            <span class="sub-accordian-heading">Order date</span>
           </div>
           <div class="col-md-2">
             <span class="sub-accordian-heading">Amount</span>
@@ -26,7 +26,7 @@
             <span class="sub-accordian-heading">Amount</span>
           </div>
           <div class="col-md-2">
-            <span>{{ order.total_amount }}</span>
+            <span class="total_amount_display">{{ order.total_amount }}</span>
           </div>
         </div>
         <div class="row desktop-view" style="margin-top: 10px;">
@@ -79,7 +79,7 @@
         <div class="wrap cf" style="margin-top: -30px;">
           <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
           <div *ngIf="role_type === 'retailer'" class="heading cf">
-            <h1>Product detail</h1>
+            <h1 class="product_detail">Product detail</h1>
             <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
             <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
             <!--Accepted-->
@@ -91,7 +91,7 @@
             <div style="text-align: right;">
               <button
                 (click)="open(Reorder, order)"
-                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
+                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"
                 type="button"
               >
                 Re-order
@@ -133,7 +133,7 @@
 
                   <div
                     *ngIf="products['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
-                    class="badge badge-retailer-status add-btn"
+                    class="badge badge-retailer-status add-btn cancel_btn"
                     ngbTooltip="Rejected by distributor"
                   >
                     cancelled
