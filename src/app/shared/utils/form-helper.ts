@@ -6,6 +6,7 @@ export class FormHelper {
       if (c instanceof FormGroup || c instanceof FormArray) {
         FormHelper.markAllAsDirty(c);
       } else {
+        // @ts-ignore
         c.markAsDirty();
       }
     });
