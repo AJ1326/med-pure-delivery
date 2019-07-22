@@ -54,7 +54,8 @@ import { HotkeyModule } from 'angular2-hotkeys';
     MessageBarComponent,
     InlineEditComponent,
     TableDataComponent,
-    NgbdSortableHeader
+    NgbdSortableHeader,
+    FormsModule
   ]
 })
 export class SharedModule {}
