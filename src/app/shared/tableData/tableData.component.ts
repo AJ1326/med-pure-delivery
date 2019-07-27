@@ -2,29 +2,34 @@ import {
   Component,
   OnInit,
   Input,
-  Output,
-  EventEmitter,
   OnDestroy,
   ViewChildren,
   QueryList,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Pipe,
+  PipeTransform,
+  AfterViewInit
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NgbdSortableHeader, SortEvent } from '@app/shared/directives/sortable.directive';
+import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
-import { OrderList } from '@app/shared/Interfaces/tableData';
-import {
-  ModalDismissReasons,
-  NgbAccordionConfig,
-  NgbCalendar,
-  NgbDate,
-  NgbDateParserFormatter,
-  NgbModal
-} from '@ng-bootstrap/ng-bootstrap';
-import { finalize } from 'rxjs/operators';
-import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbAccordionConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderListService } from '@app/orderList/order-list.service';
+import { AuthenticationService } from '@app/core';
+
+@Pipe({ name: 'changeDateFormat' })
+export class ChangeDateFormat implements PipeTransform {
+  transform(value: string): string {
+    console.log(value, 'value');
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate = new Date(value);
+    const secondDate = new Date();
+    console.log(firstDate.getTime(), 'firstDate.getTime()');
+    console.log(secondDate.getTime(), 'secondDate.getTime()');
+    const pendingMedicineDate = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
+    return pendingMedicineDate.toString();
+  }
+}
 
 @Component({
   selector: 'app-table',
@@ -32,16 +37,16 @@ import { OrderListService } from '@app/orderList/order-list.service';
   styleUrls: ['./tableData.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TableDataComponent implements OnInit, OnDestroy {
+export class TableDataComponent implements OnInit {
   disabled = false;
   closeResult: string;
-  orderlist$: Observable<OrderList[]>;
   total$: Observable<number>;
-  modalReference: any;
   isLoading = true;
-  alert_message: string;
   orderListDataFilter: any;
   rejectOrderModel: any;
+  filter_type = 'pending-order-list';
+  user_info: any;
+  // pendingMedicineDate: any;
 
   //  Order data
   orderListData: any = [];
@@ -55,25 +60,27 @@ export class TableDataComponent implements OnInit, OnDestroy {
     config: NgbAccordionConfig,
     private modalService: NgbModal,
     private orderListService: OrderListService,
-    calendar: NgbCalendar,
-    public tableDataService: TableDataService
+    public tableDataService: TableDataService,
+    public authenticationService: AuthenticationService
   ) {
     tableDataService.orderlist$.subscribe((data: any) => {
+      console.log('orderlist$------->>', data);
       this.orderListData = data;
     });
 
-    console.log('fuck you:  ', this.orderListData);
+    tableDataService.filterTypeValue.subscribe(value => {
+      console.log('---------d-----d---> ', value);
+      this.filter_type = value;
+    });
+
     this.total$ = tableDataService.total$;
     config.closeOthers = true;
     config.type = 'info';
-    //  this.tableDataService.getOrderList(this.orderListData);
-    console.log('role_type', this.orderListData);
-    //  date
   }
 
-  ngOnInit() {}
-
-  ngOnDestroy(): void {}
+  ngOnInit() {
+    this.user_info = this.authenticationService.userInfo();
+  }
 
   open(content: any, data?: any) {
     this.orderListDataFilter = data;
@@ -122,7 +129,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
       let row = '';
 
       //  This loop will extract the label from 1st index of on array
-      for (let index in arrData[0]) {
+      for (const index in arrData[0]) {
         //  Now convert each value to string and comma-seprated
         row += index + ',';
       }
@@ -134,11 +141,11 @@ export class TableDataComponent implements OnInit, OnDestroy {
     }
 
     // 1st loop is to extract each row
-    for (var i = 0; i < arrData.length; i++) {
+    for (let i = 0; i < arrData.length; i++) {
       let row = '';
 
       // 2nd loop will extract each column and convert it in string comma-seprated
-      for (let index in arrData[i]) {
+      for (const index in arrData[i]) {
         row += '"' + arrData[i][index] + '",';
       }
 
@@ -159,7 +166,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
     fileName += ReportTitle.replace(/ /g, '_');
 
     // Initialize file format you want csv or xls
-    let uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+    const uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
 
     //  Now the little tricky part.
     //  you can use either>> window.open(uri);
@@ -167,7 +174,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
     //  or you will not get the correct file extension
 
     // this trick will generate a temp <a /> tag
-    let link = document.createElement('a');
+    const link = document.createElement('a');
     link.href = uri;
 
     // set the visibility hidden so it will not effect on your web-layout
@@ -180,68 +187,4 @@ export class TableDataComponent implements OnInit, OnDestroy {
     link.click();
     document.body.removeChild(link);
   }
-
-  //  private receiveMessage(accept_type: any): void {
-  //    if (accept_type === 'Yes') {
-  //      this.submitOrder();
-  //    }
-  //  }
-
-  //  private submitOrder(order: any): void {
-  //    order.map((data: any) => {
-  //      delete data['company'];
-  //      delete data['discount'];
-  //      data['distributor'] = data['distributor_slug'];
-  //      data['product'] = data['product_slug'];
-  //      delete data['mrp'];
-  //      delete data['distributor_slug'];
-  //      delete data['product_slug'];
-  //      delete data['pack'];
-  //      delete data['rate'];
-  //      delete data['rating'];
-  //      delete data['pack'];
-  //      delete data['vat'];
-  //      delete data['uuid'];
-  //      data['quantity'] = data['stock'];
-  //      delete data['stock'];
-  //    });
-  //    this.distributorService
-  //      .orderListPlaced(order)
-  //      .pipe(
-  //        finalize(() => {
-  //          this.isLoading = false;
-  //        })
-  //      )
-  //      .subscribe(
-  //        (data: []) => {
-  //          //  this.reOrderList = [];
-  //          this.alert_message = 'Your order has been placed.';
-  //        },
-  //        error => {
-  //          this.alert_message = 'Some error is occurred.';
-  //        }
-  //      );
-  //  }
-  //
-  //  private OrderList(): void {
-  //    this.tableDataService._search();
-  //      //  .pipe(
-  //      //    finalize(() => {
-  //      //      this.isLoading = false;
-  //      //    })
-  //      //  )
-  //      //  .subscribe(
-  //      //    (data: []) => {
-  //      //      this.retailorderList = data['results'];
-  //      //      this.pageCount = data['results'];
-  //      //      console.log(this.retailorderList);
-  //      //      this.success_message = 'Your order has been placed.';
-  //      //    },
-  //      //    (error: any) => {
-  //      //      //  log.debug(`Login error: ${error}`);
-  //      //      this.error = error;
-  //      //      this.success_message = 'Some error is occurred.';
-  //      //    }
-  //      //  );
-  //  }
 }

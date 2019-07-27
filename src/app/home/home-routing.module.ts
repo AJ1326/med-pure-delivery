@@ -8,7 +8,25 @@ import { Shell } from '@app/shell/shell.service';
 const routes: Routes = [
   Shell.retailerShell([
     { path: '', redirectTo: '/retailer/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
+    {
+      path: 'home',
+      component: HomeComponent,
+      // children: [
+      //   {
+      //     path:  'by-distributor',
+      //     component:  HomeComponent
+      //   },
+      //   {
+      //     path:  'all-orders',
+      //     component:  HomeComponent
+      //   },
+      //   {
+      //     path:  'pending-orders',
+      //     component:  HomeComponent
+      //   }
+      // ],
+      data: { title: extract('Home') }
+    }
   ]),
   Shell.distributorShell([
     { path: '', redirectTo: '/distributor/home', pathMatch: 'full' },

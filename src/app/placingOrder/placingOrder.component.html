@@ -91,12 +91,15 @@
                                 then content;
                                 else other_btn_content
                               "
-                            ></div>
-                            <ng-template #content [ngClass]="dist.stock <= 0 ? 'not-btn' : 'add-btn'">
+                            >
+                              <!--<span></span>-->
+                            </div>
+                            <ng-template #content>
                               <button
                                 style="width: 100%; margin-top: -12px;"
-                                class="btn btn-inverse-dark btn-fw btn-submit"
+                                class="btn btn-fw btn-submit btn-inverse-dark"
                                 type="button"
+                                disabled
                               >
                                 {{ dist.stock <= 0 ? 'Not available' : 'Add' }}
                               </button>
@@ -203,7 +206,7 @@
                             </span>
                           </div>
                         </div>
-                        <span class="col-xs-2" style="z-index: 9999; margin-top: -2px;">
+                        <span class="col-xs-2" style="z-index: 9999;padding-top: 7px;">
                           <input
                             class="mobile_quantity"
                             type="number"
@@ -266,6 +269,22 @@
               <ng-template #emptyCart>
                 <img class="mobile_empty_images" src="../../assets/images/empty_cart.svg" />
               </ng-template>
+              <div
+                class="row btn-order-submit"
+                *ngIf="order_list.length > 0 && show_order_qauntity_error_index.length == 0"
+              >
+                <button
+                  class="btn btn-inverse-dark btn-fw btn-submit"
+                  type="button"
+                  (click)="callAlertModal(alertModal)"
+                >
+                  Submit
+                </button>
+              </div>
+
+              <div class="row btn-order-submit btn-submit-disabled" *ngIf="show_order_qauntity_error_index.length > 0">
+                <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" disabled>Submit</button>
+              </div>
             </ng-template>
           </ngb-tab>
         </ngb-tabset>

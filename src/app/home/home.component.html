@@ -1,8 +1,31 @@
 <div class="content-wrapper back_img">
   <!--Retailer Filter-->
   <div *ngIf="role_type === 'retailer'" class="row">
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('order-list')">
-      <div id="order-list" class="card card-statistics active_card">
+    <div
+      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
+      (click)="selectFilterCard('pending-order-list')"
+    >
+      <div id="pending-order-list" class="card card-statistics active_card">
+        <div class="card-body">
+          <div class="clearfix">
+            <div class="float-left">
+              <i class="mdi mdi-receipt text-warning icon-lg"></i>
+            </div>
+            <div class="float-right">
+              <p class="mb-0 text-right">Pending orders</p>
+              <div class="fluid-container">
+                <h3 class="font-weight-medium text-right mb-0">500</h3>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted mt-3 mb-0">
+            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i>By Products
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('by-source')">
+      <div id="by-source" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -16,175 +39,145 @@
             </div>
           </div>
           <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Total order placed
+            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i>By Distributor
           </p>
         </div>
       </div>
     </div>
     <div
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('re-order-list')"
+      (click)="selectFilterCard('all-order-list')"
     >
-      <div id="re-order-list" class="card card-statistics">
-        <div class="card-body">
-          <div class="clearfix">
-            <div class="float-left">
-              <i class="mdi mdi-receipt text-warning icon-lg"></i>
-            </div>
-            <div class="float-right">
-              <p class="mb-0 text-right">Fast moving</p>
-              <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">500</h3>
-              </div>
-            </div>
-          </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Fast moving products
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('open-order-list')"
-    >
-      <div id="open-order-list" class="card card-statistics">
+      <div id="all-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-poll-box text-success icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Open orders</p>
+              <p class="mb-0 text-right">Order placed</p>
               <div class="fluid-container">
                 <h3 class="font-weight-medium text-right mb-0">5</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Pending orders</p>
+          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i>By Products</p>
         </div>
       </div>
     </div>
     <div
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('closed-order-list')"
+      (click)="selectFilterCard('fast-moving-order-list')"
     >
-      <div id="closed-order-list" class="card card-statistics">
+      <div id="fast-moving-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-account-location text-info icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Canceled orders</p>
+              <p class="mb-0 text-right">List of fast moving products</p>
               <div class="fluid-container">
                 <h3 class="font-weight-medium text-right mb-0">7</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> List of canceled orders
-          </p>
+          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-reload mr-1" aria-hidden="true"></i>By Product</p>
         </div>
       </div>
     </div>
   </div>
   <div *ngIf="role_type === 'distributor'" class="row">
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('order-list')">
-      <div id="order-list" class="card card-statistics active_card">
+    <div
+      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
+      (click)="selectFilterCard('pending-order-list')"
+    >
+      <div id="pending-order-list" class="card card-statistics active_card">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-cube text-danger icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">List of orders</p>
+              <p class="mb-0 text-right">Pending orders</p>
               <div class="fluid-container">
                 <h3 class="font-weight-medium text-right mb-0">1067</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Total order placed
-          </p>
+          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i>By Products</p>
         </div>
       </div>
     </div>
-    <div
-      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('re-order-list')"
-    >
-      <div id="re-order-list" class="card card-statistics">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('by-source')">
+      <div id="by-source" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-receipt text-warning icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Fast moving</p>
+              <p class="mb-0 text-right">List of orders</p>
               <div class="fluid-container">
                 <h3 class="font-weight-medium text-right mb-0">500</h3>
               </div>
             </div>
           </div>
           <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Fast moving products
+            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i>By Retailer
           </p>
         </div>
       </div>
     </div>
     <div
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('open-order-list')"
+      (click)="selectFilterCard('all-order-list')"
     >
-      <div id="open-order-list" class="card card-statistics">
+      <div id="all-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-poll-box text-success icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Open orders</p>
+              <p class="mb-0 text-right">Order placed</p>
               <div class="fluid-container">
                 <h3 class="font-weight-medium text-right mb-0">5</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Pending orders</p>
+          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i>By Products</p>
         </div>
       </div>
     </div>
     <div
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('closed-order-list')"
+      (click)="selectFilterCard('fast-moving-order-list')"
     >
-      <div id="closed-order-list" class="card card-statistics">
+      <div id="fast-moving-order-list" class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
               <i class="mdi mdi-account-location text-info icon-lg"></i>
             </div>
             <div class="float-right">
-              <p class="mb-0 text-right">Canceled orders</p>
+              <p class="mb-0 text-right">Fast moving products</p>
               <div class="fluid-container">
                 <h3 class="font-weight-medium text-right mb-0">7</h3>
               </div>
             </div>
           </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> List of canceled orders
-          </p>
+          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-reload mr-1" aria-hidden="true"></i>By Product</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!--Retailer Page-->
-  <app-retailer-order-list
-    *ngIf="role_type === 'retailer'"
-    [orderListByFilterData]="filterCard"
-  ></app-retailer-order-list>
+  <router-outlet>
+    <!--Retailer Page-->
+    <app-retailer-order-list *ngIf="role_type === 'retailer'"></app-retailer-order-list>
 
-  <!--Distributor Page-->
-  <app-order-list *ngIf="role_type === 'distributor'"></app-order-list>
+    <!--Distributor Page-->
+    <app-order-list *ngIf="role_type === 'distributor'"></app-order-list>
+  </router-outlet>
 </div>

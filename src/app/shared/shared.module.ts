@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { InlineEditComponent } from '@app/shared/inline-edit-component/inline-edit.component';
 import { FormsModule } from '@angular/forms';
-import { TableDataComponent } from '@app/shared/tableData/tableData.component';
+import { ChangeDateFormat, TableDataComponent } from '@app/shared/tableData/tableData.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
@@ -31,6 +31,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
   declarations: [
     LoaderComponent,
     RatingComponent,
+    ChangeDateFormat,
     AlertmodalComponent,
     MessageBarComponent,
     InlineEditComponent,

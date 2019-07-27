@@ -55,6 +55,7 @@ export class TableDataService {
   private _search$ = new Subject<void>();
   private _orderlist$ = new BehaviorSubject<OrderList[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private _filterType$ = new BehaviorSubject<string>('pending-order-list');
   private role_type: string;
 
   private _state: State = {
@@ -105,6 +106,10 @@ export class TableDataService {
   get orderlist$() {
     return this._orderlist$.asObservable();
   }
+  get filterTypeValue() {
+    console.log('this._filterType.value', this._filterType$);
+    return this._filterType$.asObservable();
+  }
   get total$() {
     return this._total$.asObservable();
   }
@@ -127,6 +132,16 @@ export class TableDataService {
   //   return this._state.searchTerm;
   // }
 
+  SetfilterTypeValue(_filterType$: string) {
+    // this._set({ _filterType$ });
+    // return this._filterType$.asObservable();
+    const endDate: any = null;
+    const startDate: any = null;
+    const page = 1;
+    this._filterType$.next(_filterType$);
+    this._set({ endDate, startDate, page });
+  }
+
   set page(page: number) {
     this._set({ page });
   }
@@ -143,6 +158,7 @@ export class TableDataService {
   }
   updateDate(startDate: string, endDate: string) {
     const page = 1;
+    // this._filterType$.next(filterType);
     this._set({ endDate, startDate, page });
   }
   // set searchTerm(searchTerm: string) {
@@ -162,12 +178,15 @@ export class TableDataService {
   public _search(): Observable<SearchResult> {
     const { pageSize, page, startDate, endDate } = this._state;
 
-    let order_lists: any = [];
-    let total = 0;
+    const order_lists: any = [];
+    const total = 0;
+    this._orderlist$.next([]);
     this.role_type = this.authenticationService.userInfoType();
+    // this._filterType$.next(filter_type);
+    console.log('this._filterType lololololol', this._filterType$.value);
 
     this.orderListRetailerService
-      .orderListData(this.startDate, this.endDate, this.page, this.pageSize, this.role_type)
+      .orderListData(this.startDate, this.endDate, this.page, this.pageSize, this.role_type, this._filterType$.value)
       .pipe(
         finalize(() => {
           // this.isLoading = false;
@@ -175,6 +194,7 @@ export class TableDataService {
       )
       .subscribe(
         (data: []) => {
+          console.log("data['results']", data['results']);
           this._orderlist$.next(data['results']);
           this._total$.next(data['count']);
         },

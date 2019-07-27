@@ -1,6 +1,5 @@
 .order_list {
   padding: 2%;
-  margin-top: 47px;
 }
 
 .order-list-header {
@@ -40,18 +39,29 @@
 }
 
 .btn-accept {
-  margin-top: -29px;
+  //margin-top: -29px;
 }
 
 //Mobile view implementation
 @media only screen and (max-width: 768px) {
   .filter_btn_mobile_view {
-    margin-top: 10px;
+    padding-top: 2%;
     width: 100%;
     border-radius: 0;
   }
 
   .filter_end_date {
-    margin-top: 8px;
+    padding-top: 2%;
+  }
+
+  .filter_btn {
+    padding-top: 2%;
+  }
+}
+
+@media only screen and (max-width: 1130px) {
+  .order_list {
+    padding: 0;
+    margin-top: 45px;
   }
 }

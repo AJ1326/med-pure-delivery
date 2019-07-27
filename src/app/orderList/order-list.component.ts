@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { environment } from '@env/environment';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
@@ -11,13 +11,13 @@ import { TableDataService } from '@app/shared/tableData/tableData.service';
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnChanges, OnInit {
   version: string = environment.version;
   success_message: string;
   isLoading: false;
   error: string;
   distributorOrderList: any[];
-  //Date
+  // Date
   displayMonths = 1;
   navigation = 'select';
   showWeekNumbers = false;
@@ -25,15 +25,31 @@ export class OrderListComponent implements OnInit {
   startDate: any;
   endDate: any;
   pageCount = 0;
+  filter_type_value: any;
 
+  @Input() orderListByFilterData: string;
   constructor(private orderListDistributorService: OrderListService, private tableservice: TableDataService) {
     tableservice.orderlist$.subscribe(data => {
       this.distributorOrderList = data;
     });
+    tableservice.filterTypeValue.subscribe(data => {
+      this.filter_type_value = data;
+    });
   }
 
   ngOnInit() {
+    // this.tableservice._search(this.orderListByFilterData);
+    // console.log('orderListByFilterData', this.orderListByFilterData);
     this.tableservice._search();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // const orderListByFilterData: SimpleChange = changes.orderListByFilterData;
+    // console.log('prev value: ', orderListByFilterData.previousValue);
+    // console.log('got name: ', orderListByFilterData.currentValue);
+    // this.filter_type_value = orderListByFilterData.currentValue;
+    // this.tableservice._search(this.filter_type_value);
+    // this.orderListByFilterData = ;
   }
 
   public changeStartDate(date: any): void {
