@@ -5,7 +5,11 @@
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
       (click)="selectFilterCard('pending-order-list')"
     >
-      <div id="pending-order-list" class="card card-statistics active_card">
+      <div
+        id="pending-order-list"
+        [ngClass]="activeCard === 'pending-order-list' ? 'card card-statistics active_card' : 'card card-statistics'"
+        class=""
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -25,7 +29,10 @@
       </div>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('by-source')">
-      <div id="by-source" class="card card-statistics">
+      <div
+        id="by-source"
+        [ngClass]="activeCard === 'by-source' ? 'card card-statistics active_card' : 'card card-statistics'"
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -48,7 +55,10 @@
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
       (click)="selectFilterCard('all-order-list')"
     >
-      <div id="all-order-list" class="card card-statistics">
+      <div
+        id="all-order-list"
+        [ngClass]="activeCard === 'all-order-list' ? 'card card-statistics active_card' : 'card card-statistics'"
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -69,7 +79,12 @@
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
       (click)="selectFilterCard('fast-moving-order-list')"
     >
-      <div id="fast-moving-order-list" class="card card-statistics">
+      <div
+        id="fast-moving-order-list"
+        [ngClass]="
+          activeCard === 'fast-moving-order-list' ? 'card card-statistics active_card' : 'card card-statistics'
+        "
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -92,7 +107,10 @@
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
       (click)="selectFilterCard('pending-order-list')"
     >
-      <div id="pending-order-list" class="card card-statistics active_card">
+      <div
+        id="pending-order-list"
+        [ngClass]="activeCard === 'pending-order-list' ? 'card card-statistics active_card' : 'card card-statistics'"
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -110,7 +128,10 @@
       </div>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('by-source')">
-      <div id="by-source" class="card card-statistics">
+      <div
+        id="by-source"
+        [ngClass]="activeCard === 'by-source' ? 'card card-statistics active_card' : 'card card-statistics'"
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -133,7 +154,10 @@
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
       (click)="selectFilterCard('all-order-list')"
     >
-      <div id="all-order-list" class="card card-statistics">
+      <div
+        id="all-order-list"
+        [ngClass]="activeCard === 'all-order-list' ? 'card card-statistics active_card' : 'card card-statistics'"
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
@@ -154,7 +178,12 @@
       class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
       (click)="selectFilterCard('fast-moving-order-list')"
     >
-      <div id="fast-moving-order-list" class="card card-statistics">
+      <div
+        id="fast-moving-order-list"
+        [ngClass]="
+          activeCard === 'fast-moving-order-list' ? 'card card-statistics active_card' : 'card card-statistics'
+        "
+      >
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">

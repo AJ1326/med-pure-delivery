@@ -33,10 +33,15 @@ export class OrderListRetailerComponent implements OnInit, AfterViewInit {
       console.log('retiler list : ', data);
       this.retailorderList = data;
     });
+    tableservice.filterTypeValue.subscribe(data => {
+      this.filter_type_value = data;
+      this.startDate = undefined;
+      this.endDate = undefined;
+    });
   }
 
   ngOnInit() {
-    this.tableservice.SetfilterTypeValue(this.filter_type_value);
+    // this.tableservice.SetfilterTypeValue(this.filter_type_value);
   }
 
   formatDate(date: any) {
@@ -71,10 +76,10 @@ export class OrderListRetailerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.tableservice.filterTypeValue.subscribe(data => {
-      this.filter_type_value = data;
-      this.startDate = undefined;
-      this.endDate = undefined;
-    });
+    // this.tableservice.filterTypeValue.subscribe(data => {
+    //   this.filter_type_value = data;
+    //   this.startDate = undefined;
+    //   this.endDate = undefined;
+    // });
   }
 }

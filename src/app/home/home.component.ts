@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   // private filterCard = new BehaviorSubject<string>('');
   user_info: any = [];
   role_type: string;
+  activeCard: string;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -33,24 +34,30 @@ export class HomeComponent implements OnInit {
     // this.tableservice.filterTypeValue.subscribe((data: any) => {
     //   if (data) {
     //     console.log('------------------->: ', data, typeof data);
-    //     this.selectFilterCard(data);
+    this.selectFilterCard('pending-order-list');
     //   }
     // });
   }
 
   selectFilterCard(id_value: string, send_to_service?: true): void {
-    const filterCardArray = ['all-order-list', 'pending-order-list', 'by-source', 'fast-moving-order-list'];
-    const index = filterCardArray.indexOf(id_value);
-    if (index > -1) {
-      filterCardArray.splice(index, 1);
-    }
-    for (let i = 0; i < filterCardArray.length; i++) {
-      const remove_element = document.getElementById(filterCardArray[i]);
-      remove_element.classList.remove('active_card');
-      // remove_element ? remove_element.classList.remove('active_card') : console.log('hh') ;
-    }
-    const add_element = document.getElementById(id_value);
-    add_element.classList.add('active_card');
+    console.log('selectFilterCard', id_value);
+    this.activeCard = id_value;
+    // const filterCardArray = ['all-order-list', 'pending-order-list', 'by-source', 'fast-moving-order-list'];
+    // const index = filterCardArray.indexOf(id_value);
+    // if (index > -1) {
+    //   console.log('index', index);
+    //   filterCardArray.splice(index, 1);
+    // }
+    // console.log('filterCardArray', filterCardArray);
+    // for (let i = 0; i < filterCardArray.length; i++) {
+    //   // const remove_element = ;
+    //   const remove_element: HTMLElement | null = document.getElementById(filterCardArray[i])!;
+    //   console.log('remove_element', remove_element);
+    //   remove_element.classList.remove('active_card');
+    //   // remove_element ? remove_element.classList.remove('active_card') : console.log('hh') ;
+    // }
+    // const add_element = document.getElementById(id_value);
+    // add_element.classList.add('active_card');
     // add_element ? add_element.classList.add('active_card') :  console.log('hh') ;
     // if (send_to_service) {
     this.tableservice.SetfilterTypeValue(id_value);
