@@ -18,9 +18,10 @@ import { BoardingShellComponent } from '@app/shell/boarding/onboardshell.compone
 import { OnboardheaderComponent } from '@app/shell/boarding/header/onboardheader.component';
 import { OnboardingComponent } from '@app/shell/onboarding/onboarding.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, NgbModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, TranslateModule, NgbModule, RouterModule, FormsModule, ReactiveFormsModule, SharedModule],
   declarations: [
     HeaderComponent,
     ShellComponent,

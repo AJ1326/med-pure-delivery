@@ -148,6 +148,57 @@ export class ProviderDataValidators {
     };
   }
 
+  static ageCheck(msg = 'This field is required.'): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const vals = control.value.split('-');
+      const db = new Date(vals[0], vals[1] - 1, vals[2], 0, 0, 0, 0);
+      const ageDifMs = Date.now() - db.getTime();
+      const ageDate = new Date(ageDifMs); // miliseconds from epoch
+      const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+      console.log('aaa: ', age);
+
+      if (
+        age < 13 ||
+        control.value === '' ||
+        control.value === undefined ||
+        control.value === null ||
+        control.value.toString().length === 0
+      ) {
+        return { age: { msg: msg } };
+      } else if (control.value['id'] === null) {
+        return { age: { msg: msg } };
+      } else {
+        return null;
+      }
+    };
+  }
+
+  static completeDate(msg = 'This field is required.'): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const vals: any = [];
+      control.value.split('-').forEach((element: any) => {
+        if (element && element !== 0 && element !== undefined && element !== 'undefined') {
+          console.log('added :', element);
+          vals.push(element);
+        }
+      });
+      if (
+        vals.length < 3 ||
+        control.value === '' ||
+        control.value === undefined ||
+        control.value === null ||
+        control.value.toString().length === 0
+      ) {
+        return { required: { msg: msg } };
+      } else if (control.value['id'] === null) {
+        return { required: { msg: msg } };
+      } else {
+        return null;
+      }
+    };
+  }
+
   static atleastOneContactType(msg = 'This field is required.'): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const contactTypeGroup = control as FormGroup;
@@ -176,6 +227,16 @@ export class ProviderDataValidators {
       return null;
     };
   }
+
+  // static checkPasswords(group: FormGroup): ValidatorFn {
+  //   const pass = group.controls.password.value;
+  //   const confirmPass = group.controls.confirm_password.value;
+  //   return (value: any): { [key: string]: any } | null => {
+  //     if (pass === confirmPass) {
+  //       return { requiredTrue: { value: value } };
+  //     }
+  //     return null;
+  //   };
 
   static requiredFalse(): ValidatorFn {
     return (value: any): { [key: string]: any } | null => {
