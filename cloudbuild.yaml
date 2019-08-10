@@ -8,11 +8,11 @@ steps:
         '--build-arg',
         'GIT_HASH=$SHORT_SHA',
         '-t',
-        'gcr.io/${PROJECT_ID}/medpure-ui:${_VERSION}$SHORT_SHA',
+        'gcr.io/${PROJECT_ID}/med-pure-ui:${_VERSION}$SHORT_SHA',
         '.',
       ]
 images:
-  - 'gcr.io/${PROJECT_ID}/medpure-ui:${_VERSION}$SHORT_SHA'
+  - 'gcr.io/${PROJECT_ID}/med-pure-ui:${_VERSION}$SHORT_SHA'
 substitutions:
   _ENVIRONMENT: qa
   _VERSION: ''
