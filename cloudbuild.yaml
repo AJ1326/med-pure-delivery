@@ -1,0 +1,19 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      [
+        'build',
+        '--build-arg',
+        'BUILD_COMMAND=${_ENVIRONMENT}',
+        '--build-arg',
+        'GIT_HASH=$SHORT_SHA',
+        '-t',
+        'gcr.io/${PROJECT_ID}/medpure-ui:${_VERSION}$SHORT_SHA',
+        '.',
+      ]
+images:
+  - 'gcr.io/${PROJECT_ID}/medpure-ui:${_VERSION}$SHORT_SHA'
+substitutions:
+  _ENVIRONMENT: qa
+  _VERSION: ''
+timeout: 1200s

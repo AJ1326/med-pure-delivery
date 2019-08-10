@@ -9,7 +9,7 @@
     "build:qa": "npm run env -s && ng build --configuration qa",
     "build:dev": "npm run env -s && ng build --configuration dev",
     "build:prod": "npm run env -s && ng build --prod --aot",
-    "start": "npm run env -s && ng serve  --configuration local",
+    "start": "npm run env -s && ng serve",
     "start:qa": "npm run env -s && ng serve  --configuration qa --aot",
     "start:dev": "npm run env -s && ng serve  --configuration dev --aot",
     "start:prod": "npm run env -s && ng serve  --configuration production --aot",
