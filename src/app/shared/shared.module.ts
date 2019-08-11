@@ -3,7 +3,7 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 
 import { LoaderComponent } from './loader/loader.component';
 import { RatingComponent } from '@app/shared/Rating/rating.component';
-import { NgbModule, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbRatingConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { AlertmodalComponent } from '@app/shared/alertModal/alertmodal.component';
 import { MessageBarComponent } from '@app/shared/message-bar/message-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -55,7 +55,9 @@ import { HotkeyModule } from 'angular2-hotkeys';
     MessageBarComponent,
     InlineEditComponent,
     TableDataComponent,
-    NgbdSortableHeader
+    NgbdSortableHeader,
+    FormsModule,
+    NgbModule
   ]
 })
 export class SharedModule {}

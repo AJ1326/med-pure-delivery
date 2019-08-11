@@ -22,9 +22,24 @@
   <div class="container-fluid page-body-wrapper">
     <app-sidebar class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
     <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
-      <div id="mySidenav" class="sidenav">
-        <a (click)="openNotes()" id="notes">Notes</a>
+      <div
+        id="freshwidget-button"
+        data-html2canvas-ignore="true"
+        class="freshwidget-button fd-btn-right"
+        style="display: none;top: 134px;"
+      >
+        <a
+          href="javascript:void(0)"
+          (click)="openNotes()"
+          class="freshwidget-theme"
+          style="color: black;background-color: rgba(220, 53, 69, 0.78);border-color: black;"
+        >
+          Notes
+        </a>
       </div>
+      <!--      <div id="mySidenav" class="sidenav">-->
+      <!--        <a  id="notes">Notes</a>-->
+      <!--      </div>-->
       <router-outlet></router-outlet>
       <app-footer></app-footer>
     </div>

@@ -154,6 +154,9 @@
           <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
             Email address is incorrect.
           </div>
+          <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
+            Password reset e-mail has been sent.
+          </div>
           <fieldset class="forms_fieldset">
             <div class="forms_field">
               <input
@@ -216,6 +219,24 @@
                 translate
               >
                 Email is required
+              </small>
+            </div>
+            <div class="forms_field">
+              <input
+                type="text"
+                class="form-control forms_field-input"
+                formControlName="full_name"
+                autocomplete="email"
+                [placeholder]="'Full Name' | translate"
+                required
+                autofocus
+              />
+              <small
+                [hidden]="signUpForm.controls.full_name.valid || signUpForm.controls.full_name.untouched"
+                class="text-danger"
+                translate
+              >
+                Full Name is required
               </small>
             </div>
             <div class="forms_field">

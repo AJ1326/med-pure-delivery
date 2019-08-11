@@ -9,8 +9,9 @@ export const URLS = {
   LOGIN_API: `rest-auth/login/`,
   USER_INFO_API: `user/`,
   ON_BOARD_API: `user_onboard/`,
-  FORGOT_PASSWORD_API: `rest-auth/sign-up/`,
+  FORGOT_PASSWORD_API: `rest-auth/password/reset/`,
   REFRESH_TOKEN: `token-refresh/`,
+  CHANGE_PASSWORD_API: `rest-auth/password/change/`,
 
   // List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
