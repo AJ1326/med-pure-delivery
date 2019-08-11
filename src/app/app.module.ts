@@ -38,6 +38,8 @@ import { UploadRoutingModule } from '@app/upload/upload-routing.module';
 import { PlacingOrderRoutingModule } from '@app/placingOrder/placingOrder-routing.module';
 import { AboutRoutingModule } from '@app/about/about-routing.module';
 import { PwaService } from '@app/pwa.service';
+import { SavingNotesRoutingModule } from '@app/saving-notes/saving-notes-routing.module';
+import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
 
 @NgModule({
   imports: [
@@ -61,12 +63,14 @@ import { PwaService } from '@app/pwa.service';
     PlacingOrderModule,
     ProfileModule,
     UploadModule,
+    SavingNotesModule,
     ComingSoonModule,
     ProfileRoutingModule,
     UploadRoutingModule,
     AboutRoutingModule,
     ComingSoonRoutingModule,
     PlacingOrderRoutingModule,
+    SavingNotesRoutingModule,
     HomeRoutingModule,
     ChangePasswordModule, // must be imported as the last module as it contains the fallback route,
     AppRoutingModule
