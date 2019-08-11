@@ -46,7 +46,7 @@ export class Shell {
       path: 'boarding',
       component: BoardingShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard],
+      canActivate: [],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }

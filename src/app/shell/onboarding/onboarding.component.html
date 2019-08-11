@@ -7,9 +7,9 @@
 <div class="card w-75 box-shadow-boarding" id="rForm">
   <div>
     <div class="card-body">
-      <form id="regForm" [formGroup]="onBoardingForm" action="">
-        <!-- One "tab" for each step in the form: -->
-        <div class="tab">
+      <!-- One "tab" for each step in the form: -->
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img class="on_boarding_profile_icons" src="../../../assets/images/onboarding/profiile.svg" />
           </div>
@@ -49,25 +49,46 @@
             <!--<div *ngIf="onBoardingForm.controls.lastName.errors.required">Last Name is required</div>-->
             <!--</div>-->
           </div>
-        </div>
+        </form>
+      </div>
 
-        <div class="tab">
-          <div>
-            <img
-              class="on_boarding_profile_icons"
-              style="width: 64% !important;"
-              src="../../../assets/images/onboarding/onboard_birthday.svg"
-            />
-          </div>
-          <div style="margin-top: 25px">
-            <span class="onboarding_birthday">Your birthday is important for us !!</span>
+      <div class="tab">
+        <div>
+          <img
+            class="on_boarding_profile_icons"
+            style="width: 64% !important;"
+            src="../../../assets/images/onboarding/onboard_birthday.svg"
+          />
+        </div>
+        <div style="margin-top: 25px">
+          <span class="onboarding_birthday">Your birthday is important for us !!</span>
+
+          <form id="regForm" [formGroup]="onBoardingForm">
+            <div>
+              Birth Day:<span> {{ birthdate.day }} - {{ birthdate.month }} - {{ birthdate.year }}</span>
+            </div>
             <input
-              type="number"
-              formControlName="day"
+              hidden
+              formControlName="dob"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
-              [min]="1"
-              [max]="2"
+              type="text"
+              placeholder="dob"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.dob.invalid && onBoardingForm.controls.dob.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.dob.errors.required">Birthdate is required</div>
+              <div *ngIf="onBoardingForm.controls.dob.errors.age">Age can not be less that 13 years.</div>
+            </div>
+          </form>
+          <!--
+            <input
+              formControlName="day"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+              [(ngModel)]="birthdate"
               placeholder="dd"
               oninput="this.className = ''"
             />
@@ -77,6 +98,7 @@
             >
               <div *ngIf="onBoardingForm.controls.day.errors.required">Day is required.</div>
             </div>
+            
             <input
               type="number"
               formControlName="month"
@@ -107,10 +129,20 @@
             >
               <div *ngIf="onBoardingForm.controls.year.errors.required">Year is required</div>
             </div>
+            -->
+          <div style="margin:0 auto; display:table;">
+            <ngb-datepicker
+              #dp
+              [(ngModel)]="birthdate"
+              [minDate]="minDate"
+              (navigate)="birthdate = $event.next"
+            ></ngb-datepicker>
           </div>
         </div>
+      </div>
 
-        <div class="tab">
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img
               class="on_boarding_profile_icons"
@@ -149,9 +181,11 @@
               <div *ngIf="onBoardingForm.controls.phone_number.errors.required">Phone number is required</div>
             </div>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <div class="tab">
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img
               class="on_boarding_profile_icons"
@@ -250,32 +284,35 @@
               <div *ngIf="onBoardingForm.controls.zip_code.errors.required">Zip code is required</div>
             </div>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <div class="tab">
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img class="on_boarding_profile_icons" src="../../../assets/images/onboarding/login.svg" />
           </div>
           <div style="margin-top: 25px">
             <span class="onboarding_birthday">Let's get started !!</span>
-            <input
-              formControlName="user_name"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
-              placeholder="Username"
-              oninput="this.className = ''"
-            />
-            <div
-              *ngIf="onBoardingForm.controls.user_name.invalid && onBoardingForm.controls.user_name.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.user_name.errors.required">User name is required</div>
-            </div>
+            <!-- <input
+                formControlName="user_name"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+                placeholder="Username"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.user_name.invalid && onBoardingForm.controls.user_name.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.user_name.errors.required">User name is required</div>
+              </div> -->
             <input
               formControlName="password"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
               placeholder="Password"
+              type="password"
               oninput="this.className = ''"
             />
             <div
@@ -285,6 +322,7 @@
               <div *ngIf="onBoardingForm.controls.password.errors.required">Password is required</div>
             </div>
             <input
+              type="password"
               formControlName="confirm_password"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
@@ -297,26 +335,28 @@
               "
               class="invalid-error-msg"
             >
+              <div *ngIf="onBoardingForm.controls.confirm_password.errors.mustMatch">Passwords are not matching.</div>
               <div *ngIf="onBoardingForm.controls.confirm_password.errors.required">Confirm password is required</div>
             </div>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <div style="overflow:auto;">
-          <div class="form-group" style="float:right; margin-top: 30px">
-            <button type="button" id="prevBtn" (click)="nextPrev(-1)" class="btn btn-outline-dark">Back</button>
-            <button type="button" id="nextBtn" (click)="nextPrev(1)" class="btn btn-outline-success">Save</button>
-          </div>
+      <div style="overflow:auto;">
+        <div class="form-group" style="float:right; margin-top: 30px">
+          <button type="button" id="prevBtn" (click)="nextPrev(-1)" class="btn btn-outline-dark">Back</button>
+          <button type="button" id="nextBtn" (click)="nextPrev(1)" class="btn btn-outline-success">Save</button>
         </div>
+      </div>
 
-        <!-- Circles which indicates the steps of the form: -->
-        <div style="text-align:center;margin-top:40px;">
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-        </div>
-      </form>
+      <!-- Circles which indicates the steps of the form: -->
+      <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+      </div>
     </div>
   </div>
 </div>

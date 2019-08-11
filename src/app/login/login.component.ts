@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   onBoardingSuccess = false;
   loginMobileOpen = false;
   form_type: string;
+  forgrt_email_sent = false;
 
   constructor(
     private router: Router,
@@ -154,7 +155,14 @@ export class LoginComponent implements OnInit {
   // }
 
   signUp() {
-    console.log('this.loginForm.value', this.signUpForm.value);
+    let values = this.signUpForm.value;
+    console.log(this.signUpForm.value);
+    values['first_name'] = values.full_name.split(' ')[0];
+    values['last_name'] = values.full_name
+      .split(' ')
+      .splice(1)
+      .join(' ');
+    delete values.full_name;
     this.isLoading = true;
     this.authenticationService
       .signup(this.signUpForm.value)
@@ -202,6 +210,30 @@ export class LoginComponent implements OnInit {
     return this.i18nService.supportedLanguages;
   }
 
+  forget() {
+    this.forgrt_email_sent = false;
+    console.log('this.loginForm.value', this.forgetPasswordForm.value);
+    this.isLoading = true;
+    this.error = null;
+    const values = this.forgetPasswordForm.value;
+    this.LoginService.forgot(values)
+      .pipe(
+        finalize(() => {
+          this.forgetPasswordForm.markAsPristine();
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        data => {
+          this.forgrt_email_sent = true;
+        },
+        error => {
+          log.debug(`Login error: ${error}`);
+          this.error = error;
+        }
+      );
+  }
+
   private createForm() {
     this.loginForm = this.formBuilder.group({
       // username: ['', Validators.required],
@@ -212,6 +244,7 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required]
     });
     this.signUpForm = this.formBuilder.group({
+      full_name: ['', Validators.required],
       email: ['', Validators.required],
       phone_number: ['', Validators.required],
       user_type: ['']

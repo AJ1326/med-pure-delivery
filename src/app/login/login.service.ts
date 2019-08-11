@@ -25,6 +25,10 @@ export class LoginService {
     return this.http.post(`${URLS.FORGOT_PASSWORD_API}`, payload);
   }
 
+  change_password(payload: any) {
+    return this.http.post(`${URLS.CHANGE_PASSWORD_API}`, payload);
+  }
+
   userinfo() {
     return this.http.get<UserInfo>(`${URLS.USER_INFO_API}`, { withCredentials: true });
   }

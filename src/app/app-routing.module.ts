@@ -8,7 +8,7 @@ import {
   AuthenticationPermissionDistributorGuard,
   AuthenticationPermissionRetailerGuard
 } from '@app/core';
-import { BoardingShellComponent } from '@app/shell/boarding/onboardshell.component';
+import { OnboardingComponent } from './shell/onboarding/onboarding.component';
 
 const routes: Routes = [
   // Shell.distributorShell([
@@ -19,8 +19,8 @@ const routes: Routes = [
   // ]),
   Shell.onboardingShell([
     {
-      path: 'boarding',
-      component: BoardingShellComponent
+      path: ':id',
+      component: OnboardingComponent
     }
   ]),
   { path: '', redirectTo: 'login', pathMatch: 'full' },
