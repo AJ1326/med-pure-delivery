@@ -225,18 +225,36 @@
               <input
                 type="text"
                 class="form-control forms_field-input"
-                formControlName="full_name"
-                autocomplete="email"
-                [placeholder]="'Full Name' | translate"
+                formControlName="first_name"
+                autocomplete="first_name"
+                [placeholder]="'First Name' | translate"
                 required
                 autofocus
               />
               <small
-                [hidden]="signUpForm.controls.full_name.valid || signUpForm.controls.full_name.untouched"
+                [hidden]="signUpForm.controls.first_name.valid || signUpForm.controls.first_name.untouched"
                 class="text-danger"
                 translate
               >
-                Full Name is required
+                First Name is required
+              </small>
+            </div>
+            <div class="forms_field">
+              <input
+                type="text"
+                class="form-control forms_field-input"
+                formControlName="last_name"
+                autocomplete="last_name"
+                [placeholder]="'Last Name' | translate"
+                required
+                autofocus
+              />
+              <small
+                [hidden]="signUpForm.controls.last_name.valid || signUpForm.controls.last_name.untouched"
+                class="text-danger"
+                translate
+              >
+                Last Name is required
               </small>
             </div>
             <div class="forms_field">

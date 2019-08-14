@@ -157,12 +157,6 @@ export class LoginComponent implements OnInit {
   signUp() {
     let values = this.signUpForm.value;
     console.log(this.signUpForm.value);
-    values['first_name'] = values.full_name.split(' ')[0];
-    values['last_name'] = values.full_name
-      .split(' ')
-      .splice(1)
-      .join(' ');
-    delete values.full_name;
     this.isLoading = true;
     this.authenticationService
       .signup(this.signUpForm.value)
@@ -244,7 +238,8 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required]
     });
     this.signUpForm = this.formBuilder.group({
-      full_name: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       email: ['', Validators.required],
       phone_number: ['', Validators.required],
       user_type: ['']
