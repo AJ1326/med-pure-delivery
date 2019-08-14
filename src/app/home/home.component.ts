@@ -29,12 +29,12 @@ export class HomeComponent implements OnInit {
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    this.tableservice.SetfilterTypeValue('pending-order-list');
+    this.tableservice.SetfilterTypeValue('all-order-list');
     //
     // this.tableservice.filterTypeValue.subscribe((data: any) => {
     //   if (data) {
     //     console.log('------------------->: ', data, typeof data);
-    this.selectFilterCard('pending-order-list');
+    this.selectFilterCard('all-order-list');
     //   }
     // });
   }

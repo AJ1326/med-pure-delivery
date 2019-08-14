@@ -44,7 +44,7 @@ export class TableDataComponent implements OnInit {
   isLoading = true;
   orderListDataFilter: any;
   rejectOrderModel: any;
-  filter_type = 'pending-order-list';
+  filter_type = 'all-order-list';
   user_info: any;
   // pendingMedicineDate: any;
 
@@ -114,7 +114,14 @@ export class TableDataComponent implements OnInit {
   csvDownload(uuid: string): void {
     this.orderListService.downloadCsvDistributor(uuid).subscribe((data: any) => {
       console.log('data', data);
-      this.JSONToCSVConvertor(data, 'Todays order list', true);
+      this.JSONToCSVConvertor(data, 'Todays order list', false);
+    });
+  }
+
+  downLoadOrders(): void {
+    this.orderListService.downloadPendingProductList().subscribe((data: any) => {
+      console.log('data', data);
+      this.JSONToCSVConvertor(data, 'Pending_Orders', true);
     });
   }
 
@@ -122,7 +129,7 @@ export class TableDataComponent implements OnInit {
     //  If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     const arrData = typeof JSONData !== 'object' ? JSON.parse(JSONData) : JSONData;
 
-    let CSV = ',' + '\r\n\n';
+    let CSV = ',' + '\r\n';
 
     //  This condition will generate the Label/Header
     if (ShowLabel) {
@@ -161,7 +168,7 @@ export class TableDataComponent implements OnInit {
     }
 
     // Generate a file name
-    let fileName = 'orderListMedpure_';
+    let fileName = 'Medpure_';
     // this will remove the blank-spaces from the title and replace it with an underscore
     fileName += ReportTitle.replace(/ /g, '_');
 

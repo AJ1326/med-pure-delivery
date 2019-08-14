@@ -55,7 +55,7 @@ export class TableDataService {
   private _search$ = new Subject<void>();
   private _orderlist$ = new BehaviorSubject<OrderList[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  private _filterType$ = new BehaviorSubject<string>('pending-order-list');
+  private _filterType$ = new BehaviorSubject<string>('all-order-list');
   private role_type: string;
 
   private _state: State = {

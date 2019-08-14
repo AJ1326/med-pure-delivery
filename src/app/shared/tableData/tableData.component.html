@@ -68,6 +68,9 @@
           <!--</button>-->
           <!--</div>-->
           <!--</div>-->
+          <div class="arrow">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+          </div>
         </ng-template>
         <!--Mobile view-->
 
@@ -79,28 +82,28 @@
         <ng-template ngbPanelContent>
           <div class="wrap cf">
             <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
-            <div *ngIf="role_type === 'retailer'" class="heading cf">
-              <h1 class="product_detail">Product detail</h1>
-              <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
-              <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
-              <!--Accepted-->
-              <!--</button>-->
-              <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
-              <!--Rejected-->
-              <!--</button>-->
-              <!--</div>-->
-              <div style="text-align: right;">
-                <!--Reorder button for reetailer-->
-                <!--<button-->
-                <!--(click)="open(Reorder, order)"-->
-                <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
-                <!--type="button"-->
-                <!--&gt;-->
-                <!--Re-order-->
-                <!--</button>-->
-                <!--Reorder button ends-->
-              </div>
-            </div>
+            <!--            <div *ngIf="role_type === 'retailer'" class="heading cf">-->
+            <!--              <span class="product_detail">Product detail</span>  -->
+            <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+            <!--Accepted-->
+            <!--</button>-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
+            <!--Rejected-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--              <div style="text-align: right;">-->
+            <!--Reorder button for reetailer-->
+            <!--<button-->
+            <!--(click)="open(Reorder, order)"-->
+            <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
+            <!--type="button"-->
+            <!--&gt;-->
+            <!--Re-order-->
+            <!--</button>-->
+            <!--Reorder button ends-->
+            <!--              </div>-->
+            <!--            </div>-->
             <div class="cart">
               <ul class="cartWrap">
                 <li
@@ -114,7 +117,7 @@
                       <p class="itemNumber">ORDER # {{ order.order_id }}</p>
                       <h3>{{ products['product']['name'] }}</h3>
                       <div class="footer-order-data-sub-details">
-                        <strong class="sub-order-dropdown-heading">Units ordered :</strong
+                        <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
                         ><span class="product-sub-details">{{ products.quantity }}</span>
                         <strong class="sub-order-dropdown-heading">Price:</strong
                         ><i class="fa fa-inr" aria-hidden="true"></i
@@ -246,28 +249,28 @@
         <ng-template ngbPanelContent>
           <div class="wrap cf" style="margin-top: -30px;">
             <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
-            <div *ngIf="role_type === 'retailer'" class="heading cf">
-              <h1 class="product_detail">Product detail</h1>
-              <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
-              <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
-              <!--Accepted-->
-              <!--</button>-->
-              <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
-              <!--Rejected-->
-              <!--</button>-->
-              <!--</div>-->
-              <div style="text-align: right;">
-                <!--Reorder button for retailer-->
-                <!--<button-->
-                <!--(click)="open(Reorder, order)"-->
-                <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
-                <!--type="button"-->
-                <!--&gt;-->
-                <!--Re-order-->
-                <!--</button>-->
-                <!--Reorder button ends-->
-              </div>
-            </div>
+            <!--            <div *ngIf="role_type === 'retailer'" class="heading cf">-->
+            <!--              <span class="product_detail">Product detail</span>-->
+            <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+            <!--Accepted-->
+            <!--</button>-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
+            <!--Rejected-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--              <div style="text-align: right;">-->
+            <!--Reorder button for retailer-->
+            <!--<button-->
+            <!--(click)="open(Reorder, order)"-->
+            <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
+            <!--type="button"-->
+            <!--&gt;-->
+            <!--Re-order-->
+            <!--</button>-->
+            <!--Reorder button ends-->
+            <!--              </div>-->
+            <!--            </div>-->
             <div class="cart">
               <ul class="cartWrap">
                 <li
@@ -286,7 +289,7 @@
                         *ngFor="let order of dist.order; let i = index"
                         [attr.data-index]="i"
                       >
-                        <strong class="sub-order-dropdown-heading">Units ordered :</strong
+                        <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
                         ><span class="product-sub-details">{{ order.quantity }}</span>
                         <strong class="sub-order-dropdown-heading">Price:</strong
                         ><i class="fa fa-inr" aria-hidden="true"></i
@@ -342,8 +345,8 @@
           <div class="card-body">
             <div class="parent_div">
               <div class="child_div">Pending orders</div>
-              <div class="child_div">
-                <span class="download_csv">
+              <div class="child_div" *ngIf="role_type === 'distributor'">
+                <span class="download_csv" (click)="downLoadOrders()">
                   Download order list <i class="fa fa-download" aria-hidden="true"></i>
                 </span>
                 <!--<button-->
@@ -360,8 +363,15 @@
               <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3" *ngFor="let order of orderListData">
                 <div class="col-md-1">
                   <img
+                    *ngIf="role_type === 'distributor'"
                     class="img-sm rounded-circle mb-4 mb-md-0"
-                    src="assets/images/faces/face1.jpg"
+                    src="../../../assets/images/show-faces/retailer.png"
+                    alt="profile image"
+                  />
+                  <img
+                    *ngIf="role_type === 'retailer'"
+                    class="img-sm rounded-circle mb-4 mb-md-0"
+                    src="../../../assets/images/show-faces/distributor.png"
                     alt="profile image"
                   />
                 </div>
@@ -372,7 +382,7 @@
                       *ngIf="role_type === 'retailer'"
                       class="text-dark font-weight-semibold mr-2 mb-0 no-wrap"
                     >
-                      {{ order['distributor']['name'] }}:
+                      {{ order.product['name'] }}:
                     </p>
                     <p
                       style="margin-top: -4px;"
@@ -382,7 +392,12 @@
                       {{ order['retailer']['name'] }}:
                     </p>
                     <p class="text-primary mr-1 mb-0">[#{{ order.order_id }}]</p>
-                    <p class="mb-0 ellipsis">{{ order.product['name'] }} By order.company .</p>
+                    <p *ngIf="role_type === 'retailer'" class="mb-0 ellipsis">
+                      {{ order['distributor']['name'] }} ({{ order.company.toLowerCase() }}).
+                    </p>
+                    <p *ngIf="role_type === 'distributor'" class="mb-0 ellipsis">
+                      {{ order['product']['name'] }} ({{ order.company.toLowerCase() }}).
+                    </p>
                   </div>
                   <!--<p class="text-gray ellipsis mb-2">Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim vivamus.</p>-->
                   <div class="row text-gray d-md-flex d-none">

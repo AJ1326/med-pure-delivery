@@ -259,6 +259,8 @@ img {
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 0.025em;
+        margin-bottom: 0.5em !important;
+        margin: 0;
       }
       p {
         display: inline-block;
@@ -558,7 +560,11 @@ a.remove {
 
 .sub-order-dropdown-heading {
   color: #4da4e0;
-  margin-left: 11px;
+  padding-left: 12px;
+}
+
+.sub-order-dropdown-heading-start {
+  color: #4da4e0;
 }
 
 .product-sub-details {
@@ -571,9 +577,7 @@ a.remove {
 }
 
 .footer-order-data-sub-details {
-  margin-top: 25px;
   margin-bottom: -6px;
-  margin-left: -11px;
 }
 
 .card {
@@ -812,4 +816,8 @@ a.remove {
   color: #00a855;
   cursor: pointer;
   margin-left: 30px;
+}
+
+.card-header {
+  padding: 0px !important;
 }
