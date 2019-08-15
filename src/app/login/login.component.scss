@@ -250,6 +250,17 @@
   /**
    * Login and signup forms
    */
+  .login-container-height {
+  }
+
+  .text-danger {
+    font-size: 13px !important;
+  }
+
+  .sign-up-container-height {
+    min-height: 591px !important;
+  }
+
   .user_options-forms {
     position: absolute;
     top: 50%;
@@ -270,7 +281,7 @@
     transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
   }
   .user_options-forms .forms_title {
-    margin-bottom: 45px;
+    margin-bottom: 23px;
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 1em;

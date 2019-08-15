@@ -41,7 +41,6 @@ export class TableDataComponent implements OnInit {
   disabled = false;
   closeResult: string;
   total$: Observable<number>;
-  isLoading = true;
   orderListDataFilter: any;
   rejectOrderModel: any;
   filter_type = 'all-order-list';
@@ -84,7 +83,7 @@ export class TableDataComponent implements OnInit {
 
   open(content: any, data?: any) {
     this.orderListDataFilter = data;
-    console.log('this.reOrderList:', this.orderListDataFilter);
+    console.log('this.orderListDataFilter:', this.orderListDataFilter);
     this.rejectOrderModel = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;

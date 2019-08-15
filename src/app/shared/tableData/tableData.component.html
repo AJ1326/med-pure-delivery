@@ -1,5 +1,5 @@
 <div style="margin-top: 20px">
-  <div *ngIf="filter_type === 'all-order-list'">
+  <div *ngIf="filter_type === 'all-order-list' && !tableDataService.isLoading">
     <ngb-accordion *ngIf="orderListData.length > 0; else other_no_data" #acc="ngbAccordion">
       <ngb-panel *ngFor="let order of orderListData">
         <!--Desktop and tablet view-->
@@ -114,13 +114,40 @@
                 >
                   <div class="infoWrap">
                     <div class="cartSection cart-full-box">
-                      <p class="itemNumber">ORDER # {{ order.order_id }}</p>
-                      <h3>{{ products['product']['name'] }}</h3>
+                      <div class="cart-sub-section-image">
+                        <img
+                          *ngIf="role_type === 'retailer'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/distributor.png"
+                          alt="profile image"
+                        />
+                        <img
+                          *ngIf="role_type === 'distributor'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/retailer.png"
+                          alt="profile image"
+                        />
+                        <div style="display: flex; flex-direction: column; padding-left: 2em;">
+                          <div class="cart-header-btn">
+                            <p class="itemNumber" style="flex-grow: 1;">ORDER # {{ order.order_id }}</p>
+                            <button
+                              style="float: right;"
+                              *ngIf="role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')"
+                              class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
+                              (click)="open(Reject, products)"
+                              type="button"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                          <h3>{{ products['product']['name'] }}</h3>
+                        </div>
+                      </div>
                       <div class="footer-order-data-sub-details">
                         <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
                         ><span class="product-sub-details">{{ products.quantity }}</span>
                         <strong class="sub-order-dropdown-heading">Price:</strong
-                        ><i class="fa fa-inr" aria-hidden="true"></i
+                        ><i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                         ><span class="product-sub-details">{{ products.product.price }}</span>
                         <strong *ngIf="role_type === 'retailer'" class="sub-order-dropdown-heading"
                           >Distributor name:</strong
@@ -134,9 +161,14 @@
                         <span *ngIf="role_type === 'distributor'" class="product-sub-details">{{
                           products['retailer']['name']
                         }}</span>
+                        <div class="prodTotal cartSection cart-amount">
+                          <p style="font-size: 20px; margin-top: -10px">
+                            <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                            ><span>{{ (products.quantity * products.product.price).toFixed(2) }}</span>
+                          </p>
+                        </div>
                       </div>
                     </div>
-
                     <div
                       *ngIf="products['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
                       class="badge badge-retailer-status add-btn cancel_btn"
@@ -144,21 +176,7 @@
                     >
                       cancelled
                     </div>
-                    <button
-                      *ngIf="role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')"
-                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
-                      (click)="open(Reject, products)"
-                      type="button"
-                    >
-                      Reject
-                    </button>
                     <!--<div *ngIf="role_type === 'distributor'" class="badge badge-distributor-status add-btn">Reject</div>-->
-                  </div>
-                  <div class="prodTotal cartSection cart-amount">
-                    <p style="font-size: 20px; margin-top: -10px">
-                      <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
-                      ><span>{{ (products.quantity * products.product.price).toFixed(2) }}</span>
-                    </p>
                   </div>
                 </li>
               </ul>
@@ -169,7 +187,7 @@
     </ngb-accordion>
   </div>
 
-  <div *ngIf="filter_type === 'by-source'">
+  <div *ngIf="filter_type === 'by-source' && !tableDataService.isLoading">
     <ngb-accordion *ngIf="orderListData.length > 0; else other_no_data" #acc="ngbAccordion">
       <ngb-panel *ngFor="let list of orderListData">
         <!--Desktop and tablet view-->
@@ -238,6 +256,9 @@
           <!--</button>-->
           <!--</div>-->
           <!--</div>-->
+          <div class="arrow">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+          </div>
         </ng-template>
         <!--Mobile view-->
 
@@ -281,40 +302,30 @@
                 >
                   <div class="infoWrap">
                     <div class="cartSection cart-full-box">
-                      <p class="itemNumber">ORDER # {{ list.order_id }}</p>
-                      <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
-                      <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
+                      <div class="cart-sub-section-image">
+                        <img
+                          *ngIf="role_type === 'retailer'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/distributor.png"
+                          alt="profile image"
+                        />
+                        <img
+                          *ngIf="role_type === 'distributor'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/retailer.png"
+                          alt="profile image"
+                        />
+                        <div style="display: flex; flex-direction: column; padding-left: 2em;">
+                          <p class="itemNumber">ORDER # {{ list.order_id }}</p>
+                          <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
+                          <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
+                        </div>
+                      </div>
                       <div
-                        class="footer-order-data-sub-details"
                         *ngFor="let order of dist.order; let i = index"
                         [attr.data-index]="i"
+                        class="card-header-btn-container"
                       >
-                        <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
-                        ><span class="product-sub-details">{{ order.quantity }}</span>
-                        <strong class="sub-order-dropdown-heading">Price:</strong
-                        ><i class="fa fa-inr" aria-hidden="true"></i
-                        ><span class="product-sub-details">{{ order.product.price }}</span>
-                        <strong class="sub-order-dropdown-heading">Product name:</strong>
-                        <span class="product-sub-details">{{ order['product']['name'] }}</span>
-                        <!--<strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"-->
-                        <!--&gt;Retailer name:</strong-->
-                        <!--&gt;-->
-                        <!--<span *ngIf="role_type === 'distributor'" class="product-sub-details">{{-->
-                        <!--order['retailer']['name']-->
-                        <!--}}</span>-->
-                        <div
-                          *ngIf="order['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
-                          class="badge badge-retailer-status add-btn cancel_btn"
-                          ngbTooltip="Rejected by distributor"
-                        >
-                          cancelled
-                        </div>
-                        <div class="prodTotal cartSection cart-amount">
-                          <p style="font-size: 20px; margin-top: -10px; height: 0;">
-                            <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
-                            ><span>{{ (order.quantity * order.product.price).toFixed(2) }}</span>
-                          </p>
-                        </div>
                         <div class="reject_btn_view">
                           <button
                             *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"
@@ -324,6 +335,34 @@
                           >
                             Reject
                           </button>
+                        </div>
+                        <div class="footer-order-data-sub-details">
+                          <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
+                          ><span class="product-sub-details">{{ order.quantity }}</span>
+                          <strong class="sub-order-dropdown-heading">Price:</strong
+                          ><i class="fa fa-inr" aria-hidden="true"></i
+                          ><span class="product-sub-details">{{ order.product.price }}</span>
+                          <strong class="sub-order-dropdown-heading">Product name:</strong>
+                          <span class="product-sub-details">{{ order['product']['name'] }}</span>
+                          <!--<strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"-->
+                          <!--&gt;Retailer name:</strong-->
+                          <!--&gt;-->
+                          <!--<span *ngIf="role_type === 'distributor'" class="product-sub-details">{{-->
+                          <!--order['retailer']['name']-->
+                          <!--}}</span>-->
+                          <div
+                            *ngIf="order['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
+                            class="badge badge-retailer-status add-btn cancel_btn"
+                            ngbTooltip="Rejected by distributor"
+                          >
+                            cancelled
+                          </div>
+                          <div class="prodTotal cartSection cart-amount">
+                            <p style="font-size: 20px; margin-top: -10px; height: 0;">
+                              <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                              ><span>{{ (order.quantity * order.product.price).toFixed(2) }}</span>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -338,7 +377,7 @@
     </ngb-accordion>
   </div>
 
-  <div *ngIf="filter_type === 'pending-order-list'">
+  <div *ngIf="filter_type === 'pending-order-list' && !tableDataService.isLoading">
     <div class="row" *ngIf="orderListData.length > 0; else other_no_data">
       <div class="col-12 grid-margin">
         <div class="card">
@@ -456,11 +495,16 @@
     </div>
   </div>
 
-  <ng-template #other_no_data>
-    <img src="" />
+  <div *ngIf="filter_type === 'fast-moving-order-list' && !tableDataService.isLoading">
+    <span class="fast-moving-span">Business reports comming soon</span>
+    <img class="empty-cart-data" src="../../../assets/images/fast_moving.svg" />
+  </div>
+
+  <ng-template #other_no_data style="padding-top: 3em;">
+    <img class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
   </ng-template>
 
-  <div class="d-flex justify-content-between p-2" style="padding: 0 !important;">
+  <div class="d-flex justify-content-between p-2">
     <ngb-pagination
       class="pagination-separated"
       [collectionSize]="total$ | async"
@@ -475,6 +519,10 @@
       <option [ngValue]="50">50</option>
     </select>
   </div>
+</div>
+
+<div>
+  <app-loader></app-loader>
 </div>
 
 <ng-template #Reject let-modal>

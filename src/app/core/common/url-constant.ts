@@ -13,6 +13,11 @@ export const URLS = {
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,
 
+  //Home page card filter data
+  FILTER_CARD_LIST__API: {
+    retailer: `retailer/dashboard`,
+    distributor: `distributor/dashboard`
+  },
   // List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
   // const filterCardArray = ['all-order-list', 'pending-order-list', 'open-order-list', 'closed-order-list'];

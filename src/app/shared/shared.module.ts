@@ -17,6 +17,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { HotkeyModule } from 'angular2-hotkeys';
+import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
     ToastrModule.forRoot(),
     HotkeyModule,
     FormsModule,
+    ComingSoonModule,
     Ng2SmartTableModule,
     NgbModule
   ],

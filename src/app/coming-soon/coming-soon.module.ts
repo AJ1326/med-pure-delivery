@@ -7,6 +7,7 @@ import { ComingSoonComponent } from './coming-soon.component';
 
 @NgModule({
   imports: [CommonModule, TranslateModule, ComingSoonRoutingModule],
+  exports: [ComingSoonComponent],
   declarations: [ComingSoonComponent]
 })
 export class ComingSoonModule {}

@@ -68,7 +68,7 @@
         <h2 class="user_unregistered-title">Don't have an account?</h2>
         <p class="user_unregistered-text">
           MedPure is one stop solution for managing all the processes of drug stores from delivering stock to inventory
-          management. `
+          management.
         </p>
         <button class="user_unregistered-signup" id="signup-button">Sign up</button>
       </div>
@@ -82,225 +82,220 @@
       </div>
     </div>
 
-    <div class="user_options-forms" id="user_options-forms">
-      <div class="user_forms-login" *ngIf="!setForgetPass">
-        <h2 class="forms_title">Login</h2>
-        <form class="forms_form" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-          <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-            Username or password incorrect.
-          </div>
-          <fieldset class="forms_fieldset">
-            <!--<div class="forms_field">-->
-            <!--<input type="text" class="form-control forms_field-input" formControlName="username" autocomplete="username"-->
-            <!--[placeholder]="'Username' | translate" required autofocus />-->
-            <!--<small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"-->
-            <!--class="text-danger" translate>-->
-            <!--Username is required-->
-            <!--</small>-->
-            <!--</div>-->
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="email"
-                autocomplete="email"
-                [placeholder]="'Email address' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="loginForm.controls.email.valid || loginForm.controls.email.untouched"
-                class="text-danger"
-                translate
-              >
-                Email is required
-              </small>
+    <div
+      class="user_options-forms"
+      id="user_options-forms"
+      [ngClass]="{ 'login-container-height': typeForm == 'login', 'sign-up-container-height': typeForm == 'sign-up' }"
+    >
+      <div>
+        <div class="user_forms-login" *ngIf="!setForgetPass">
+          <h2 class="forms_title">Login</h2>
+          <form class="forms_form" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+              Username or password incorrect.
             </div>
-            <div class="forms_field">
-              <input
-                type="password"
-                class="form-control forms_field-input"
-                formControlName="password"
-                autocomplete="current-password"
-                [placeholder]="'Password' | translate"
-                required
-              />
-              <small
-                [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
-                class="text-danger"
-                translate
-              >
-                Password is required
-              </small>
-            </div>
-          </fieldset>
-          <div class="forms_buttons">
-            <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Forgot password?</button>
-            <input
-              type="submit"
-              [disabled]="loginForm.invalid || isLoading"
-              value="Log In"
-              class="forms_buttons-action"
-            />
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          </div>
-        </form>
-      </div>
-
-      <!--Forget password-->
-      <div class="user_forms-login" *ngIf="setForgetPass">
-        <h2 class="forms_title">Forget password</h2>
-        <form class="forms_form" (ngSubmit)="forget()" [formGroup]="forgetPasswordForm" novalidate>
-          <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-            Email address is incorrect.
-          </div>
-          <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
-            Password reset e-mail has been sent.
-          </div>
-          <fieldset class="forms_fieldset">
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="email"
-                autocomplete="email"
-                [placeholder]="'Email address' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="forgetPasswordForm.controls.email.valid || forgetPasswordForm.controls.email.untouched"
-                class="text-danger"
-                translate
-              >
-                Email is required
-              </small>
-            </div>
-          </fieldset>
-          <div class="forms_buttons">
-            <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Login</button>
-            <input
-              type="submit"
-              [disabled]="forgetPasswordForm.invalid || isLoading"
-              value="Continue"
-              class="forms_buttons-action"
-            />
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          </div>
-        </form>
-      </div>
-      <!--Forget password ends-->
-
-      <!--Sign up starts-->
-      <div class="user_forms-signup">
-        <h2 class="forms_title">Sign Up</h2>
-        <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
-          <div
-            [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
-            [hidden]="!onBoardingSuccess || isLoading"
-            translate
-          >
-            On-boarding email has been sent to you.
-          </div>
-          <fieldset class="forms_fieldset">
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="email"
-                autocomplete="email"
-                [placeholder]="'Email address' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="signUpForm.controls.email.valid || signUpForm.controls.email.untouched"
-                class="text-danger"
-                translate
-              >
-                Email is required
-              </small>
-            </div>
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="first_name"
-                autocomplete="first_name"
-                [placeholder]="'First Name' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="signUpForm.controls.first_name.valid || signUpForm.controls.first_name.untouched"
-                class="text-danger"
-                translate
-              >
-                First Name is required
-              </small>
-            </div>
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="last_name"
-                autocomplete="last_name"
-                [placeholder]="'Last Name' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="signUpForm.controls.last_name.valid || signUpForm.controls.last_name.untouched"
-                class="text-danger"
-                translate
-              >
-                Last Name is required
-              </small>
-            </div>
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="phone_number"
-                autocomplete="phone_number"
-                [placeholder]="'phone_number' | translate"
-                required
-              />
-              <small
-                [hidden]="signUpForm.controls.phone_number.valid || signUpForm.controls.phone_number.untouched"
-                class="text-danger"
-                translate
-              >
-                phone_number is required
-              </small>
-            </div>
-            <div class="forms_field">
-              <select class="select-role-type" formControlName="user_type">
-                <option value="retailer" selected>Retailer</option>
-                <option value="distributor">Distributor</option>
-                <option value="delivery">Delivery</option>
-              </select>
-              <!--<small-->
-              <!--[hidden]="signUpForm.controls.phone_number.valid || signUpForm.controls.phone_number.untouched"-->
-              <!--class="text-danger"-->
-              <!--translate-->
-              <!--&gt;-->
-              <!--phone_number is required-->
+            <fieldset class="forms_fieldset">
+              <!--<div class="forms_field">-->
+              <!--<input type="text" class="form-control forms_field-input" formControlName="username" autocomplete="username"-->
+              <!--[placeholder]="'Username' | translate" required autofocus />-->
+              <!--<small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"-->
+              <!--class="text-danger" translate>-->
+              <!--Username is required-->
               <!--</small>-->
+              <!--</div>-->
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched" class="text-danger">
+                  <div *ngIf="loginForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="password"
+                  class="form-control forms_field-input"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  [placeholder]="'Password' | translate"
+                  required
+                />
+                <div
+                  *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+                  <span *ngIf="loginForm.controls.password.errors.minLength">{{
+                    loginForm.controls.password.errors.minLength['msg']
+                  }}</span>
+                </div>
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Forgot password?</button>
+              <input
+                type="submit"
+                [disabled]="loginForm.invalid || isLoading"
+                value="Log In"
+                class="forms_buttons-action"
+              />
+              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
             </div>
-          </fieldset>
-          <div class="forms_buttons">
-            <input
-              type="submit"
-              [disabled]="signUpForm.invalid || isLoading"
-              value="Sign up"
-              class="forms_buttons-action"
-            />
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          </div>
-        </form>
+          </form>
+        </div>
+
+        <!--Forget password-->
+        <div class="user_forms-login" *ngIf="setForgetPass">
+          <h2 class="forms_title">Forget password</h2>
+          <form class="forms_form" (ngSubmit)="forget()" [formGroup]="forgetPasswordForm" novalidate>
+            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+              Email address is incorrect.
+            </div>
+            <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
+              Password reset e-mail has been sent.
+            </div>
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="forgetPasswordForm.controls.email.invalid && forgetPasswordForm.controls.email.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="forgetPasswordForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Login</button>
+              <input
+                type="submit"
+                [disabled]="forgetPasswordForm.invalid || isLoading"
+                value="Continue"
+                class="forms_buttons-action"
+              />
+              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            </div>
+          </form>
+        </div>
+        <!--Forget password ends-->
+
+        <!--Sign up starts-->
+        <div class="user_forms-signup">
+          <h2 class="forms_title">Sign Up</h2>
+          <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
+            <div
+              [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
+              [hidden]="!onBoardingSuccess || isLoading"
+              translate
+            >
+              On-boarding email has been sent to you.
+            </div>
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched" class="text-danger">
+                  <div *ngIf="signUpForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="first_name"
+                  autocomplete="first_name"
+                  [placeholder]="'First Name' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="signUpForm.controls.first_name.invalid && signUpForm.controls.first_name.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.first_name.errors.required">First name is required</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="last_name"
+                  autocomplete="last_name"
+                  [placeholder]="'Last Name' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="signUpForm.controls.last_name.invalid && signUpForm.controls.last_name.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.last_name.errors.required">Last name is required</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="number"
+                  class="form-control forms_field-input"
+                  formControlName="phone_number"
+                  autocomplete="phone_number"
+                  [placeholder]="'phone_number' | translate"
+                  required
+                />
+                <div
+                  *ngIf="signUpForm.controls.phone_number.invalid && signUpForm.controls.phone_number.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.phone_number.errors.validPhoneNumber">Number is in-valid.</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <select class="select-role-type" formControlName="user_type">
+                  <option value="retailer" selected>Retailer</option>
+                  <option value="distributor">Distributor</option>
+                  <option value="delivery">Delivery</option>
+                </select>
+                <div
+                  *ngIf="signUpForm.controls.user_type.invalid && signUpForm.controls.user_type.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.user_type.errors.required">Kindly select your user type.</div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <input
+                type="submit"
+                [disabled]="signUpForm.invalid || isLoading"
+                value="Sign up"
+                class="forms_buttons-action"
+              />
+              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            </div>
+          </form>
+        </div>
+        <!--Sign up ends-->
       </div>
-      <!--Sign up ends-->
     </div>
   </div>
 </section>
