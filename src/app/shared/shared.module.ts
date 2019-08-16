@@ -18,6 +18,8 @@ import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
+import { ErrorComponent } from '@app/shared/error/error.component';
+// import {AppRoutingModule} from "@app/app-routing.module";
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
     ToastrModule.forRoot(),
     HotkeyModule,
     FormsModule,
+    // AppRoutingModule,
     ComingSoonModule,
     Ng2SmartTableModule,
     NgbModule
@@ -38,7 +41,8 @@ import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
     MessageBarComponent,
     InlineEditComponent,
     TableDataComponent,
-    NgbdSortableHeader
+    NgbdSortableHeader,
+    ErrorComponent
   ],
   providers: [
     NgbRatingConfig,
@@ -57,6 +61,7 @@ import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
     MessageBarComponent,
     InlineEditComponent,
     TableDataComponent,
+    ErrorComponent,
     NgbdSortableHeader,
     FormsModule,
     NgbModule

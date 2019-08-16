@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.user_info = this.authenticationService.userInfo();
-    console.log(this.user_info);
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
   }
 

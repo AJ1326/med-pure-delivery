@@ -301,8 +301,9 @@
 </section>
 
 <section class="mobile_view">
+  <img class="trial_img" src="../../assets/images/logo/mobile_view.svg" alt="" />
   <div class="login-wrapper">
-    <div *ngIf="form_type === 'login'" class="login-page">
+    <div *ngIf="form_type === 'login' && !setForgetPass" class="login-page">
       <div>Log in</div>
       <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
         Username or password incorrect.
@@ -318,13 +319,9 @@
             required
             autofocus
           />
-          <small
-            [hidden]="loginForm.controls.email.valid || loginForm.controls.email.untouched"
-            class="text-danger"
-            translate
-          >
-            Email is required
-          </small>
+          <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched" class="text-danger">
+            <div *ngIf="loginForm.controls.email.errors.email">Email must be a valid email address</div>
+          </div>
         </div>
         <div>
           <input
@@ -335,23 +332,51 @@
             [placeholder]="'Password' | translate"
             required
           />
-          <small
-            [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
-            class="text-danger"
-            translate
-          >
-            Password is required
-          </small>
+          <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched" class="text-danger">
+            <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+            <span *ngIf="loginForm.controls.password.errors.minLength">{{
+              loginForm.controls.password.errors.minLength['msg']
+            }}</span>
+          </div>
         </div>
         <button (click)="login()" [disabled]="loginForm.invalid || isLoading">
           <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
           <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
         </button>
-        <a class="forms_forgot_password_mobile" (click)="forgetPassword()">Forgot password?</a>
+        <a class="forms_forgot_password_mobile" (click)="forgetPassword()">Forgot password ?</a>
+      </form>
+    </div>
+    <div *ngIf="form_type !== 'sign-up' && setForgetPass" class="login-page">
+      <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
+        Password reset e-mail has been sent.
+      </div>
+      <div>Forget password</div>
+      <form class="forms_form" [formGroup]="forgetPasswordForm" novalidate>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="email"
+            autocomplete="email"
+            [placeholder]="'Email address' | translate"
+            required
+            autofocus
+          />
+          <div
+            *ngIf="forgetPasswordForm.controls.email.invalid && forgetPasswordForm.controls.email.touched"
+            class="text-danger"
+          >
+            <div *ngIf="forgetPasswordForm.controls.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+        <button (click)="forget()" [disabled]="loginForm.invalid || isLoading">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+        </button>
+        <a class="forms_forgot_password_mobile" (click)="forgetPassword()">Login ?</a>
       </form>
     </div>
     <div *ngIf="form_type === 'sign-up'" class="login-page">
-      <div>Sign up</div>
       <div
         [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
         [hidden]="!onBoardingSuccess || isLoading"
@@ -359,6 +384,7 @@
       >
         On-boarding email has been sent to you.
       </div>
+      <div>Sign up</div>
       <form class="forms_form" [formGroup]="signUpForm" novalidate>
         <div>
           <input
@@ -370,30 +396,59 @@
             required
             autofocus
           />
-          <small
-            [hidden]="signUpForm.controls.email.valid || signUpForm.controls.email.untouched"
-            class="text-danger"
-            translate
-          >
-            Email is required
-          </small>
+          <div *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched" class="text-danger">
+            <div *ngIf="signUpForm.controls.email.errors.email">Email must be a valid email address</div>
+          </div>
         </div>
         <div>
           <input
             type="text"
+            class="form-control forms_field-input"
+            formControlName="first_name"
+            autocomplete="first_name"
+            [placeholder]="'First Name' | translate"
+            required
+            autofocus
+          />
+          <div
+            *ngIf="signUpForm.controls.first_name.invalid && signUpForm.controls.first_name.touched"
+            class="text-danger"
+          >
+            <div *ngIf="signUpForm.controls.first_name.errors.required">First name is required</div>
+          </div>
+        </div>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="last_name"
+            autocomplete="last_name"
+            [placeholder]="'Last Name' | translate"
+            required
+            autofocus
+          />
+          <div
+            *ngIf="signUpForm.controls.last_name.invalid && signUpForm.controls.last_name.touched"
+            class="text-danger"
+          >
+            <div *ngIf="signUpForm.controls.last_name.errors.required">Last name is required</div>
+          </div>
+        </div>
+        <div>
+          <input
+            type="number"
             class="form-control forms_field-input"
             formControlName="phone_number"
             autocomplete="phone_number"
             [placeholder]="'phone number' | translate"
             required
           />
-          <small
-            [hidden]="signUpForm.controls.phone_number.valid || signUpForm.controls.phone_number.untouched"
+          <div
+            *ngIf="signUpForm.controls.phone_number.invalid && signUpForm.controls.phone_number.touched"
             class="text-danger"
-            translate
           >
-            phone_number is required
-          </small>
+            <div *ngIf="signUpForm.controls.phone_number.errors.validPhoneNumber">Number is in-valid.</div>
+          </div>
         </div>
         <div>
           <select class="select-role-type-mobile" formControlName="user_type">
@@ -409,10 +464,9 @@
       </form>
     </div>
   </div>
-  <i style="z-index: 99" class="fas fa-user-circle" (click)="openLogin('login')"></i>
+  <i style="z-index: 99;" class="fas fa-user-circle" (click)="openLogin('login')"></i>
 
   <div class="description">
-    <img class="logo_login" src="../../assets/images/logo.png" />
     <div>
       <button
         class="continue login_mobile_btn btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
@@ -430,6 +484,4 @@
       </button>
     </div>
   </div>
-
-  <img class="trial_img" src="../../assets/images/drug_down_view.jpg" alt="" />
 </section>
