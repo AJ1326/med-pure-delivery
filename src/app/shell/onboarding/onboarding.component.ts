@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
 import { invalid } from '@angular/compiler/src/render3/view/util';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-on-boarding',
@@ -24,32 +26,50 @@ export class OnboardingComponent implements OnInit {
     month: 1,
     day: 1
   };
+  loading = false;
+  verification_code: string;
+  user_initial_data: any;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private calendar: NgbCalendar) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private calendar: NgbCalendar,
+    private onboardingService: OnboardingService
+  ) {}
 
   ngOnInit() {
-    this.showTab(this.currentTab); // Display the current tab
-    this.onBoardingForm = this.formBuilder.group(
-      {
-        firstName: ['', Validators.required()],
-        lastName: ['', Validators.required()],
-        dob: ['', Validators.completeDate()],
-        email: ['', [Validators.required(), Validators.email()]],
-        phone_number: ['', Validators.required()],
-        address: ['', Validators.required()],
-        shop_number: ['', Validators.required()],
-        certification_number: ['', Validators.required()],
-        city: ['', Validators.required()],
-        state: ['', Validators.required()],
-        zip_code: ['', [Validators.required(), Validators.validZipCode()]],
-        password: ['', [Validators.required(), Validators.minLength(6)]],
-        // tslint:disable-next-line: max-line-length
-        confirm_password: ['', [Validators.required(), Validators.minLength(6)]]
-      },
-      {
-        validator: this.MustMatch('password', 'confirm_password')
-      }
-    );
+    this.loading = true;
+    this.route.params.subscribe(params => {
+      this.verification_code = params['id'];
+      this.onboardingService.check_url(this.verification_code).subscribe(data => {
+        this.user_initial_data = data;
+        this.onBoardingForm = this.formBuilder.group(
+          {
+            first_name: [data['first_name'] ? data['first_name'] : '', Validators.required()],
+            last_name: [data['last_name'] ? data['last_name'] : '', Validators.required()],
+            dob: ['', Validators.completeDate()],
+            email: [data['email'] ? data['email'] : '', [Validators.required(), Validators.email()]],
+            phone_number: [data['phone_number'] ? data['phone_number'] : '', Validators.required()],
+            address_line_1: [data['address_line_1'] ? data['address_line_1'] : '', Validators.required()],
+            address_line_2: [data['address_line_2'] ? data['address_line_2'] : '', Validators.required()],
+            shop_name: [data['shop_name'] ? data['shop_name'] : '', Validators.required()],
+            certificate_no: [data['certificate_no'] ? data['certificate_no'] : '', Validators.required()],
+            city: [data['city'] ? data['city'] : '', Validators.required()],
+            state: [data['state'] ? data['state'] : '', Validators.required()],
+            zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
+            password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
+            // tslint:disable-next-line: max-line-length
+            password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]]
+          },
+          {
+            validator: this.MustMatch('password1', 'password2')
+          }
+        );
+        this.loading = false;
+        setTimeout(() => this.showTab(this.currentTab), 1000);
+        // Display the current tab
+      });
+    });
   }
 
   MustMatch(controlName: string, matchingControlName: string) {
@@ -81,11 +101,23 @@ export class OnboardingComponent implements OnInit {
     // this.onBoardingForm.setValue({
     //   dob: this.birthdate.year + this.birthdate.month + this.birthdate.day
     // });
-
+    console.log('form data: ', this.onBoardingForm.value);
     // stop here if form is invalid
+    const user_data = Object.assign(
+      {
+        validator_hash: this.verification_code
+      },
+      this.user_initial_data
+    );
+    Object.assign(user_data, this.onBoardingForm.value);
+    delete user_data['id'];
+    delete user_data['used'];
     if (this.onBoardingForm.invalid) {
       return;
     }
+    this.onboardingService.sign_up(user_data).subscribe(data => {
+      console.log('submit form data:', data);
+    });
 
     alert('SUCCESS!! :-)');
   }
@@ -114,7 +146,7 @@ export class OnboardingComponent implements OnInit {
     const x = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>;
     // Exit the function if any field in the current tab is invalid:
 
-    if (n === 1 && !this.validateForm()) {
+    if (n === 1 && !this.validateForm(document)) {
       return false;
     }
     // Hide the current tab:
@@ -124,8 +156,8 @@ export class OnboardingComponent implements OnInit {
     // if you have reached the end of the form... :
     if (this.currentTab >= x.length) {
       this.submitForm();
+      this.currentTab = this.currentTab - n;
       // ...the form gets submitted:
-      console.log('this.onBoardingForm.invalid', this.onBoardingForm);
       // document.getElementById('regForm').submit();
       console.log('Form is submitted !!!!!!!!');
       return false;
@@ -136,7 +168,7 @@ export class OnboardingComponent implements OnInit {
     this.showTab(this.currentTab);
   }
 
-  validateForm() {
+  validateForm(document: any = null) {
     // This function deals with validation of the form fields
     let x,
       y,
@@ -144,6 +176,8 @@ export class OnboardingComponent implements OnInit {
       refetch = false,
       valid = true;
     x = document.getElementsByClassName('tab');
+    console.log('tabs:', x);
+    console.log(this.currentTab);
     y = x[this.currentTab].getElementsByTagName('input');
 
     for (i = 0; i < y.length; i++) {
