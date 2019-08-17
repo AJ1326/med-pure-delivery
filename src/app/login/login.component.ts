@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   loginMobileOpen = false;
   form_type: string;
   forgrt_email_sent = false;
+  from = '';
 
   constructor(
     private router: Router,
@@ -37,6 +38,11 @@ export class LoginComponent implements OnInit {
     private LoginService: LoginService
   ) {
     this.createForm();
+    this.route.queryParams.subscribe(params => {
+      this.from = params['from'];
+      console.log('params: ', params);
+      console.log(this.from);
+    });
   }
 
   ngOnInit() {

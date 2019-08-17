@@ -98,6 +98,9 @@
             <!--Username is required-->
             <!--</small>-->
             <!--</div>-->
+            <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+              Onboarding is successful. Please Login to continue.
+            </div>
             <div class="forms_field">
               <input
                 type="text"
@@ -418,6 +421,9 @@
 
   <div class="description">
     <img class="logo_login" src="../../assets/images/logo.png" />
+    <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+      Onboarding is successful. Please Login to continue.
+    </div>
     <div>
       <button
         class="continue login_mobile_btn btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"

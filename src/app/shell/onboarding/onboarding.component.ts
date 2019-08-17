@@ -9,6 +9,7 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
 import { Subscription } from 'rxjs';
+import * as csc from 'country-state-city';
 
 @Component({
   selector: 'app-on-boarding',
@@ -34,7 +35,8 @@ export class OnboardingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private calendar: NgbCalendar,
-    private onboardingService: OnboardingService
+    private onboardingService: OnboardingService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class OnboardingComponent implements OnInit {
             shop_name: [data['shop_name'] ? data['shop_name'] : '', Validators.required()],
             certificate_no: [data['certificate_no'] ? data['certificate_no'] : '', Validators.required()],
             city: [data['city'] ? data['city'] : '', Validators.required()],
-            state: [data['state'] ? data['state'] : '', Validators.required()],
+            state: [data['state'] ? data['state'] : 'Maharashtra', Validators.required()],
             zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
             password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
             // tslint:disable-next-line: max-line-length
@@ -117,6 +119,7 @@ export class OnboardingComponent implements OnInit {
     }
     this.onboardingService.sign_up(user_data).subscribe(data => {
       console.log('submit form data:', data);
+      this.router.navigate(['/login'], { queryParams: { from: 'onboarding' } });
     });
 
     alert('SUCCESS!! :-)');

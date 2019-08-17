@@ -160,6 +160,7 @@
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.email.errors }"
               oninput="this.className = ''"
+              disabled
             />
             <div
               *ngIf="onBoardingForm.controls.email.invalid && onBoardingForm.controls.email.touched"
@@ -175,6 +176,7 @@
               [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.phone_number.errors }"
               placeholder="Phone number"
               oninput="this.className = ''"
+              disabled
             />
             <div
               *ngIf="onBoardingForm.controls.phone_number.invalid && onBoardingForm.controls.phone_number.touched"
@@ -255,6 +257,23 @@
                 Certification number is required
               </div>
             </div>
+
+            <input
+              formControlName="state"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.state.errors }"
+              type="text"
+              placeholder="State"
+              oninput="this.className = ''"
+              disabled
+            />
+            <div
+              *ngIf="onBoardingForm.controls.state.invalid && onBoardingForm.controls.state.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.state.errors.required">City is required</div>
+            </div>
+
             <input
               formControlName="city"
               class="form-control"
@@ -269,20 +288,7 @@
             >
               <div *ngIf="onBoardingForm.controls.city.errors.required">City is required</div>
             </div>
-            <input
-              formControlName="state"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.state.errors }"
-              type="text"
-              placeholder="State"
-              oninput="this.className = ''"
-            />
-            <div
-              *ngIf="onBoardingForm.controls.state.invalid && onBoardingForm.controls.state.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.state.errors.required">City is required</div>
-            </div>
+
             <input
               formControlName="zip_code"
               class="form-control"
