@@ -12,6 +12,7 @@ export const URLS = {
   FORGOT_PASSWORD_API: `rest-auth/password/reset/`,
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,
+  REGISTRATION_API: `rest-auth/registration/`,
 
   //Home page card filter data
   FILTER_CARD_LIST__API: {
