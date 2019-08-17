@@ -6,7 +6,7 @@ import { SavingNotesComponent } from './saving-notes.component';
 import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
-  Shell.retailerShell([{ path: 'notes', component: SavingNotesComponent, data: { title: extract('Notes') } }])
+  // Shell.retailerShell([{ path: 'notes', component: SavingNotesComponent, data: { title: extract('Notes') } }])
 ];
 
 @NgModule({

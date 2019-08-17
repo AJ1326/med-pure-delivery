@@ -259,6 +259,8 @@ img {
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 0.025em;
+        margin-bottom: 0.5em !important;
+        margin: 0;
       }
       p {
         display: inline-block;
@@ -455,7 +457,6 @@ a.remove {
 
 @media only screen and (max-width: 39.375em) {
   .wrap {
-    width: 98%;
     padding: 2% 0;
   }
   .projTitle {
@@ -469,7 +470,6 @@ a.remove {
   .cart {
     .items {
       .cartSection {
-        width: 90%;
         display: block;
         float: left;
         &.qtyWrap {
@@ -557,8 +557,14 @@ a.remove {
 }
 
 .sub-order-dropdown-heading {
-  color: #4da4e0;
-  margin-left: 11px;
+  color: #ec2c70 !important;
+  font-weight: 300;
+  padding-left: 12px;
+}
+
+.sub-order-dropdown-heading-start {
+  color: #ec2c70 !important;
+  font-weight: 300;
 }
 
 .product-sub-details {
@@ -571,9 +577,7 @@ a.remove {
 }
 
 .footer-order-data-sub-details {
-  margin-top: 25px;
-  margin-bottom: -6px;
-  margin-left: -11px;
+  //margin-bottom: -6px;
 }
 
 .card {
@@ -594,7 +598,6 @@ a.remove {
 
 .cart-amount {
   float: right;
-  margin-top: -31px;
   padding-right: 14px;
 }
 
@@ -780,9 +783,7 @@ a.remove {
     padding-left: 0 !important;
   }
   .distributor-reject {
-    width: 100%;
     border-radius: 0 !important;
-    margin-top: 19px;
   }
 }
 
@@ -802,6 +803,7 @@ a.remove {
 .parent_div {
   display: flex;
 }
+
 .child_div {
   float: left;
   margin-right: 5px;
@@ -812,4 +814,45 @@ a.remove {
   color: #00a855;
   cursor: pointer;
   margin-left: 30px;
+}
+
+.card-header {
+  padding: 0px !important;
+}
+
+.empty-cart-data {
+  margin: auto;
+  display: table;
+  width: 650px;
+  padding-top: 3em;
+}
+
+.fast-moving-span {
+  margin: auto;
+  display: table;
+  padding-top: 2em;
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.cart-header-btn {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 600px) {
+  .cart-header-btn {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.card-header-btn-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.cart-sub-section-image {
+  display: flex;
+  flex-direction: row;
 }

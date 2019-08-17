@@ -9,7 +9,7 @@ export const environment = {
   // supportedLanguages: ['en-US', 'fr-FR']
   // environment.ts
   version: env.npm_package_version,
-  serverUrl: 'http://13.233.68.200/api/',
+  serverUrl: 'http://13.233.68.200:8000/api/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR'],
   APIserverUrl: '',

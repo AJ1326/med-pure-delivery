@@ -25,9 +25,8 @@ export class OrderListRetailerService {
       qstring += '&end_date=' + enddate;
     }
     if (filter_type === undefined || filter_type === null) {
-      filter_type = 'pending-order-list';
+      filter_type = 'all-order-list';
     }
-    console.log(filter_type, 'filter_type');
     return this.http.get('orders/' + role + `${URLS.ORDER_LIST_GET_API[filter_type]}` + qstring, {
       withCredentials: true
     });

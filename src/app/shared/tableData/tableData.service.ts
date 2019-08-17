@@ -9,7 +9,7 @@ import { ORDERLIST } from '@app/shared/dummydataTable/order-list';
 import { URLS } from '@app/core/common/url-constant';
 import { HttpClient } from '@angular/common/http';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
-import { AuthenticationService } from '@app/core';
+import { AuthenticationService, Logger } from '@app/core';
 
 interface SearchResult {
   orders: OrderList[];
@@ -49,14 +49,18 @@ function compare(v1: any, v2: any) {
 //   );
 // }
 
+const log = new Logger('Login');
+
 @Injectable({ providedIn: 'root' })
 export class TableDataService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _orderlist$ = new BehaviorSubject<OrderList[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  private _filterType$ = new BehaviorSubject<string>('pending-order-list');
+  private _filterType$ = new BehaviorSubject<string>('all-order-list');
   private role_type: string;
+  private error: string;
+  public isLoading = false;
 
   private _state: State = {
     page: 1,
@@ -176,6 +180,7 @@ export class TableDataService {
   // }
 
   public _search(): Observable<SearchResult> {
+    this.isLoading = true;
     const { pageSize, page, startDate, endDate } = this._state;
 
     const order_lists: any = [];
@@ -189,19 +194,17 @@ export class TableDataService {
       .orderListData(this.startDate, this.endDate, this.page, this.pageSize, this.role_type, this._filterType$.value)
       .pipe(
         finalize(() => {
-          // this.isLoading = false;
+          this.isLoading = false;
         })
       )
       .subscribe(
         (data: []) => {
-          console.log("data['results']", data['results']);
           this._orderlist$.next(data['results']);
           this._total$.next(data['count']);
         },
         (error: any) => {
-          // log.debug(`Login error: ${error}`);
-          // this.error = error;
-          // this.success_message = 'Some error is occurred.';
+          log.debug(`Login error: ${error}`);
+          this.error = error;
         }
       );
     // 1. sort

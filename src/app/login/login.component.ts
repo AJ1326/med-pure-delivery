@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   form_type: string;
   forgrt_email_sent = false;
   from = '';
+  typeForm = 'login';
 
   constructor(
     private router: Router,
@@ -70,6 +72,7 @@ export class LoginComponent implements OnInit {
       signupButton.addEventListener(
         'click',
         () => {
+          this.typeForm = 'sign-up';
           userForms.classList.remove('bounceRight');
           userForms.classList.add('bounceLeft');
         },
@@ -82,6 +85,7 @@ export class LoginComponent implements OnInit {
       loginButton.addEventListener(
         'click',
         () => {
+          this.typeForm = 'login';
           userForms.classList.remove('bounceLeft');
           userForms.classList.add('bounceRight');
         },
@@ -127,9 +131,11 @@ export class LoginComponent implements OnInit {
           const onboard = this.authenticationService.onboardingView();
           console.log('onboardingView mf: ', onboard);
           if (roleType === 'retailer_role' && onboard) {
-            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
+            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
           } else if (roleType === 'distributor_role' && onboard) {
-            this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
+            this.route.queryParams.subscribe(params =>
+              this.router.navigate(['/distributor/home'], { replaceUrl: true })
+            );
           } else if (!onboard) {
             console.log('Working');
             this.route.queryParams.subscribe(params => this.router.navigate(['/boarding'], { replaceUrl: true }));
@@ -190,6 +196,7 @@ export class LoginComponent implements OnInit {
         error => {
           log.debug(`Login error: ${error}`);
           this.error = error;
+          console.log(this.error, 'this.error');
         }
       );
   }
@@ -199,6 +206,7 @@ export class LoginComponent implements OnInit {
   }
 
   forgetPassword() {
+    this.typeForm = 'login';
     this.setForgetPass = !this.setForgetPass;
   }
 
@@ -237,8 +245,8 @@ export class LoginComponent implements OnInit {
   private createForm() {
     this.loginForm = this.formBuilder.group({
       // username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required()]],
+      password: ['', [Validators.required(), Validators.minLength(6)]]
     });
     this.forgetPasswordForm = this.formBuilder.group({
       email: ['', Validators.required]
@@ -246,9 +254,9 @@ export class LoginComponent implements OnInit {
     this.signUpForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone_number: ['', Validators.required],
-      user_type: ['']
+      email: ['', [Validators.email()]],
+      phone_number: ['', [Validators.ValidatePhoneNumber()]],
+      user_type: ['retailer', Validators.required()]
     });
   }
 }

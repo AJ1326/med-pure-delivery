@@ -9,7 +9,7 @@ export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
 
-  serverUrl: 'http://localhost:8000/api/',
+  serverUrl: 'http://192.168.0.114:8000/api/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR'],
   APIserverUrl: '',

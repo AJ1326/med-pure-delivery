@@ -23,4 +23,8 @@ export class OrderListService {
   downloadCsvDistributor(payload: string) {
     return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload + '/compiled_order_csv');
   }
+
+  downloadPendingProductList() {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'compiled_order_csv');
+  }
 }
