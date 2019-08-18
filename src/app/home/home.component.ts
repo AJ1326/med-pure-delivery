@@ -100,7 +100,8 @@ export class HomeComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
-          this.filterData = dummyfilterdata;
+          const bar = data.sort();
+          this.filterData = bar;
           console.log(this.filterData, 'this.filterData');
           // const obj = this.filterData.find((o: any) => o.name === filter_title);
           const filterData = this.filterData.find((data: any) => data.card_type === filter_title);

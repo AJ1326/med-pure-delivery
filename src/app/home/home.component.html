@@ -16,11 +16,17 @@
           <div class="card-body">
             <div class="clearfix">
               <div class="float-left">
-                <img style="width: 47px" src="../../assets/images/mobile-filter/{{ card_filter.card_type }}.svg" />
-                <!--                <i class="mdi mdi-poll-box text-success icon-lg" *ngIf="card_filter.card_type === 'all-order-list'"></i>-->
-                <!--                <i class="mdi mdi-cube text-danger icon-lg" *ngIf="card_filter.card_type === 'by-source'"></i>-->
-                <!--                <i class="mdi mdi-receipt text-warning icon-lg" *ngIf="card_filter.card_type === 'pending-order-list'"></i>-->
-                <!--                <i class="mdi mdi-account-location text-info icon-lg" *ngIf="card_filter.card_type === 'fast-moving-order-list'"></i>-->
+                <!--                <img style="width: 47px" src="../../assets/images/mobile-filter/{{ card_filter.card_type }}.svg" />-->
+                <i
+                  class="mdi mdi-poll-box text-success icon-lg"
+                  *ngIf="card_filter.card_type === 'fast-moving-order-list'"
+                ></i>
+                <i class="mdi mdi-cube text-danger icon-lg" *ngIf="card_filter.card_type === 'all-order-list'"></i>
+                <i
+                  class="mdi mdi-receipt text-warning icon-lg"
+                  *ngIf="card_filter.card_type === 'pending-order-list'"
+                ></i>
+                <i class="mdi mdi-account-location text-info icon-lg" *ngIf="card_filter.card_type === 'by-source'"></i>
               </div>
               <div class="float-right">
                 <p class="mb-0 text-right">{{ card_filter.card_title }}</p>

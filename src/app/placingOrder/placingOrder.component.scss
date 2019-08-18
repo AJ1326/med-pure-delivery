@@ -162,8 +162,8 @@ div.container .cart2 .cart-middle .cart-item {
   border-bottom: 1px solid #efefef;
 }
 div.container .cart2 .cart-middle .cart-item img {
-  width: 68px;
-  height: 68px;
+  width: 70px;
+  height: auto;
 }
 div.container .cart2 .cart-middle .cart-item span:nth-child(even) {
   margin-top: 12px;
@@ -345,9 +345,16 @@ div.container .cart2 .cart-bottom {
   }
   .main-panel-mobile {
     display: block;
+    position: absolute;
+    margin: 0px;
+    width: 92%;
   }
   .search-container {
     width: 100%;
+    margin-top: 0px;
+  }
+  .card-mobile {
+    height: 80vh;
   }
 }
 
@@ -358,12 +365,16 @@ div.container .cart2 .cart-bottom {
 .mobile_empty_images {
   margin: auto;
   display: table;
+  padding-top: 6em;
   width: 100%;
-  margin-top: 43px;
 }
 
 .mobile_quantity {
   border: 1px solid;
   margin-top: 15px;
   width: 12%;
+}
+
+.not-available {
+  background-color: red;
 }

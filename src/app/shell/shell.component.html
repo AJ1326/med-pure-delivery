@@ -1,23 +1,30 @@
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />-->
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet" />
 
 <div class="container-scroller">
   <!-- partial:partials/_navbar.html -->
   <app-header (sideBarDisplay)="displaySideBar($event)"></app-header>
   <!-- partial -->
-  <div
-    *ngIf="openNoteBar"
-    (clickOutside)="onClickedOutside($event)"
-    class="w3-sidebar w3-bar-block w3-card w3-animate-right"
-    style="width: 41%;display:block;right:0;z-index: 999999999"
-    id="rightMenu"
-  >
-    <div>
-      <span><i (click)="closeNotes()" class="fa fa-times notes-close" aria-hidden="true"></i></span>
-      <span class="notesTitle">Handy notes !!!!</span>
-      <textarea class="notes_textarea" placeholder="Let's rock and role."></textarea>
-    </div>
+
+  <div id="mySidenav" class="sidenav" *ngIf="openNoteBar" (clickOutside)="onClickedOutside($event)">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNotes()">&times;</a>
+    <span class="notesTitle">Handy notes !!!!</span>
+    <textarea class="notes_textarea" placeholder="Let's rock and role."></textarea>
   </div>
+
+  <!--  <div-->
+  <!--    *ngIf="openNoteBar"-->
+  <!--    (clickOutside)="onClickedOutside($event)"-->
+  <!--    class="w3-sidebar w3-bar-block w3-card w3-animate-right"-->
+  <!--    style="width: 41%;display:block;right:0;z-index: 999999999"-->
+  <!--    id="rightMenu"-->
+  <!--  >-->
+  <!--    <div>-->
+  <!--      <span><i (click)="closeNotes()" class="fa fa-times notes-close" aria-hidden="true"></i></span>-->
+  <!--      <span class="notesTitle">Handy notes !!!!</span>-->
+  <!--      <textarea class="notes_textarea" placeholder="Let's rock and role."></textarea>-->
+  <!--    </div>-->
+  <!--  </div>-->
 
   <div class="container-fluid page-body-wrapper">
     <app-sidebar class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
@@ -37,9 +44,6 @@
           Notes
         </a>
       </div>
-      <!--      <div id="mySidenav" class="sidenav">-->
-      <!--        <a  id="notes">Notes</a>-->
-      <!--      </div>-->
       <router-outlet></router-outlet>
       <app-footer></app-footer>
     </div>

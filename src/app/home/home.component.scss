@@ -77,9 +77,10 @@ q {
   .mobile-bottom-view {
     display: block;
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     width: 100%;
-    box-shadow: -14px 1px 7px grey;
+    box-shadow: -14px 0px 2px grey;
+    //box-shadow: -14px 1px 7px grey;
     z-index: 99;
   }
 
