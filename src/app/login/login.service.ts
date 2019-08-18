@@ -21,6 +21,14 @@ export class LoginService {
     return this.http.post(`${URLS.ON_BOARD_API}`, payload);
   }
 
+  verify_signup_otp(payload: any) {
+    return this.http.post(`${URLS.SIGNUP_OTP_VERIFY}`, payload);
+  }
+
+  resend_signup_otp(payload: any) {
+    return this.http.post(`${URLS.SIGNUP_OTP_RESEND}`, payload);
+  }
+
   forgot(payload: any) {
     return this.http.post(`${URLS.FORGOT_PASSWORD_API}`, payload);
   }

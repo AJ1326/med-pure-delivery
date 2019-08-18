@@ -30,6 +30,10 @@ export class LoginComponent implements OnInit {
   forgrt_email_sent = false;
   from = '';
   typeForm = 'login';
+  show_otp_form = false;
+  otp_code: number;
+  signUpData: any;
+  otp_error: any;
 
   constructor(
     private router: Router,
@@ -181,11 +185,14 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           log.debug(`${data} successfully logged in`);
-          this.onBoardingSuccess = true;
-          this.signUpForm.reset();
-          setTimeout(function() {
-            this.onBoardingSuccess = false;
-          }, 2000);
+          this.signUpData = data;
+          this.show_otp_form = true;
+
+          // this.onBoardingSuccess = true;
+          // this.signUpForm.reset();
+          // setTimeout(function() {
+          //   this.onBoardingSuccess = false;
+          // }, 2000);
           // return this.LoginService.login(this.loginForm.value).subscribe(result => {
           //   console.log(result, 'result');
           //   this.route.queryParams.subscribe(params =>
@@ -200,6 +207,45 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
+  submitOTP() {
+    this.isLoading = true;
+    const data = {
+      otp_uuid: this.signUpData['otp_uuid'],
+      otp: this.otp_code
+    };
+    this.authenticationService
+      .verify_signup_otp(data)
+      .pipe(
+        finalize(() => {
+          this.loginForm.markAsPristine();
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        data => {
+          this.show_otp_form = false;
+          this.onBoardingSuccess = true;
+          this.signUpForm.reset();
+          setTimeout(function() {
+            this.onBoardingSuccess = false;
+          }, 2000);
+          // return this.LoginService.login(this.loginForm.value).subscribe(result => {
+          //   console.log(result, 'result');
+          //   this.route.queryParams.subscribe(params =>
+          //     this.router.navigate([params.redirect || '/'], { replaceUrl: true })
+          //   );
+          // });
+        },
+        error => {
+          log.debug(`Login error: ${error}`);
+          this.otp_error = error.error;
+          console.log(this.error, 'this.error');
+        }
+      );
+  }
+
+  resendOtpCode() {}
 
   setLanguage(language: string) {
     this.i18nService.language = language;

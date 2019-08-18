@@ -9,6 +9,9 @@ export const URLS = {
   LOGIN_API: `rest-auth/login/`,
   USER_INFO_API: `user/`,
   ON_BOARD_API: `user_onboard/`,
+
+  SIGNUP_OTP_RESEND: `user_onboard/resend_otp/`,
+  SIGNUP_OTP_VERIFY: `user_onboard/validate_otp/`,
   FORGOT_PASSWORD_API: `rest-auth/password/reset/`,
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,

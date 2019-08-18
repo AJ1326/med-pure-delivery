@@ -90,6 +90,14 @@ export class AuthenticationService {
   signup(context: SignUpContext): Observable<any> {
     return this.LoginService.signup(context);
   }
+
+  resend_signup_otp(context: any): Observable<any> {
+    return this.LoginService.resend_signup_otp(context);
+  }
+
+  verify_signup_otp(context: any): Observable<any> {
+    return this.LoginService.verify_signup_otp(context);
+  }
   /**
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.

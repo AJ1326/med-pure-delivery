@@ -200,7 +200,7 @@
         <!--Forget password ends-->
 
         <!--Sign up starts-->
-        <div class="user_forms-signup">
+        <div class="user_forms-signup" *ngIf="!show_otp_form">
           <h2 class="forms_title">Sign Up</h2>
           <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
             <div
@@ -301,6 +301,32 @@
           </form>
         </div>
         <!--Sign up ends-->
+
+        <div class="user_forms-signup" *ngIf="show_otp_form">
+          <h2 class="forms_title">Enter OTP</h2>
+          <h4>Please enter the OTP sent to your mobile.</h4>
+          <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
+          <br />
+
+          <div class="alert alert-danger" *ngIf="otp_error" translate>
+            {{ otp_error.error }}
+          </div>
+          <input
+            [(ngModel)]="otp_code"
+            type="number"
+            class="form-control forms_field-input"
+            [placeholder]="'OTP' | translate"
+            required
+            autofocus
+          /><br />
+          <input
+            type="submit"
+            [disabled]="!otp_code"
+            value="submit"
+            class="forms_buttons-action"
+            (click)="submitOTP()"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -383,91 +409,113 @@
       </form>
     </div>
     <div *ngIf="form_type === 'sign-up'" class="login-page">
-      <div
-        [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
-        [hidden]="!onBoardingSuccess || isLoading"
-        translate
-      >
-        On-boarding email has been sent to you.
+      <div *ngIf="!show_otp_form">
+        <div
+          [ngClass]="onBoardingSuccess ? 'alert alert-success' : 'alert alert-danger'"
+          [hidden]="!onBoardingSuccess || isLoading"
+          translate
+        >
+          On-boarding email has been sent to you.
+        </div>
+        <div>Sign up</div>
+        <form class="forms_form" [formGroup]="signUpForm" novalidate>
+          <div>
+            <input
+              type="text"
+              class="form-control forms_field-input"
+              formControlName="email"
+              autocomplete="email"
+              [placeholder]="'Email address' | translate"
+              required
+              autofocus
+            />
+            <div *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched" class="text-danger">
+              <div *ngIf="signUpForm.controls.email.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+          <div>
+            <input
+              type="text"
+              class="form-control forms_field-input"
+              formControlName="first_name"
+              autocomplete="first_name"
+              [placeholder]="'First Name' | translate"
+              required
+              autofocus
+            />
+            <div
+              *ngIf="signUpForm.controls.first_name.invalid && signUpForm.controls.first_name.touched"
+              class="text-danger"
+            >
+              <div *ngIf="signUpForm.controls.first_name.errors.required">First name is required</div>
+            </div>
+          </div>
+          <div>
+            <input
+              type="text"
+              class="form-control forms_field-input"
+              formControlName="last_name"
+              autocomplete="last_name"
+              [placeholder]="'Last Name' | translate"
+              required
+              autofocus
+            />
+            <div
+              *ngIf="signUpForm.controls.last_name.invalid && signUpForm.controls.last_name.touched"
+              class="text-danger"
+            >
+              <div *ngIf="signUpForm.controls.last_name.errors.required">Last name is required</div>
+            </div>
+          </div>
+          <div>
+            <input
+              type="number"
+              class="form-control forms_field-input"
+              formControlName="phone_number"
+              autocomplete="phone_number"
+              [placeholder]="'phone number' | translate"
+              required
+            />
+            <div
+              *ngIf="signUpForm.controls.phone_number.invalid && signUpForm.controls.phone_number.touched"
+              class="text-danger"
+            >
+              <div *ngIf="signUpForm.controls.phone_number.errors.validPhoneNumber">Number is in-valid.</div>
+            </div>
+          </div>
+          <div>
+            <select class="select-role-type-mobile" formControlName="user_type">
+              <option value="retailer" selected>Retailer</option>
+              <option value="distributor">Distributor</option>
+              <option value="delivery">Delivery</option>
+            </select>
+          </div>
+          <button (click)="signUp()" [disabled]="signUpForm.invalid || isLoading">
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            <i class="fas fa-angle-right" [hidden]="isLoading"></i
+            ><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+          </button>
+        </form>
       </div>
-      <div>Sign up</div>
-      <form class="forms_form" [formGroup]="signUpForm" novalidate>
-        <div>
-          <input
-            type="text"
-            class="form-control forms_field-input"
-            formControlName="email"
-            autocomplete="email"
-            [placeholder]="'Email address' | translate"
-            required
-            autofocus
-          />
-          <div *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched" class="text-danger">
-            <div *ngIf="signUpForm.controls.email.errors.email">Email must be a valid email address</div>
-          </div>
+      <div *ngIf="show_otp_form">
+        <h2 class="forms_title">Enter OTP</h2>
+        <h4>Please enter the OTP sent to your mobile.</h4>
+        <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
+        <br />
+
+        <div class="alert alert-danger" *ngIf="otp_error" translate>
+          {{ otp_error.error }}
         </div>
-        <div>
-          <input
-            type="text"
-            class="form-control forms_field-input"
-            formControlName="first_name"
-            autocomplete="first_name"
-            [placeholder]="'First Name' | translate"
-            required
-            autofocus
-          />
-          <div
-            *ngIf="signUpForm.controls.first_name.invalid && signUpForm.controls.first_name.touched"
-            class="text-danger"
-          >
-            <div *ngIf="signUpForm.controls.first_name.errors.required">First name is required</div>
-          </div>
-        </div>
-        <div>
-          <input
-            type="text"
-            class="form-control forms_field-input"
-            formControlName="last_name"
-            autocomplete="last_name"
-            [placeholder]="'Last Name' | translate"
-            required
-            autofocus
-          />
-          <div
-            *ngIf="signUpForm.controls.last_name.invalid && signUpForm.controls.last_name.touched"
-            class="text-danger"
-          >
-            <div *ngIf="signUpForm.controls.last_name.errors.required">Last name is required</div>
-          </div>
-        </div>
-        <div>
-          <input
-            type="number"
-            class="form-control forms_field-input"
-            formControlName="phone_number"
-            autocomplete="phone_number"
-            [placeholder]="'phone number' | translate"
-            required
-          />
-          <div
-            *ngIf="signUpForm.controls.phone_number.invalid && signUpForm.controls.phone_number.touched"
-            class="text-danger"
-          >
-            <div *ngIf="signUpForm.controls.phone_number.errors.validPhoneNumber">Number is in-valid.</div>
-          </div>
-        </div>
-        <div>
-          <select class="select-role-type-mobile" formControlName="user_type">
-            <option value="retailer" selected>Retailer</option>
-            <option value="distributor">Distributor</option>
-            <option value="delivery">Delivery</option>
-          </select>
-        </div>
-        <button (click)="signUp()" [disabled]="signUpForm.invalid || isLoading">
-          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
-        </button>
-      </form>
+        <input
+          [(ngModel)]="otp_code"
+          type="number"
+          class="form-control forms_field-input"
+          [placeholder]="'OTP' | translate"
+          required
+          autofocus
+        /><br />
+        <input type="submit" [disabled]="!otp_code" value="submit" class="forms_buttons-action" (click)="submitOTP()" />
+      </div>
     </div>
   </div>
   <i style="z-index: 99;" class="fas fa-user-circle" (click)="openLogin('login')"></i>
