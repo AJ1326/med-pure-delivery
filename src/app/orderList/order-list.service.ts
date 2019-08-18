@@ -13,8 +13,9 @@ export class OrderListService {
   constructor(private http: HttpClient) {}
 
   rejectOrderByDistributor(payload: any) {
+    console.log('payload', payload);
     return this.http.put(
-      `${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload.uuid + '/',
+      `${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload.order_id + '/',
       { status: 'rejected_by_distributor' },
       { withCredentials: true }
     );

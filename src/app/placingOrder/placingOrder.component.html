@@ -11,7 +11,7 @@
 </ng-template>
 
 <form class="search-container">
-  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>
+  <!--  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>-->
   <input
     type="text"
     id="search-bar"
@@ -34,7 +34,7 @@
 
 <div class="table-responsive main-panel-mobile">
   <div class="grid-margin stretch-card">
-    <div class="card">
+    <div class="card" [ngClass]="distributor_list.length <= 0 ? 'card card-mobile' : 'card'">
       <div class="card-body">
         <span class="product-display"
           ><strong>{{ product_name }}</strong
@@ -44,7 +44,7 @@
         <ngb-tabset class="tab-solid tab-solid-primary">
           <ngb-tab>
             <ng-template ngbTabTitle>
-              List of distributor
+              Distributor list
             </ng-template>
             <ng-template ngbTabContent>
               <div class="container" *ngIf="distributor_list.length > 0; else emptyDistributorList">
@@ -68,7 +68,7 @@
                       >
                         <div class="col-xs-6">
                           <div>
-                            <img src="{{ '../../assets/images/faces-clipart/pic-' + i + '.png' }}" />
+                            <img src="../../assets/images/show-faces/distributor.png" />
                           </div>
                           <div>
                             <span
@@ -97,7 +97,12 @@
                             <ng-template #content>
                               <button
                                 style="width: 100%; margin-top: -12px;"
-                                class="btn btn-fw btn-submit btn-inverse-dark"
+                                [ngClass]="
+                                  dist.stock <= 0
+                                    ? 'not-available btn btn-fw btn-submit btn-inverse-dark'
+                                    : 'btn btn-fw btn-submit btn-inverse-dark'
+                                "
+                                class=""
                                 type="button"
                                 disabled
                               >
@@ -351,7 +356,7 @@
                     <tbody>
                       <tr *ngFor="let dist of distributor_list; let i = index" [attr.data-index]="i">
                         <td class="py-1">
-                          <img src="{{ '../../assets/images/faces-clipart/pic-' + i + '.png' }}" alt="image" />
+                          <img src="../../assets/images/show-faces/distributor.png" />
                         </td>
                         <td>
                           {{ dist.distributor }}

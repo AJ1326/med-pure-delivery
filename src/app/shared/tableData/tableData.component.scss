@@ -21,10 +21,6 @@
 }
 .container {
   position: relative;
-  margin-top: -25px;
-  margin-bottom: 6%;
-  margin-left: 0px;
-  padding-left: 0px;
 }
 .title {
   font-family: "Cookie";
@@ -845,6 +841,12 @@ a.remove {
     display: flex;
     flex-direction: column;
   }
+  .all-order-reject-btn {
+    display: none !important;
+  }
+  .all-order-reject-mobile-btn {
+    display: block !important;
+  }
 }
 
 .card-header-btn-container {
@@ -855,4 +857,12 @@ a.remove {
 .cart-sub-section-image {
   display: flex;
   flex-direction: row;
+}
+
+.all-order-reject-btn {
+  display: block;
+}
+
+.all-order-reject-mobile-btn {
+  display: none;
 }

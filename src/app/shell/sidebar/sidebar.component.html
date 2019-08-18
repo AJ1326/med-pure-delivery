@@ -1,13 +1,26 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar" *ngIf="displaySideBar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="z-index: 99999 !important;">
   <ul class="nav">
     <li class="nav-item nav-profile">
       <div class="nav-link">
         <div class="user-wrapper">
           <div class="profile-image">
             <!--<span class="img-xs rounded-circle profile_circle"><strong>{{ user_info['name'].charAt(0).toUpperCase() }}</strong></span>-->
-            <img class="img-xs rounded-circle" src="../../../assets/images/faces/avatar.png" alt="profile image" />
+            <img
+              style="margin-left: -15px; width: 100%;"
+              *ngIf="role_type === 'retailer'"
+              class="rounded-circle"
+              src="../../../assets/images/show-faces/retailer.png"
+              alt="profile image"
+            />
+            <img
+              style="margin-left: -15px; width: 100%;"
+              *ngIf="role_type === 'distributor'"
+              class="rounded-circle"
+              src="../../../assets/images/show-faces/distributor.png"
+              alt="profile image"
+            />
           </div>
-          <div class="text-wrapper">
+          <div class="">
             <p class="profile-name">{{ user_info['name'] }}</p>
             <div>
               <small *ngIf="role_type === 'retailer'" class="designation text-muted"
@@ -18,7 +31,7 @@
             </div>
           </div>
         </div>
-        <button *ngIf="role_type === 'retailer'" class="btn btn-success btn-block" (click)="openOrder()">
+        <button *ngIf="role_type === 'retailer'" class="btn btn-success btn-block" (click)="openOrder('order')">
           Place Order
           <!--<i class="mdi mdi-plus"></i>-->
         </button>
@@ -26,7 +39,8 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/' + role_type + '/home']">
-        <i class="menu-icon mdi mdi-television"></i>
+        <i class="menu-icon mdi mdi-home" aria-hidden="true"></i>
+        <!--        <i class="menu-icon mdi mdi-television"></i>-->
         <span class="menu-title">Home</span>
       </a>
     </li>
@@ -42,19 +56,18 @@
     <!--<span class="menu-title">Feedback</span>-->
     <!--</a>-->
     <!--</li>-->
-    <!--<li class="nav-item">-->
-    <!--<a class="nav-link" [routerLink]="['/' + role_type + '/change-password']">-->
-    <!--<i class="menu-icon mdi mdi-television"></i>-->
-    <!--<span class="menu-title">Change password</span>-->
-    <!--</a>-->
-    <!--</li>-->
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/' + role_type + '/about-us']">
-        <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">About</span>
+      <a class="nav-link" [routerLink]="['/' + role_type + '/change-password']">
+        <i class="menu-icon mdi mdi-lock-open"></i>
+        <span class="menu-title">Change password</span>
       </a>
     </li>
-
+    <li class="nav-item">
+      <a class="nav-link" (click)="logout()">
+        <i class="menu-icon mdi mdi-logout"></i>
+        <span class="menu-title">logout</span>
+      </a>
+    </li>
     <!--Reports-->
     <!--<li class="nav-item">-->
     <!--<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">-->

@@ -17,8 +17,12 @@ export class SidebarComponent implements OnChanges, OnInit {
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
-  public openOrder(): void {
-    this.router.navigate(['/retailer/order'], { replaceUrl: true });
+  public openOrder(redirectUrl: string): void {
+    this.router.navigate(['/retailer/' + redirectUrl], { replaceUrl: true });
+  }
+
+  logout(): void {
+    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -28,7 +32,6 @@ export class SidebarComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.user_info = this.authenticationService.userInfo();
-    console.log(this.user_info);
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
   }
 }

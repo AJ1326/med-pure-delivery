@@ -112,14 +112,12 @@ export class TableDataComponent implements OnInit {
 
   csvDownload(uuid: string): void {
     this.orderListService.downloadCsvDistributor(uuid).subscribe((data: any) => {
-      console.log('data', data);
       this.JSONToCSVConvertor(data, 'Todays order list', false);
     });
   }
 
   downLoadOrders(): void {
     this.orderListService.downloadPendingProductList().subscribe((data: any) => {
-      console.log('data', data);
       this.JSONToCSVConvertor(data, 'Pending_Orders', true);
     });
   }
