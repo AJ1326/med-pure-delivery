@@ -19,6 +19,7 @@ import { OnboardheaderComponent } from '@app/shell/boarding/header/onboardheader
 import { OnboardingComponent } from '@app/shell/onboarding/onboarding.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared';
+import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
 
 @NgModule({
   imports: [
@@ -40,6 +41,6 @@ import { SharedModule } from '@app/shared';
     OnboardheaderComponent,
     OnboardingComponent
   ],
-  providers: [NgbAccordionConfig, NgbModalConfig, NgbModal]
+  providers: [NgbAccordionConfig, NgbModalConfig, NgbModal, OnboardingService]
 })
 export class ShellModule {}
