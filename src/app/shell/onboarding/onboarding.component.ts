@@ -9,7 +9,6 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
 import { Subscription } from 'rxjs';
-import * as csc from 'country-state-city';
 
 @Component({
   selector: 'app-on-boarding',

@@ -9,7 +9,7 @@ import {
   NgbModalConfig,
   NgbModule
 } from '@ng-bootstrap/ng-bootstrap';
-import { ClickOutsideModule } from 'ng-click-outside';
+// import { ClickOutsideModule } from 'ng-click-outside';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from '@app/shell/footer/footer.component';
@@ -22,16 +22,7 @@ import { SharedModule } from '@app/shared';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TranslateModule,
-    NgbModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ClickOutsideModule,
-    SharedModule
-  ],
+  imports: [CommonModule, TranslateModule, NgbModule, RouterModule, FormsModule, ReactiveFormsModule, SharedModule],
   declarations: [
     HeaderComponent,
     ShellComponent,

@@ -142,13 +142,19 @@
             </fieldset>
             <div class="forms_buttons">
               <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Forgot password?</button>
-              <input
+              <button
                 type="submit"
                 [disabled]="loginForm.invalid || isLoading"
                 value="Log In"
                 class="forms_buttons-action"
-              />
-              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+              >
+                <span [hidden]="isLoading">
+                  Login
+                </span>
+                <span>
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                </span>
+              </button>
             </div>
           </form>
         </div>
@@ -187,13 +193,19 @@
             </fieldset>
             <div class="forms_buttons">
               <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Login</button>
-              <input
+              <button
                 type="submit"
                 [disabled]="forgetPasswordForm.invalid || isLoading"
                 value="Continue"
                 class="forms_buttons-action"
-              />
-              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+              >
+                <span [hidden]="isLoading">
+                  Forget password
+                </span>
+                <span>
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                </span>
+              </button>
             </div>
           </form>
         </div>
@@ -209,6 +221,9 @@
               translate
             >
               On-boarding email has been sent to you.
+            </div>
+            <div *ngIf="error" style="color: red; padding-bottom: 10px;">
+              This email address is already exist with us.
             </div>
             <fieldset class="forms_fieldset">
               <div class="forms_field">
@@ -290,13 +305,19 @@
               </div>
             </fieldset>
             <div class="forms_buttons">
-              <input
+              <button
                 type="submit"
                 [disabled]="signUpForm.invalid || isLoading"
                 value="Sign up"
                 class="forms_buttons-action"
-              />
-              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+              >
+                <span [hidden]="isLoading">
+                  Sign up
+                </span>
+                <span>
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                </span>
+              </button>
             </div>
           </form>
         </div>
@@ -304,28 +325,52 @@
 
         <div class="user_forms-signup" *ngIf="show_otp_form">
           <h2 class="forms_title">Enter OTP</h2>
-          <h4>Please enter the OTP sent to your mobile.</h4>
-          <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
+          <span>Please enter the OTP sent to your mobile. </span>
+          <span>
+            Not received your code?
+            <a
+              style="color: #1e76c7;
+                cursor: pointer;"
+              (click)="resendOtpCode()"
+              >Resend Code</a
+            ></span
+          >
           <br />
-
           <div class="alert alert-danger" *ngIf="otp_error" translate>
             {{ otp_error.error }}
           </div>
-          <input
-            [(ngModel)]="otp_code"
-            type="number"
-            class="form-control forms_field-input"
-            [placeholder]="'OTP' | translate"
-            required
-            autofocus
-          /><br />
-          <input
+          <div id="divOuter">
+            <div id="divInner">
+              <input
+                [(ngModel)]="otp_code"
+                (keydown)="stopCarret($event)"
+                (keyup)="setCaretPosition($event, 3)"
+                id="partitioned"
+                class="form-control forms_field-input"
+                type="text"
+                maxlength="4"
+                required
+                autofocus
+              />
+            </div>
+          </div>
+          <!--          <input-->
+          <!--            [(ngModel)]="otp_code"-->
+          <!--            type="number"-->
+          <!--            class="form-control forms_field-input"-->
+          <!--            [placeholder]="'OTP' | translate"-->
+          <!--            required-->
+          <!--            autofocus-->
+          <!--          /><br />-->
+          <button
             type="submit"
             [disabled]="!otp_code"
             value="submit"
             class="forms_buttons-action"
             (click)="submitOTP()"
-          />
+          >
+            Send OTP
+          </button>
         </div>
       </div>
     </div>

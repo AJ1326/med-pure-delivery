@@ -96,10 +96,34 @@ export class LoginComponent implements OnInit {
         false
       );
     }
+
+    // OTP code
+    // let obj = document.getElementById('partitioned');
+    // obj.addEventListener('keydown', this.stopCarret);
+    // obj.addEventListener('keyup', this.stopCarret);
   }
 
-  // var open = false;
-  //
+  stopCarret(obj: any) {
+    if (obj.value.length > 3) {
+      this.setCaretPosition(obj, 3);
+    }
+  }
+
+  setCaretPosition(elem: any, caretPos: any) {
+    if (elem != null) {
+      if (elem.createTextRange) {
+        var range = elem.createTextRange();
+        range.move('character', caretPos);
+        range.select();
+      } else {
+        if (elem.selectionStart) {
+          // elem.focus();
+          elem.setSelectionRange(caretPos, caretPos);
+        } else elem.focus();
+      }
+    }
+  }
+
   onMouseEnter() {
     document.querySelector('.login-wrapper').classList.add('login-page-wrapper');
   }
@@ -172,7 +196,6 @@ export class LoginComponent implements OnInit {
 
   signUp() {
     let values = this.signUpForm.value;
-    console.log(this.signUpForm.value);
     this.isLoading = true;
     this.authenticationService
       .signup(this.signUpForm.value)
@@ -202,7 +225,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           log.debug(`Login error: ${error}`);
-          this.error = error;
+          this.error = error.error['phone_number'];
           console.log(this.error, 'this.error');
         }
       );
@@ -245,7 +268,28 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  resendOtpCode() {}
+  resendOtpCode() {
+    const data = {
+      otp_uuid: this.signUpData['otp_uuid']
+    };
+    this.authenticationService
+      .resend_signup_otp(data)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        data => {
+          this.signUpForm.reset();
+        },
+        error => {
+          log.debug(`Login error: ${error}`);
+          this.otp_error = error.error;
+          console.log(this.error, 'this.error');
+        }
+      );
+  }
 
   setLanguage(language: string) {
     this.i18nService.language = language;
