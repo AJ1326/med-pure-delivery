@@ -26,6 +26,14 @@
   box-shadow: 2px -4px 5px 7px #382f2f12;
 }
 
+.navbar.default-layout .navbar-menu-wrapper .navbar-nav.header-links {
+  padding-left: 0% !important;
+}
+
+.navbar.default-layout .navbar-menu-wrapper .navbar-nav.header-links .nav-item.active {
+  background: rgba(62, 67, 76, 0.3) !important;
+}
+
 //.desktop_view{
 //  display: block !important;
 //}

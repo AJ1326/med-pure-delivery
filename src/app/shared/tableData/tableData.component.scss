@@ -789,6 +789,7 @@ a.remove {
 
 .text-muted-sub {
   color: #ec2c70 !important;
+  font-weight: 300;
 }
 
 .text-dark {
@@ -865,4 +866,38 @@ a.remove {
 
 .all-order-reject-mobile-btn {
   display: none;
+}
+
+//Status colors
+.status-pending-color {
+  color: cornflowerblue;
+  border: 1px solid cornflowerblue;
+}
+.status-in_process-color {
+  color: #e2b913;
+  border: 1px solid #e2b913;
+}
+.status-accepted_by_distributor-color {
+  color: darkolivegreen;
+  border: 1px solid darkolivegreen;
+}
+.status-rejected_by_distributor-color {
+  color: darkorchid;
+  border: 1px solid darkorchid;
+}
+.status-picked_up_by_delivery_boy-color {
+  color: yellowgreen;
+  border: 1px solid yellowgreen;
+}
+.status-delivered_delivery_boy-color {
+  color: darkseagreen;
+  border: 1px solid darkseagreen;
+}
+.status-accepted_by_retailer-color {
+  color: darkcyan;
+  border: 1px solid darkcyan;
+}
+.status-cancel-color {
+  color: red;
+  border: 1px solid red;
 }

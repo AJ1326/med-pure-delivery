@@ -45,28 +45,46 @@
   <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
     <!--Toggle function (click)="toggleSideBar()"-->
     <a class="navbar-brand brand-logo desktop_view">
-      <img style="height: 33px;!important:;width: 62%;" src="../../../assets/images/logo/full-logo.png" alt="logo" />
+      <img style="width: 26%;" src="../../../assets/images/logo/full-logo.png" alt="logo" />
     </a>
-    <a class="navbar-brand brand-logo-mini" [routerLink]="['/home']">
+    <a class="navbar-brand brand-logo-mini">
       <img style="height: auto;width: 40%;" src="../../../assets/images/logo/small-logo.png" alt="logo" />
     </a>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center">
     <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
-      <li class="nav-item nav-item-header-btn">
+      <li
+        class="nav-item nav-item-header-btn"
+        (click)="activeHeaderTag('home')"
+        [ngClass]="activeTag === 'home' ? 'active' : ''"
+      >
         <a [routerLink]="['/' + role_type + '/home']" class="nav-link">Home</a>
       </li>
-      <li class="nav-item active nav-item-header-btn">
+      <li
+        class="nav-item nav-item-header-btn"
+        (click)="activeHeaderTag('order')"
+        [ngClass]="activeTag === 'order' ? 'active' : ''"
+      >
         <a *ngIf="role_type === 'retailer'" [routerLink]="['/' + role_type + '/order']" class="nav-link">
           <!--<i class="mdi mdi-elevation-rise"></i>-->
           Place order
         </a>
-        <a *ngIf="role_type === 'distributor'" [routerLink]="['/' + role_type + '/upload']" class="nav-link">
+        <a
+          *ngIf="role_type === 'distributor'"
+          (click)="activeHeaderTag('upload')"
+          [ngClass]="activeTag === 'upload' ? 'active' : ''"
+          [routerLink]="['/' + role_type + '/upload']"
+          class="nav-link"
+        >
           <!--<i class="mdi fa fa-cloud-upload"></i>-->
           Upload
         </a>
       </li>
-      <li class="nav-item nav-item-header-btn">
+      <li
+        class="nav-item nav-item-header-btn"
+        (click)="activeHeaderTag('coming-soon')"
+        [ngClass]="activeTag === 'coming-soon' ? 'active' : ''"
+      >
         <a [routerLink]="['/' + role_type + '/coming-soon']" class="nav-link"
           >Products
           <span class="badge badge-primary ml-1">New</span>

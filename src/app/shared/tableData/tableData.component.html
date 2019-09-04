@@ -13,7 +13,12 @@
             </div>
             <div class="col-md-5"></div>
             <div class="col-md-2">
-              <span class="media-sub-accordian-heading sub-accordian-heading">ORDER # {{ order.order_id }}</span>
+              <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ order.retailer_order_id }}</span
+              >
+              <span *ngIf="role_type === 'distributor'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ order.distributor_order_id }}</span
+              >
             </div>
           </div>
           <!--<div class="row mobile-view">-->
@@ -130,7 +135,7 @@
                         <div style="display: flex; flex-direction: column; padding-left: 2em; width: 100%;">
                           <div class="cart-header-btn">
                             <div style="display: flex; flex-direction: column; flex-grow: 1;">
-                              <p class="itemNumber">ORDER # {{ order.order_id }}</p>
+                              <p class="itemNumber">PRODUCT ORDER # {{ products.product_order_id }}</p>
                               <h3>{{ products['product']['name'] }}</h3>
                               <!--                            </div>-->
                               <!--                            <button-->
@@ -186,6 +191,24 @@
                             <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                             ><span>{{ (products.quantity * products.product.price).toFixed(2) }}</span>
                           </p>
+                          <span style="margin-left: 16px;">
+                            <div
+                              [ngClass]="{
+                                'status-pending-color': products.status == 'pending',
+                                'status-in_process-color': products.status == 'in_process',
+                                'status-accepted_by_distributor-color': products.status == 'accepted_by_distributor',
+                                'status-picked_up_by_delivery_boy-color':
+                                  products.status == 'picked_up_by_delivery_boy',
+                                'status-delivered_delivery_boy-color': products.status == 'delivered_delivery_boy',
+                                'status-accepted_by_retailer-color': products.status == 'accepted_by_retailer',
+                                'status-cancel-color': products.status == 'cancel'
+                              }"
+                              style="font-size: 13px; font-weight: 400;"
+                              class="badge badge-outline-primary badge-pill"
+                            >
+                              {{ products.status }}
+                            </div>
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -213,7 +236,12 @@
             </div>
             <div class="col-md-5"></div>
             <div class="col-md-2">
-              <span class="media-sub-accordian-heading sub-accordian-heading">ORDER # {{ list.order_id }}</span>
+              <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.retailer_order_id }}</span
+              >
+              <span *ngIf="role_type === 'distributor'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.distributor_order_id }}</span
+              >
             </div>
           </div>
           <!--<div class="row mobile-view">-->
@@ -328,7 +356,12 @@
                           alt="profile image"
                         />
                         <div style="display: flex; flex-direction: column; padding-left: 2em;">
-                          <p class="itemNumber">ORDER # {{ list.order_id }}</p>
+                          <p class="itemNumber" *ngIf="role_type === 'retailer'">
+                            ORDER # {{ list.retailer_order_id }}
+                          </p>
+                          <p class="itemNumber" *ngIf="role_type === 'distributor'">
+                            ORDER # {{ list.distributor_order_id }}
+                          </p>
                           <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
                           <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
                         </div>
@@ -356,19 +389,29 @@
                           ><span class="product-sub-details">{{ order.product.price }}</span>
                           <strong class="sub-order-dropdown-heading">Product name:</strong>
                           <span class="product-sub-details">{{ order['product']['name'] }}</span>
+                          <span style="margin-left: 16px;">
+                            <div
+                              [ngClass]="{
+                                'status-pending-color': order.status == 'pending',
+                                'status-in_process-color': order.status == 'in_process',
+                                'status-accepted_by_distributor-color': order.status == 'accepted_by_distributor',
+                                'status-picked_up_by_delivery_boy-color': order.status == 'picked_up_by_delivery_boy',
+                                'status-delivered_delivery_boy-color': order.status == 'delivered_delivery_boy',
+                                'status-accepted_by_retailer-color': order.status == 'accepted_by_retailer',
+                                'status-cancel-color': order.status == 'cancel'
+                              }"
+                              style="font-size: 13px; font-weight: 400;"
+                              class="badge badge-outline-primary badge-pill"
+                            >
+                              {{ order.status }}
+                            </div>
+                          </span>
                           <!--<strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"-->
                           <!--&gt;Retailer name:</strong-->
                           <!--&gt;-->
                           <!--<span *ngIf="role_type === 'distributor'" class="product-sub-details">{{-->
                           <!--order['retailer']['name']-->
                           <!--}}</span>-->
-                          <div
-                            *ngIf="order['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
-                            class="badge badge-retailer-status add-btn cancel_btn"
-                            ngbTooltip="Rejected by distributor"
-                          >
-                            cancelled
-                          </div>
                           <div class="prodTotal cartSection cart-amount">
                             <p style="font-size: 20px; margin-top: -10px; height: 0;">
                               <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
@@ -466,11 +509,11 @@
                         >{{ order.order_datetime | changeDateFormat }} days ago</small
                       >
                     </div>
-                    <div class="col-3 d-flex">
-                      <div style="font-size: 13px; font-weight: 400;" class="badge badge-outline-primary badge-pill">
-                        {{ order.status }}
-                      </div>
-                    </div>
+                    <!--                    <div class="col-3 d-flex">-->
+                    <!--                      <div style="font-size: 13px; font-weight: 400;" class="badge badge-outline-primary badge-pill">-->
+                    <!--                        {{ order.status }}-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
                   </div>
                 </div>
                 <div class="ticket-actions col-md-2">

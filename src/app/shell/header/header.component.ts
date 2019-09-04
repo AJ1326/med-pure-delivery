@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   user_info: any;
   displaySideBar = false;
   role_type: string;
+  activeTag: string;
 
   @Output() sideBarDisplay = new EventEmitter<boolean>();
 
@@ -29,8 +30,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    let url = window.location.href.replace(/\/$/, ''); /* remove optional end / */
+    this.activeTag = url.substr(url.lastIndexOf('/') + 1);
     this.user_info = this.authenticationService.userInfo();
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
+  }
+
+  activeHeaderTag(type: any) {
+    this.activeTag = type;
   }
 
   open(content: any) {
