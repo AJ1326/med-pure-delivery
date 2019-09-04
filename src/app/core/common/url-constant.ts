@@ -12,6 +12,7 @@ export const URLS = {
 
   SIGNUP_OTP_RESEND: `user_onboard/resend_otp/`,
   SIGNUP_OTP_VERIFY: `user_onboard/validate_otp/`,
+  RESEND_BOARDING_EMAIL: `user_onboard/resend_email/`,
   FORGOT_PASSWORD_API: `rest-auth/password/reset/`,
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,

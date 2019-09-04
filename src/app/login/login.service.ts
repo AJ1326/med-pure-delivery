@@ -25,6 +25,10 @@ export class LoginService {
     return this.http.post(`${URLS.SIGNUP_OTP_VERIFY}`, payload);
   }
 
+  resend_boarding_email(payload: any) {
+    return this.http.get(`${URLS.RESEND_BOARDING_EMAIL}` + payload, { withCredentials: true });
+  }
+
   resend_signup_otp(payload: any) {
     return this.http.post(`${URLS.SIGNUP_OTP_RESEND}`, payload);
   }

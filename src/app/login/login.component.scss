@@ -596,4 +596,41 @@
 #divOuter {
   width: 190px;
   overflow: hidden;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.submit-otp {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 59px;
+}
+
+.resend-mail {
+  text-decoration: underline;
+  color: #014375;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.boarding-success {
+  color: green;
+  font-weight: 300;
+  padding-bottom: 15px;
+}
+
+.resend-mail img {
+  width: 12px;
+  margin-left: 4px;
+}
+
+.resend-mail-text {
+  color: cornflowerblue;
+}
+
+.boarding-email-already-exists {
+  color: darkcyan;
+  font-weight: 300;
+  padding-bottom: 15px;
 }

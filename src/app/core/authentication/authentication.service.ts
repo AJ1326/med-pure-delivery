@@ -98,6 +98,10 @@ export class AuthenticationService {
   verify_signup_otp(context: any): Observable<any> {
     return this.LoginService.verify_signup_otp(context);
   }
+
+  resend_boarding_email(context: any): Observable<any> {
+    return this.LoginService.resend_boarding_email(context);
+  }
   /**
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.

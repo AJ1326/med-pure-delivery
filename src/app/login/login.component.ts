@@ -18,6 +18,8 @@ const credentialsKey = 'credentials';
 })
 export class LoginComponent implements OnInit {
   version: string = environment.version;
+  signuperrorregistered: string;
+  signuperrorexists: string;
   error: string;
   loginForm: FormGroup;
   forgetPasswordForm: FormGroup;
@@ -196,6 +198,7 @@ export class LoginComponent implements OnInit {
 
   signUp() {
     let values = this.signUpForm.value;
+    localStorage.setItem('user-email', this.signUpForm.value.email);
     this.isLoading = true;
     this.authenticationService
       .signup(this.signUpForm.value)
@@ -225,7 +228,39 @@ export class LoginComponent implements OnInit {
         },
         error => {
           log.debug(`Login error: ${error}`);
-          this.error = error.error['phone_number'];
+          this.signuperrorregistered = error.error['email_registered'];
+          this.signuperrorexists = error.error['email'];
+          console.log(this.signuperrorexists, 'this.error');
+        }
+      );
+  }
+
+  resendOnboardingEmail() {
+    const resendBoardingEmailAddress = localStorage.getItem('user-email');
+    this.authenticationService
+      .resend_boarding_email(resendBoardingEmailAddress)
+      .pipe(
+        finalize(() => {
+          this.loginForm.markAsPristine();
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        data => {
+          this.onBoardingSuccess = true;
+          this.signUpForm.reset();
+          setTimeout(function() {
+            this.onBoardingSuccess = false;
+          }, 2000);
+          // return this.LoginService.login(this.loginForm.value).subscribe(result => {
+          //   console.log(result, 'result');
+          //   this.route.queryParams.subscribe(params =>
+          //     this.router.navigate([params.redirect || '/'], { replaceUrl: true })
+          //   );
+          // });
+        },
+        error => {
+          log.debug(`Login error: ${error}`);
           console.log(this.error, 'this.error');
         }
       );
