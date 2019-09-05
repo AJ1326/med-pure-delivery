@@ -13,10 +13,11 @@ export class ErrorComponent implements OnInit {
   error_message: string;
   user_info: any;
   role_type: string;
+  error_status = 410;
 
   constructor(private authenticationService: AuthenticationService) {}
 
-  @Input() error_status: number;
+  // @Input() error_status: number;
   ngOnInit() {
     this.user_info = this.authenticationService.userInfo();
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
