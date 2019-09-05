@@ -6,11 +6,11 @@
   <app-header (sideBarDisplay)="displaySideBar($event)"></app-header>
   <!-- partial -->
 
-  <div id="mySidenav" class="sidenav" *ngIf="openNoteBar" (clickOutside)="onClickedOutside($event)">
-    <a href="javascript:void(0)" class="closebtn" (click)="closeNotes()">&times;</a>
-    <span class="notesTitle">Handy notes !!!!</span>
-    <textarea class="notes_textarea" placeholder="Let's rock and role."></textarea>
-  </div>
+  <!--  <div id="mySidenav" class="sidenav" *ngIf="openNoteBar" (clickOutside)="onClickedOutside($event)">-->
+  <!--    <a href="javascript:void(0)" class="closebtn" (click)="closeNotes()">&times;</a>-->
+  <!--    <span class="notesTitle">Handy notes !!!!</span>-->
+  <!--    <textarea class="notes_textarea" placeholder="Let's rock and role."></textarea>-->
+  <!--  </div>-->
 
   <!--  <div-->
   <!--    *ngIf="openNoteBar"-->
@@ -29,21 +29,22 @@
   <div class="container-fluid page-body-wrapper">
     <app-sidebar class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
     <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
-      <div
-        id="freshwidget-button"
-        data-html2canvas-ignore="true"
-        class="freshwidget-button fd-btn-right"
-        style="display: none;top: 134px;"
-      >
-        <a
-          href="javascript:void(0)"
-          (click)="openNotes()"
-          class="freshwidget-theme"
-          style="color: black;background-color: rgba(220, 53, 69, 0.78);border-color: black;"
-        >
-          Notes
-        </a>
-      </div>
+      <!--      Commenting notes-->
+      <!--      <div-->
+      <!--        id="freshwidget-button"-->
+      <!--        data-html2canvas-ignore="true"-->
+      <!--        class="freshwidget-button fd-btn-right"-->
+      <!--        style="display: none;top: 134px;"-->
+      <!--      >-->
+      <!--        <a-->
+      <!--          href="javascript:void(0)"-->
+      <!--          (click)="openNotes()"-->
+      <!--          class="freshwidget-theme"-->
+      <!--          style="color: black;background-color: rgba(220, 53, 69, 0.78);border-color: black;"-->
+      <!--        >-->
+      <!--          Notes-->
+      <!--        </a>-->
+      <!--      </div>-->
       <router-outlet></router-outlet>
       <app-footer></app-footer>
     </div>

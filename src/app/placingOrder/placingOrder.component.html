@@ -1,6 +1,7 @@
-<div>
-  <app-message-bar [messageBarEvent]="message"></app-message-bar>
-</div>
+<!--Welcome is commented as for now.-->
+<!--<div>-->
+<!--  <app-message-bar [messageBarEvent]="message"></app-message-bar>-->
+<!--</div>-->
 
 <ng-template #alertModal let-modal>
   <app-alert [alertModalRefference]="modalReference" (messageEvent)="receiveMessage($event)"></app-alert>
