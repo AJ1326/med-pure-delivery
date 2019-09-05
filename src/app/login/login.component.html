@@ -91,9 +91,9 @@
         <div class="user_forms-login" *ngIf="!setForgetPass">
           <h2 class="forms_title">Login</h2>
           <form class="forms_form" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+            <span style="color: red;" [hidden]="!LoginErrorMessage || isLoading" translate>
               Username or password incorrect.
-            </div>
+            </span>
             <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
               Onboarding is successful. Please Login to continue.
             </div>
@@ -133,10 +133,10 @@
                   *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched"
                   class="text-danger"
                 >
-                  <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
-                  <span *ngIf="loginForm.controls.password.errors.minLength">{{
-                    loginForm.controls.password.errors.minLength['msg']
-                  }}</span>
+                  <!--                  <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>-->
+                  <span *ngIf="loginForm.controls.password.errors.minLength">
+                    Minimum 8 characters required.
+                  </span>
                 </div>
               </div>
             </fieldset>
@@ -163,9 +163,9 @@
         <div class="user_forms-login" *ngIf="setForgetPass">
           <h2 class="forms_title">Forget password</h2>
           <form class="forms_form" (ngSubmit)="forget()" [formGroup]="forgetPasswordForm" novalidate>
-            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+            <span style="color: red;" [hidden]="!ForgetPasswordErrorMessage || isLoading" translate>
               Email address is incorrect.
-            </div>
+            </span>
             <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
               Password reset e-mail has been sent.
             </div>
@@ -216,7 +216,7 @@
           <h2 class="forms_title">Sign Up</h2>
           <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
             <div class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
-              On-boarding email has been sent to you .
+              On-boarding email has been sent to you.
               <span (click)="resendOnboardingEmail()" class="resend-mail"
                 >Resend<img src="../../assets/images/login/resend.png"
               /></span>
@@ -340,9 +340,9 @@
             ></span
           >
           <br />
-          <div class="alert alert-danger" *ngIf="otp_error" translate>
+          <span style="color: red;" *ngIf="otp_error" translate>
             {{ otp_error.error }}
-          </div>
+          </span>
           <div id="divOuter">
             <div id="divInner">
               <input
@@ -388,9 +388,9 @@
   <div class="login-wrapper">
     <div *ngIf="form_type === 'login' && !setForgetPass" class="login-page">
       <div>Log in</div>
-      <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+      <span style="color: red;" [hidden]="!LoginErrorMessage || isLoading" translate>
         Username or password incorrect.
-      </div>
+      </span>
       <form class="forms_form" [formGroup]="loginForm" novalidate>
         <div>
           <input
@@ -430,7 +430,11 @@
       </form>
     </div>
     <div *ngIf="form_type !== 'sign-up' && setForgetPass" class="login-page">
-      <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
+      <div
+        class="alert alert-success"
+        [hidden]="ForgetPasswordErrorMessage || isLoading || !forgrt_email_sent"
+        translate
+      >
         Password reset e-mail has been sent.
       </div>
       <div>Forget password</div>
@@ -463,7 +467,7 @@
       <div *ngIf="!show_otp_form">
         <div>Sign up</div>
         <span class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
-          On-boarding email has been sent to you .<span class="resend-mail" (click)="resendOnboardingEmail()"
+          On-boarding email has been sent to you.<span class="resend-mail" (click)="resendOnboardingEmail()"
             >Resend<img src="../../assets/images/login/resend.png"
           /></span>
         </span>
@@ -559,9 +563,9 @@
         <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
         <br />
 
-        <div class="alert alert-danger" *ngIf="otp_error" translate>
+        <span style="color: red;" *ngIf="otp_error" translate>
           {{ otp_error.error }}
-        </div>
+        </span>
         <input
           [(ngModel)]="otp_code"
           type="number"

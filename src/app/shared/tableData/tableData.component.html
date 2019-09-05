@@ -35,7 +35,7 @@
           <!--<span class="total_amount_display">{{ order.total_amount }}</span>-->
           <!--</div>-->
           <!--</div>-->
-          <div class="row desktop-view" style="margin-top: 10px;">
+          <div class="row" style="margin-top: 10px;">
             <div class="col-md-2">
               <span style="color: #00000087;">{{ order.order_place_datetime | date: medium }}</span>
             </div>
@@ -133,39 +133,33 @@
                           alt="profile image"
                         />
                         <div style="display: flex; flex-direction: column; padding-left: 2em; width: 100%;">
-                          <div class="cart-header-btn">
+                          <div class="cart-header-btn" style="display: flex; flex-direction: row">
                             <div style="display: flex; flex-direction: column; flex-grow: 1;">
                               <p class="itemNumber">PRODUCT ORDER # {{ products.product_order_id }}</p>
                               <h3>{{ products['product']['name'] }}</h3>
-                              <!--                            </div>-->
-                              <!--                            <button-->
-                              <!--                              style="float: right;"-->
-                              <!--                              *ngIf="role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')"-->
-                              <!--                              class="distributor-reject all-order-reject-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-                              <!--                              (click)="open(Reject, products)"-->
-                              <!--                              type="button"-->
-                              <!--                            >-->
-                              <!--                              Reject-->
-                              <!--                            </button>-->
-                              <!--                          </div>-->
+                            </div>
+                            <div>
+                              <button
+                                style="float: right;"
+                                *ngIf="
+                                  role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')
+                                "
+                                class="distributor-reject all-order-reject-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
+                                (click)="open(Reject, products)"
+                                type="button"
+                              >
+                                Reject
+                              </button>
                             </div>
                           </div>
-                          <!--                      <button-->
-                          <!--                        *ngIf="role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')"-->
-                          <!--                        class="distributor-reject all-order-reject-mobile-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-                          <!--                        (click)="open(Reject, products)"-->
-                          <!--                        type="button"-->
-                          <!--                      >-->
-                          <!--                        Reject-->
-                          <!--                      </button>-->
                         </div>
-                        <div
-                          *ngIf="products['status'] === 'rejected_by_distributor' && role_type === 'retailer'"
-                          class="badge badge-retailer-status add-btn cancel_btn"
-                          ngbTooltip="Rejected by distributor"
-                        >
-                          cancelled
-                        </div>
+                        <!--                        <div-->
+                        <!--                          *ngIf="products['status'] === 'rejected_by_distributor' && role_type === 'retailer'"-->
+                        <!--                          class="badge badge-retailer-status add-btn cancel_btn"-->
+                        <!--                          ngbTooltip="Rejected by distributor"-->
+                        <!--                        >-->
+                        <!--                          cancelled-->
+                        <!--                        </div>-->
                         <!--<div *ngIf="role_type === 'distributor'" class="badge badge-distributor-status add-btn">Reject</div>-->
                       </div>
                       <div class="footer-order-data-sub-details" style="display: flex; flex-direction: row;">
@@ -191,7 +185,7 @@
                             <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                             ><span>{{ (products.quantity * products.product.price).toFixed(2) }}</span>
                           </p>
-                          <span style="margin-left: 16px;">
+                          <span class="product-status">
                             <div
                               [ngClass]="{
                                 'status-pending-color': products.status == 'pending',
@@ -235,7 +229,7 @@
               <span class="sub-accordian-heading">Amount</span>
             </div>
             <div class="col-md-5"></div>
-            <div class="col-md-2">
+            <div class="col-md-2 desktop-view-order-id">
               <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
                 >ORDER # {{ list.retailer_order_id }}</span
               >
@@ -258,7 +252,15 @@
           <!--<span class="total_amount_display">{{ list.total_amount }}</span>-->
           <!--</div>-->
           <!--</div>-->
-          <div class="row desktop-view" style="margin-top: 10px;">
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2 mobile-view">
+              <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.retailer_order_id }}</span
+              >
+              <span *ngIf="role_type === 'distributor'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.distributor_order_id }}</span
+              >
+            </div>
             <div class="col-md-2">
               <span style="color: #00000087;">{{ list.order_place_datetime | date: medium }}</span>
             </div>
@@ -371,17 +373,17 @@
                         [attr.data-index]="i"
                         class="card-header-btn-container"
                       >
-                        <!--                        <div class="reject_btn_view">-->
-                        <!--                          <button-->
-                        <!--                            *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
-                        <!--                            class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-                        <!--                            (click)="open(Reject, order)"-->
-                        <!--                            type="button"-->
-                        <!--                          >-->
-                        <!--                            Reject-->
-                        <!--                          </button>-->
-                        <!--                        </div>-->
-                        <div class="footer-order-data-sub-details">
+                        <!--                      <div class="reject_btn_view">-->
+                        <!--                        <button-->
+                        <!--                          *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                        <!--                          class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                        <!--                          (click)="open(Reject, order)"-->
+                        <!--                          type="button"-->
+                        <!--                        >-->
+                        <!--                          Reject-->
+                        <!--                        </button>-->
+                        <!--                      </div>-->
+                        <div class="footer-order-data-sub-details mobile-footer-order-data-sub-details">
                           <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
                           ><span class="product-sub-details">{{ order.quantity }}</span>
                           <strong class="sub-order-dropdown-heading">Price:</strong
@@ -389,7 +391,7 @@
                           ><span class="product-sub-details">{{ order.product.price }}</span>
                           <strong class="sub-order-dropdown-heading">Product name:</strong>
                           <span class="product-sub-details">{{ order['product']['name'] }}</span>
-                          <span style="margin-left: 16px;">
+                          <span class="product-status">
                             <div
                               [ngClass]="{
                                 'status-pending-color': order.status == 'pending',
@@ -518,21 +520,21 @@
                 </div>
                 <div class="ticket-actions col-md-2">
                   <div class="btn-group dropdown">
-                    <!--                    <button-->
-                    <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
-                    <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-                    <!--                      (click)="open(Reject, order)"-->
-                    <!--                      type="button"-->
-                    <!--                    >-->
-                    <!--                      Reject-->
-                    <!--                    </button>-->
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>
-                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>
-                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>
-                    </div>
+                    <button
+                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"
+                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
+                      (click)="open(Reject, order)"
+                      type="button"
+                    >
+                      Reject
+                    </button>
+                    <!--                    <div class="dropdown-menu">-->
+                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>-->
+                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>-->
+                    <!--                      <div class="dropdown-divider"></div>-->
+                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>-->
+                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>-->
+                    <!--                    </div>-->
                   </div>
                 </div>
               </div>

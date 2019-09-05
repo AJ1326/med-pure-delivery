@@ -588,6 +588,7 @@ a.remove {
 .btn-reject {
   background-color: #ce01018c;
   padding: 5px;
+  border: 1px solid #0000001f;
   //padding-left: 23px;
   color: #f2f7fb;
 }
@@ -622,7 +623,6 @@ a.remove {
   border-radius: 9px !important;
   background-color: white !important;
   color: red;
-  border-color: red;
 }
 
 .distributor-reject:hover {
@@ -685,14 +685,35 @@ a.remove {
 //}
 
 /* Medium devices (landscape tablets, 768px and up) */
-//@media only screen and (max-width: 768px) {
-//  .mobile-view {
-//    display: block;
-//  }
-//  .desktop-view {
-//    display: none;
-//  }
+@media only screen and (max-width: 768px) {
+  .desktop-view {
+    display: none !important;
+  }
+  .mobile-view {
+    display: block !important;
+  }
+  .desktop-view-order-id {
+    display: block;
+  }
+  .cart-sub-section-image {
+    height: 50px;
+  }
+  .product-status {
+    margin-left: 0 !important;
+  }
+}
+
+.product-status {
+  margin-left: 16px;
+}
+
+//.desktop-view-order-id{
+//  display: none;
 //}
+
+.mobile-view {
+  display: none !important;
+}
 
 @media only screen and (max-width: 900px) {
   .card {

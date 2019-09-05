@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit {
   otp_code: number;
   signUpData: any;
   otp_error: any;
+  LoginErrorMessage: string;
+  ForgetPasswordErrorMessage: string;
 
   constructor(
     private router: Router,
@@ -178,7 +180,7 @@ export class LoginComponent implements OnInit {
         error => {
           log.debug(`Login error: ${error}`);
           console.log(error, 'Error');
-          this.error = error;
+          this.LoginErrorMessage = error;
         }
       );
   }
@@ -285,9 +287,9 @@ export class LoginComponent implements OnInit {
           this.show_otp_form = false;
           this.onBoardingSuccess = true;
           this.signUpForm.reset();
-          setTimeout(function() {
-            this.onBoardingSuccess = false;
-          }, 2000);
+          // setTimeout(()=>{    //<<<---    using ()=> syntax
+          //   this.onBoardingSuccess = false;
+          // }, 3000);
           // return this.LoginService.login(this.loginForm.value).subscribe(result => {
           //   console.log(result, 'result');
           //   this.route.queryParams.subscribe(params =>
@@ -362,7 +364,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           log.debug(`Login error: ${error}`);
-          this.error = error;
+          this.ForgetPasswordErrorMessage = error;
         }
       );
   }
