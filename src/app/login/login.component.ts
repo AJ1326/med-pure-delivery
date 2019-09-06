@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   otp_error: any;
   LoginErrorMessage: string;
   ForgetPasswordErrorMessage: string;
+  showMobileIconClosed = false;
 
   constructor(
     private router: Router,
@@ -130,10 +131,12 @@ export class LoginComponent implements OnInit {
   }
 
   onMouseEnter() {
+    this.showMobileIconClosed = true;
     document.querySelector('.login-wrapper').classList.add('login-page-wrapper');
   }
 
   onMouseLeave() {
+    this.showMobileIconClosed = false;
     document.querySelector('.login-wrapper').classList.remove('login-page-wrapper');
   }
 
@@ -234,7 +237,6 @@ export class LoginComponent implements OnInit {
           this.signuperrorregistered = error.error['email_registered'];
           this.signuperrorexists = error.error['email_exists'];
           this.signuperrorphonenumber = error.error['phone_number'];
-          console.log(this.signuperrorexists, 'this.error');
         }
       );
   }

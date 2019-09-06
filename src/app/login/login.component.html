@@ -433,14 +433,16 @@
       </form>
     </div>
     <div *ngIf="form_type !== 'sign-up' && setForgetPass" class="login-page">
-      <div
-        class="alert alert-success"
-        [hidden]="ForgetPasswordErrorMessage || isLoading || !forgrt_email_sent"
-        translate
-      >
+      <div>Forget password</div>
+      <span style="color: red;" [hidden]="!ForgetPasswordErrorMessage || isLoading" translate>
+        Email address is incorrect.
+      </span>
+      <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
         Password reset e-mail has been sent.
       </div>
-      <div>Forget password</div>
+      <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+        Onboarding is successful. Please Login to continue.
+      </div>
       <form class="forms_form" [formGroup]="forgetPasswordForm" novalidate>
         <div>
           <input
@@ -481,6 +483,9 @@
         </div>
         <div *ngIf="signuperrorregistered" class="boarding-email-already-exists">
           This email address already registered. Kindly login.
+        </div>
+        <div *ngIf="signuperrorphonenumber" class="boarding-email-already-exists">
+          {{ signuperrorphonenumber }}
         </div>
         <form class="forms_form" [formGroup]="signUpForm" novalidate>
           <div>
@@ -581,7 +586,9 @@
       </div>
     </div>
   </div>
-  <i style="z-index: 99;" class="fas fa-user-circle" (click)="openLogin('login')"></i>
+  <i *ngIf="!showMobileIconClosed" style="z-index: 99;" class="fas fa-user-circle" (click)="openLogin('login')"></i>
+  <i *ngIf="showMobileIconClosed" style="z-index: 99;" class="fas fa-times-circle" (click)="openLogin('login')"></i>
+  <!--  <i style="z-index: 99;" class="fas fa-times-circle" (click)="openLogin('login')"></i>-->
 
   <div class="description">
     <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>

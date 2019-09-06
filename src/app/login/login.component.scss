@@ -462,6 +462,15 @@
     cursor: pointer;
   }
 
+  .fa-times-circle {
+    color: white;
+    position: absolute;
+    font-size: 52px;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+
   .login-page {
     visibility: hidden;
   }
@@ -630,7 +639,7 @@
 }
 
 .boarding-email-already-exists {
-  color: darkcyan;
+  color: #770025;
   font-weight: 300;
   padding-bottom: 15px;
 }

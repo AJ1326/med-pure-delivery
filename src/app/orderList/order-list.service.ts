@@ -30,6 +30,6 @@ export class OrderListService {
   }
 
   acceptPendingOrderList() {
-    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'compiled_order_csv');
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'pending_orders/accept');
   }
 }
