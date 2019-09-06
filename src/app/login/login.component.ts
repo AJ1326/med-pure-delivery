@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   version: string = environment.version;
   signuperrorregistered: string;
   signuperrorexists: string;
+  signuperrorphonenumber: string;
   error: string;
   loginForm: FormGroup;
   forgetPasswordForm: FormGroup;
@@ -231,7 +232,8 @@ export class LoginComponent implements OnInit {
         error => {
           log.debug(`Login error: ${error}`);
           this.signuperrorregistered = error.error['email_registered'];
-          this.signuperrorexists = error.error['email'];
+          this.signuperrorexists = error.error['email_exists'];
+          this.signuperrorphonenumber = error.error['phone_number'];
           console.log(this.signuperrorexists, 'this.error');
         }
       );

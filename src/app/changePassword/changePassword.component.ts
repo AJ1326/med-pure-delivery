@@ -5,8 +5,7 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-change-password',
   templateUrl: './changePassword.html',
-  styleUrls: ['./changePassword.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./changePassword.scss']
 })
 export class ChangePasswordComponent implements OnInit {
   isLoading = true;

@@ -229,6 +229,9 @@
             <div *ngIf="signuperrorregistered" class="boarding-email-already-exists">
               This email address already registered. Kindly login.
             </div>
+            <div *ngIf="signuperrorphonenumber" class="boarding-email-already-exists">
+              {{ signuperrorphonenumber }}
+            </div>
             <fieldset class="forms_fieldset">
               <div class="forms_field">
                 <input

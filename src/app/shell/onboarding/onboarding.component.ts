@@ -13,8 +13,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-on-boarding',
   templateUrl: './onboarding.component.html',
-  styleUrls: ['./onboarding.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./onboarding.component.scss']
 })
 export class OnboardingComponent implements OnInit {
   currentTab = 0; // Current tab is set to be the first tab (0)

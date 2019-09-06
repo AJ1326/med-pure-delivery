@@ -42,15 +42,15 @@
             <div class="col-md-2">
               <span>{{ order.total_amount }}</span>
             </div>
-            <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">
-              <button
-                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
-                type="button"
-                (click)="csvDownload(order.uuid); $event.stopPropagation()"
-              >
-                CSV
-              </button>
-            </div>
+            <!--            <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">-->
+            <!--              <button-->
+            <!--                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"-->
+            <!--                type="button"-->
+            <!--                (click)="csvDownload(order.uuid); $event.stopPropagation()"-->
+            <!--              >-->
+            <!--                CSV-->
+            <!--              </button>-->
+            <!--            </div>-->
           </div>
           <!--<div class="row mobile-view" style="margin-top: 10px;">-->
           <!--<div class="col-md-5"></div>-->
@@ -138,19 +138,19 @@
                               <p class="itemNumber">PRODUCT ORDER # {{ products.product_order_id }}</p>
                               <h3>{{ products['product']['name'] }}</h3>
                             </div>
-                            <div>
-                              <button
-                                style="float: right;"
-                                *ngIf="
-                                  role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')
-                                "
-                                class="distributor-reject all-order-reject-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
-                                (click)="open(Reject, products)"
-                                type="button"
-                              >
-                                Reject
-                              </button>
-                            </div>
+                            <!--                            <div>-->
+                            <!--                              <button-->
+                            <!--                                style="float: right;"-->
+                            <!--                                *ngIf="-->
+                            <!--                                  role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')-->
+                            <!--                                "-->
+                            <!--                                class="distributor-reject all-order-reject-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                            <!--                                (click)="open(Reject, products)"-->
+                            <!--                                type="button"-->
+                            <!--                              >-->
+                            <!--                                Reject-->
+                            <!--                              </button>-->
+                            <!--                            </div>-->
                           </div>
                         </div>
                         <!--                        <div-->
@@ -280,15 +280,15 @@
             <div class="col-md-2">
               <span>{{ list.total_amount }}</span>
             </div>
-            <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">
-              <button
-                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
-                type="button"
-                (click)="csvDownload(list.uuid); $event.stopPropagation()"
-              >
-                CSV
-              </button>
-            </div>
+            <!--            <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">-->
+            <!--              <button-->
+            <!--                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"-->
+            <!--                type="button"-->
+            <!--                (click)="csvDownload(list.uuid); $event.stopPropagation()"-->
+            <!--              >-->
+            <!--                CSV-->
+            <!--              </button>-->
+            <!--            </div>-->
           </div>
           <!--<div class="row mobile-view" style="margin-top: 10px;">-->
           <!--<div class="col-md-5"></div>-->
@@ -386,16 +386,16 @@
                         [attr.data-index]="i"
                         class="card-header-btn-container"
                       >
-                        <div class="reject_btn_view">
-                          <button
-                            *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"
-                            class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
-                            (click)="open(Reject, order)"
-                            type="button"
-                          >
-                            Reject
-                          </button>
-                        </div>
+                        <!--                        <div class="reject_btn_view">-->
+                        <!--                          <button-->
+                        <!--                            *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                        <!--                            class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                        <!--                            (click)="open(Reject, order)"-->
+                        <!--                            type="button"-->
+                        <!--                          >-->
+                        <!--                            Reject-->
+                        <!--                          </button>-->
+                        <!--                        </div>-->
                         <div class="footer-order-data-sub-details mobile-footer-order-data-sub-details">
                           <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
                           ><span class="product-sub-details">{{ order.quantity }}</span>
@@ -531,25 +531,25 @@
                     <!--                    </div>-->
                   </div>
                 </div>
-                <div class="ticket-actions col-md-2">
-                  <div class="btn-group dropdown">
-                    <button
-                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"
-                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"
-                      (click)="open(Reject, order)"
-                      type="button"
-                    >
-                      Reject
-                    </button>
-                    <!--                    <div class="dropdown-menu">-->
-                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>-->
-                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>-->
-                    <!--                      <div class="dropdown-divider"></div>-->
-                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>-->
-                    <!--                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>-->
-                    <!--                    </div>-->
-                  </div>
-                </div>
+                <!--                <div class="ticket-actions col-md-2">-->
+                <!--                  <div class="btn-group dropdown">-->
+                <!--                    <button-->
+                <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                <!--                      (click)="open(Reject, order)"-->
+                <!--                      type="button"-->
+                <!--                    >-->
+                <!--                      Reject-->
+                <!--                    </button>-->
+                <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                </div>-->
               </div>
             </div>
           </div>

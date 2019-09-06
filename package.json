@@ -5,10 +5,10 @@
   "scripts": {
     "ng": "ng",
     "calculate:version": "node getVersion.js",
-    "build": "npm run env -s && ng build --configuration",
+    "build": "npm run env -s && ng build --configuration && tar -zcvf archive.tar.gz dist/*",
     "build:qa": "npm run env -s && ng build --configuration qa",
     "build:dev": "npm run env -s && ng build --configuration dev",
-    "build:prod": "npm run env -s && ng build --prod --aot",
+    "build:prod": "npm run env -s && ng build --prod --aot && tar -zcvf archive.tar.gz dist/*",
     "start": "npm run env -s && ng serve --host 0.0.0.0",
     "start:qa": "npm run env -s && ng serve  --configuration qa --aot",
     "start:dev": "npm run env -s && ng serve  --configuration dev --aot",

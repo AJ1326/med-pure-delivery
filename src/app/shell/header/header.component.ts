@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   displaySideBar = false;
   role_type: string;
   activeTag: string;
+  userEmail: string;
 
   @Output() sideBarDisplay = new EventEmitter<boolean>();
 
