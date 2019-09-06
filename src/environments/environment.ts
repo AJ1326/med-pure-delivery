@@ -8,7 +8,7 @@ import env from './.env';
 export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
-  serverUrl: 'http://192.168.0.114:8000/api/',
+  serverUrl: 'https://www.medpure.co.in/api/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR'],
   APIserverUrl: '',
