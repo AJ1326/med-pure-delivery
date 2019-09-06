@@ -28,4 +28,8 @@ export class OrderListService {
   downloadPendingProductList() {
     return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'compiled_order_csv');
   }
+
+  acceptPendingOrderList() {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'compiled_order_csv');
+  }
 }

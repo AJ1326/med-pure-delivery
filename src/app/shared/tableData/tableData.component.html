@@ -372,10 +372,10 @@
                         />
                         <div style="display: flex; flex-direction: column; padding-left: 2em;">
                           <p class="itemNumber" *ngIf="role_type === 'retailer'">
-                            ORDER # {{ list.retailer_order_id }}
+                            DISTRIBUTOR ORDER # {{ list.distributor_order_id }}
                           </p>
                           <p class="itemNumber" *ngIf="role_type === 'distributor'">
-                            ORDER # {{ list.distributor_order_id }}
+                            RETAILER ORDER # {{ list.retailer_order_id }}
                           </p>
                           <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
                           <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
@@ -456,7 +456,7 @@
               <div class="child_div">Pending orders</div>
               <div class="child_div" *ngIf="role_type === 'distributor'">
                 <span class="download_csv" (click)="downLoadOrders()">
-                  Order list <i class="fa fa-download" aria-hidden="true"></i>
+                  Accept orders<i class="fa fa-download" aria-hidden="true"></i>
                 </span>
                 <!--<button-->
                 <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->

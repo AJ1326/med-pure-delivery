@@ -378,3 +378,21 @@ div.container .cart2 .cart-bottom {
 .not-available {
   background-color: red;
 }
+
+.cross-remove-btn {
+  font-size: 12px;
+  background-color: #bd4d80 !important;
+  border-color: #bd4d80 !important;
+  margin-top: -4px;
+}
+
+.splash_search_img {
+  width: 100%;
+  margin: auto;
+  display: table;
+  img {
+    width: 50%;
+    margin: auto;
+    display: table;
+  }
+}

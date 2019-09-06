@@ -299,7 +299,7 @@
   </div>
 </div>
 
-<div class="main-panel-desktop">
+<div class="main-panel-desktop" *ngIf="distributor_list.length > 0; else search_distriibutor">
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
@@ -494,7 +494,9 @@
                         </td>
                         <td>{{ order.discount }}%</td>
                         <td>
-                          <div class="badge badge-primary" (click)="removeOrder(order['uuid'], i)">-</div>
+                          <div class="badge badge-primary cross-remove-btn" (click)="removeOrder(order['uuid'], i)">
+                            x
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -517,6 +519,12 @@
     </div>
   </div>
 </div>
+
+<ng-template #search_distriibutor>
+  <div class="splash_search_img">
+    <img src="../../assets/images/placing-order/placing-order-1.svg" />
+  </div>
+</ng-template>
 
 <ng-template #addmedicine let-modal>
   <div class="modal-header">
@@ -541,7 +549,7 @@
   </div>
   <div class="modal-footer">
     <span class="add-med-footer">
-      *We will update you regarding the mediicine.
+      *We will update you regarding the medicine.
     </span>
     <button type="submit" class="btn btn-success mr-2" (click)="modal.close('Save click')">Submit</button>
   </div>

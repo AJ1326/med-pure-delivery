@@ -11,8 +11,8 @@ export class PwaService {
       }
     });
 
-    // window.addEventListener('beforeinstallprompt', event => {
-    this.promptEvent = event;
-    // });
+    window.addEventListener('beforeinstallprompt', event => {
+      this.promptEvent = event;
+    });
   }
 }

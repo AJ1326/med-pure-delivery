@@ -117,6 +117,9 @@ export class TableDataComponent implements OnInit {
   }
 
   downLoadOrders(): void {
+    // this.orderListService.acceptPendingOrderList().subscribe((data: any) => {
+    //
+    // });
     this.orderListService.downloadPendingProductList().subscribe((data: any) => {
       this.JSONToCSVConvertor(data, 'Pending_Orders', true);
     });
