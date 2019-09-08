@@ -75,6 +75,7 @@ export class PlacingOrderComponent implements OnInit {
   show_order_qauntity_error_index: any[] = [];
   distributor_list_order_index: any[] = [];
   product_name: string;
+  total_amount_of_order = 0;
 
   constructor(
     private distributorService: PlacingOrderService,
@@ -122,11 +123,13 @@ export class PlacingOrderComponent implements OnInit {
     let cloned_order = _.cloneDeep(addOrder);
     cloned_order.quantity = 3;
     this.order_list = this.order_list.concat(cloned_order);
+    this.getTotalOrderValue();
   }
 
   removeOrder(slug: string, orderNumber: number) {
     this.callunableBtnFunction(slug);
     const removeOrder = this.order_list.splice(orderNumber, 1);
+    this.getTotalOrderValue();
     // this.distributor_list = this.distributor_list.concat(removeOrder);
   }
 
@@ -256,16 +259,26 @@ export class PlacingOrderComponent implements OnInit {
 
   private valueChange(order_index: number, order: any, $event: any): void {
     order.quantity = $event;
+    console.log(order, 'order');
     const index = this.show_order_qauntity_error_index.indexOf(order.uuid);
     if (order.quantity > order.stock) {
       if (index === -1) {
         this.show_order_qauntity_error_index.push(order.uuid);
       }
     } else {
+      this.getTotalOrderValue();
       if (index > -1) {
         this.show_order_qauntity_error_index.splice(index, 1);
       }
     }
+  }
+
+  private getTotalOrderValue(): void {
+    let total = 0;
+    for (let i of this.order_list) {
+      total = total + i['quantity'] * i['selling_price'];
+    }
+    this.total_amount_of_order = total;
   }
 
   private findExceedOrder(val: number): boolean {

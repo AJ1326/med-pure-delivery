@@ -40,6 +40,7 @@ import { AboutRoutingModule } from '@app/about/about-routing.module';
 import { PwaService } from '@app/pwa.service';
 import { SavingNotesRoutingModule } from '@app/saving-notes/saving-notes-routing.module';
 import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
   ],
   declarations: [AppComponent],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthenticationPermissionRetailerGuard,
     AuthenticationPermissionDistributorGuard,
     AuthenticationBoardingGuard,
