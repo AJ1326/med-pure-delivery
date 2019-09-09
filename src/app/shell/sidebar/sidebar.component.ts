@@ -28,6 +28,7 @@ export class SidebarComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     const sideBarDisplayValue: SimpleChange = changes.sideBarDisplay;
     this.displaySideBar = sideBarDisplayValue.currentValue;
+    console.log(this.displaySideBar, 'displaySideBar');
   }
 
   ngOnInit() {

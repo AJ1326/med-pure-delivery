@@ -1,4 +1,9 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar" style="z-index: 99999 !important;">
+<nav
+  [ngClass]="displaySideBar ? 'sidebar sidebar-offcanvas active' : 'sidebar sidebar-offcanvas'"
+  class="sidebar sidebar-offcanvas"
+  id="sidebar"
+  style="z-index: 99999 !important;"
+>
   <ul class="nav">
     <li class="nav-item nav-profile">
       <div class="nav-link">

@@ -71,7 +71,6 @@ export class HeaderComponent implements OnInit {
 
   toggleSideBar(): void {
     this.displaySideBar = !this.displaySideBar;
-    console.log('hdsfgsfgfkdfkjg', this.displaySideBar);
     this.sideBarDisplay.emit(this.displaySideBar);
   }
 }

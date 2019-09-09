@@ -17049,7 +17049,6 @@ input:focus {
 
 /* Sidebar */
 .sidebar {
-  min-height: calc(100vh - 63px);
   background: #ffffff;
   font-family: 'Poppins', sans-serif;
   padding: 0;
