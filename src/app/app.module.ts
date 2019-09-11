@@ -78,7 +78,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   ],
   declarations: [AppComponent],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthenticationPermissionRetailerGuard,
     AuthenticationPermissionDistributorGuard,
     AuthenticationBoardingGuard,
