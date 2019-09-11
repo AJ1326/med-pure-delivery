@@ -137,6 +137,7 @@
               #dp
               [(ngModel)]="birthdate"
               [minDate]="minDate"
+              [maxDate]="maxDate"
               (navigate)="birthdate = $event.next"
             ></ngb-datepicker>
           </div>
@@ -210,7 +211,7 @@
               *ngIf="onBoardingForm.controls.address_line_1.invalid && onBoardingForm.controls.address_line_1.touched"
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Phone number is required</div>
+              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address line 1 is required</div>
             </div>
 
             <textarea
@@ -224,7 +225,7 @@
               *ngIf="onBoardingForm.controls.address_line_2.invalid && onBoardingForm.controls.address_line_2.touched"
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Phone number is required</div>
+              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
             </div>
 
             <input
@@ -302,6 +303,15 @@
               class="invalid-error-msg"
             >
               <div *ngIf="onBoardingForm.controls.zip_code.errors.required">Zip code is required</div>
+
+              <div
+                *ngIf="
+                  !onBoardingForm.controls.zip_code.errors.required &&
+                  onBoardingForm.controls.zip_code.errors.invalidZipCode
+                "
+              >
+                Zip code is not correct
+              </div>
             </div>
           </div>
         </form>
@@ -340,6 +350,9 @@
               class="invalid-error-msg"
             >
               <div *ngIf="onBoardingForm.controls.password1.errors.required">Password is required</div>
+              <div *ngIf="onBoardingForm.controls.password1.errors.minLength">
+                Password must have minimum of 8 characters
+              </div>
             </div>
             <input
               type="password"
@@ -355,6 +368,9 @@
             >
               <div *ngIf="onBoardingForm.controls.password2.errors.mustMatch">Passwords are not matching.</div>
               <div *ngIf="onBoardingForm.controls.password2.errors.required">Confirm password is required</div>
+              <div *ngIf="onBoardingForm.controls.password2.errors.minLength">
+                Password must have minimum of 8 characters
+              </div>
             </div>
           </div>
         </form>

@@ -2,7 +2,7 @@ import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn } 
 
 const stayInCountryRegexp = RegExp('^\\[[\'"][0-9]+ +days[\'"],[\'"][0-9]+ days[\'"]\\)$');
 
-const zipcodeRegexp = RegExp('^\\d{5,6}(?:[\\s]?[-\\s]?[\\s]?\\d{4})?$');
+const zipcodeRegexp = RegExp('^\\d{6}(?:[\\s]?[-\\s]?[\\s]?\\d{4})?$');
 
 const yearRegexp = RegExp('null|^(19|20)\\d{2}$');
 

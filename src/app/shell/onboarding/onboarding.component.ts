@@ -19,12 +19,13 @@ export class OnboardingComponent implements OnInit {
   currentTab = 0; // Current tab is set to be the first tab (0)
   onBoardingForm: FormGroup;
   submitted = false;
-  birthdate = { year: '0', month: '0', day: '0' };
+  birthdate: NgbDateStruct = { year: 2000, month: 1, day: 1 };
   minDate: NgbDateStruct = {
     year: 1970,
     month: 1,
     day: 1
   };
+  maxDate: NgbDateStruct;
   loading = false;
   verification_code: string;
   user_initial_data: any;
@@ -35,7 +36,15 @@ export class OnboardingComponent implements OnInit {
     private calendar: NgbCalendar,
     private onboardingService: OnboardingService,
     private router: Router
-  ) {}
+  ) {
+    let today: any = new Date();
+    today = +today.getFullYear() - 12;
+    this.maxDate = {
+      year: today,
+      month: 12,
+      day: 31
+    };
+  }
 
   ngOnInit() {
     this.loading = true;
@@ -119,8 +128,6 @@ export class OnboardingComponent implements OnInit {
       console.log('submit form data:', data);
       this.router.navigate(['/login'], { queryParams: { from: 'onboarding' } });
     });
-
-    alert('SUCCESS!! :-)');
   }
 
   showTab(n: any): void {
@@ -143,6 +150,7 @@ export class OnboardingComponent implements OnInit {
   }
 
   nextPrev(n: any) {
+    console.log(this.onBoardingForm);
     // This function will figure out which tab to display
     const x = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>;
     // Exit the function if any field in the current tab is invalid:
