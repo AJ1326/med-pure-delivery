@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class OnboardingComponent implements OnInit {
   currentTab = 0; // Current tab is set to be the first tab (0)
+  tab_submitted = false;
   onBoardingForm: FormGroup;
   submitted = false;
   birthdate: NgbDateStruct = { year: 2000, month: 1, day: 1 };
@@ -150,6 +151,7 @@ export class OnboardingComponent implements OnInit {
   }
 
   nextPrev(n: any) {
+    this.tab_submitted = true;
     console.log(this.onBoardingForm);
     // This function will figure out which tab to display
     const x = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>;
@@ -174,6 +176,8 @@ export class OnboardingComponent implements OnInit {
       x[this.currentTab - n].style.display = 'none';
     }
     // Otherwise, display the correct tab:
+    this.tab_submitted = false;
+
     this.showTab(this.currentTab);
   }
 

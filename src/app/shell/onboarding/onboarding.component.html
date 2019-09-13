@@ -208,7 +208,10 @@
               placeholder="Address line 1"
             ></textarea>
             <div
-              *ngIf="onBoardingForm.controls.address_line_1.invalid && onBoardingForm.controls.address_line_1.touched"
+              *ngIf="
+                onBoardingForm.controls.address_line_1.invalid &&
+                (onBoardingForm.controls.address_line_1.touched || tab_submitted)
+              "
               class="invalid-error-msg"
             >
               <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address line 1 is required</div>
@@ -222,7 +225,10 @@
               placeholder="Address line 2"
             ></textarea>
             <div
-              *ngIf="onBoardingForm.controls.address_line_2.invalid && onBoardingForm.controls.address_line_2.touched"
+              *ngIf="
+                onBoardingForm.controls.address_line_2.invalid &&
+                (onBoardingForm.controls.address_line_2.touched || tab_submitted)
+              "
               class="invalid-error-msg"
             >
               <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
