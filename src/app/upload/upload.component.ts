@@ -58,7 +58,7 @@ export class UploadComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', fileToUpload);
     formData.append('software', this.software);
-    formData.append('force_update', String(this.force_update));
+    formData.append('force_upload', String(this.force_update));
     this.uploadService
       .uploadProductList(formData)
       .pipe(
