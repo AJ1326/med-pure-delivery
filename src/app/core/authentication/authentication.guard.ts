@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+// import {AuthenticationService, Logger} from "@app/core";
 
 import { Logger } from '../logger.service';
 import { AuthenticationService } from './authentication.service';
@@ -43,6 +44,21 @@ export class AuthenticationPermissionRetailerGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authenticationService.permissionView() === 'retailer_role') {
+      return true;
+    }
+
+    log.debug('11111111Not authenticated, redirecting and adding redirect url...');
+    this.router.navigate(['/login'], { queryParams: { redirect: state.url }, replaceUrl: true });
+    return false;
+  }
+}
+
+@Injectable()
+export class AuthenticationPermissionSalesManGuard implements CanActivate {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.authenticationService.permissionView() === 'salesman_role') {
       return true;
     }
 

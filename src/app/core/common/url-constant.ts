@@ -38,5 +38,10 @@ export const URLS = {
   },
   // ORDER_LIST_PLACED_API: `orders/retailer/`,
   // DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`,
-  UPLOAD_LIST_API: `uploads/distributor_product_list/`
+  UPLOAD_LIST_API: `uploads/distributor_product_list/`,
+
+  //Salesman view
+  SALESMAN_RETAILER_LIST_API: `salesman/?retailer_name=`,
+  SALESMAN_RETAILER_SEARCH_API: `retailer_list/?search=`,
+  SALESMAN_DISTRIBUTOR_LIST_API: `salesman/distributor_list`
 };

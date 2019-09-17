@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { finalize } from 'rxjs/operators';
 import { HomeService } from '@app/home/home.service';
+import { ActivatedRoute } from '@angular/router';
 
 const log = new Logger('Home');
 
@@ -47,7 +48,7 @@ const dummyfilterdata = [
   providers: [DecimalPipe]
 })
 export class HomeComponent implements OnInit {
-  quote: string;
+  orderFromSalesman: any;
   isLoading: boolean;
   // private filterCard = new BehaviorSubject<string>('');
   user_info: any = [];
@@ -63,7 +64,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private tableservice: TableDataService,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private router: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -72,6 +74,12 @@ export class HomeComponent implements OnInit {
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
+    this.router.queryParams
+      .filter(params => params.retailer_slug)
+      .subscribe(params => {
+        // console.log('params', params); // {order: "popular"}
+        this.orderFromSalesman = params;
+      });
     if (this.role_type === 'retailer') {
       this.tableservice.SetfilterTypeValue('all-order-list');
       this.selectFilterCard('all-order-list');

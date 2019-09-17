@@ -20,6 +20,8 @@ import { OnboardingComponent } from '@app/shell/onboarding/onboarding.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
+import { SalesmanheaderComponent } from '@app/shell/salesManShell/header/salesmanheader.component';
+import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.component';
 
 @NgModule({
   imports: [CommonModule, TranslateModule, NgbModule, RouterModule, FormsModule, ReactiveFormsModule, SharedModule],
@@ -29,6 +31,8 @@ import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
     FooterComponent,
     SidebarComponent,
     BoardingShellComponent,
+    SalesManShellComponent,
+    SalesmanheaderComponent,
     OnboardheaderComponent,
     OnboardingComponent
   ],

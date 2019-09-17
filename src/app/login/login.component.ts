@@ -166,7 +166,9 @@ export class LoginComponent implements OnInit {
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
           console.log('onboardingView mf: ', onboard);
-          if (roleType === 'retailer_role' && onboard) {
+          if (roleType === 'salesman_role' && onboard) {
+            this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
+          } else if (roleType === 'retailer_role' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
           } else if (roleType === 'distributor_role' && onboard) {
             this.route.queryParams.subscribe(params =>

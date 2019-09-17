@@ -4,10 +4,12 @@ import {
   AuthenticationBoardingGuard,
   AuthenticationGuard,
   AuthenticationPermissionDistributorGuard,
-  AuthenticationPermissionRetailerGuard
+  AuthenticationPermissionRetailerGuard,
+  AuthenticationPermissionSalesManGuard
 } from '@app/core';
 import { ShellComponent } from './shell.component';
 import { BoardingShellComponent } from '@app/shell/boarding/onboardshell.component';
+import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.component';
 
 export class Shell {
   static distributorShell(routes: Routes): Route {
@@ -35,6 +37,18 @@ export class Shell {
       component: ShellComponent,
       children: routes,
       canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard, AuthenticationBoardingGuard],
+      // AuthenticationBoardingGuard
+      // Reuse ShellComponent instance when navigating between child views
+      data: { reuse: true }
+    };
+  }
+
+  static salesManShell(routes: Routes): Route {
+    return {
+      path: 'salesman',
+      component: SalesManShellComponent,
+      children: routes,
+      canActivate: [AuthenticationGuard, AuthenticationPermissionSalesManGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }

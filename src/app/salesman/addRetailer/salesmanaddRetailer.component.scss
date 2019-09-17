@@ -1,0 +1,51 @@
+.grid-margin {
+  margin: 0px;
+}
+
+//Form error/success related
+.submit-otp {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 59px;
+}
+
+.resend-mail {
+  text-decoration: underline;
+  color: #014375;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.boarding-success {
+  color: green;
+  font-weight: 300;
+  padding-bottom: 15px;
+}
+
+.resend-mail img {
+  width: 12px;
+  margin-left: 4px;
+}
+
+.resend-mail-text {
+  color: cornflowerblue;
+}
+
+.boarding-email-already-exists {
+  color: #770025;
+  font-weight: 300;
+  padding-bottom: 15px;
+}
+
+.text-danger {
+  margin-left: 15px;
+}
+
+.reset-form {
+  float: right;
+  text-decoration: underline;
+  color: #0c85d0;
+  cursor: pointer;
+  font-size: 14px;
+}

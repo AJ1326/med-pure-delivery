@@ -331,10 +331,9 @@
         <!--Sign up ends-->
 
         <div class="user_forms-signup" *ngIf="show_otp_form">
-          <h2 class="forms_title">Enter OTP</h2>
-          <span>Please enter the OTP sent to your mobile. </span>
-          <span>
-            Not received your code?
+          <h2 class="forms_title">OTP</h2>
+          <span style="font-size: 12px;"> is sent to you. </span>
+          <span style="font-size: 12px;">
             <a
               style="color: #1e76c7;
                 cursor: pointer;"
@@ -371,13 +370,13 @@
           <!--          /><br />-->
           <div class="submit-otp">
             <button
-              type="submit"
+              type="Submit"
               [disabled]="!otp_code"
               value="submit"
               class="forms_buttons-action"
               (click)="submitOTP()"
             >
-              Send OTP
+              Submit
             </button>
           </div>
         </div>

@@ -4,14 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/core';
 import { Shell } from '@app/shell/shell.service';
 import { HomeComponent } from '@app/home/home.component';
-import { PlacingOrderComponent } from '@app/placingOrder/placingOrder.component';
+import { SalesmanhomeComponent } from '@app/salesman/home/salesmanhome.component';
+import { SalesmanretailerListComponent } from '@app/salesman/retailerList/salesmanretailerList.component';
+import { SalesmanaddRetailerComponent } from '@app/salesman/addRetailer/salesmanaddRetailer.component';
 
 const routes: Routes = [
-  Shell.retailerShell([
-    { path: '', redirectTo: '/retailer/home', pathMatch: 'full' },
+  Shell.salesManShell([
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
       path: 'home',
-      component: HomeComponent,
+      component: SalesmanhomeComponent,
       // children: [
       //   {
       //     path:  'by-distributor',
@@ -27,13 +29,18 @@ const routes: Routes = [
       //   }
       // ],
       data: { title: extract('Home') }
+    },
+    {
+      path: 'retailer-list',
+      component: SalesmanretailerListComponent,
+      data: { title: extract('Retailer list') }
+    },
+    {
+      path: 'add-retailer',
+      component: SalesmanaddRetailerComponent,
+      data: { title: extract('Add retailer') }
     }
-  ]),
-  Shell.distributorShell([
-    { path: '', redirectTo: '/distributor/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
-  ]),
-  Shell.salesManShell([{ path: 'order-list', component: HomeComponent, data: { title: extract('Order list') } }])
+  ])
 ];
 
 @NgModule({
@@ -41,4 +48,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class HomeRoutingModule {}
+export class SalesmanRoutingModule {}

@@ -100,7 +100,7 @@
             >
               <div *ngIf="onBoardingForm.controls.day.errors.required">Day is required.</div>
             </div>
-            
+
             <input
               type="number"
               formControlName="month"
@@ -210,7 +210,7 @@
               *ngIf="onBoardingForm.controls.address_line_1.invalid && onBoardingForm.controls.address_line_1.touched"
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Phone number is required</div>
+              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address field is required.</div>
             </div>
 
             <textarea
@@ -271,7 +271,7 @@
               *ngIf="onBoardingForm.controls.state.invalid && onBoardingForm.controls.state.touched"
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.state.errors.required">City is required</div>
+              <div *ngIf="onBoardingForm.controls.state.errors.required">State is required</div>
             </div>
 
             <input

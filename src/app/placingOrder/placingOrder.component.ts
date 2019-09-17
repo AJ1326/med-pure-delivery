@@ -10,6 +10,9 @@ import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { Route, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
+//Query param salesman view
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 const log = new Logger('Placing Order');
 
@@ -55,6 +58,7 @@ export class WikipediaService {
   // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
+  orderFromSalesman: any;
   version: string = environment.version;
   closeResult: string;
   currentRate: any;
@@ -83,7 +87,8 @@ export class PlacingOrderComponent implements OnInit {
     private _service: WikipediaService,
     private _hotkeysService: HotkeysService,
     public route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: ActivatedRoute
   ) {
     // this._hotkeysService.add(
     //   new Hotkey(
@@ -167,6 +172,12 @@ export class PlacingOrderComponent implements OnInit {
 
   ngOnInit() {
     this.message = 'Welcome !!!!';
+    this.router.queryParams
+      .filter(params => params.retailer_slug)
+      .subscribe(params => {
+        // console.log('params', params); // {order: "popular"}
+        this.orderFromSalesman = params;
+      });
   }
 
   public openModal(content: any) {
@@ -221,7 +232,7 @@ export class PlacingOrderComponent implements OnInit {
       delete data['stock'];
     });
     this.distributorService
-      .orderListPlaced(order)
+      .orderListPlaced(order, this.orderFromSalesman)
       .pipe(
         finalize(() => {
           this.isLoading = false;

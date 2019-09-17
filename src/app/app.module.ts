@@ -11,6 +11,7 @@ import {
   AuthenticationBoardingGuard,
   AuthenticationPermissionDistributorGuard,
   AuthenticationPermissionRetailerGuard,
+  AuthenticationPermissionSalesManGuard,
   CoreModule
 } from '@app/core';
 import { SharedModule } from '@app/shared';
@@ -41,6 +42,7 @@ import { PwaService } from '@app/pwa.service';
 import { SavingNotesRoutingModule } from '@app/saving-notes/saving-notes-routing.module';
 import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SalesmanModule } from '@app/salesman/salesman.module';
 
 @NgModule({
   imports: [
@@ -54,6 +56,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     CoreModule,
     SharedModule,
     ShellModule,
+    SalesmanModule,
     HomeModule,
     AboutModule,
     FeedbackModule,
@@ -78,9 +81,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   ],
   declarations: [AppComponent],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthenticationPermissionRetailerGuard,
     AuthenticationPermissionDistributorGuard,
+    AuthenticationPermissionSalesManGuard,
     AuthenticationBoardingGuard,
     CookieService,
     PwaService

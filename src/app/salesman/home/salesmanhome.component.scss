@@ -1,0 +1,21 @@
+.salesman-box {
+  padding: 2em;
+  border: 1px solid #b1bac1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 2px 3px 1px #a9a0a047;
+}
+
+.salesman-box img {
+  vertical-align: middle;
+  border-style: none;
+  width: 60px;
+  margin: auto;
+}
+
+.salesman-box span {
+  padding-top: 4px;
+  font-size: 14px;
+  text-align: center;
+}

@@ -51,7 +51,7 @@ export class OnboardingComponent implements OnInit {
             email: [data['email'] ? data['email'] : '', [Validators.required(), Validators.email()]],
             phone_number: [data['phone_number'] ? data['phone_number'] : '', Validators.required()],
             address_line_1: [data['address_line_1'] ? data['address_line_1'] : '', Validators.required()],
-            address_line_2: [data['address_line_2'] ? data['address_line_2'] : '', Validators.required()],
+            address_line_2: [data['address_line_2'] ? data['address_line_2'] : ''],
             shop_name: [data['shop_name'] ? data['shop_name'] : '', Validators.required()],
             certificate_no: [data['certificate_no'] ? data['certificate_no'] : '', Validators.required()],
             city: [data['city'] ? data['city'] : '', Validators.required()],
