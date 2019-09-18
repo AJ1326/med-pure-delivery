@@ -387,7 +387,7 @@ export class LoginComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', [Validators.email()]],
       phone_number: ['', [Validators.ValidatePhoneNumber()]],
-      user_type: ['retailer', Validators.required()]
+      user_role: ['retailer', Validators.required()]
     });
   }
 }

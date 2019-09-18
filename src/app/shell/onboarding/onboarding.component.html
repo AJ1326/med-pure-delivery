@@ -234,37 +234,38 @@
               <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
             </div>
 
-            <input
-              formControlName="shop_name"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
-              type="text"
-              placeholder="Shop name"
-              oninput="this.className = ''"
-            />
-            <div
-              *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
-            </div>
-            <input
-              formControlName="certificate_no"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
-              type="text"
-              placeholder="Certification number"
-              oninput="this.className = ''"
-            />
-            <div
-              *ngIf="onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
-                Certification number is required
+            <div *ngIf="user_initial_data['user_role'] !== 'salesman'">
+              <input
+                formControlName="shop_name"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
+                type="text"
+                placeholder="Shop name"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
+              </div>
+              <input
+                formControlName="certificate_no"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
+                type="text"
+                placeholder="Certification number"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
+                  Certification number is required
+                </div>
               </div>
             </div>
-
             <input
               formControlName="state"
               class="form-control"
