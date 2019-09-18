@@ -7,3 +7,29 @@
 .nav-link.dropdown-toggle {
   cursor: pointer;
 }
+
+.profile_circle {
+  background-color: #fff3f3;
+  padding: 5%;
+  padding-left: 16px;
+  padding-right: 16px;
+  color: #669008;
+  font-size: 17px;
+}
+
+.nav-item-header-btn {
+  text-decoration: underline;
+}
+
+.nav-item-header-btn:hover {
+  text-decoration: underline;
+  box-shadow: 2px -4px 5px 7px #382f2f12;
+}
+
+.navbar.default-layout .navbar-menu-wrapper .navbar-nav.header-links {
+  padding-left: 0% !important;
+}
+
+.navbar.default-layout .navbar-menu-wrapper .navbar-nav.header-links .nav-item.active {
+  background: rgba(62, 67, 76, 0.3) !important;
+}

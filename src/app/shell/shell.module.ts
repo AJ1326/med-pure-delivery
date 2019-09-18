@@ -22,9 +22,20 @@ import { SharedModule } from '@app/shared';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
 import { SalesmanheaderComponent } from '@app/shell/salesManShell/header/salesmanheader.component';
 import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { SalesmansidebarComponent } from '@app/shell/salesManShell/sidebar/salesmansidebar.component';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, NgbModule, RouterModule, FormsModule, ReactiveFormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NgbModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    DeviceDetectorModule.forRoot()
+  ],
   declarations: [
     HeaderComponent,
     ShellComponent,
@@ -33,6 +44,7 @@ import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.c
     BoardingShellComponent,
     SalesManShellComponent,
     SalesmanheaderComponent,
+    SalesmansidebarComponent,
     OnboardheaderComponent,
     OnboardingComponent
   ],

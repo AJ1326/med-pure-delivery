@@ -36,6 +36,11 @@ const routes: Routes = [
       data: { title: extract('Retailer list') }
     },
     {
+      path: 'distributor-list',
+      component: SalesmanretailerListComponent,
+      data: { title: extract('Distributor list') }
+    },
+    {
       path: 'add-retailer',
       component: SalesmanaddRetailerComponent,
       data: { title: extract('Add retailer') }

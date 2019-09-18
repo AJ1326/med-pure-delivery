@@ -1,14 +1,98 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-    <a class="navbar-brand brand-logo">
-      <img
-        style="width: 63% !important; height: auto;"
-        src="../../../../assets/images/logo/small-logo.png"
-        alt="logo"
-      />
+    <!--Toggle function (click)="toggleSideBar()"-->
+    <a class="navbar-brand brand-logo desktop_view">
+      <img style="width: 26%;" src="../../../../assets/images/logo/full-logo.png" alt="logo" />
     </a>
-    <a routerLink="/salesman/home" class="navbar-brand brand-logo-mini">
-      <img style="width: 33px; height: auto;" src="../../../../assets/images/logo/small-logo.png" alt="logo" />
+    <a class="navbar-brand brand-logo-mini">
+      <img style="height: auto;width: 40%;" src="../../../../assets/images/logo/small-logo.png" alt="logo" />
     </a>
   </div>
+  <div class="navbar-menu-wrapper d-flex align-items-center">
+    <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+      <!--      <li-->
+      <!--        class="nav-item nav-item-header-btn"-->
+      <!--        (click)="activeHeaderTag('home')"-->
+      <!--        [ngClass]="activeTag === 'home' ? 'active' : ''"-->
+      <!--      >-->
+      <!--        <a [routerLink]="['/' + role_type + '/home']" class="nav-link">My orders</a>-->
+      <!--      </li>-->
+      <!--      <li-->
+      <!--        class="nav-item nav-item-header-btn"-->
+      <!--        (click)="activeHeaderTag('order')"-->
+      <!--        [ngClass]="activeTag === 'order' ? 'active' : ''"-->
+      <!--      >-->
+      <!--        <a *ngIf="role_type === 'retailer'" [routerLink]="['/' + role_type + '/order']" class="nav-link">-->
+      <!--          &lt;!&ndash;<i class="mdi mdi-elevation-rise"></i>&ndash;&gt;-->
+      <!--          Place order-->
+      <!--        </a>-->
+      <!--        <a-->
+      <!--          *ngIf="role_type === 'distributor'"-->
+      <!--          (click)="activeHeaderTag('upload')"-->
+      <!--          [ngClass]="activeTag === 'upload' ? 'active' : ''"-->
+      <!--          [routerLink]="['/' + role_type + '/upload']"-->
+      <!--          class="nav-link"-->
+      <!--        >-->
+      <!--          &lt;!&ndash;<i class="mdi fa fa-cloud-upload"></i>&ndash;&gt;-->
+      <!--          Upload-->
+      <!--        </a>-->
+      <!--      </li>-->
+      <!--      <li-->
+      <!--        class="nav-item nav-item-header-btn"-->
+      <!--        (click)="activeHeaderTag('coming-soon')"-->
+      <!--        [ngClass]="activeTag === 'coming-soon' ? 'active' : ''"-->
+      <!--      >-->
+      <!--        <a [routerLink]="['/' + role_type + '/coming-soon']" class="nav-link"-->
+      <!--        >Products-->
+      <!--          <span class="badge badge-primary ml-1">New</span>-->
+      <!--        </a>-->
+      <!--      </li>-->
+    </ul>
+    <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item dropdown d-none d-xl-inline-block">
+        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+          <span class="profile-text">Hello, {{ user_info['name'] }} !</span>
+          <!--<span class="img-xs rounded-circle profile_circle"><strong>{{ user_info['name'].charAt(0).toUpperCase() }}</strong></span>-->
+          <img
+            class="img-xs rounded-circle"
+            src="../../../../assets/images/show-faces/salesman.png"
+            alt="Profile image"
+          />
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+          <a class="dropdown-item mt-2" [routerLink]="['/' + role_type + '/change-password']">
+            Change Password
+          </a>
+          <!--<a class="dropdown-item">-->
+          <!--Check Inbox-->
+          <!--</a>-->
+          <a class="dropdown-item" (click)="logout()">
+            Sign Out
+          </a>
+        </div>
+      </li>
+    </ul>
+    <button
+      class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+      type="button"
+      data-toggle="offcanvas"
+    >
+      <span class="mdi mdi-menu" (click)="toggleSideBar()"></span>
+    </button>
+  </div>
 </nav>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Hello, World!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
