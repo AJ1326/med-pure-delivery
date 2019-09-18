@@ -240,7 +240,8 @@ export class OnboardingComponent implements OnInit {
           zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
           password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
           // tslint:disable-next-line: max-line-length
-          password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]]
+          password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]],
+          tnc: [false, [Validators.requiredTrue()]]
         },
         {
           validator: this.MustMatch('password1', 'password2')
@@ -263,7 +264,8 @@ export class OnboardingComponent implements OnInit {
           zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
           password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
           // tslint:disable-next-line: max-line-length
-          password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]]
+          password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]],
+          tnc: [false, [Validators.requiredTrue()]]
         },
         {
           validator: this.MustMatch('password1', 'password2')

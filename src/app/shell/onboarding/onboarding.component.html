@@ -100,7 +100,7 @@
             >
               <div *ngIf="onBoardingForm.controls.day.errors.required">Day is required.</div>
             </div>
-            
+
             <input
               type="number"
               formControlName="month"
@@ -378,6 +378,22 @@
               <div *ngIf="onBoardingForm.controls.password2.errors.minLength">
                 Password must have minimum of 8 characters
               </div>
+            </div>
+            <div class="form-control form-check">
+              <input
+                type="checkbox"
+                formControlName="tnc"
+                id="acceptTerms"
+                class="form-check-input"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.tnc.errors }"
+              />
+              <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+            </div>
+            <div
+              *ngIf="onBoardingForm.controls.tnc.invalid && (onBoardingForm.controls.tnc.touched || tab_submitted)"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.tnc.errors.requiredTrue">Accept Ts & Cs is required</div>
             </div>
           </div>
         </form>

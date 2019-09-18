@@ -220,11 +220,12 @@ export class ProviderDataValidators {
   }
 
   static requiredTrue(): ValidatorFn {
-    return (value: any): { [key: string]: any } | null => {
-      if (typeof value !== 'boolean' || !value) {
-        return { requiredTrue: { value: value } };
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (typeof control.value !== 'boolean' || !control.value) {
+        return { requiredTrue: { value: control.value } };
+      } else {
+        return null;
       }
-      return null;
     };
   }
 
