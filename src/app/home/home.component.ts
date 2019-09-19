@@ -74,12 +74,10 @@ export class HomeComponent implements OnInit {
     this.role_type = this.user_info.roles[0];
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    this.router.queryParams
-      .filter(params => params.retailer_slug)
-      .subscribe(params => {
-        // console.log('params', params); // {order: "popular"}
-        this.orderFromSalesman = params;
-      });
+    this.router.queryParams.subscribe(params => {
+      // console.log('params', params); // {order: "popular"}
+      this.orderFromSalesman = params['retailer_slug'];
+    });
     if (this.role_type === 'retailer') {
       this.tableservice.SetfilterTypeValue('all-order-list');
       this.selectFilterCard('all-order-list');

@@ -31,9 +31,14 @@ const routes: Routes = [
       data: { title: extract('Home') }
     },
     {
-      path: 'retailer-list',
+      path: 'retailer-list/order-list',
       component: SalesmanretailerListComponent,
-      data: { title: extract('Retailer list'), list_type: 'retailer_list' }
+      data: { title: extract('Retailer list'), list_type: 'retailer_list', fuctionality: 'order_list' }
+    },
+    {
+      path: 'retailer-list/order',
+      component: SalesmanretailerListComponent,
+      data: { title: extract('Retailer list'), list_type: 'retailer_list', fuctionality: 'place_order' }
     },
     {
       path: 'distributor-list',

@@ -37,6 +37,7 @@ export class SalesmanretailerListComponent implements OnInit, OnDestroy {
   retailerInfo: any;
   retailer_list: any = [];
   listOfUsers: any;
+  fuctionality: any;
   list_sub: any;
   list_type: string | null = null;
   search_subscription: any;
@@ -60,6 +61,7 @@ export class SalesmanretailerListComponent implements OnInit, OnDestroy {
 
     this.list_sub = this.route.data.subscribe(v => {
       console.log(v, typeof v['list_type']);
+      this.fuctionality = v['fuctionality'];
       if (v['list_type'] === 'retailer_list') {
         this.list_type = 'Retailer';
       } else if (v['list_type'] === 'distributor_list') {
