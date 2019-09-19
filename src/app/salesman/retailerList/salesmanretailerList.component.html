@@ -7,84 +7,82 @@
   <input
     type="text"
     id="search-bar"
-    placeholder="Search by retailer name or id."
+    placeholder="Search by {{ list_type }} name or id."
     class="form-control"
-    [class.is-invalid]="searchFailed"
     [(ngModel)]="model"
-    [ngbTypeahead]="search"
+    (ngModelChange)="search($event)"
     name="searching"
-    (selectItem)="selectedItem($event)"
-    [resultTemplate]="rt"
-    [inputFormatter]="formatter"
   />
   <a><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"/></a>
   <span *ngIf="searching">searching...</span>
+
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 </form>
 <div class="row salesman-retailer-list">
   <div class="col-12 grid-margin">
+    <br />
+    <h5 class="card-title mb-4" style="color: #ec2c70;">{{ list_type }} list</h5>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4" style="color: #ec2c70;">Retailer list</h5>
-        <div class="fluid-container">
-          <div
-            (click)="navigateAddOrderPage('order-list', 'abc_abc')"
-            class="ticket-card mt-3 border-bottom"
-            style="display: flex; flex-direction: row; flex-grow: 1"
-          >
-            <div style="flex-grow: 1;">
-              <img
-                class="img-sm rounded-circle mb-4 mb-md-0"
-                src="../../../assets/images/show-faces/retailer.png"
-                alt="profile image"
-              />
-            </div>
-            <div class="ticket-details" style="float: right;">
-              <div class="d-flex" style="display: flex; flex-direction: column;">
-                <div style="display: flex; flex-direction: row;">
-                  <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">James :</p>
-                  <p class="text-primary mr-1 mb-0">[#23047]</p>
-                </div>
-                <div>
-                  <div class="ticket-actions">
-                    <div class="btn-group dropdown" style="float: right;">
-                      <button
-                        (click)="navigateAddOrderPage('order', 'abc_abc')"
-                        type="button"
-                        class="btn btn-success btn-sm"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Order
-                      </button>
-                      <!--                      <div class="dropdown-menu">-->
-                      <!--                        <a class="dropdown-item" href="#">-->
-                      <!--                          <i class="fa fa-reply fa-fw"></i>Quick reply</a>-->
-                      <!--                        <a class="dropdown-item" href="#">-->
-                      <!--                          <i class="fa fa-history fa-fw"></i>Another action</a>-->
-                      <!--                        <div class="dropdown-divider"></div>-->
-                      <!--                        <a class="dropdown-item" href="#">-->
-                      <!--                          <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>-->
-                      <!--                        <a class="dropdown-item" href="#">-->
-                      <!--                          <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>-->
-                      <!--                      </div>-->
+        <div *ngIf="listOfUsers.length === 0">No {{ list_type }}s found.</div>
+        <div *ngIf="listOfUsers.length > 0">
+          <div class="fluid-container" *ngFor="let user of listOfUsers">
+            <div class="ticket-card mt-3 border-bottom" style="display: flex; flex-direction: row; flex-grow: 1">
+              <div style="flex-grow: 1;">
+                <img
+                  class="img-sm rounded-circle mb-4 mb-md-0"
+                  src="../../../assets/images/show-faces/retailer.png"
+                  alt="profile image"
+                />
+              </div>
+              <div class="ticket-details" style="float: right;">
+                <div class="d-flex" style="display: flex; flex-direction: column;">
+                  <div style="display: flex; flex-direction: row;">
+                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ user['shop_name'] }} :</p>
+                    <p class="text-primary mr-1 mb-0">[{{ user['owner_name'] }}]</p>
+                  </div>
+                  <div>
+                    <div class="ticket-actions" *ngIf="list_type === 'Retailer'">
+                      <div class="btn-group dropdown" style="float: right;">
+                        <button
+                          (click)="navigateAddOrderPage('order', user['slug'])"
+                          type="button"
+                          class="btn btn-success btn-sm"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Order Now
+                        </button>
+                      </div>
+                      <!--  <div class="btn-group dropdown" style="float: right;">
+                        <button
+                          (click)="navigateAddOrderPage('order-list', user['slug'])"
+                          type="button"
+                          class="btn btn-success btn-sm"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Order List
+                        </button>
+                      </div> -->
                     </div>
                   </div>
+                  <!--                <p class="mb-0 ellipsis">Donec rutrum congue leo eget malesuada.</p>-->
                 </div>
-                <!--                <p class="mb-0 ellipsis">Donec rutrum congue leo eget malesuada.</p>-->
+                <!--              <p class="text-gray ellipsis mb-2">Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim vivamus.</p>-->
+                <!--              <div class="row text-gray d-md-flex d-none">-->
+                <!--                <div class="col-4 d-flex">-->
+                <!--                  <small class="mb-0 mr-2 text-muted text-muted">Last responded :</small>-->
+                <!--                  <small class="Last-responded mr-2 mb-0 text-muted text-muted">3 hours ago</small>-->
+                <!--                </div>-->
+                <!--                <div class="col-4 d-flex">-->
+                <!--                  <small class="mb-0 mr-2 text-muted text-muted">Due in :</small>-->
+                <!--                  <small class="Last-responded mr-2 mb-0 text-muted text-muted">2 Days</small>-->
+                <!--                </div>-->
+                <!--              </div>-->
               </div>
-              <!--              <p class="text-gray ellipsis mb-2">Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim vivamus.</p>-->
-              <!--              <div class="row text-gray d-md-flex d-none">-->
-              <!--                <div class="col-4 d-flex">-->
-              <!--                  <small class="mb-0 mr-2 text-muted text-muted">Last responded :</small>-->
-              <!--                  <small class="Last-responded mr-2 mb-0 text-muted text-muted">3 hours ago</small>-->
-              <!--                </div>-->
-              <!--                <div class="col-4 d-flex">-->
-              <!--                  <small class="mb-0 mr-2 text-muted text-muted">Due in :</small>-->
-              <!--                  <small class="Last-responded mr-2 mb-0 text-muted text-muted">2 Days</small>-->
-              <!--                </div>-->
-              <!--              </div>-->
             </div>
           </div>
         </div>
@@ -93,7 +91,7 @@
   </div>
 </div>
 
-<div class="outer-add-container">
+<div class="outer-add-container" *ngIf="list_type === 'Retailer'">
   <div class="floatcontainer">
     <button
       (click)="navigateAddOrderPage('add-retailer')"

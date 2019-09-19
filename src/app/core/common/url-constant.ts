@@ -41,7 +41,7 @@ export const URLS = {
   UPLOAD_LIST_API: `uploads/distributor_product_list/`,
 
   //Salesman view
-  SALESMAN_RETAILER_LIST_API: `salesman/?retailer_name=`,
+  SALESMAN_RETAILER_LIST_API: `retailers/`,
   SALESMAN_RETAILER_SEARCH_API: `retailer_list/?search=`,
-  SALESMAN_DISTRIBUTOR_LIST_API: `salesman/distributor_list`
+  SALESMAN_DISTRIBUTOR_LIST_API: `distributors/`
 };

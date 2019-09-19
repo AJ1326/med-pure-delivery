@@ -12,8 +12,20 @@ import { Utils } from '@app/shared/utils/utils';
 export class SalesmanService {
   constructor(private http: HttpClient) {}
 
-  getRetailerList(roleType: any) {
-    return this.http.get(`${URLS.SALESMAN_RETAILER_LIST_API[roleType]}`);
+  getRetailerList(search: any) {
+    let url = `${URLS.SALESMAN_RETAILER_LIST_API}`;
+    if (search) {
+      url = url + '?search=' + search;
+    }
+    return this.http.get(url);
+  }
+
+  getDistributorList(search: any) {
+    let url = `${URLS.SALESMAN_DISTRIBUTOR_LIST_API}`;
+    if (search) {
+      url = url + '?search=' + search;
+    }
+    return this.http.get(url);
   }
 
   search(term: string) {

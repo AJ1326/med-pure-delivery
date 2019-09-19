@@ -33,12 +33,12 @@ const routes: Routes = [
     {
       path: 'retailer-list',
       component: SalesmanretailerListComponent,
-      data: { title: extract('Retailer list') }
+      data: { title: extract('Retailer list'), list_type: 'retailer_list' }
     },
     {
       path: 'distributor-list',
       component: SalesmanretailerListComponent,
-      data: { title: extract('Distributor list') }
+      data: { title: extract('Distributor list'), list_type: 'distributor_list' }
     },
     {
       path: 'add-retailer',

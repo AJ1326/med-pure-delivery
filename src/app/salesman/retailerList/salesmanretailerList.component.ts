@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren, OnDestroy } from '@angular/core';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { DecimalPipe } from '@angular/common';
 import { AuthenticationService, Logger } from '@app/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { HomeService } from '@app/home/home.service';
 import { SalesmanService } from '@app/salesman/salesman.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 const log = new Logger('Salesman home');
 
@@ -17,7 +17,9 @@ const log = new Logger('Salesman home');
   styleUrls: ['./salesmanretailerList.component.scss'],
   providers: [DecimalPipe]
 })
-export class SalesmanretailerListComponent implements OnInit {
+export class SalesmanretailerListComponent implements OnInit, OnDestroy {
+  searchTextChanged = new Subject<string>();
+
   quote: string;
   isLoading: boolean;
   //Search bar
@@ -35,6 +37,9 @@ export class SalesmanretailerListComponent implements OnInit {
   retailerInfo: any;
   retailer_list: any = [];
   listOfUsers: any;
+  list_sub: any;
+  list_type: string | null = null;
+  search_subscription: any;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -42,6 +47,7 @@ export class SalesmanretailerListComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private tableservice: TableDataService,
     private router: Router,
+    private route: ActivatedRoute,
     private salesmanService: SalesmanService
   ) {}
 
@@ -51,10 +57,34 @@ export class SalesmanretailerListComponent implements OnInit {
     this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    if (this.role_type === 'salesman') {
-      this.getListOfUser();
-    } else {
-    }
+
+    this.list_sub = this.route.data.subscribe(v => {
+      console.log(v, typeof v['list_type']);
+      if (v['list_type'] === 'retailer_list') {
+        this.list_type = 'Retailer';
+      } else if (v['list_type'] === 'distributor_list') {
+        this.list_type = 'Distributor';
+      }
+      if (this.role_type === 'salesman') {
+        this.getListOfUser();
+      }
+    });
+
+    this.search_subscription = this.searchTextChanged
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe(v => {
+        if (this.list_type) {
+          this.getListOfUser(v);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.list_sub.unsubscribe();
+    this.search_subscription.unsubscribe();
   }
 
   navigateAddOrderPage(url: any, retailer_id?: string): void {
@@ -63,9 +93,9 @@ export class SalesmanretailerListComponent implements OnInit {
     // this.router.navigateByUrl('salesman/' + url + '/' + retailer_id);
   }
 
-  getListOfUser(): void {
-    this.salesmanService
-      .getRetailerList(this.role_type)
+  getListOfUser(search: string = ''): void {
+    this.searching = true;
+    this.salesmanService['get' + this.list_type + 'List'](search)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -73,11 +103,13 @@ export class SalesmanretailerListComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
-          this.listOfUsers = data;
+          this.listOfUsers = data['results'];
+          this.searching = false;
         },
         (error: any) => {
           log.debug(`Login error: ${error}`);
           this.error = error;
+          this.searching = false;
         }
       );
   }
@@ -103,24 +135,9 @@ export class SalesmanretailerListComponent implements OnInit {
       );
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(() => (this.searching = true)),
-      switchMap(term =>
-        this.salesmanService.search(term).pipe(
-          tap(() => (this.searchFailed = false)),
-          debounceTime(200),
-          map((term: any) => (term === '' ? [] : term.filter((v: any) => v.name.toLowerCase()))),
-          catchError(() => {
-            this.searchFailed = true;
-            return of([]);
-          })
-        )
-      ),
-      tap(() => (this.searching = false))
-    );
+  search($event: any) {
+    this.searchTextChanged.next($event);
+  }
 
   formatter = (x: { name: string }) => x.name;
 }
