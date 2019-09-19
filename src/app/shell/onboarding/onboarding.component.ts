@@ -17,14 +17,16 @@ import { Subscription } from 'rxjs';
 })
 export class OnboardingComponent implements OnInit {
   currentTab = 0; // Current tab is set to be the first tab (0)
+  tab_submitted = false;
   onBoardingForm: FormGroup;
   submitted = false;
-  birthdate = { year: '0', month: '0', day: '0' };
+  birthdate: NgbDateStruct = { year: 2000, month: 1, day: 1 };
   minDate: NgbDateStruct = {
     year: 1970,
     month: 1,
     day: 1
   };
+  maxDate: NgbDateStruct;
   loading = false;
   verification_code: string;
   user_initial_data: any;
@@ -35,7 +37,15 @@ export class OnboardingComponent implements OnInit {
     private calendar: NgbCalendar,
     private onboardingService: OnboardingService,
     private router: Router
-  ) {}
+  ) {
+    let today: any = new Date();
+    today = +today.getFullYear() - 12;
+    this.maxDate = {
+      year: today,
+      month: 12,
+      day: 31
+    };
+  }
 
   ngOnInit() {
     this.loading = true;
@@ -43,28 +53,7 @@ export class OnboardingComponent implements OnInit {
       this.verification_code = params['id'];
       this.onboardingService.check_url(this.verification_code).subscribe(data => {
         this.user_initial_data = data;
-        this.onBoardingForm = this.formBuilder.group(
-          {
-            first_name: [data['first_name'] ? data['first_name'] : '', Validators.required()],
-            last_name: [data['last_name'] ? data['last_name'] : '', Validators.required()],
-            dob: ['', Validators.completeDate()],
-            email: [data['email'] ? data['email'] : '', [Validators.required(), Validators.email()]],
-            phone_number: [data['phone_number'] ? data['phone_number'] : '', Validators.required()],
-            address_line_1: [data['address_line_1'] ? data['address_line_1'] : '', Validators.required()],
-            address_line_2: [data['address_line_2'] ? data['address_line_2'] : ''],
-            shop_name: [data['shop_name'] ? data['shop_name'] : '', Validators.required()],
-            certificate_no: [data['certificate_no'] ? data['certificate_no'] : '', Validators.required()],
-            city: [data['city'] ? data['city'] : '', Validators.required()],
-            state: [data['state'] ? data['state'] : 'Maharashtra', Validators.required()],
-            zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
-            password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
-            // tslint:disable-next-line: max-line-length
-            password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]]
-          },
-          {
-            validator: this.MustMatch('password1', 'password2')
-          }
-        );
+        this.build_form(data);
         this.loading = false;
         setTimeout(() => this.showTab(this.currentTab), 1000);
         // Display the current tab
@@ -119,8 +108,6 @@ export class OnboardingComponent implements OnInit {
       console.log('submit form data:', data);
       this.router.navigate(['/login'], { queryParams: { from: 'onboarding' } });
     });
-
-    alert('SUCCESS!! :-)');
   }
 
   showTab(n: any): void {
@@ -143,6 +130,8 @@ export class OnboardingComponent implements OnInit {
   }
 
   nextPrev(n: any) {
+    this.tab_submitted = true;
+    console.log(this.onBoardingForm);
     // This function will figure out which tab to display
     const x = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>;
     // Exit the function if any field in the current tab is invalid:
@@ -166,6 +155,8 @@ export class OnboardingComponent implements OnInit {
       x[this.currentTab - n].style.display = 'none';
     }
     // Otherwise, display the correct tab:
+    this.tab_submitted = false;
+
     this.showTab(this.currentTab);
   }
 
@@ -231,5 +222,55 @@ export class OnboardingComponent implements OnInit {
     }
     // ... and adds the 'active' class to the current step:
     x[n].className += ' active';
+  }
+
+  build_form(data: any) {
+    if (data['user_role'] === 'salesman') {
+      this.onBoardingForm = this.formBuilder.group(
+        {
+          first_name: [data['first_name'] ? data['first_name'] : '', Validators.required()],
+          last_name: [data['last_name'] ? data['last_name'] : '', Validators.required()],
+          dob: ['', Validators.completeDate()],
+          email: [data['email'] ? data['email'] : '', [Validators.required(), Validators.email()]],
+          phone_number: [data['phone_number'] ? data['phone_number'] : '', Validators.required()],
+          address_line_1: [data['address_line_1'] ? data['address_line_1'] : '', Validators.required()],
+          address_line_2: [data['address_line_2'] ? data['address_line_2'] : '', Validators.required()],
+          city: [data['city'] ? data['city'] : '', Validators.required()],
+          state: [data['state'] ? data['state'] : 'Maharashtra', Validators.required()],
+          zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
+          password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
+          // tslint:disable-next-line: max-line-length
+          password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]],
+          tnc: [false, [Validators.requiredTrue()]]
+        },
+        {
+          validator: this.MustMatch('password1', 'password2')
+        }
+      );
+    } else {
+      this.onBoardingForm = this.formBuilder.group(
+        {
+          first_name: [data['first_name'] ? data['first_name'] : '', Validators.required()],
+          last_name: [data['last_name'] ? data['last_name'] : '', Validators.required()],
+          dob: ['', Validators.completeDate()],
+          email: [data['email'] ? data['email'] : '', [Validators.required(), Validators.email()]],
+          phone_number: [data['phone_number'] ? data['phone_number'] : '', Validators.required()],
+          address_line_1: [data['address_line_1'] ? data['address_line_1'] : '', Validators.required()],
+          address_line_2: [data['address_line_2'] ? data['address_line_2'] : '', Validators.required()],
+          shop_name: [data['shop_name'] ? data['shop_name'] : '', Validators.required()],
+          certificate_no: [data['certificate_no'] ? data['certificate_no'] : '', Validators.required()],
+          city: [data['city'] ? data['city'] : '', Validators.required()],
+          state: [data['state'] ? data['state'] : 'Maharashtra', Validators.required()],
+          zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
+          password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
+          // tslint:disable-next-line: max-line-length
+          password2: [data['password2'] ? data['password2'] : '', [Validators.required(), Validators.minLength(8)]],
+          tnc: [false, [Validators.requiredTrue()]]
+        },
+        {
+          validator: this.MustMatch('password1', 'password2')
+        }
+      );
+    }
   }
 }
