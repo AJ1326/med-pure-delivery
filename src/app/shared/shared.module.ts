@@ -3,7 +3,7 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 
 import { LoaderComponent } from './loader/loader.component';
 import { RatingComponent } from '@app/shared/Rating/rating.component';
-import { NgbModule, NgbRatingConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbRatingConfig, NgbDatepicker, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { AlertmodalComponent } from '@app/shared/alertModal/alertmodal.component';
 import { MessageBarComponent } from '@app/shared/message-bar/message-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,6 +18,7 @@ import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
+import { NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown';
 // import {AppRoutingModule} from "@app/app-routing.module";
 
 @NgModule({
@@ -61,7 +62,8 @@ import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
     TableDataComponent,
     NgbdSortableHeader,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgbDropdown
   ]
 })
 export class SharedModule {}

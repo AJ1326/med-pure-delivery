@@ -17,6 +17,12 @@ export class UploadComponent implements OnInit {
   user_info: any;
   loading$ = false;
   message = '';
+  submitSuccess = false;
+  software: string | null = null;
+  submitError = false;
+  software_error = false;
+  force_update = false;
+  uploading_file: any = null;
 
   constructor(
     private http: HttpClient,
@@ -29,6 +35,12 @@ export class UploadComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
+    if (this.software == null) {
+      this.software_error = true;
+      this.loading$ = false;
+      this.uploading_file = null;
+      return;
+    }
     this.loading$ = true;
     console.log('this.loading$', this.loading$);
     this.fileToUpload = files.item(0);
@@ -36,8 +48,17 @@ export class UploadComponent implements OnInit {
   }
 
   onSubmit(fileToUpload: any) {
+    if (this.software == null) {
+      this.software_error = true;
+      this.loading$ = false;
+      this.uploading_file = null;
+
+      return;
+    }
     const formData = new FormData();
     formData.append('file', fileToUpload);
+    formData.append('software', this.software);
+    formData.append('force_upload', String(this.force_update));
     this.uploadService
       .uploadProductList(formData)
       .pipe(
@@ -45,12 +66,25 @@ export class UploadComponent implements OnInit {
           this.loading$ = false;
         })
       )
-      .subscribe(events => {
-        // this.message = 'Uploaded successfully';
-      });
+      .subscribe(
+        (events: any) => {
+          this.submitSuccess = true;
+          // this.message = 'Uploaded successfully';
+        },
+        (error: any) => {
+          this.submitError = true;
+        }
+      );
   }
 
   onSelectFile(event: any) {
+    if (this.software == null) {
+      this.software_error = true;
+      this.loading$ = false;
+      this.uploading_file = null;
+
+      return;
+    }
     // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -62,5 +96,10 @@ export class UploadComponent implements OnInit {
         // this.url = event.target.result;
       };
     }
+  }
+
+  selectSoftware(soft: string) {
+    this.software = soft;
+    this.software_error = false;
   }
 }

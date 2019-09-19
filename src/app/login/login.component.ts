@@ -277,7 +277,7 @@ export class LoginComponent implements OnInit {
   submitOTP() {
     this.isLoading = true;
     const data = {
-      otp_uuid: this.signUpData['otp_uuid'],
+      one_time_token: this.signUpData['one_time_token'],
       otp: this.otp_code
     };
     this.authenticationService
@@ -313,7 +313,7 @@ export class LoginComponent implements OnInit {
 
   resendOtpCode() {
     const data = {
-      otp_uuid: this.signUpData['otp_uuid']
+      one_time_token: this.signUpData['one_time_token']
     };
     this.authenticationService
       .resend_signup_otp(data)
@@ -389,8 +389,7 @@ export class LoginComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', [Validators.email()]],
       phone_number: ['', [Validators.ValidatePhoneNumber()]],
-      user_type: ['retailer', Validators.required()],
-      tnc: [true, Validators.requiredTrue()]
+      user_role: ['retailer', Validators.required()]
     });
   }
 }

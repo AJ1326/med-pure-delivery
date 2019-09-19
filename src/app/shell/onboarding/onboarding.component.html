@@ -137,6 +137,7 @@
               #dp
               [(ngModel)]="birthdate"
               [minDate]="minDate"
+              [maxDate]="maxDate"
               (navigate)="birthdate = $event.next"
             ></ngb-datepicker>
           </div>
@@ -207,10 +208,13 @@
               placeholder="Address line 1"
             ></textarea>
             <div
-              *ngIf="onBoardingForm.controls.address_line_1.invalid && onBoardingForm.controls.address_line_1.touched"
+              *ngIf="
+                onBoardingForm.controls.address_line_1.invalid &&
+                (onBoardingForm.controls.address_line_1.touched || tab_submitted)
+              "
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address field is required.</div>
+              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address line 1 is required</div>
             </div>
 
             <textarea
@@ -221,43 +225,47 @@
               placeholder="Address line 2"
             ></textarea>
             <div
-              *ngIf="onBoardingForm.controls.address_line_2.invalid && onBoardingForm.controls.address_line_2.touched"
+              *ngIf="
+                onBoardingForm.controls.address_line_2.invalid &&
+                (onBoardingForm.controls.address_line_2.touched || tab_submitted)
+              "
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Phone number is required</div>
+              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
             </div>
 
-            <input
-              formControlName="shop_name"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
-              type="text"
-              placeholder="Shop name"
-              oninput="this.className = ''"
-            />
-            <div
-              *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
-            </div>
-            <input
-              formControlName="certificate_no"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
-              type="text"
-              placeholder="Certification number"
-              oninput="this.className = ''"
-            />
-            <div
-              *ngIf="onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
-                Certification number is required
+            <div *ngIf="user_initial_data['user_role'] !== 'salesman'">
+              <input
+                formControlName="shop_name"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
+                type="text"
+                placeholder="Shop name"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
+              </div>
+              <input
+                formControlName="certificate_no"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
+                type="text"
+                placeholder="Certification number"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
+                  Certification number is required
+                </div>
               </div>
             </div>
-
             <input
               formControlName="state"
               class="form-control"
@@ -302,6 +310,15 @@
               class="invalid-error-msg"
             >
               <div *ngIf="onBoardingForm.controls.zip_code.errors.required">Zip code is required</div>
+
+              <div
+                *ngIf="
+                  !onBoardingForm.controls.zip_code.errors.required &&
+                  onBoardingForm.controls.zip_code.errors.invalidZipCode
+                "
+              >
+                Zip code is not correct
+              </div>
             </div>
           </div>
         </form>
@@ -340,6 +357,9 @@
               class="invalid-error-msg"
             >
               <div *ngIf="onBoardingForm.controls.password1.errors.required">Password is required</div>
+              <div *ngIf="onBoardingForm.controls.password1.errors.minLength">
+                Password must have minimum of 8 characters
+              </div>
             </div>
             <input
               type="password"
@@ -355,6 +375,25 @@
             >
               <div *ngIf="onBoardingForm.controls.password2.errors.mustMatch">Passwords are not matching.</div>
               <div *ngIf="onBoardingForm.controls.password2.errors.required">Confirm password is required</div>
+              <div *ngIf="onBoardingForm.controls.password2.errors.minLength">
+                Password must have minimum of 8 characters
+              </div>
+            </div>
+            <div class="form-control form-check">
+              <input
+                type="checkbox"
+                formControlName="tnc"
+                id="acceptTerms"
+                class="form-check-input"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.tnc.errors }"
+              />
+              <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+            </div>
+            <div
+              *ngIf="onBoardingForm.controls.tnc.invalid && (onBoardingForm.controls.tnc.touched || tab_submitted)"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.tnc.errors.requiredTrue">Accept Ts & Cs is required</div>
             </div>
           </div>
         </form>

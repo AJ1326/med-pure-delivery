@@ -298,16 +298,18 @@
                 </div>
               </div>
               <div class="forms_field">
-                <select class="select-role-type" formControlName="user_type">
+                <select class="select-role-type" formControlName="user_role">
                   <option value="retailer" selected>Retailer</option>
                   <option value="distributor">Distributor</option>
+                  <option value="salesman">Salesman</option>
+
                   <!--                  <option value="delivery">Delivery</option>-->
                 </select>
                 <div
-                  *ngIf="signUpForm.controls.user_type.invalid && signUpForm.controls.user_type.touched"
+                  *ngIf="signUpForm.controls.user_role.invalid && signUpForm.controls.user_role.touched"
                   class="text-danger"
                 >
-                  <div *ngIf="signUpForm.controls.user_type.errors.required">Kindly select your user type.</div>
+                  <div *ngIf="signUpForm.controls.user_role.errors.required">Kindly select your user type.</div>
                 </div>
               </div>
             </fieldset>
@@ -552,9 +554,10 @@
             </div>
           </div>
           <div>
-            <select class="select-role-type-mobile" formControlName="user_type">
+            <select class="select-role-type-mobile" formControlName="user_role">
               <option value="retailer" selected>Retailer</option>
               <option value="distributor">Distributor</option>
+              <option value="salesman">Salesman</option>
             </select>
           </div>
           <button (click)="signUp()" [disabled]="signUpForm.invalid || isLoading">
