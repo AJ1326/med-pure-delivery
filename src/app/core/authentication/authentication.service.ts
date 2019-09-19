@@ -63,28 +63,28 @@ export class AuthenticationService {
   login(context: LoginContext): Observable<Credentials> {
     // TODO: Replace by proper authentication call
     // return this.http.post<Credentials>(`${URLS.LOGIN_API}`, context, {withCredentials: true});
-    this.logged_in_role = {
-      key: 'e4b7ff53ed525398c6309c427f0a9b06b56b61cf',
-      user: {
-        name: 'abc Test4',
-        shop_name: 'abc Test',
-        slug: 'abc-test4',
-        email: 'abhishek_retailer2@medpure.com',
-        username: 'abc64',
-        roles: ['salesman_role'],
-        permissions: [
-          'can_cancel_orders',
-          'can_place_orders',
-          'can_view_distributor_list',
-          'can_view_products',
-          'can_view_self_orders_as_retailer'
-        ]
-      },
-      agreement_signed: true
-    };
+    // this.logged_in_role = {
+    //   key: 'e4b7ff53ed525398c6309c427f0a9b06b56b61cf',
+    //   user: {
+    //     name: 'abc Test4',
+    //     shop_name: 'abc Test',
+    //     slug: 'abc-test4',
+    //     email: 'abhishek_retailer2@medpure.com',
+    //     username: 'abc64',
+    //     roles: ['salesman'],
+    //     permissions: [
+    //       'can_cancel_orders',
+    //       'can_place_orders',
+    //       'can_view_distributor_list',
+    //       'can_view_products',
+    //       'can_view_self_orders_as_retailer'
+    //     ]
+    //   },
+    //   agreement_signed: true
+    // };
     // Login service call
 
-    // return this.LoginService.login(context);
+    return this.LoginService.login(context);
     // //
     // .subscribe(
     //   (credentials: any) => {
@@ -97,7 +97,7 @@ export class AuthenticationService {
     // );
 
     // this.setCredentials(this.logged_in_role);
-    return of(this.logged_in_role);
+    // return of(this.logged_in_role);
   }
 
   signup(context: SignUpContext): Observable<any> {

@@ -188,7 +188,6 @@ export class TableDataService {
     this._orderlist$.next([]);
     this.role_type = this.authenticationService.userInfoType();
     // this._filterType$.next(filter_type);
-    console.log('this._filterType lololololol', this._filterType$.value);
 
     this.orderListRetailerService
       .orderListData(this.startDate, this.endDate, this.page, this.pageSize, this.role_type, this._filterType$.value)

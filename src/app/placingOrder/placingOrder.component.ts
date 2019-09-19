@@ -58,7 +58,7 @@ export class WikipediaService {
   // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
-  orderFromSalesman: any;
+  orderFromSalesman: any = null;
   version: string = environment.version;
   closeResult: string;
   currentRate: any;
@@ -173,10 +173,12 @@ export class PlacingOrderComponent implements OnInit {
   ngOnInit() {
     this.message = 'Welcome !!!!';
     this.router.queryParams
-      .filter(params => params.retailer_slug)
+      .filter(params => params['retailer_slug'])
       .subscribe(params => {
         // console.log('params', params); // {order: "popular"}
         this.orderFromSalesman = params;
+        console.log('this.orderFromSalesman', this.orderFromSalesman);
+        console.log('this.orderFromSalesman.retailer_slug', this.orderFromSalesman['retailer_slug']);
       });
   }
 
@@ -219,6 +221,10 @@ export class PlacingOrderComponent implements OnInit {
       delete data['discount'];
       data['distributor'] = data['distributor_slug'];
       data['product'] = data['product_slug'];
+      data['retailer_slug'] =
+        this.orderFromSalesman === undefined || this.orderFromSalesman === null
+          ? null
+          : this.orderFromSalesman['retailer_slug'];
       delete data['mrp'];
       delete data['distributor_slug'];
       delete data['product_slug'];
