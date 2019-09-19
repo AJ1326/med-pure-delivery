@@ -151,8 +151,7 @@ export class AuthenticationService {
   }
 
   userInfoType(): string {
-    const role = this._credentials['user']['roles'][0];
-    const role_type = role.substring(0, role.indexOf('_'));
+    const role_type = this._credentials['user']['roles'][0];
     if (role_type) {
       return role_type;
     } else {

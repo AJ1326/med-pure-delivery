@@ -221,10 +221,6 @@ export class PlacingOrderComponent implements OnInit {
       delete data['discount'];
       data['distributor'] = data['distributor_slug'];
       data['product'] = data['product_slug'];
-      data['retailer_slug'] =
-        this.orderFromSalesman === undefined || this.orderFromSalesman === null
-          ? null
-          : this.orderFromSalesman['retailer_slug'];
       delete data['mrp'];
       delete data['distributor_slug'];
       delete data['product_slug'];
