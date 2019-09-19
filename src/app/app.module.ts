@@ -43,6 +43,8 @@ import { SavingNotesRoutingModule } from '@app/saving-notes/saving-notes-routing
 import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SalesmanModule } from '@app/salesman/salesman.module';
+import { SalesmanlistModule } from '@app/salesman-list/salesmanlist.module';
+import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routing.module';
 
 @NgModule({
   imports: [
@@ -57,6 +59,7 @@ import { SalesmanModule } from '@app/salesman/salesman.module';
     SharedModule,
     ShellModule,
     SalesmanModule,
+    SalesmanlistModule,
     HomeModule,
     AboutModule,
     FeedbackModule,
@@ -73,6 +76,7 @@ import { SalesmanModule } from '@app/salesman/salesman.module';
     UploadRoutingModule,
     AboutRoutingModule,
     ComingSoonRoutingModule,
+    SalesmanlistRoutingModule,
     PlacingOrderRoutingModule,
     SavingNotesRoutingModule,
     HomeRoutingModule,

@@ -214,7 +214,7 @@
         <!--Sign up starts-->
         <div class="user_forms-signup" *ngIf="!show_otp_form">
           <h2 class="forms_title">Sign Up</h2>
-          <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
+          <form class="forms_form" [formGroup]="signUpForm" novalidate>
             <div class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
               On-boarding email has been sent to you.
               <span (click)="resendOnboardingEmail()" class="resend-mail"
@@ -314,12 +314,8 @@
               </div>
             </fieldset>
             <div class="forms_buttons">
-              <button
-                type="submit"
-                [disabled]="signUpForm.invalid || isLoading"
-                value="Sign up"
-                class="forms_buttons-action"
-              >
+              <!--              [disabled]="signUpForm.invalid || isLoading"-->
+              <button type="submit" (click)="signUp()" value="Sign up" class="forms_buttons-action">
                 <span [hidden]="isLoading">
                   Sign up
                 </span>

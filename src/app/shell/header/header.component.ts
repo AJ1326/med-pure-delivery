@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
     let url = window.location.href.replace(/\/$/, ''); /* remove optional end / */
     this.activeTag = url.substr(url.lastIndexOf('/') + 1);
     this.user_info = this.authenticationService.userInfo();
-    this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
+    this.role_type = this.user_info.roles[0];
   }
 
   activeHeaderTag(type: any) {

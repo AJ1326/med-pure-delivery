@@ -76,7 +76,7 @@ export class TableDataService {
     public authenticationService: AuthenticationService
   ) {
     this.role_type = this.authenticationService.userInfoType();
-
+    console.log('this.role_type tabledata', this.role_type);
     this._search$
       .pipe(
         tap(() => this._loading$.next(true)),
@@ -187,8 +187,6 @@ export class TableDataService {
     const total = 0;
     this._orderlist$.next([]);
     this.role_type = this.authenticationService.userInfoType();
-    // this._filterType$.next(filter_type);
-    console.log('this._filterType lololololol', this._filterType$.value);
 
     this.orderListRetailerService
       .orderListData(this.startDate, this.endDate, this.page, this.pageSize, this.role_type, this._filterType$.value)

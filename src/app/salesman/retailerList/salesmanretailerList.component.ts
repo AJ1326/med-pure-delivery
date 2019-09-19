@@ -54,7 +54,7 @@ export class SalesmanretailerListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.user_info = this.authenticationService.userInfo();
-    this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
+    this.role_type = this.user_info.roles[0];
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
 

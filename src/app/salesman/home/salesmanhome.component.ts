@@ -39,7 +39,8 @@ export class SalesmanhomeComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.user_info = this.authenticationService.userInfo();
-    this.role_type = this.user_info.roles[0].substring(0, this.user_info.roles[0].indexOf('_'));
+    console.log('this.user_info', this.user_info);
+    this.role_type = this.user_info.roles[0];
     console.log(this.role_type, 'this.role_type');
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);

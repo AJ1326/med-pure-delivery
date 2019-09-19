@@ -61,9 +61,9 @@ export class LoginComponent implements OnInit {
     const role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (role) {
       const roleType = this.authenticationService.permissionView();
-      if (roleType === 'retailer_role') {
+      if (roleType === 'retailer') {
         this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
-      } else if (roleType === 'distributor_role') {
+      } else if (roleType === 'retailer') {
         this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
       } else {
         this.route.queryParams.subscribe(params => this.router.navigate([params.redirect || ''], { replaceUrl: true }));
@@ -166,11 +166,11 @@ export class LoginComponent implements OnInit {
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
           console.log('onboardingView mf: ', onboard);
-          if (roleType === 'salesman_role' && onboard) {
+          if (roleType === 'salesman' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
-          } else if (roleType === 'retailer_role' && onboard) {
+          } else if (roleType === 'retailer' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
-          } else if (roleType === 'distributor_role' && onboard) {
+          } else if (roleType === 'retailer' && onboard) {
             this.route.queryParams.subscribe(params =>
               this.router.navigate(['/distributor/home'], { replaceUrl: true })
             );
