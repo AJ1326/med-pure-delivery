@@ -21,8 +21,16 @@ export class LoginService {
     return this.http.post(`${URLS.ON_BOARD_API}`, payload);
   }
 
+  signupRetailerBySalesman(payload: any) {
+    return this.http.post(`${URLS.SALESMAN_ADD_RETAILER}`, payload);
+  }
+
   verify_signup_otp(payload: any) {
     return this.http.post(`${URLS.SIGNUP_OTP_VERIFY}`, payload);
+  }
+
+  verify_signup_otp_by_salesman(payload: any) {
+    return this.http.post(`${URLS.SALESMAN_VERIFY_OTP_RETAILER}`, payload);
   }
 
   resend_boarding_email(payload: any) {

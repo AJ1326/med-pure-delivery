@@ -28,7 +28,7 @@ export class SalesmanaddRetailerComponent implements OnInit {
   //User info ends
   //Retailer sign up
   signUpRetailerForm: FormGroup;
-  show_otp_form = false;
+  // show_otp_form = false;
   otp_code: number;
   signUpData: any;
   otp_error: any;
@@ -75,11 +75,11 @@ export class SalesmanaddRetailerComponent implements OnInit {
   submitOTP() {
     this.isLoading = true;
     const data = {
-      otp_uuid: this.signUpData['otp_uuid'],
+      one_time_token: this.signUpData['one_time_token'],
       otp: this.otp_code
     };
     this.authenticationService
-      .verify_signup_otp(data)
+      .verify_signup_otp_by_salesman(data)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -87,9 +87,10 @@ export class SalesmanaddRetailerComponent implements OnInit {
       )
       .subscribe(
         data => {
-          this.show_otp_form = false;
+          // this.show_otp_form = false;
           this.onBoardingSuccess = true;
           this.signUpRetailerForm.reset();
+          this.modalService.dismissAll('done');
           // setTimeout(()=>{    //<<<---    using ()=> syntax
           //   this.onBoardingSuccess = false;
           // }, 3000);
@@ -137,7 +138,7 @@ export class SalesmanaddRetailerComponent implements OnInit {
     localStorage.setItem('user-email', this.signUpRetailerForm.value.email);
     this.isLoading = true;
     this.authenticationService
-      .signup(this.signUpRetailerForm.value)
+      .signupRetailerBySalesman(this.signUpRetailerForm.value)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -147,7 +148,8 @@ export class SalesmanaddRetailerComponent implements OnInit {
         data => {
           log.debug(`${data} successfully logged in`);
           this.signUpData = data;
-          this.show_otp_form = true;
+          // this.show_otp_form = true;
+          this.modalService.open(content);
           // this.onBoardingSuccess = true;
           // this.signUpRetailerForm.reset();
           // setTimeout(function() {
@@ -162,7 +164,6 @@ export class SalesmanaddRetailerComponent implements OnInit {
         },
         error => {
           log.debug(`Login error: ${error}`);
-          this.modalService.open(content);
           this.isLoading = false;
           this.signuperrorregistered = error.error['email_registered'];
           this.signuperrorexists = error.error['email_exists'];
