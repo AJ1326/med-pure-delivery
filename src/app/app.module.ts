@@ -11,6 +11,7 @@ import {
   AuthenticationBoardingGuard,
   AuthenticationPermissionDistributorGuard,
   AuthenticationPermissionRetailerGuard,
+  AuthenticationPermissionSalesManGuard,
   CoreModule
 } from '@app/core';
 import { SharedModule } from '@app/shared';
@@ -30,6 +31,20 @@ import { ProfileModule } from '@app/profile/profile.module';
 import { ProfileRoutingModule } from '@app/profile/profile-routing.module';
 import { FeedbackModule } from '@app/feedback/feedback.module';
 import { OrderListModule } from '@app/orderList/order-list.module';
+import { HomeRoutingModule } from '@app/home/home-routing.module';
+import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
+import { ComingSoonRoutingModule } from '@app/coming-soon/coming-soon-routing.module';
+import { UploadModule } from '@app/upload/upload.module';
+import { UploadRoutingModule } from '@app/upload/upload-routing.module';
+import { PlacingOrderRoutingModule } from '@app/placingOrder/placingOrder-routing.module';
+import { AboutRoutingModule } from '@app/about/about-routing.module';
+import { PwaService } from '@app/pwa.service';
+import { SavingNotesRoutingModule } from '@app/saving-notes/saving-notes-routing.module';
+import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SalesmanModule } from '@app/salesman/salesman.module';
+import { SalesmanlistModule } from '@app/salesman-list/salesmanlist.module';
+import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routing.module';
 
 @NgModule({
   imports: [
@@ -43,6 +58,8 @@ import { OrderListModule } from '@app/orderList/order-list.module';
     CoreModule,
     SharedModule,
     ShellModule,
+    SalesmanModule,
+    SalesmanlistModule,
     HomeModule,
     AboutModule,
     FeedbackModule,
@@ -52,7 +69,17 @@ import { OrderListModule } from '@app/orderList/order-list.module';
     LoginModule,
     PlacingOrderModule,
     ProfileModule,
+    UploadModule,
+    SavingNotesModule,
+    ComingSoonModule,
     ProfileRoutingModule,
+    UploadRoutingModule,
+    AboutRoutingModule,
+    ComingSoonRoutingModule,
+    SalesmanlistRoutingModule,
+    PlacingOrderRoutingModule,
+    SavingNotesRoutingModule,
+    HomeRoutingModule,
     ChangePasswordModule, // must be imported as the last module as it contains the fallback route,
     AppRoutingModule
   ],
@@ -60,8 +87,10 @@ import { OrderListModule } from '@app/orderList/order-list.module';
   providers: [
     AuthenticationPermissionRetailerGuard,
     AuthenticationPermissionDistributorGuard,
+    AuthenticationPermissionSalesManGuard,
     AuthenticationBoardingGuard,
-    CookieService
+    CookieService,
+    PwaService
   ],
   bootstrap: [AppComponent]
 })

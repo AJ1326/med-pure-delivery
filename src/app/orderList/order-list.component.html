@@ -1,97 +1,73 @@
-<div class="content-wrapper">
+<div class="order_list">
   <div class="row">
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('order-list')">
-      <div id="order-list" class="card card-statistics active_card">
-        <div class="card-body">
-          <div class="clearfix">
-            <div class="float-left">
-              <i class="mdi mdi-cube text-danger icon-lg"></i>
-            </div>
-            <div class="float-right">
-              <p class="mb-0 text-right">List of orders</p>
-              <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">1067</h3>
-              </div>
-            </div>
-          </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Total order placed
-          </p>
+    <!--<div class="col-md-6">-->
+    <!--<div class="container">-->
+    <!--<div class="search-box" id="SBox">-->
+    <!--&lt;!&ndash;[(ngModel)]="service.searchTerm"&ndash;&gt;-->
+    <!--<input id="search" type="text" name="searchTerm" placeholder="Search by order list." />-->
+    <!--<div class="also search-link" id="searchclick"></div>-->
+    <!--&lt;!&ndash;<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="fa fa-cog also setting"></a>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-3 filter_start_date">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          style="height: 47px"
+          name="dp"
+          [(ngModel)]="startDate"
+          [displayMonths]="displayMonths"
+          [navigation]="navigation"
+          [outsideDays]="outsideDays"
+          [showWeekNumbers]="showWeekNumbers"
+          ngbDatepicker
+          #startdate="ngbDatepicker"
+        />
+        <div class="input-group-append" style="height: 47px">
+          <button
+            class="btn btn-outline-secondary calendar icon-calender-btn"
+            (click)="startdate.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar icon-calender-custom" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </div>
-    <div
-      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('re-order-list')"
-    >
-      <div id="re-order-list" class="card card-statistics">
-        <div class="card-body">
-          <div class="clearfix">
-            <div class="float-left">
-              <i class="mdi mdi-receipt text-warning icon-lg"></i>
-            </div>
-            <div class="float-right">
-              <p class="mb-0 text-right">Fast moving</p>
-              <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">500</h3>
-              </div>
-            </div>
-          </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Fast moving products
-          </p>
+    <div class="col-md-3 filter_end_date">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          style="height: 47px"
+          name="dp"
+          [(ngModel)]="endDate"
+          [displayMonths]="displayMonths"
+          [navigation]="navigation"
+          [outsideDays]="outsideDays"
+          [showWeekNumbers]="showWeekNumbers"
+          ngbDatepicker
+          #enddate="ngbDatepicker"
+        />
+        <div class="input-group-append" style="height: 47px">
+          <button class="btn btn-outline-secondary calendar icon-calender-btn" (click)="enddate.toggle()" type="button">
+            <i class="fa fa-calendar icon-calender-custom" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </div>
-    <div
-      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('open-order-list')"
-    >
-      <div id="open-order-list" class="card card-statistics">
-        <div class="card-body">
-          <div class="clearfix">
-            <div class="float-left">
-              <i class="mdi mdi-poll-box text-success icon-lg"></i>
-            </div>
-            <div class="float-right">
-              <p class="mb-0 text-right">Open orders</p>
-              <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">5</h3>
-              </div>
-            </div>
-          </div>
-          <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Pending orders</p>
-        </div>
-      </div>
-    </div>
-    <div
-      class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"
-      (click)="selectFilterCard('closed-order-list')"
-    >
-      <div id="closed-order-list" class="card card-statistics">
-        <div class="card-body">
-          <div class="clearfix">
-            <div class="float-left">
-              <i class="mdi mdi-account-location text-info icon-lg"></i>
-            </div>
-            <div class="float-right">
-              <p class="mb-0 text-right">Canceled orders</p>
-              <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">7</h3>
-              </div>
-            </div>
-          </div>
-          <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> List of canceled orders
-          </p>
-        </div>
-      </div>
+    <div class="col-md-2 filter_btn">
+      <button
+        class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept filter_btn_mobile_view"
+        type="button"
+        (click)="updateDate()"
+      >
+        Filter
+      </button>
     </div>
   </div>
-  <div *ngIf="distributor_orderList.length > 0" class="order_list">
-    <app-table [orderListData]="distributor_orderList" [role_type]="'distributor'"></app-table>
-  </div>
-  <div *ngIf="distributor_orderList.length <= 0">
-    <img class="empty_cart" src="../../assets/images/home/empty_cart.svg" />
-  </div>
+  <app-table [role_type]="'distributor'" [startDate]="'startDate'" [endDate]="'startDate'"></app-table>
 </div>

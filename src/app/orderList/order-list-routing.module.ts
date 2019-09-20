@@ -7,8 +7,8 @@ import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
   Shell.distributorShell([
-    { path: '', redirectTo: '/distributor/home', pathMatch: 'full' },
-    { path: 'home', component: OrderListComponent, data: { title: extract('Order list') } }
+    // { path: 'order-list', redirectTo: '/distributor/order-list', pathMatch: 'full' },
+    { path: 'order-list', component: OrderListComponent, data: { title: extract('Order list') } }
   ])
 ];
 

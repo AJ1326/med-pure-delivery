@@ -61,14 +61,14 @@
 <!--</div>-->
 <!--</div>-->
 
-<section class="user">
+<section class="desktop_view user">
   <div class="user_options-container">
     <div class="user_options-text">
       <div class="user_options-unregistered">
         <h2 class="user_unregistered-title">Don't have an account?</h2>
         <p class="user_unregistered-text">
           MedPure is one stop solution for managing all the processes of drug stores from delivering stock to inventory
-          management. `
+          management.
         </p>
         <button class="user_unregistered-signup" id="signup-button">Sign up</button>
       </div>
@@ -82,183 +82,531 @@
       </div>
     </div>
 
-    <div class="user_options-forms" id="user_options-forms">
-      <div class="user_forms-login" *ngIf="!setForgetPass">
-        <h2 class="forms_title">Login</h2>
-        <form class="forms_form" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-          <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-            Username or password incorrect.
-          </div>
-          <fieldset class="forms_fieldset">
-            <!--<div class="forms_field">-->
-            <!--<input type="text" class="form-control forms_field-input" formControlName="username" autocomplete="username"-->
-            <!--[placeholder]="'Username' | translate" required autofocus />-->
-            <!--<small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"-->
-            <!--class="text-danger" translate>-->
-            <!--Username is required-->
-            <!--</small>-->
-            <!--</div>-->
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="email"
-                autocomplete="email"
-                [placeholder]="'Email address' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="loginForm.controls.email.valid || loginForm.controls.email.untouched"
-                class="text-danger"
-                translate
-              >
-                Email is required
-              </small>
+    <div
+      class="user_options-forms"
+      id="user_options-forms"
+      [ngClass]="{ 'login-container-height': typeForm == 'login', 'sign-up-container-height': typeForm == 'sign-up' }"
+    >
+      <div>
+        <div class="user_forms-login" *ngIf="!setForgetPass">
+          <h2 class="forms_title">Login</h2>
+          <form class="forms_form" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+            <span style="color: red;" [hidden]="!LoginErrorMessage || isLoading" translate>
+              Username or password incorrect.
+            </span>
+            <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+              Onboarding is successful. Please Login to continue.
             </div>
-            <div class="forms_field">
-              <input
-                type="password"
-                class="form-control forms_field-input"
-                formControlName="password"
-                autocomplete="current-password"
-                [placeholder]="'Password' | translate"
-                required
-              />
-              <small
-                [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
-                class="text-danger"
-                translate
+            <fieldset class="forms_fieldset">
+              <!--<div class="forms_field">-->
+              <!--<input type="text" class="form-control forms_field-input" formControlName="username" autocomplete="username"-->
+              <!--[placeholder]="'Username' | translate" required autofocus />-->
+              <!--<small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"-->
+              <!--class="text-danger" translate>-->
+              <!--Username is required-->
+              <!--</small>-->
+              <!--</div>-->
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched" class="text-danger">
+                  <div *ngIf="loginForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="password"
+                  class="form-control forms_field-input"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  [placeholder]="'Password' | translate"
+                  required
+                />
+                <div
+                  *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched"
+                  class="text-danger"
+                >
+                  <!--                  <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>-->
+                  <span *ngIf="loginForm.controls.password.errors.minLength">
+                    Minimum 8 characters required.
+                  </span>
+                </div>
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Forgot password?</button>
+              <button
+                type="submit"
+                [disabled]="loginForm.invalid || isLoading"
+                value="Log In"
+                class="forms_buttons-action"
               >
-                Password is required
-              </small>
+                <span [hidden]="isLoading">
+                  Login
+                </span>
+                <span>
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                </span>
+              </button>
             </div>
-          </fieldset>
-          <div class="forms_buttons">
-            <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Forgot password?</button>
-            <input
-              type="submit"
-              [disabled]="loginForm.invalid || isLoading"
-              value="Log In"
-              class="forms_buttons-action"
-            />
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
 
-      <!--Forget password-->
-      <div class="user_forms-login" *ngIf="setForgetPass">
-        <h2 class="forms_title">Forget password</h2>
-        <form class="forms_form" (ngSubmit)="forget()" [formGroup]="forgetPasswordForm" novalidate>
-          <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-            Username or password incorrect.
-          </div>
-          <fieldset class="forms_fieldset">
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="email"
-                autocomplete="email"
-                [placeholder]="'Email address' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="forgetPasswordForm.controls.email.valid || forgetPasswordForm.controls.email.untouched"
-                class="text-danger"
-                translate
-              >
-                Email is required
-              </small>
+        <!--Forget password-->
+        <div class="user_forms-login" *ngIf="setForgetPass">
+          <h2 class="forms_title">Forget password</h2>
+          <form class="forms_form" (ngSubmit)="forget()" [formGroup]="forgetPasswordForm" novalidate>
+            <span style="color: red;" [hidden]="!ForgetPasswordErrorMessage || isLoading" translate>
+              Email address is incorrect.
+            </span>
+            <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
+              Password reset e-mail has been sent.
             </div>
-          </fieldset>
-          <div class="forms_buttons">
-            <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Login</button>
-            <input
-              type="submit"
-              [disabled]="forgetPasswordForm.invalid || isLoading"
-              value="Continue"
-              class="forms_buttons-action"
-            />
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          </div>
-        </form>
-      </div>
-      <!--Forget password ends-->
+            <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+              Onboarding is successful. Please Login to continue.
+            </div>
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="forgetPasswordForm.controls.email.invalid && forgetPasswordForm.controls.email.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="forgetPasswordForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <button type="button" class="forms_buttons-forgot" (click)="forgetPassword()">Login</button>
+              <button
+                type="submit"
+                [disabled]="forgetPasswordForm.invalid || isLoading"
+                value="Continue"
+                class="forms_buttons-action"
+              >
+                <span [hidden]="isLoading">
+                  Forget password
+                </span>
+                <span>
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!--Forget password ends-->
 
-      <!--Sign up starts-->
-      <div class="user_forms-signup">
-        <h2 class="forms_title">Sign Up</h2>
-        <form class="forms_form" (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate>
-          <fieldset class="forms_fieldset">
-            <div class="forms_field">
+        <!--Sign up starts-->
+        <div class="user_forms-signup" *ngIf="!show_otp_form">
+          <h2 class="forms_title">Sign Up</h2>
+          <form class="forms_form" [formGroup]="signUpForm" novalidate>
+            <div class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
+              On-boarding email has been sent to you.
+              <span (click)="resendOnboardingEmail()" class="resend-mail"
+                >Resend<img src="../../assets/images/login/resend.png"
+              /></span>
+            </div>
+            <div *ngIf="signuperrorexists" class="boarding-email-already-exists">
+              This email address already exist.
+              <span style="margin-left: 4px" (click)="resendOnboardingEmail()" class="resend-mail">Click here</span
+              ><span style="margin-left: 4px;">to resend the MedPure boarding email.</span>
+            </div>
+            <div *ngIf="signuperrorregistered" class="boarding-email-already-exists">
+              This email address already registered. Kindly login.
+            </div>
+            <div *ngIf="signuperrorphonenumber" class="boarding-email-already-exists">
+              {{ signuperrorphonenumber }}
+            </div>
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched" class="text-danger">
+                  <div *ngIf="signUpForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="first_name"
+                  autocomplete="first_name"
+                  [placeholder]="'First Name' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="signUpForm.controls.first_name.invalid && signUpForm.controls.first_name.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.first_name.errors.required">First name is required</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="last_name"
+                  autocomplete="last_name"
+                  [placeholder]="'Last Name' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="signUpForm.controls.last_name.invalid && signUpForm.controls.last_name.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.last_name.errors.required">Last name is required</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <input
+                  type="number"
+                  class="form-control forms_field-input"
+                  formControlName="phone_number"
+                  autocomplete="phone_number"
+                  [placeholder]="'phone_number' | translate"
+                  required
+                />
+                <div
+                  *ngIf="signUpForm.controls.phone_number.invalid && signUpForm.controls.phone_number.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.phone_number.errors.validPhoneNumber">Number is in-valid.</div>
+                </div>
+              </div>
+              <div class="forms_field">
+                <select class="select-role-type" formControlName="user_role">
+                  <option value="retailer" selected>Retailer</option>
+                  <option value="distributor">Distributor</option>
+                  <option value="salesman">Salesman</option>
+
+                  <!--                  <option value="delivery">Delivery</option>-->
+                </select>
+                <div
+                  *ngIf="signUpForm.controls.user_role.invalid && signUpForm.controls.user_role.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpForm.controls.user_role.errors.required">Kindly select your user type.</div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <!--              [disabled]="signUpForm.invalid || isLoading"-->
+              <button type="submit" (click)="signUp()" value="Sign up" class="forms_buttons-action">
+                <span [hidden]="isLoading">
+                  Sign up
+                </span>
+                <span>
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!--Sign up ends-->
+
+        <div class="user_forms-signup" *ngIf="show_otp_form">
+          <h2 class="forms_title">OTP</h2>
+          <span style="font-size: 12px;"> is sent to you. </span>
+          <span style="font-size: 12px;">
+            <a
+              style="color: #1e76c7;
+                cursor: pointer;"
+              (click)="resendOtpCode()"
+              >Resend Code</a
+            ></span
+          >
+          <br />
+          <span style="color: red;" *ngIf="otp_error" translate>
+            {{ otp_error.error }}
+          </span>
+          <div id="divOuter">
+            <div id="divInner">
               <input
-                type="text"
+                [(ngModel)]="otp_code"
+                (keydown)="stopCarret($event)"
+                (keyup)="setCaretPosition($event, 3)"
+                id="partitioned"
                 class="form-control forms_field-input"
-                formControlName="username"
-                autocomplete="username"
-                [placeholder]="'Username' | translate"
+                type="text"
+                maxlength="4"
                 required
                 autofocus
               />
-              <small
-                [hidden]="signUpForm.controls.username.valid || signUpForm.controls.username.untouched"
-                class="text-danger"
-                translate
-              >
-                Username is required
-              </small>
             </div>
-            <div class="forms_field">
-              <input
-                type="text"
-                class="form-control forms_field-input"
-                formControlName="email"
-                autocomplete="email"
-                [placeholder]="'Email address' | translate"
-                required
-                autofocus
-              />
-              <small
-                [hidden]="signUpForm.controls.email.valid || signUpForm.controls.email.untouched"
-                class="text-danger"
-                translate
-              >
-                Email is required
-              </small>
-            </div>
-            <div class="forms_field">
-              <input
-                type="password"
-                class="form-control forms_field-input"
-                formControlName="password"
-                autocomplete="password"
-                [placeholder]="'Password' | translate"
-                required
-              />
-              <small
-                [hidden]="signUpForm.controls.password.valid || signUpForm.controls.password.untouched"
-                class="text-danger"
-                translate
-              >
-                Password is required
-              </small>
-            </div>
-          </fieldset>
-          <div class="forms_buttons">
-            <input
-              type="submit"
-              [disabled]="signUpForm.invalid || isLoading"
-              value="Sign up"
-              class="forms_buttons-action"
-            />
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
           </div>
+          <!--          <input-->
+          <!--            [(ngModel)]="otp_code"-->
+          <!--            type="number"-->
+          <!--            class="form-control forms_field-input"-->
+          <!--            [placeholder]="'OTP' | translate"-->
+          <!--            required-->
+          <!--            autofocus-->
+          <!--          /><br />-->
+          <div class="submit-otp">
+            <button
+              type="Submit"
+              [disabled]="!otp_code"
+              value="submit"
+              class="forms_buttons-action"
+              (click)="submitOTP()"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mobile_view">
+  <img class="trial_img" src="../../assets/images/logo/mobile_view.svg" alt="" />
+  <div class="login-wrapper">
+    <div *ngIf="form_type === 'login' && !setForgetPass" class="login-page">
+      <div>Log in</div>
+      <span style="color: red;" [hidden]="!LoginErrorMessage || isLoading" translate>
+        Username or password incorrect.
+      </span>
+      <form class="forms_form" [formGroup]="loginForm" novalidate>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="email"
+            autocomplete="email"
+            [placeholder]="'Email address' | translate"
+            required
+            autofocus
+          />
+          <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched" class="text-danger">
+            <div *ngIf="loginForm.controls.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+        <div>
+          <input
+            type="password"
+            class="form-control forms_field-input"
+            formControlName="password"
+            autocomplete="current-password"
+            [placeholder]="'Password' | translate"
+            required
+          />
+          <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched" class="text-danger">
+            <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+            <span *ngIf="loginForm.controls.password.errors.minLength">{{
+              loginForm.controls.password.errors.minLength['msg']
+            }}</span>
+          </div>
+        </div>
+        <button (click)="login()" [disabled]="loginForm.invalid || isLoading">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+        </button>
+        <a class="forms_forgot_password_mobile" (click)="forgetPassword()">Forgot password ?</a>
+      </form>
+    </div>
+    <div *ngIf="form_type !== 'sign-up' && setForgetPass" class="login-page">
+      <div>Forget password</div>
+      <span style="color: red;" [hidden]="!ForgetPasswordErrorMessage || isLoading" translate>
+        Email address is incorrect.
+      </span>
+      <div class="alert alert-success" [hidden]="error || isLoading || !forgrt_email_sent" translate>
+        Password reset e-mail has been sent.
+      </div>
+      <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+        Onboarding is successful. Please Login to continue.
+      </div>
+      <form class="forms_form" [formGroup]="forgetPasswordForm" novalidate>
+        <div>
+          <input
+            type="text"
+            class="form-control forms_field-input"
+            formControlName="email"
+            autocomplete="email"
+            [placeholder]="'Email address' | translate"
+            required
+            autofocus
+          />
+          <div
+            *ngIf="forgetPasswordForm.controls.email.invalid && forgetPasswordForm.controls.email.touched"
+            class="text-danger"
+          >
+            <div *ngIf="forgetPasswordForm.controls.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+        <button (click)="forget()" [disabled]="loginForm.invalid || isLoading">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          <i class="fas fa-angle-right" [hidden]="isLoading"></i><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+        </button>
+        <a class="forms_forgot_password_mobile" (click)="forgetPassword()">Login ?</a>
+      </form>
+    </div>
+    <div *ngIf="form_type === 'sign-up'" class="login-page">
+      <div *ngIf="!show_otp_form">
+        <div>Sign up</div>
+        <span class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
+          On-boarding email has been sent to you.<span class="resend-mail" (click)="resendOnboardingEmail()"
+            >Resend<img src="../../assets/images/login/resend.png"
+          /></span>
+        </span>
+        <div *ngIf="signuperrorexists" class="boarding-email-already-exists">
+          This email address already exist.
+          <span style="margin-left: 4px" (click)="resendOnboardingEmail()" class="resend-mail">Click here</span
+          ><span style="margin-left: 4px;">to resend the MedPure boarding email.</span>
+        </div>
+        <div *ngIf="signuperrorregistered" class="boarding-email-already-exists">
+          This email address already registered. Kindly login.
+        </div>
+        <div *ngIf="signuperrorphonenumber" class="boarding-email-already-exists">
+          {{ signuperrorphonenumber }}
+        </div>
+        <form class="forms_form" [formGroup]="signUpForm" novalidate>
+          <div>
+            <input
+              type="text"
+              class="form-control forms_field-input"
+              formControlName="email"
+              autocomplete="email"
+              [placeholder]="'Email address' | translate"
+              required
+              autofocus
+            />
+            <div *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched" class="text-danger">
+              <div *ngIf="signUpForm.controls.email.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+          <div>
+            <input
+              type="text"
+              class="form-control forms_field-input"
+              formControlName="first_name"
+              autocomplete="first_name"
+              [placeholder]="'First Name' | translate"
+              required
+              autofocus
+            />
+            <div
+              *ngIf="signUpForm.controls.first_name.invalid && signUpForm.controls.first_name.touched"
+              class="text-danger"
+            >
+              <div *ngIf="signUpForm.controls.first_name.errors.required">First name is required</div>
+            </div>
+          </div>
+          <div>
+            <input
+              type="text"
+              class="form-control forms_field-input"
+              formControlName="last_name"
+              autocomplete="last_name"
+              [placeholder]="'Last Name' | translate"
+              required
+              autofocus
+            />
+            <div
+              *ngIf="signUpForm.controls.last_name.invalid && signUpForm.controls.last_name.touched"
+              class="text-danger"
+            >
+              <div *ngIf="signUpForm.controls.last_name.errors.required">Last name is required</div>
+            </div>
+          </div>
+          <div>
+            <input
+              type="number"
+              class="form-control forms_field-input"
+              formControlName="phone_number"
+              autocomplete="phone_number"
+              [placeholder]="'phone number' | translate"
+              required
+            />
+            <div
+              *ngIf="signUpForm.controls.phone_number.invalid && signUpForm.controls.phone_number.touched"
+              class="text-danger"
+            >
+              <div *ngIf="signUpForm.controls.phone_number.errors.validPhoneNumber">Number is in-valid.</div>
+            </div>
+          </div>
+          <div>
+            <select class="select-role-type-mobile" formControlName="user_role">
+              <option value="retailer" selected>Retailer</option>
+              <option value="distributor">Distributor</option>
+              <option value="salesman">Salesman</option>
+            </select>
+          </div>
+          <button (click)="signUp()" [disabled]="signUpForm.invalid || isLoading">
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            <i class="fas fa-angle-right" [hidden]="isLoading"></i
+            ><i class="fas fa-angle-right" [hidden]="isLoading"></i>
+          </button>
         </form>
       </div>
-      <!--Sign up ends-->
+      <div *ngIf="show_otp_form">
+        <h2 class="forms_title">Enter OTP</h2>
+        <h4>Please enter the OTP sent to your mobile.</h4>
+        <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
+        <br />
+
+        <span style="color: red;" *ngIf="otp_error" translate>
+          {{ otp_error.error }}
+        </span>
+        <input
+          [(ngModel)]="otp_code"
+          type="number"
+          class="form-control forms_field-input"
+          [placeholder]="'OTP' | translate"
+          required
+          autofocus
+        /><br />
+        <input type="submit" [disabled]="!otp_code" value="submit" class="forms_buttons-action" (click)="submitOTP()" />
+      </div>
+    </div>
+  </div>
+  <i *ngIf="!showMobileIconClosed" style="z-index: 99;" class="fas fa-user-circle" (click)="openLogin('login')"></i>
+  <i *ngIf="showMobileIconClosed" style="z-index: 99;" class="fas fa-times-circle" (click)="openLogin('login')"></i>
+  <!--  <i style="z-index: 99;" class="fas fa-times-circle" (click)="openLogin('login')"></i>-->
+
+  <div class="description">
+    <div class="alert alert-success" *ngIf="from == 'onboarding'" translate>
+      Onboarding is successful. Please Login to continue.
+    </div>
+    <div>
+      <button
+        class="continue login_mobile_btn btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
+        type="button"
+        (click)="openLogin('login')"
+      >
+        Login
+      </button>
+      <button
+        class="continue signup_mobile_btn btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"
+        type="button"
+        (click)="openLogin('sign-up')"
+      >
+        Sign-up
+      </button>
     </div>
   </div>
 </section>

@@ -1,209 +1,211 @@
-<!--Profile header-->
-<div class="col-12" style="margin-top: 80px !important;">
-  <div class="card">
-    <!--<div class="card-body">-->
-    <section class="profile">
-      <header class="header">
-        <div class="details">
-          <img
-            style="margin-top: -48px !important;"
-            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a"
-            alt="John Doe"
-            class="profile-pic"
-          />
-          <!--<input type='file' (change)="onSelectFile($event)">-->
-          <h1 class="heading">Claire Doe</h1>
-          <div class="location">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"
-              ></path>
-            </svg>
-            <p>Kochi, India</p>
-          </div>
-          <div class="stats">
-            <div class="col-4">
-              <h4>20</h4>
-              <p>Reviews</p>
-            </div>
-            <div class="col-4">
-              <h4>10</h4>
-              <p>Communities</p>
-            </div>
-            <div class="col-4">
-              <h4>100</h4>
-              <p>Discussions</p>
-            </div>
-          </div>
+<div class="about-us">
+  <main>
+    <div class="way way-l">
+      <div class="cube">
+        <div class="cube__face cube__face--front">
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__door"></div>
         </div>
-      </header>
-    </section>
-  </div>
-  <!--</div>-->
-</div>
-<!--Profile header ends-->
-
-<!--Profile form start-->
-<div class="col-12 grid-margin">
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">Horizontal Two column</h4>
-      <form class="form-sample">
-        <p class="card-description">
-          Personal info
-        </p>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">First Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Last Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
+        <div class="cube__face cube__face--back">
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Gender</label>
-              <div class="col-sm-9">
-                <select class="form-control">
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Date of Birth</label>
-              <div class="col-sm-9">
-                <input class="form-control" placeholder="dd/mm/yyyy" />
-              </div>
-            </div>
-          </div>
+        <div class="cube__face cube__face--right">
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Category</label>
-              <div class="col-sm-9">
-                <select class="form-control">
-                  <option>Category1</option>
-                  <option>Category2</option>
-                  <option>Category3</option>
-                  <option>Category4</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Membership</label>
-              <div class="col-sm-4">
-                <div class="form-radio">
-                  <label class="form-check-label">
-                    <input
-                      type="radio"
-                      class="form-check-input"
-                      name="membershipRadios"
-                      id="membershipRadios1"
-                      value=""
-                      checked
-                    />
-                    Free
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-radio">
-                  <label class="form-check-label">
-                    <input
-                      type="radio"
-                      class="form-check-input"
-                      name="membershipRadios"
-                      id="membershipRadios2"
-                      value="option2"
-                    />
-                    Professional
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="cube__face cube__face--left">
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-4"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
         </div>
-        <p class="card-description">
-          Address
-        </p>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Address 1</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">State</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Address 2</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Postcode</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">City</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Country</label>
-              <div class="col-sm-9">
-                <select class="form-control">
-                  <option>America</option>
-                  <option>Italy</option>
-                  <option>Russia</option>
-                  <option>Britain</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
+        <div class="cube__face cube__face--top"></div>
+        <div class="cube__face cube__face--bottom"></div>
+      </div>
     </div>
-  </div>
+    <div class="way way-r">
+      <div class="cube">
+        <div class="cube__face cube__face--front">
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__door"></div>
+        </div>
+        <div class="cube__face cube__face--back">
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+        </div>
+        <div class="cube__face cube__face--right">
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-4"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window "></div>
+        </div>
+        <div class="cube__face cube__face--left">
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-4"></div>
+        </div>
+        <div class="cube__face cube__face--top"></div>
+        <div class="cube__face cube__face--bottom"></div>
+      </div>
+      <div class="cube">
+        <div class="cube__face cube__face--front">
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-4"></div>
+          <div class="cube__door"></div>
+        </div>
+        <div class="cube__face cube__face--back">
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-2"></div>
+        </div>
+        <div class="cube__face cube__face--right">
+          <div class="cube__window cube__window-light-2"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-4"></div>
+          <div class="cube__window cube__window-light-1"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window "></div>
+        </div>
+        <div class="cube__face cube__face--left">
+          <div class="cube__window cube__window-light-5"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window "></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-3"></div>
+          <div class="cube__window"></div>
+          <div class="cube__window cube__window-light-4"></div>
+        </div>
+        <div class="cube__face cube__face--top"></div>
+        <div class="cube__face cube__face--bottom"></div>
+      </div>
+    </div>
+    <div class="bridge bridge-l"></div>
+    <div class="bridge bridge-r"></div>
+    <span class="ad">Distributor</span>
+    <span class="txt" id="txt"
+      ><span style="font-size: 11px;">MedPure</span
+      ><img style="width: 17%; margin-left: 9px;" src="../../assets/images/logo_medpure.jpeg"
+    /></span>
+
+    <div class="truck">
+      <div class="truck-f">
+        <div class="truck-f__face truck-f--front">
+          <div class="truck__handle"></div>
+        </div>
+        <div class="truck-f__face truck-f--back">
+          <div class="truck__handle"></div>
+        </div>
+        <div class="truck-f__face truck-f--left"></div>
+        <div class="truck-f__face truck-f--righ"></div>
+        <div class="truck-f__face truck-f--top"></div>
+        <div class="truck-f__face truck-f--bottom"></div>
+      </div>
+      <div class="truck-b">
+        <div class="truck-b__face truck-b--front">
+          <span class="truck__txt"></span>
+        </div>
+        <div class="truck-b__face truck-b--back">
+          <span class="truck__txt"></span>
+        </div>
+        <div class="truck-b__face truck-b--left"></div>
+        <div class="truck-b__face truck-b--right"></div>
+        <div class="truck-b__face truck-b--top"></div>
+        <div class="truck-b__face truck-b--bottom"></div>
+      </div>
+
+      <div class="truck-ls">
+        <div class="truck-l"></div>
+        <div class="truck-l"></div>
+        <div class="truck-l"></div>
+      </div>
+
+      <div class="truck-w truck-w--lf"></div>
+      <div class="truck-w truck-w--lb"></div>
+      <div class="truck-w truck-w--rf"></div>
+      <div class="truck-w truck-w--rb"></div>
+      <div class="truck-w truck-w--rf-2"></div>
+      <div class="truck-w truck-w--rb-2"></div>
+    </div>
+  </main>
 </div>
-<!--Profile form ends-->

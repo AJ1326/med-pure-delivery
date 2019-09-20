@@ -1,6 +1,7 @@
-<div>
-  <app-message-bar [messageBarEvent]="message"></app-message-bar>
-</div>
+<!--Welcome is commented as for now.-->
+<!--<div>-->
+<!--  <app-message-bar [messageBarEvent]="message"></app-message-bar>-->
+<!--</div>-->
 
 <ng-template #alertModal let-modal>
   <app-alert [alertModalRefference]="modalReference" (messageEvent)="receiveMessage($event)"></app-alert>
@@ -11,7 +12,7 @@
 </ng-template>
 
 <form class="search-container">
-  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>
+  <!--  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>-->
   <input
     type="text"
     id="search-bar"
@@ -32,216 +33,501 @@
 
 <app-loader [isLoading]="isLoading"></app-loader>
 
-<div class="main-panel main-panel-desktop">
-  <div class="content-wrapper">
-    <div class="row">
-      <div class="col-md-12" style="padding: 0px; !important">
-        <div class="col-lg-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">List of distributors</h4>
-              <span class="product-display"
-                ><strong>{{ product_name }}</strong></span
-              >
-              <!--<p class="card-description">-->
-              <!--Add class-->
-              <!--<code>.table-striped</code>-->
-              <!--</p>-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>
-                        User
-                      </th>
-                      <th>
-                        Distributor name
-                      </th>
-                      <th>
-                        Rating
-                      </th>
-                      <th>
-                        Stock
-                      </th>
-                      <th>
-                        Discount
-                      </th>
-                      <th>
-                        Company
-                      </th>
-                      <th>
-                        Pack
-                      </th>
-                      <th>
-                        MRP
-                      </th>
-                      <th>
-                        Rate
-                      </th>
-                      <th>
-                        Vat
-                      </th>
-                      <th>
-                        Add
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let dist of distributor_list; let i = index" [attr.data-index]="i">
-                      <td class="py-1">
-                        <img src="{{ '../../assets/images/faces-clipart/pic-' + i + '.png' }}" alt="image" />
-                      </td>
-                      <td>
-                        {{ dist.distributor }}
-                      </td>
-                      <td>
-                        <app-rating [rating]="dist.rating"></app-rating>
-                      </td>
-                      <td>
-                        {{ dist.stock }}
-                      </td>
-                      <td>{{ dist.discount }}%</td>
-                      <td>
-                        {{ dist.company }}
-                      </td>
-                      <td>
-                        {{ dist.pack }}
-                      </td>
-                      <td><i class="fa fa-inr" aria-hidden="true"></i> {{ dist.mrp }}</td>
-                      <td><i class="fa fa-inr" aria-hidden="true"></i> {{ dist.rate }}</td>
-                      <td>{{ dist.vat }}%</td>
-                      <td>
-                        <div
-                          _ngcontent-c17=""
-                          *ngIf="distributor_list_order_index.indexOf(dist['uuid']) > -1; else other_btn_content"
-                          disabled
-                          class="badge badge-primary add-btn add-btn-disable"
-                        >
-                          Add
+<div class="table-responsive main-panel-mobile">
+  <div class="grid-margin stretch-card">
+    <div class="card" [ngClass]="distributor_list.length <= 0 ? 'card card-mobile' : 'card'">
+      <div class="card-body">
+        <span class="product-display"
+          ><strong>{{ product_name }}</strong
+          ><br
+        /></span>
+
+        <ngb-tabset class="tab-solid tab-solid-primary">
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              Distributor list
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container" *ngIf="distributor_list.length > 0; else emptyDistributorList">
+                <div class="row">
+                  <div class="cart2 col-lg-9 col-xs-12">
+                    <!--Card button view-->
+                    <!--<div class="cart-head row hidden-xs">-->
+                    <!--<div class="mini-shopping-cart-buttons">-->
+                    <!--<a class="waves-effect waves-orange btn-flat">Verder met shoppen</a>-->
+                    <!--<a class="waves-effect waves-orange btn-flat">Winkelwagen legen</a>-->
+                    <!--<a class="waves-effect waves-light btn pull-right">Bestellen</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--Card button view ends-->
+
+                    <div class="cart-middle">
+                      <div
+                        class="row cart-item hidden-xs"
+                        *ngFor="let dist of distributor_list; let i = index"
+                        [attr.data-index]="i"
+                      >
+                        <div class="col-xs-6">
+                          <div>
+                            <img src="../../assets/images/show-faces/distributor.png" />
+                          </div>
+                          <div>
+                            <span
+                              >{{ dist.company }} by {{ dist.distributor }}<br />
+                              <span>Mrp: {{ dist.mrp }}</span>
+                              <span>Pack: {{ dist.pack }}</span>
+                            </span>
+                          </div>
                         </div>
-                        <ng-template #other_btn_content>
-                          <div class="badge badge-primary add-btn" (click)="addOrder(dist['uuid'], i)">Add</div>
-                        </ng-template>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                        <span class="col-xs-2 text-right"></span>
+                        <span class="text-right col-xs-2">
+                          <strong
+                            ><i *ngIf="dist.selling_price" class="fa fa-inr" aria-hidden="true"></i
+                            >{{ dist.selling_price }}</strong
+                          ><br />
+                          <a>
+                            <div
+                              *ngIf="
+                                distributor_list_order_index.indexOf(dist['uuid']) > -1 || dist.stock <= 0;
+                                then content;
+                                else other_btn_content
+                              "
+                            >
+                              <!--<span></span>-->
+                            </div>
+                            <ng-template #content>
+                              <button
+                                style="width: 100%; margin-top: -12px;"
+                                [ngClass]="
+                                  dist.stock <= 0
+                                    ? 'not-available btn btn-fw btn-submit btn-inverse-dark'
+                                    : 'btn btn-fw btn-submit btn-inverse-dark'
+                                "
+                                class=""
+                                type="button"
+                                disabled
+                              >
+                                {{ dist.stock <= 0 ? 'Not available' : 'Add' }}
+                              </button>
+                            </ng-template>
+                            <ng-template #other_btn_content>
+                              <button
+                                style="width: 100%; margin-top: -16px;"
+                                class="btn btn-inverse-dark btn-fw btn-submit"
+                                (click)="addOrder(dist['uuid'], i)"
+                                type="button"
+                              >
+                                Add
+                              </button>
+                            </ng-template>
+                          </a>
+                        </span>
+                      </div>
+
+                      <!--Card gst and coupon code-->
+
+                      <!--<div class="cart-complete row">-->
+                      <!--<div class="col-sm-8 col-xs-12 cart-discount">-->
+                      <!--<p>Kortingscode</p>-->
+                      <!--<span><input value="Kortingscode"><a class="waves-effect waves-orange btn-flat">Gebruiken</a></span>-->
+                      <!--</div>-->
+                      <!--<div class="col-sm-4 col-xs-12 summary">-->
+                      <!--<p>Subtotaal<span>&euro; 862,68</span></p>-->
+                      <!--<p>Verzendwijze<span>Gratis</span></p>-->
+                      <!--<p class="discount">Korting<span>&minus; &euro; 15,00</span></p>-->
+                      <!--<p>Btw<span>&euro; 229,32</span></p>-->
+                      <!--<p><span>Totaal<strong>&euro; 1.092,00</strong></span></p>-->
+                      <!--</div>-->
+                      <!--</div>-->
+
+                      <!-- Card coupon code-->
+
+                      <!--Card bottom starts-->
+
+                      <!--<div class="cart-bottom row">-->
+                      <!--<div class="mini-shopping-cart-buttons">-->
+                      <!--<a class="waves-effect waves-orange btn-flat hidden-xs">Verder met shoppen</a>-->
+                      <!--<a class="waves-effect waves-orange btn-flat hidden-xs">Winkelwagen legen</a>-->
+                      <!--<a class="waves-effect waves-light btn pull-right">Bestellen</a>-->
+                      <!--</div>-->
+                      <!--</div>-->
+
+                      <!--Card bottom ends-->
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12" style="padding: 0px; !important">
-        <div class="col-lg-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Order List</h4>
-              <!--<p class="card-description">-->
-              <!--Add class-->
-              <!--<code>.table-bordered</code>-->
-              <!--</p>-->
+              <ng-template #emptyDistributorList>
+                <img class="mobile_empty_images" src="../../assets/images/empty_list.svg" />
+              </ng-template>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              Checkout List
+              <div *ngIf="order_list.length > 0" class="badge badge-pill badge-primary">{{ order_list.length }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
               <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0"
                 >*Qauntity can't exceed the max value.</span
               >
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>
-                        #
-                      </th>
-                      <th>
-                        Distributor name
-                      </th>
-                      <th>
-                        Product
-                      </th>
-                      <th>
-                        Company
-                      </th>
-                      <th>
-                        Pack
-                      </th>
-                      <th>
-                        Stock
-                      </th>
-                      <th>
-                        Rate
-                      </th>
-                      <th>
-                        Total Saved
-                      </th>
-                      <th>
-                        Remove
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let order of order_list; let i = index" [attr.data-index]="i">
-                      <td>
-                        <div
-                          *ngIf="
-                            show_order_qauntity_error_index.indexOf(order['uuid']) > -1;
-                            else other_btn_content_quantity
-                          "
-                        >
-                          <span>
-                            <i class="fa fa-exclamation-triangle fa-error-max-quantity" aria-hidden="true"></i>
-                          </span>
+              <div class="container" *ngIf="order_list.length > 0; else emptyCart">
+                <div class="row">
+                  <div class="cart2 col-lg-9 col-xs-12">
+                    <!--Card button view-->
+                    <!--<div class="cart-head row hidden-xs">-->
+                    <!--<div class="mini-shopping-cart-buttons">-->
+                    <!--<a class="waves-effect waves-orange btn-flat">Verder met shoppen</a>-->
+                    <!--<a class="waves-effect waves-orange btn-flat">Winkelwagen legen</a>-->
+                    <!--<a class="waves-effect waves-light btn pull-right">Bestellen</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--c-->
+                    <div class="cart-middle">
+                      <div
+                        class="row cart-item hidden-xs"
+                        *ngFor="let order of order_list; let i = index"
+                        [attr.data-index]="i"
+                      >
+                        <div class="col-xs-6">
+                          <div
+                            *ngIf="
+                              show_order_qauntity_error_index.indexOf(order['uuid']) > -1;
+                              else other_btn_content_quantity
+                            "
+                          >
+                            <span>
+                              <i class="fa fa-exclamation-triangle fa-error-max-quantity" aria-hidden="true"></i>
+                            </span>
+                          </div>
+                          <!--<div>-->
+                          <!--<img src="http://www.coolmix.nl/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone_4s_front.jpg">-->
+                          <!--</div>-->
+                          <div>
+                            <span style="font-weight: 300;"
+                              >{{ order.company }} by {{ order.distributor }}<br />
+                              <span>{{ order.product_name }}</span
+                              ><br />
+                              <span>Pack: {{ order.pack }}</span>
+                            </span>
+                          </div>
                         </div>
-                        <ng-template #other_btn_content_quantity>{{ i + 1 }}</ng-template>
-                      </td>
-                      <td>
-                        {{ order.distributor }}
-                      </td>
-                      <td>
-                        {{ order.product_name }}
-                      </td>
-                      <td>
-                        {{ order.company }}
-                      </td>
-                      <td>
-                        {{ order.pack }}
-                      </td>
-                      <td>
-                        <input
-                          style="width: 100% !important;"
-                          type="number"
-                          [max]="order.stock"
-                          [(ngModel)]="order.quantity"
-                          (ngModelChange)="valueChange(i, order, $event)"
-                          min="1"
-                        />
-                      </td>
-                      <td>
-                        {{ order.rate }}
-                      </td>
-                      <td>{{ order.discount }}%</td>
-                      <td>
-                        <div class="badge badge-primary" (click)="removeOrder(order['uuid'], i)">-</div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                        <span class="col-xs-2" style="z-index: 9999;padding-top: 7px;">
+                          <input
+                            class="mobile_quantity"
+                            type="number"
+                            [max]="order.stock"
+                            [(ngModel)]="order.quantity"
+                            (ngModelChange)="valueChange(i, order, $event)"
+                            min="1"
+                          />
+                          <a style="margin-left: 5px;">Quantity</a>
+                        </span>
+                        <span class="text-right col-xs-2" style="margin-top: -25px !important;">
+                          <strong>{{ (order.quantity * order.selling_price).toFixed(2) }}</strong
+                          ><br />
+                          <a>
+                            <button
+                              style="width: 100%; margin-top: -12px;"
+                              class="btn btn-inverse-dark btn-fw btn-submit"
+                              (click)="removeOrder(order['uuid'], i)"
+                              type="button"
+                            >
+                              Remove
+                            </button>
+                          </a>
+                        </span>
+                      </div>
+
+                      <!--Card gst and coupon code-->
+
+                      <!--<div class="cart-complete row">-->
+                      <!--<div class="col-sm-8 col-xs-12 cart-discount">-->
+                      <!--<p>Kortingscode</p>-->
+                      <!--<span><input value="Kortingscode"><a class="waves-effect waves-orange btn-flat">Gebruiken</a></span>-->
+                      <!--</div>-->
+                      <!--<div class="col-sm-4 col-xs-12 summary">-->
+                      <!--<p>Subtotaal<span>&euro; 862,68</span></p>-->
+                      <!--<p>Verzendwijze<span>Gratis</span></p>-->
+                      <!--<p class="discount">Korting<span>&minus; &euro; 15,00</span></p>-->
+                      <!--<p>Btw<span>&euro; 229,32</span></p>-->
+                      <!--<p><span>Totaal<strong>&euro; 1.092,00</strong></span></p>-->
+                      <!--</div>-->
+                      <!--</div>-->
+
+                      <!-- Card coupon code-->
+
+                      <!--Card bottom starts-->
+
+                      <!--<div class="cart-bottom row">-->
+                      <!--<div class="mini-shopping-cart-buttons">-->
+                      <!--<a class="waves-effect waves-orange btn-flat hidden-xs">Verder met shoppen</a>-->
+                      <!--<a class="waves-effect waves-orange btn-flat hidden-xs">Winkelwagen legen</a>-->
+                      <!--<a class="waves-effect waves-light btn pull-right">Bestellen</a>-->
+                      <!--</div>-->
+                      <!--</div>-->
+
+                      <!--Card bottom ends-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #emptyCart>
+                <img class="mobile_empty_images" src="../../assets/images/empty_cart.svg" />
+              </ng-template>
+              <div
+                class="row btn-order-submit"
+                *ngIf="order_list.length > 0 && show_order_qauntity_error_index.length == 0"
+              >
+                <button
+                  class="btn btn-inverse-dark btn-fw btn-submit"
+                  type="button"
+                  (click)="callAlertModal(alertModal)"
+                >
+                  Submit
+                </button>
+              </div>
+
+              <div class="row btn-order-submit btn-submit-disabled" *ngIf="show_order_qauntity_error_index.length > 0">
+                <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" disabled>Submit</button>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-panel-desktop" *ngIf="distributor_list.length > 0; else search_distriibutor">
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px; !important">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <span class="product-display"
+                  ><strong>{{ product_name }}</strong></span
+                >
+                <h4 class="card-title" style="margin-top: 14px;">List of distributors</h4>
+                <!--<p class="card-description">-->
+                <!--Add class-->
+                <!--<code>.table-striped</code>-->
+                <!--</p>-->
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>
+                          User
+                        </th>
+                        <th>
+                          Distributor name
+                        </th>
+                        <th>
+                          Rating
+                        </th>
+                        <th>
+                          Stock
+                        </th>
+                        <!--<th>-->
+                        <!--Discount-->
+                        <!--</th>-->
+                        <th>
+                          Company
+                        </th>
+                        <th>
+                          Pack
+                        </th>
+                        <th>
+                          MRP
+                        </th>
+                        <th>
+                          Rate
+                        </th>
+                        <!--<th>-->
+                        <!--Vat-->
+                        <!--</th>-->
+                        <th>
+                          Add
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dist of distributor_list; let i = index" [attr.data-index]="i">
+                        <td class="py-1">
+                          <img src="../../assets/images/show-faces/distributor.png" />
+                        </td>
+                        <td>
+                          {{ dist.distributor }}
+                        </td>
+                        <td>
+                          <app-rating [rating]="dist.rating"></app-rating>
+                        </td>
+                        <td>
+                          {{ dist.stock }}
+                        </td>
+                        <!--<td>{{ dist.discount }}%</td>-->
+                        <td>
+                          {{ dist.company }}
+                        </td>
+                        <td>
+                          {{ dist.pack }}
+                        </td>
+                        <td><i *ngIf="dist.mrp" class="fa fa-inr" aria-hidden="true"></i> {{ dist.mrp }}</td>
+                        <td>
+                          <i *ngIf="dist.selling_price" class="fa fa-inr" aria-hidden="true"></i>
+                          {{ dist.selling_price }}
+                        </td>
+                        <!--<td>{{ dist.vat }}%</td>-->
+                        <td>
+                          <div
+                            *ngIf="
+                              distributor_list_order_index.indexOf(dist['uuid']) > -1 || dist.stock <= 0;
+                              else other_btn_content
+                            "
+                            disabled
+                            [ngClass]="dist.stock <= 0 ? 'not-btn' : 'add-btn'"
+                            class="badge badge-primary add-btn add-btn-disable"
+                          >
+                            <span>{{ dist.stock <= 0 ? 'Not available' : 'Add' }}</span>
+                          </div>
+                          <ng-template #other_btn_content>
+                            <div class="badge badge-primary add-btn" (click)="addOrder(dist['uuid'], i)">Add</div>
+                          </ng-template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row btn-order-submit" *ngIf="order_list.length > 0 && show_order_qauntity_error_index.length == 0">
-      <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" (click)="callAlertModal(alertModal)">
-        Submit
-      </button>
-    </div>
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px; !important">
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Order List</h4>
+                <!--<p class="card-description">-->
+                <!--Add class-->
+                <!--<code>.table-bordered</code>-->
+                <!--</p>-->
+                <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0"
+                  >*Qauntity can't exceed the max value.</span
+                >
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>
+                          #
+                        </th>
+                        <th>
+                          Distributor name
+                        </th>
+                        <th>
+                          Product
+                        </th>
+                        <th>
+                          Company
+                        </th>
+                        <th>
+                          Pack
+                        </th>
+                        <th>
+                          Quantity
+                        </th>
+                        <th>
+                          Rate
+                        </th>
+                        <th>
+                          Total Saved
+                        </th>
+                        <th>
+                          Remove
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let order of order_list; let i = index" [attr.data-index]="i">
+                        <td>
+                          <div
+                            *ngIf="
+                              show_order_qauntity_error_index.indexOf(order['uuid']) > -1;
+                              else other_btn_content_quantity
+                            "
+                          >
+                            <span>
+                              <i class="fa fa-exclamation-triangle fa-error-max-quantity" aria-hidden="true"></i>
+                            </span>
+                          </div>
+                          <ng-template #other_btn_content_quantity>{{ i + 1 }}</ng-template>
+                        </td>
+                        <td>
+                          {{ order.distributor }}
+                        </td>
+                        <td>
+                          {{ order.product_name }}
+                        </td>
+                        <td>
+                          {{ order.company }}
+                        </td>
+                        <td>
+                          {{ order.pack }}
+                        </td>
+                        <td>
+                          <input
+                            style="width: 100% !important;"
+                            type="number"
+                            [max]="order.stock"
+                            [(ngModel)]="order.quantity"
+                            (ngModelChange)="valueChange(i, order, $event)"
+                            min="1"
+                          />
+                        </td>
+                        <td>
+                          {{ order.selling_price }}
+                        </td>
+                        <td>{{ order.discount }}%</td>
+                        <td>
+                          <div class="badge badge-primary cross-remove-btn" (click)="removeOrder(order['uuid'], i)">
+                            x
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <span style="color: #ec2c70; float: right;"
+                    >Total amount: <span style="color: black">{{ total_amount_of_order }}</span></span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row btn-order-submit" *ngIf="order_list.length > 0 && show_order_qauntity_error_index.length == 0">
+        <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" (click)="callAlertModal(alertModal)">
+          Submit
+        </button>
+      </div>
 
-    <div class="row btn-order-submit btn-submit-disabled" *ngIf="show_order_qauntity_error_index.length > 0">
-      <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" disabled>Submit</button>
+      <div class="row btn-order-submit btn-submit-disabled" *ngIf="show_order_qauntity_error_index.length > 0">
+        <button class="btn btn-inverse-dark btn-fw btn-submit" type="button" disabled>Submit</button>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #search_distriibutor>
+  <div class="splash_search_img">
+    <img src="../../assets/images/placing-order/placing-order-1.svg" />
+  </div>
+</ng-template>
 
 <ng-template #addmedicine let-modal>
   <div class="modal-header">
@@ -266,7 +552,7 @@
   </div>
   <div class="modal-footer">
     <span class="add-med-footer">
-      *We will update you regarding the mediicine.
+      *We will update you regarding the medicine.
     </span>
     <button type="submit" class="btn btn-success mr-2" (click)="modal.close('Save click')">Submit</button>
   </div>

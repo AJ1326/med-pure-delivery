@@ -1,0 +1,62 @@
+//Search bar
+.search-icon {
+  position: relative;
+  float: right;
+  width: 75px;
+  height: 75px;
+  top: -62px;
+  right: -8px;
+}
+
+input#search-bar {
+  margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  font-size: 1rem;
+  border: 1px solid #d0cfce;
+  outline: none;
+  &:focus {
+    border: 1px solid #008abf;
+    transition: 0.35s ease;
+    color: #008abf;
+    &::-webkit-input-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &:-ms-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+  }
+}
+
+.search-container {
+  position: fixed;
+  top: 63px;
+  z-index: 99;
+  width: 100%;
+  margin-left: -15px;
+}
+
+.salesman-retailer-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-top: 46px;
+  width: 112%;
+}
+
+//For retailer add button
+.outer-add-container {
+  width: 90%;
+  bottom: 30px;
+  position: fixed;
+}
+.floatcontainer {
+  float: right;
+}

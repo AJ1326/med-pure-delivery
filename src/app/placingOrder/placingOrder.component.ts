@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -10,6 +10,9 @@ import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { Route, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
+//Query param salesman view
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 const log = new Logger('Placing Order');
 
@@ -52,8 +55,10 @@ export class WikipediaService {
   templateUrl: './placingOrder.component.html',
   styleUrls: ['./placingOrder.component.scss'],
   providers: [WikipediaService]
+  // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
+  orderFromSalesman: any = null;
   version: string = environment.version;
   closeResult: string;
   currentRate: any;
@@ -74,6 +79,7 @@ export class PlacingOrderComponent implements OnInit {
   show_order_qauntity_error_index: any[] = [];
   distributor_list_order_index: any[] = [];
   product_name: string;
+  total_amount_of_order = 0;
 
   constructor(
     private distributorService: PlacingOrderService,
@@ -81,7 +87,8 @@ export class PlacingOrderComponent implements OnInit {
     private _service: WikipediaService,
     private _hotkeysService: HotkeysService,
     public route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: ActivatedRoute
   ) {
     // this._hotkeysService.add(
     //   new Hotkey(
@@ -121,11 +128,13 @@ export class PlacingOrderComponent implements OnInit {
     let cloned_order = _.cloneDeep(addOrder);
     cloned_order.quantity = 3;
     this.order_list = this.order_list.concat(cloned_order);
+    this.getTotalOrderValue();
   }
 
   removeOrder(slug: string, orderNumber: number) {
     this.callunableBtnFunction(slug);
     const removeOrder = this.order_list.splice(orderNumber, 1);
+    this.getTotalOrderValue();
     // this.distributor_list = this.distributor_list.concat(removeOrder);
   }
 
@@ -163,6 +172,14 @@ export class PlacingOrderComponent implements OnInit {
 
   ngOnInit() {
     this.message = 'Welcome !!!!';
+    this.router.queryParams
+      .filter(params => params['retailer_slug'])
+      .subscribe(params => {
+        // console.log('params', params); // {order: "popular"}
+        this.orderFromSalesman = params;
+        console.log('this.orderFromSalesman', this.orderFromSalesman);
+        console.log('this.orderFromSalesman.retailer_slug', this.orderFromSalesman['retailer_slug']);
+      });
   }
 
   public openModal(content: any) {
@@ -199,7 +216,6 @@ export class PlacingOrderComponent implements OnInit {
   }
 
   private submitOrder(order: any): void {
-    console.log(order, 'order');
     order.map((data: any) => {
       delete data['company'];
       delete data['discount'];
@@ -218,7 +234,7 @@ export class PlacingOrderComponent implements OnInit {
       delete data['stock'];
     });
     this.distributorService
-      .orderListPlaced(order)
+      .orderListPlaced(order, this.orderFromSalesman)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -256,16 +272,26 @@ export class PlacingOrderComponent implements OnInit {
 
   private valueChange(order_index: number, order: any, $event: any): void {
     order.quantity = $event;
+    console.log(order, 'order');
     const index = this.show_order_qauntity_error_index.indexOf(order.uuid);
     if (order.quantity > order.stock) {
       if (index === -1) {
         this.show_order_qauntity_error_index.push(order.uuid);
       }
     } else {
+      this.getTotalOrderValue();
       if (index > -1) {
         this.show_order_qauntity_error_index.splice(index, 1);
       }
     }
+  }
+
+  private getTotalOrderValue(): void {
+    let total = 0;
+    for (let i of this.order_list) {
+      total = total + i['quantity'] * i['selling_price'];
+    }
+    this.total_amount_of_order = total;
   }
 
   private findExceedOrder(val: number): boolean {

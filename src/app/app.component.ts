@@ -7,6 +7,8 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Logger, I18nService } from '@app/core';
+import { PwaService } from '@app/pwa.service';
+import { SwUpdate } from '@angular/service-worker';
 
 const log = new Logger('App');
 
@@ -17,11 +19,13 @@ const log = new Logger('App');
 })
 export class AppComponent implements OnInit {
   constructor(
+    private swUpdate: SwUpdate,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
     private translateService: TranslateService,
-    private i18nService: I18nService
+    private i18nService: I18nService,
+    public Pwa: PwaService
   ) {}
 
   ngOnInit() {
@@ -29,7 +33,7 @@ export class AppComponent implements OnInit {
     if (environment.production) {
       Logger.enableProductionMode();
     }
-
+    this.installPwa();
     log.debug('init');
 
     // Setup translations
@@ -56,5 +60,13 @@ export class AppComponent implements OnInit {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
+  }
+
+  installPwa(): void {
+    this.swUpdate.available.subscribe(event => {
+      console.log('A newer version is now available. Refresh the page now to update the cache');
+    });
+    this.swUpdate.checkForUpdate();
+    this.Pwa.promptEvent.prompt();
   }
 }

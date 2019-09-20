@@ -2,80 +2,99 @@ import {
   Component,
   OnInit,
   Input,
-  Output,
-  EventEmitter,
   OnDestroy,
   ViewChildren,
   QueryList,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Pipe,
+  PipeTransform,
+  AfterViewInit
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NgbdSortableHeader, SortEvent } from '@app/shared/directives/sortable.directive';
-import { CountryService } from '@app/shared/tableData/tableData.service';
-import { OrderList } from '@app/shared/Interfaces/tableData';
-import { ModalDismissReasons, NgbAccordionConfig, NgbCalendar, NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { finalize } from 'rxjs/operators';
-import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
+import { TableDataService } from '@app/shared/tableData/tableData.service';
+import { ModalDismissReasons, NgbAccordionConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrderListService } from '@app/orderList/order-list.service';
+import { AuthenticationService } from '@app/core';
+
+@Pipe({ name: 'changeDateFormat' })
+export class ChangeDateFormat implements PipeTransform {
+  transform(value: string): string {
+    console.log(value, 'value');
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate = new Date(value);
+    const secondDate = new Date();
+    console.log(firstDate.getTime(), 'firstDate.getTime()');
+    console.log(secondDate.getTime(), 'secondDate.getTime()');
+    const pendingMedicineDate = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
+    return pendingMedicineDate.toString();
+  }
+}
 
 @Component({
   selector: 'app-table',
   templateUrl: './tableData.component.html',
   styleUrls: ['./tableData.component.scss'],
-  providers: [NgbAccordionConfig],
   encapsulation: ViewEncapsulation.None
 })
-export class TableDataComponent implements OnInit, OnDestroy {
+export class TableDataComponent implements OnInit {
   disabled = false;
   closeResult: string;
-  orderlist$: Observable<OrderList[]>;
   total$: Observable<number>;
-  modalReference: any;
-  order_list: [];
-  isLoading = true;
-  alert_message: string;
-  //Date
-  displayMonths = 1;
-  navigation = 'select';
-  showWeekNumbers = false;
-  outsideDays = 'visible';
-  //Order data
-  @Input() orderListData: any = [];
+  orderListDataFilter: any;
+  rejectOrderModel: any;
+  filter_type = 'all-order-list';
+  user_info: any;
+  // pendingMedicineDate: any;
+
+  //  Order data
+  orderListData: any = [];
   @Input() role_type: string;
-  startdatevalue: NgbDateStruct;
+  @Input() startDate: string;
+  @Input() endDate: string;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    public service: CountryService,
     config: NgbAccordionConfig,
     private modalService: NgbModal,
-    private distributorService: PlacingOrderService,
-    calendar: NgbCalendar
+    private orderListService: OrderListService,
+    public tableDataService: TableDataService,
+    public authenticationService: AuthenticationService
   ) {
-    this.orderlist$ = service.orderlist$;
-    this.total$ = service.total$;
+    tableDataService.orderlist$.subscribe((data: any) => {
+      console.log('orderlist$------->>', data);
+      this.orderListData = data;
+    });
+
+    tableDataService.filterTypeValue.subscribe(value => {
+      console.log('---------d-----d---> ', value);
+      this.filter_type = value;
+    });
+
+    this.total$ = tableDataService.total$;
     config.closeOthers = true;
-    this.startdatevalue = calendar.getToday();
     config.type = 'info';
-    console.log('role_type', this.orderListData);
-    //date
   }
 
-  public openAlertModal(content: any, orderData: any): void {
-    this.order_list = orderData;
-    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-    this.modalReference.result.then(
-      (result: any) => {
+  ngOnInit() {
+    this.user_info = this.authenticationService.userInfo();
+  }
+
+  open(content: any, data?: any) {
+    this.orderListDataFilter = data;
+    console.log('this.orderListDataFilter:', this.orderListDataFilter);
+    this.rejectOrderModel = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      result => {
         this.closeResult = `Closed with: ${result}`;
       },
-      (reason: any) => {
+      reason => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
   }
 
-  private getDismissReason(reason: any): string {
+  public getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -85,68 +104,95 @@ export class TableDataComponent implements OnInit, OnDestroy {
     }
   }
 
-  private receiveMessage(accept_type: any): void {
-    if (accept_type === 'Yes') {
-      this.submitOrder(this.order_list);
-    }
-  }
-
-  private submitOrder(order: any): void {
-    order.map((data: any) => {
-      delete data['company'];
-      delete data['discount'];
-      data['distributor'] = data['distributor_slug'];
-      data['product'] = data['product_slug'];
-      delete data['mrp'];
-      delete data['distributor_slug'];
-      delete data['product_slug'];
-      delete data['pack'];
-      delete data['rate'];
-      delete data['rating'];
-      delete data['pack'];
-      delete data['vat'];
-      delete data['uuid'];
-      data['quantity'] = data['stock'];
-      delete data['stock'];
+  public submitAlert(): void {
+    this.orderListService.rejectOrderByDistributor(this.orderListDataFilter).subscribe((data: any) => {
+      this.tableDataService._search();
     });
-    this.distributorService
-      .orderListPlaced(order)
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        (data: []) => {
-          this.order_list = [];
-          this.alert_message = 'Your order has been placed.';
-        },
-        error => {
-          this.alert_message = 'Some error is occurred.';
-        }
-      );
   }
 
-  onSort({ column, direction }: SortEvent) {
-    // resetting other headers
-    this.headers.forEach(header => {
-      if (header.sortable !== column) {
-        header.direction = '';
+  csvDownload(uuid: string): void {
+    this.orderListService.downloadCsvDistributor(uuid).subscribe((data: any) => {
+      this.JSONToCSVConvertor(data, 'Todays order list', false);
+    });
+  }
+
+  downLoadOrders(): void {
+    this.orderListService.acceptPendingOrderList().subscribe((data: any) => {
+      console.log('working!!!!!');
+      this.tableDataService._search();
+    });
+    this.orderListService.downloadPendingProductList().subscribe((data: any) => {
+      this.JSONToCSVConvertor(data, 'Pending_Orders', true);
+    });
+  }
+
+  JSONToCSVConvertor(JSONData: [], ReportTitle: string, ShowLabel: boolean) {
+    //  If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+    const arrData = typeof JSONData !== 'object' ? JSON.parse(JSONData) : JSONData;
+
+    let CSV = ',' + '\r\n';
+
+    //  This condition will generate the Label/Header
+    if (ShowLabel) {
+      let row = '';
+
+      //  This loop will extract the label from 1st index of on array
+      for (const index in arrData[0]) {
+        //  Now convert each value to string and comma-seprated
+        row += index + ',';
       }
-    });
 
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+      row = row.slice(0, -1);
+
+      // append Label row with line break
+      CSV += row + '\r\n';
+    }
+
+    // 1st loop is to extract each row
+    for (let i = 0; i < arrData.length; i++) {
+      let row = '';
+
+      // 2nd loop will extract each column and convert it in string comma-seprated
+      for (const index in arrData[i]) {
+        row += '"' + arrData[i][index] + '",';
+      }
+
+      row.slice(0, row.length - 1);
+
+      // add a line break after each row
+      CSV += row + '\r\n';
+    }
+
+    if (CSV === '') {
+      alert('Invalid data');
+      return;
+    }
+
+    // Generate a file name
+    let fileName = 'Medpure_';
+    // this will remove the blank-spaces from the title and replace it with an underscore
+    fileName += ReportTitle.replace(/ /g, '_');
+
+    // Initialize file format you want csv or xls
+    const uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+    //  Now the little tricky part.
+    //  you can use either>> window.open(uri);
+    //  but this will not work in some browsers
+    //  or you will not get the correct file extension
+
+    // this trick will generate a temp <a /> tag
+    const link = document.createElement('a');
+    link.href = uri;
+
+    // set the visibility hidden so it will not effect on your web-layout
+    // @ts-ignore
+    link.style = 'visibility:hidden';
+    link.download = fileName + '.csv';
+
+    // this part will append the anchor tag and remove it after automatic click
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
-
-  ngOnInit() {
-    this.dateParser();
-  }
-
-  private dateParser(): void {
-    const date = this.startdatevalue.day + '-' + this.startdatevalue.month + '-' + this.startdatevalue.year;
-    console.log('date', date);
-  }
-
-  ngOnDestroy(): void {}
 }

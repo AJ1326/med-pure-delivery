@@ -37,3 +37,89 @@ q {
   background: linear-gradient(120deg, #94e8e1, #71b7ff);
   border: 1px solid #00000024;
 }
+
+//.back_img {
+//  background-image: url("../../assets/images/home/empty_cart.svg");
+//  background-repeat: no-repeat;
+//  background-position: center bottom;
+//  background-attachment: fixed;
+//  min-height: 90vh;
+//}
+
+.display-filter-container {
+  display: block;
+}
+
+.mobile-bottom-view {
+  display: none;
+}
+
+.mobile-filter-container {
+  display: none;
+}
+
+//Mobile filter View of dashboard
+
+@media only screen and (max-width: 600px) {
+  .flex-container {
+    display: flex;
+    background-color: #f1f1f1;
+    margin-left: -25px;
+  }
+
+  .flex-container > div {
+    background-color: #fdfffd;
+    height: 76px;
+    width: 25%;
+    text-align: center;
+  }
+
+  .mobile-bottom-view {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: -14px 0px 2px grey;
+    //box-shadow: -14px 1px 7px grey;
+    z-index: 99;
+  }
+
+  .mobile-filter-img {
+    vertical-align: middle;
+    width: 40px;
+    padding-top: 19px;
+  }
+
+  .display-filter-container {
+    display: none;
+  }
+
+  .mobile-filter-container {
+    display: block;
+  }
+
+  .mobile-filter-heading {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+    background-color: #1977a56e;
+    margin-left: -18px;
+    margin-top: -3px;
+    width: 99%;
+    height: 44px;
+    border: 1px solid #20bde0;
+  }
+
+  .mobile-filter-heading > span {
+    flex-grow: 1;
+    font-weight: 200 !important;
+    font-size: 16px;
+    padding: 10px;
+    color: #000000bf;
+  }
+
+  .mobile-sub-image {
+    height: 78px;
+  }
+}

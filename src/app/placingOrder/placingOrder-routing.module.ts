@@ -6,7 +6,8 @@ import { Shell } from '@app/shell/shell.service';
 import { PlacingOrderComponent } from './placingOrder.component';
 
 const routes: Routes = [
-  Shell.retailerShell([{ path: 'order', component: PlacingOrderComponent, data: { title: extract('order') } }])
+  Shell.retailerShell([{ path: 'order', component: PlacingOrderComponent, data: { title: extract('order') } }]),
+  Shell.salesManShell([{ path: 'order', component: PlacingOrderComponent, data: { title: extract('order') } }])
 ];
 
 @NgModule({

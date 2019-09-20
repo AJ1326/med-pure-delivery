@@ -1,304 +1,635 @@
-<form>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="container">
-        <div class="search-box" id="SBox">
-          <input
-            id="search"
-            type="text"
-            name="searchTerm"
-            [(ngModel)]="service.searchTerm"
-            placeholder="Search by order list."
-          />
-          <div class="also search-link" id="searchclick"></div>
-          <!--<span class="ml-3" *ngIf="(service.loading$ | async)">Loading...</span>-->
-          <!--<a class="fa fa-cog also setting"></a>-->
+<div style="margin-top: 20px">
+  <div *ngIf="filter_type === 'all-order-list' && !tableDataService.isLoading">
+    <ngb-accordion *ngIf="orderListData.length > 0; else other_no_data" #acc="ngbAccordion">
+      <ngb-panel *ngFor="let order of orderListData">
+        <!--Desktop and tablet view-->
+        <ng-template ngbPanelTitle>
+          <div class="row desktop-view">
+            <div class="col-md-2">
+              <span class="sub-accordian-heading">Order date</span>
+            </div>
+            <div class="col-md-2">
+              <span class="sub-accordian-heading">Amount</span>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+              <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ order.retailer_order_id }}</span
+              >
+              <span *ngIf="role_type === 'distributor'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ order.distributor_order_id }}</span
+              >
+            </div>
+          </div>
+          <!--<div class="row mobile-view">-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="sub-accordian-heading">Ordered on</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span style="color: #00000087;">{{ order.order_place_datetime | date : medium }}</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="sub-accordian-heading">Amount</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="total_amount_display">{{ order.total_amount }}</span>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2">
+              <span style="color: #00000087;">{{ order.order_place_datetime | date: medium }}</span>
+            </div>
+            <div class="col-md-2">
+              <span>{{ order.total_amount }}</span>
+            </div>
+            <!--            <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">-->
+            <!--              <button-->
+            <!--                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"-->
+            <!--                type="button"-->
+            <!--                (click)="csvDownload(order.uuid); $event.stopPropagation()"-->
+            <!--              >-->
+            <!--                CSV-->
+            <!--              </button>-->
+            <!--            </div>-->
+          </div>
+          <!--<div class="row mobile-view" style="margin-top: 10px;">-->
+          <!--<div class="col-md-5"></div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="media-sub-accordian-heading sub-accordian-heading">ORDER # {{ order.order_id }}</span>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span style="color: #00000087;">{{ order.order_date }}</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span>{{ order.total_amount }}</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">-->
+          <!--<button-->
+          <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"-->
+          <!--type="button"-->
+          <!--(click)="csvDownload(order.uuid); $event.stopPropagation()"-->
+          <!--&gt;-->
+          <!--CSV-->
+          <!--</button>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="arrow">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+          </div>
+        </ng-template>
+        <!--Mobile view-->
+
+        <div class="profile-image">
+          <!--<span class="img-xs rounded-circle profile_circle"><strong>{{ user_info['name'].charAt(0).toUpperCase() }}</strong></span>-->
+          <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+          <!--<img class="img-xs rounded-circle" src="../../../assets/images/faces/avatar.png" alt="profile image" />-->
         </div>
-      </div>
-    </div>
-    <div class="col-md-3 filter_start_date">
-      <div class="input-group">
-        <input
-          class="form-control"
-          placeholder="yyyy-mm-dd"
-          style="height: 47px"
-          name="dp"
-          [(ngModel)]="startdatevalue"
-          [displayMonths]="displayMonths"
-          [navigation]="navigation"
-          [outsideDays]="outsideDays"
-          [showWeekNumbers]="showWeekNumbers"
-          ngbDatepicker
-          #startdate="ngbDatepicker"
-        />
-        <div class="input-group-append" style="height: 47px">
-          <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
-            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-          </button>
+        <ng-template ngbPanelContent>
+          <div class="wrap cf">
+            <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
+            <!--            <div *ngIf="role_type === 'retailer'" class="heading cf">-->
+            <!--              <span class="product_detail">Product detail</span>  -->
+            <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+            <!--Accepted-->
+            <!--</button>-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
+            <!--Rejected-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--              <div style="text-align: right;">-->
+            <!--Reorder button for reetailer-->
+            <!--<button-->
+            <!--(click)="open(Reorder, order)"-->
+            <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
+            <!--type="button"-->
+            <!--&gt;-->
+            <!--Re-order-->
+            <!--</button>-->
+            <!--Reorder button ends-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <div class="cart">
+              <ul class="cartWrap">
+                <li
+                  class="items"
+                  *ngFor="let products of order.order_details; let i = index"
+                  [attr.data-index]="i"
+                  [ngClass]="i % 2 === 0 ? 'even' : 'odd'"
+                >
+                  <div class="infoWrap">
+                    <div class="cartSection cart-full-box">
+                      <div class="cart-sub-section-image">
+                        <img
+                          *ngIf="role_type === 'retailer'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/distributor.png"
+                          alt="profile image"
+                        />
+                        <img
+                          *ngIf="role_type === 'distributor'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/retailer.png"
+                          alt="profile image"
+                        />
+                        <div style="display: flex; flex-direction: column; padding-left: 2em; width: 100%;">
+                          <div class="cart-header-btn" style="display: flex; flex-direction: row">
+                            <div style="display: flex; flex-direction: column; flex-grow: 1;">
+                              <p class="itemNumber">PRODUCT ORDER # {{ products.product_order_id }}</p>
+                              <h3>{{ products['product']['name'] }}</h3>
+                            </div>
+                            <!--                            <div>-->
+                            <!--                              <button-->
+                            <!--                                style="float: right;"-->
+                            <!--                                *ngIf="-->
+                            <!--                                  role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')-->
+                            <!--                                "-->
+                            <!--                                class="distributor-reject all-order-reject-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                            <!--                                (click)="open(Reject, products)"-->
+                            <!--                                type="button"-->
+                            <!--                              >-->
+                            <!--                                Reject-->
+                            <!--                              </button>-->
+                            <!--                            </div>-->
+                          </div>
+                        </div>
+                        <!--                        <div-->
+                        <!--                          *ngIf="products['status'] === 'rejected_by_distributor' && role_type === 'retailer'"-->
+                        <!--                          class="badge badge-retailer-status add-btn cancel_btn"-->
+                        <!--                          ngbTooltip="Rejected by distributor"-->
+                        <!--                        >-->
+                        <!--                          cancelled-->
+                        <!--                        </div>-->
+                        <!--<div *ngIf="role_type === 'distributor'" class="badge badge-distributor-status add-btn">Reject</div>-->
+                      </div>
+                      <div class="footer-order-data-sub-details" style="display: flex; flex-direction: row;">
+                        <div style="flex-grow: 1;">
+                          <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
+                          ><span class="product-sub-details">{{ products.quantity }}</span>
+                          <strong class="sub-order-dropdown-heading">Price:</strong
+                          ><i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                          ><span class="product-sub-details">{{ products.product.price }}</span>
+                          <strong *ngIf="role_type === 'retailer'" class="sub-order-dropdown-heading"
+                            >Distributor name:</strong
+                          >
+                          <span *ngIf="role_type === 'retailer'" class="product-sub-details">{{
+                            products['distributor']['name']
+                          }}</span>
+                          <strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"
+                            >Retailer name:</strong
+                          >
+                          <span *ngIf="role_type === 'distributor'" class="product-sub-details">{{
+                            products['retailer']['name']
+                          }}</span>
+                          <p style="font-size: 20px; float: right; margin-bottom: 0px;">
+                            <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                            ><span>{{ (products.quantity * products.product.price).toFixed(2) }}</span>
+                          </p>
+                          <span class="product-status">
+                            <div
+                              [ngClass]="{
+                                'status-pending-color': products.status == 'pending',
+                                'status-in_process-color': products.status == 'in_process',
+                                'status-accepted_by_distributor-color': products.status == 'accepted_by_distributor',
+                                'status-picked_up_by_delivery_boy-color':
+                                  products.status == 'picked_up_by_delivery_boy',
+                                'status-delivered_delivery_boy-color': products.status == 'delivered_delivery_boy',
+                                'status-accepted_by_retailer-color': products.status == 'accepted_by_retailer',
+                                'status-cancel-color': products.status == 'cancel'
+                              }"
+                              style="font-size: 13px; font-weight: 400;"
+                              class="badge badge-outline-primary badge-pill"
+                            >
+                              {{ products.status }}
+                            </div>
+                          </span>
+                          <!--                          <div>-->
+                          <!--                            <button-->
+                          <!--                              style="float: right;"-->
+                          <!--                              *ngIf="-->
+                          <!--                                  role_type === 'distributor' && !(products['status'] === 'rejected_by_distributor')-->
+                          <!--                                "-->
+                          <!--                              class="distributor-reject all-order-reject-btn continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                          <!--                              (click)="open(Reject, products)"-->
+                          <!--                              type="button"-->
+                          <!--                            >-->
+                          <!--                              Reject-->
+                          <!--                            </button>-->
+                          <!--                          </div>-->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+
+  <div *ngIf="filter_type === 'by-source' && !tableDataService.isLoading">
+    <ngb-accordion *ngIf="orderListData.length > 0; else other_no_data" #acc="ngbAccordion">
+      <ngb-panel *ngFor="let list of orderListData">
+        <!--Desktop and tablet view-->
+        <ng-template ngbPanelTitle>
+          <div class="row desktop-view">
+            <div class="col-md-2">
+              <span class="sub-accordian-heading">Order date</span>
+            </div>
+            <div class="col-md-2">
+              <span class="sub-accordian-heading">Amount</span>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2 desktop-view-order-id">
+              <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.retailer_order_id }}</span
+              >
+              <span *ngIf="role_type === 'distributor'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.distributor_order_id }}</span
+              >
+            </div>
+          </div>
+          <!--<div class="row mobile-view">-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="sub-accordian-heading">Ordered on</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span style="color: #00000087;">{{ list.order_place_datetime | date : medium }}</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="sub-accordian-heading">Amount</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="total_amount_display">{{ list.total_amount }}</span>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2 mobile-view">
+              <span *ngIf="role_type === 'retailer'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.retailer_order_id }}</span
+              >
+              <span *ngIf="role_type === 'distributor'" class="media-sub-accordian-heading sub-accordian-heading"
+                >ORDER # {{ list.distributor_order_id }}</span
+              >
+            </div>
+            <div class="col-md-2">
+              <span style="color: #00000087;">{{ list.order_place_datetime | date: medium }}</span>
+            </div>
+            <div class="col-md-2">
+              <span>{{ list.total_amount }}</span>
+            </div>
+            <!--            <div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">-->
+            <!--              <button-->
+            <!--                class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept"-->
+            <!--                type="button"-->
+            <!--                (click)="csvDownload(list.uuid); $event.stopPropagation()"-->
+            <!--              >-->
+            <!--                CSV-->
+            <!--              </button>-->
+            <!--            </div>-->
+          </div>
+          <!--<div class="row mobile-view" style="margin-top: 10px;">-->
+          <!--<div class="col-md-5"></div>-->
+          <!--<div class="col-md-2">-->
+          <!--<span class="media-sub-accordian-heading sub-accordian-heading">ORDER # {{ list.order_id }}</span>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span style="color: #00000087;">{{ order.order_date }}</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span>{{ order.total_amount }}</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<div *ngIf="role_type === 'distributor'" class="col-md-2 offset-md-5">-->
+          <!--<button-->
+          <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
+          <!--type="button"-->
+          <!--(click)="csvDownload(list.uuid); $event.stopPropagation()"-->
+          <!--&gt;-->
+          <!--CSV-->
+          <!--</button>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="arrow">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+          </div>
+        </ng-template>
+        <!--Mobile view-->
+
+        <div class="profile-image">
+          <!--<span class="img-xs rounded-circle profile_circle"><strong>{{ user_info['name'].charAt(0).toUpperCase() }}</strong></span>-->
+          <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+          <!--<img class="img-xs rounded-circle" src="../../../assets/images/faces/avatar.png" alt="profile image" />-->
         </div>
-      </div>
-    </div>
-    <div class="col-md-3 filter_end_date">
-      <div class="input-group">
-        <div class="input-group-append" style="height: 47px">
-          <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
-            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-          </button>
+        <ng-template ngbPanelContent>
+          <div class="wrap cf" style="margin-top: -30px;">
+            <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
+            <!--            <div *ngIf="role_type === 'retailer'" class="heading cf">-->
+            <!--              <span class="product_detail">Product detail</span>-->
+            <!--<div *ngIf="role_type === 'distributor'" style="text-align: right;">-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">-->
+            <!--Accepted-->
+            <!--</button>-->
+            <!--<button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">-->
+            <!--Rejected-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--              <div style="text-align: right;">-->
+            <!--Reorder button for retailer-->
+            <!--<button-->
+            <!--(click)="open(Reorder, order)"-->
+            <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
+            <!--type="button"-->
+            <!--&gt;-->
+            <!--Re-order-->
+            <!--</button>-->
+            <!--Reorder button ends-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <div class="cart">
+              <ul class="cartWrap">
+                <li
+                  class="items"
+                  *ngFor="let dist of list.order_details; let i = index"
+                  [attr.data-index]="i"
+                  [ngClass]="i % 2 === 0 ? 'even' : 'odd'"
+                >
+                  <div class="infoWrap">
+                    <div class="cartSection cart-full-box">
+                      <div class="cart-sub-section-image">
+                        <img
+                          *ngIf="role_type === 'retailer'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/distributor.png"
+                          alt="profile image"
+                        />
+                        <img
+                          *ngIf="role_type === 'distributor'"
+                          class="img-sm rounded-circle mb-4 mb-md-0"
+                          src="../../../assets/images/show-faces/retailer.png"
+                          alt="profile image"
+                        />
+                        <div style="display: flex; flex-direction: column; padding-left: 2em;">
+                          <p class="itemNumber" *ngIf="role_type === 'retailer'">
+                            DISTRIBUTOR ORDER # {{ list.distributor_order_id }}
+                          </p>
+                          <p class="itemNumber" *ngIf="role_type === 'distributor'">
+                            RETAILER ORDER # {{ list.retailer_order_id }}
+                          </p>
+                          <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
+                          <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
+                        </div>
+                      </div>
+                      <div
+                        *ngFor="let order of dist.order; let i = index"
+                        [attr.data-index]="i"
+                        class="card-header-btn-container"
+                      >
+                        <!--                        <div class="reject_btn_view">-->
+                        <!--                          <button-->
+                        <!--                            *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                        <!--                            class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                        <!--                            (click)="open(Reject, order)"-->
+                        <!--                            type="button"-->
+                        <!--                          >-->
+                        <!--                            Reject-->
+                        <!--                          </button>-->
+                        <!--                        </div>-->
+                        <div class="footer-order-data-sub-details mobile-footer-order-data-sub-details">
+                          <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
+                          ><span class="product-sub-details">{{ order.quantity }}</span>
+                          <strong class="sub-order-dropdown-heading">Price:</strong
+                          ><i class="fa fa-inr" aria-hidden="true"></i
+                          ><span class="product-sub-details">{{ order.product.price }}</span>
+                          <strong class="sub-order-dropdown-heading">Product name:</strong>
+                          <span class="product-sub-details">{{ order['product']['name'] }}</span>
+                          <span class="product-status">
+                            <div
+                              [ngClass]="{
+                                'status-pending-color': order.status == 'pending',
+                                'status-in_process-color': order.status == 'in_process',
+                                'status-accepted_by_distributor-color': order.status == 'accepted_by_distributor',
+                                'status-picked_up_by_delivery_boy-color': order.status == 'picked_up_by_delivery_boy',
+                                'status-delivered_delivery_boy-color': order.status == 'delivered_delivery_boy',
+                                'status-accepted_by_retailer-color': order.status == 'accepted_by_retailer',
+                                'status-cancel-color': order.status == 'cancel'
+                              }"
+                              style="font-size: 13px; font-weight: 400;"
+                              class="badge badge-outline-primary badge-pill"
+                            >
+                              {{ order.status }}
+                            </div>
+                          </span>
+                          <!--<strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"-->
+                          <!--&gt;Retailer name:</strong-->
+                          <!--&gt;-->
+                          <!--<span *ngIf="role_type === 'distributor'" class="product-sub-details">{{-->
+                          <!--order['retailer']['name']-->
+                          <!--}}</span>-->
+                          <div class="prodTotal cartSection cart-amount">
+                            <p style="font-size: 20px; margin-top: -10px; height: 0;">
+                              <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
+                              ><span>{{ (order.quantity * order.product.price).toFixed(2) }}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<div *ngIf="role_type === 'distributor'" class="badge badge-distributor-status add-btn">Reject</div>-->
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+
+  <div *ngIf="filter_type === 'pending-order-list' && !tableDataService.isLoading">
+    <div class="row" *ngIf="orderListData.length > 0; else other_no_data">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <div class="parent_div">
+              <div class="child_div">Pending orders</div>
+              <div class="child_div" *ngIf="role_type === 'distributor'">
+                <span class="download_csv" (click)="downLoadOrders()">
+                  Accept orders<i class="fa fa-download" aria-hidden="true"></i>
+                </span>
+                <!--<button-->
+                <!--class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept reorder_btn"-->
+                <!--type="button"-->
+                <!--&gt;-->
+                <!--CSV-->
+                <!--</button>-->
+              </div>
+            </div>
+            <!--<h5 class="card-title mb-4">Pending orders</h5>-->
+            <!--(click)="csvDownload(order.uuid); $event.stopPropagation()"-->
+            <div class="fluid-container">
+              <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3" *ngFor="let order of orderListData">
+                <div class="col-md-1">
+                  <img
+                    *ngIf="role_type === 'distributor'"
+                    class="img-sm rounded-circle mb-4 mb-md-0"
+                    src="../../../assets/images/show-faces/retailer.png"
+                    alt="profile image"
+                  />
+                  <img
+                    *ngIf="role_type === 'retailer'"
+                    class="img-sm rounded-circle mb-4 mb-md-0"
+                    src="../../../assets/images/show-faces/distributor.png"
+                    alt="profile image"
+                  />
+                </div>
+                <div class="ticket-details col-md-9">
+                  <div class="d-flex">
+                    <p
+                      style="margin-top: -4px;"
+                      *ngIf="role_type === 'retailer'"
+                      class="text-dark font-weight-semibold mr-2 mb-0 no-wrap"
+                    >
+                      {{ order.product['name'] }}:
+                    </p>
+                    <p
+                      style="margin-top: -4px;"
+                      *ngIf="role_type === 'distributor'"
+                      class="text-dark font-weight-semibold mr-2 mb-0 no-wrap"
+                    >
+                      {{ order['retailer']['name'] }}:
+                    </p>
+                    <p class="text-primary mr-1 mb-0">[#{{ order.order_id }}]</p>
+                    <p *ngIf="role_type === 'retailer'" class="mb-0 ellipsis">
+                      {{ order['distributor']['name'] }} ({{ order.company.toLowerCase() }}).
+                    </p>
+                    <p *ngIf="role_type === 'distributor'" class="mb-0 ellipsis">
+                      {{ order['product']['name'] }} ({{ order.company.toLowerCase() }}).
+                    </p>
+                  </div>
+                  <!--<p class="text-gray ellipsis mb-2">Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim vivamus.</p>-->
+                  <div class="row text-gray d-md-flex d-none">
+                    <div class="col-3 d-flex">
+                      <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Amount:</small>
+                      <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.total_amount }}</small>
+                    </div>
+                    <div class="col-3 d-flex">
+                      <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Quantity:</small>
+                      <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.quantity }}</small>
+                    </div>
+                    <div class="col-3 d-flex">
+                      <!--<small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Recieved:</small>-->
+                      <small class="Last-responded mr-2 mb-0 text-muted text-muted"
+                        >{{ order.order_datetime | changeDateFormat }} days ago</small
+                      >
+                    </div>
+                    <!--                    <div class="col-3 d-flex">-->
+                    <!--                      <div style="font-size: 13px; font-weight: 400;" class="badge badge-outline-primary badge-pill">-->
+                    <!--                        {{ order.status }}-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
+                  </div>
+                </div>
+                <!--                <div class="ticket-actions col-md-2">-->
+                <!--                  <div class="btn-group dropdown">-->
+                <!--                    <button-->
+                <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                <!--                      (click)="open(Reject, order)"-->
+                <!--                      type="button"-->
+                <!--                    >-->
+                <!--                      Reject-->
+                <!--                    </button>-->
+                <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                </div>-->
+              </div>
+            </div>
+          </div>
         </div>
-        <input
-          class="form-control"
-          placeholder="yyyy-mm-dd"
-          style="height: 47px"
-          name="dp"
-          [displayMonths]="displayMonths"
-          [navigation]="navigation"
-          [outsideDays]="outsideDays"
-          [showWeekNumbers]="showWeekNumbers"
-          ngbDatepicker
-          #enddate="ngbDatepicker"
-        />
       </div>
     </div>
   </div>
 
-  <!--<div class="form-group form-inline">-->
-  <!--<input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" placeholder="Search by order list."/>-->
-  <!--<span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>-->
-  <!--</div>-->
+  <div *ngIf="filter_type === 'fast-moving-order-list' && !tableDataService.isLoading">
+    <span class="fast-moving-span">Business reports comming soon</span>
+    <img class="empty-cart-data" src="../../../assets/images/fast_moving.svg" />
+  </div>
 
-  <ngb-accordion #acc="ngbAccordion">
-    <ngb-panel *ngFor="let order of orderListData">
-      <ng-template ngbPanelTitle>
-        <div class="row">
-          <div class="col-md-2">
-            <span class="sub-accordian-heading">Order on</span>
-          </div>
-          <div class="col-md-2">
-            <span class="sub-accordian-heading">Amount</span>
-          </div>
-          <div class="col-md-5"></div>
-          <div class="col-md-2">
-            <span class="sub-accordian-heading">ORDER # {{ order.order_id }}</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2">
-            <span style="color: #00000087;">{{ order.order_date }}</span>
-          </div>
-          <div class="col-md-2">
-            <span>{{ order.total_amount }}</span>
-          </div>
-          <div class="col-md-5"></div>
-        </div>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <div class="wrap cf" style="margin-top: -30px;">
-          <!--<h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>-->
-          <div class="heading cf">
-            <h1>Order</h1>
-            <div *ngIf="role_type === 'distributor'" style="text-align: right;">
-              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
-                Accepted
-              </button>
-              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject" type="button">
-                Rejected
-              </button>
-            </div>
-            <div *ngIf="role_type === 'retailer'" style="text-align: right;">
-              <button class="continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-accept" type="button">
-                Re-order
-              </button>
-            </div>
-            <!--<a href="/" *ngIf="role_type === 'retailer'" class="continue">Re-order</a>-->
-            <!--<a *ngIf="role_type === 'distributor'" class="continue">Accepted</a>-->
-            <!--<a *ngIf="role_type === 'distributor'" class="continue">Rejected</a>-->
-            <!--//Product data -->
-          </div>
-          <div class="cart">
-            <!--    <ul class="tableHead">
-                  <li class="prodHeader">Product</li>
-                  <li>Quantity</li>
-                  <li>Total</li>
-                   <li>Remove</li>
-                </ul>-->
-            <ul class="cartWrap">
-              <li
-                class="items"
-                *ngFor="let products of order.order_details; let i = index"
-                [attr.data-index]="i"
-                [ngClass]="i % 2 === 0 ? 'even' : 'odd'"
-              >
-                <div class="infoWrap">
-                  <div class="cartSection">
-                    <!--<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />-->
-                    <p class="itemNumber">ORDER # {{ order.order_id }}</p>
-                    <h3>{{ products.product['name'] }}</h3>
-                    <!--<span>{{products.distributor['name']}}</span>-->
+  <ng-template #other_no_data style="padding-top: 3em;">
+    <img class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
+  </ng-template>
 
-                    <div class="footer-order-data-sub-details">
-                      <strong class="sub-order-dropdown-heading">Units ordered :</strong
-                      ><span class="product-sub-details">{{ products.quantity }}</span>
-                      <strong class="sub-order-dropdown-heading">Price:</strong
-                      ><i class="fa fa-inr" aria-hidden="true"></i
-                      ><span class="product-sub-details">{{ products.product.price }}</span>
-                      <strong *ngIf="role_type === 'retailer'" class="sub-order-dropdown-heading"
-                        >Distributor name:</strong
-                      >
-                      <span *ngIf="role_type === 'retailer'" class="product-sub-details">{{
-                        products['distributor']['name']
-                      }}</span>
-                      <strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"
-                        >Retailer name:</strong
-                      >
-                      <span *ngIf="role_type === 'distributor'" class="product-sub-details">{{
-                        products['retailer']['name']
-                      }}</span>
-                      <!--<input type="text" class="qty" placeholder="{{products.quantity}}" />x<i class="fa fa-inr" aria-hidden="true"></i>-->
-                      <!--{{products.product.price}} -->
-                    </div>
-
-                    <!--<p class="stockStatus" *ngIf="products.product.available_quantity > products.quantity">In Stock</p>-->
-                    <!--<p class="stockStatus out" *ngIf="products.product.available_quantity < products.quantity">Out of Stock</p>-->
-                  </div>
-
-                  <div class="prodTotal cartSection">
-                    <p style="font-size: 20px;">
-                      <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
-                      ><span>{{ products.quantity * products.product.price }}</span>
-                    </p>
-                  </div>
-                  <!--<div class="cartSection removeWrap">-->
-                  <!--<a href="#" class="remove">x</a>-->
-                  <!--</div>-->
-                </div>
-              </li>
-              <!--<li class="items even">-->
-              <!--<div class="infoWrap">-->
-              <!--<div class="cartSection">-->
-              <!--&lt;!&ndash;<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />&ndash;&gt;-->
-              <!--<p class="itemNumber">#QUE-007544-002</p>-->
-              <!--<h3>Item Name 1</h3>-->
-
-              <!--<p><input type="text" class="qty" placeholder="3" /> x $5.00</p>-->
-
-              <!--<p class="stockStatus">In Stock</p>-->
-              <!--</div>-->
-
-              <!--<div class="prodTotal cartSection">-->
-              <!--<p>$15.00</p>-->
-              <!--</div>-->
-              <!--&lt;!&ndash;<div class="cartSection removeWrap">&ndash;&gt;-->
-              <!--&lt;!&ndash;<a href="#" class="remove">x</a>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-              <!--</div>-->
-              <!--</li>-->
-
-              <!--<li class="items odd">-->
-              <!--<div class="infoWrap">-->
-              <!--<div class="cartSection">-->
-
-              <!--&lt;!&ndash;<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />&ndash;&gt;-->
-              <!--<p class="itemNumber">#QUE-007544-002</p>-->
-              <!--<h3>Item Name 1</h3>-->
-
-              <!--<p> <input type="text"  class="qty" placeholder="3"/> x $5.00</p>-->
-
-              <!--<p class="stockStatus out"> Out of Stock</p>-->
-              <!--</div>-->
-
-              <!--<div class="prodTotal cartSection">-->
-              <!--<p>$15.00</p>-->
-              <!--</div>-->
-              <!--&lt;!&ndash;<div class="cartSection removeWrap">&ndash;&gt;-->
-              <!--&lt;!&ndash;<a href="#" class="remove">x</a>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-              <!--</div>-->
-              <!--</li>-->
-              <!--<li class="items even">-->
-              <!--<div class="infoWrap">-->
-              <!--<div class="cartSection info">-->
-
-              <!--&lt;!&ndash;<img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />&ndash;&gt;-->
-              <!--<p class="itemNumber">#QUE-007544-002</p>-->
-              <!--<h3>Item Name 1</h3>-->
-
-              <!--<p> <input type="text"  class="qty" placeholder="3"/> x $5.00</p>-->
-
-              <!--<p class="stockStatus"> In Stock</p>-->
-
-              <!--</div>-->
-
-              <!--<div class="prodTotal cartSection">-->
-              <!--<p>$15.00</p>-->
-              <!--</div>-->
-
-              <!--&lt;!&ndash;<div class="cartSection removeWrap">&ndash;&gt;-->
-              <!--&lt;!&ndash;<a href="#" class="remove">x</a>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-              <!--</div>-->
-              <!--&lt;!&ndash;<div class="special"><div class="specialContent">Free gift with purchase!, gift wrap, etc!!</div></div>&ndash;&gt;-->
-              <!--</li>-->
-
-              <!--<li class="items even">Item 2</li>-->
-            </ul>
-          </div>
-
-          <!--<div class="promoCode"><label for="promo">Have A Promo Code?</label><input type="text" name="promo" placholder="Enter Code" />-->
-          <!--<a href="#" class="btn"></a></div>-->
-
-          <!--<div class="subtotal cf">-->
-          <!--<ul>-->
-          <!--<li class="totalRow"><span class="label">Subtotal</span><span class="value">$35.00</span></li>-->
-
-          <!--<li class="totalRow"><span class="label">Shipping</span><span class="value">$5.00</span></li>-->
-
-          <!--<li class="totalRow"><span class="label">Tax</span><span class="value">$4.00</span></li>-->
-          <!--<li class="totalRow final"><span class="label">Total</span><span class="value">$44.00</span></li>-->
-          <!--<li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>-->
-          <!--</ul>-->
-          <!--</div>-->
-        </div>
-        <!--<table class="table table-striped">-->
-        <!--<thead>-->
-        <!--<tr>-->
-        <!--<th scope="col">#</th>-->
-        <!--<th scope="col" sortable="product_name" (sort)="onSort($event)">Product Name</th>-->
-        <!--<th scope="col" sortable="qauntity" (sort)="onSort($event)">Qauntity</th>-->
-        <!--<th scope="col" sortable="Price" (sort)="onSort($event)">Price</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr class="tr-color" *ngFor="let prod of order.product">-->
-        <!--<th scope="row">{{ prod.id }}</th>-->
-        <!--<td>-->
-        <!--<ngb-highlight [result]="prod.product_name" [term]="service.searchTerm"></ngb-highlight>-->
-        <!--</td>-->
-        <!--<td><ngb-highlight [result]="prod.qauntity | number" [term]="service.searchTerm"></ngb-highlight></td>-->
-        <!--<td><ngb-highlight [result]="prod.price | number" [term]="service.searchTerm"></ngb-highlight></td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-        <!--</table>-->
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
-
-  <div class="d-flex justify-content-between p-2" style="margin-top: 2%;">
+  <div class="d-flex justify-content-between p-2">
     <ngb-pagination
       class="pagination-separated"
       [collectionSize]="total$ | async"
-      [(page)]="service.page"
-      [pageSize]="service.pageSize"
+      [(page)]="tableDataService.page"
+      [pageSize]="tableDataService.pageSize"
     >
     </ngb-pagination>
 
-    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tableDataService.pageSize">
       <option [ngValue]="10">10</option>
       <option [ngValue]="25">25</option>
       <option [ngValue]="50">50</option>
     </select>
   </div>
-</form>
+</div>
 
-<ng-template #content let-modal>
-  <app-alert [alertModalRefference]="modalReference" (messageEvent)="receiveMessage($event)"></app-alert>
+<div>
+  <app-loader></app-loader>
+</div>
+
+<ng-template #Reject let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="font-size: 18px;">Are you sure ?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button
+      class="btn btn-success btn-rounded btn-fw btn-yes"
+      type="button"
+      (click)="submitAlert(); modal.dismiss('yes click')"
+    >
+      Yes
+    </button>
+    <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">
+      No
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #Reorder let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-reorder">Order list</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Product list</label>
+        <div class="input-group"></div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">
+      Yes
+    </button>
+    <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button">
+      No
+    </button>
+  </div>
 </ng-template>

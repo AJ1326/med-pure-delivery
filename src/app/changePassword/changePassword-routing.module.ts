@@ -4,9 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/core';
 import { Shell } from '@app/shell/shell.service';
 import { ChangePasswordComponent } from '@app/changePassword/changePassword.component';
+import { PlacingOrderComponent } from '@app/placingOrder/placingOrder.component';
 
 const routes: Routes = [
   Shell.retailerShell([
+    { path: 'change-password', component: ChangePasswordComponent, data: { title: extract('Change Password') } }
+  ]),
+  Shell.distributorShell([
+    { path: 'change-password', component: ChangePasswordComponent, data: { title: extract('Change Password') } }
+  ]),
+  Shell.salesManShell([
     { path: 'change-password', component: ChangePasswordComponent, data: { title: extract('Change Password') } }
   ])
 ];

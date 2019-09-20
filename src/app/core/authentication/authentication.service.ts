@@ -7,10 +7,9 @@ import { HttpResponse } from '@angular/common/http';
 
 export interface Credentials {
   // Customize received credentials here
-  email: string;
   key: string;
-  role: Array<string>;
-  permissions: Array<string>;
+  user: object;
+  agreement_signed: boolean;
 }
 
 export interface UserInfo {
@@ -23,6 +22,12 @@ export interface UserInfo {
 export interface LoginContext {
   email: string;
   password: string;
+}
+
+export interface SignUpContext {
+  email: string;
+  phone_number: number;
+  user_type: string;
 }
 
 const credentialsKey = 'credentials';
@@ -56,22 +61,31 @@ export class AuthenticationService {
    * @return The user credentials.
    */
   login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
+    // TODO: Replace by proper authentication call
     // return this.http.post<Credentials>(`${URLS.LOGIN_API}`, context, {withCredentials: true});
     // this.logged_in_role = {
-    //   key: 'f220702e6f2ae9c515ffcd7c2870cceca0ee0347',
-    //     role: ['retailer_role'],
-    //     agreement: [
-    //     {
-    //       agreement_type: 'no'
-    //     }
-    //   ],
-    //     permissions: ['can_cancel_orders', 'can_place_orders', 'can_view_products', 'can_view_self_orders_as_retailer']
+    //   key: 'e4b7ff53ed525398c6309c427f0a9b06b56b61cf',
+    //   user: {
+    //     name: 'abc Test4',
+    //     shop_name: 'abc Test',
+    //     slug: 'abc-test4',
+    //     email: 'abhishek_retailer2@medpure.com',
+    //     username: 'abc64',
+    //     roles: ['salesman'],
+    //     permissions: [
+    //       'can_cancel_orders',
+    //       'can_place_orders',
+    //       'can_view_distributor_list',
+    //       'can_view_products',
+    //       'can_view_self_orders_as_retailer'
+    //     ]
+    //   },
+    //   agreement_signed: true
     // };
     // Login service call
 
     return this.LoginService.login(context);
-    //
+    // //
     // .subscribe(
     //   (credentials: any) => {
     //     this.logged_in_role = credentials;
@@ -86,10 +100,29 @@ export class AuthenticationService {
     // return of(this.logged_in_role);
   }
 
-  userInfo(): Observable<UserInfo> {
-    return this.LoginService.userinfo();
+  signup(context: SignUpContext): Observable<any> {
+    return this.LoginService.signup(context);
   }
 
+  signupRetailerBySalesman(context: SignUpContext): Observable<any> {
+    return this.LoginService.signupRetailerBySalesman(context);
+  }
+
+  resend_signup_otp(context: any): Observable<any> {
+    return this.LoginService.resend_signup_otp(context);
+  }
+
+  verify_signup_otp(context: any): Observable<any> {
+    return this.LoginService.verify_signup_otp(context);
+  }
+
+  verify_signup_otp_by_salesman(context: any): Observable<any> {
+    return this.LoginService.verify_signup_otp_by_salesman(context);
+  }
+
+  resend_boarding_email(context: any): Observable<any> {
+    return this.LoginService.resend_boarding_email(context);
+  }
   /**
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.
@@ -98,6 +131,7 @@ export class AuthenticationService {
     // Customize credentials invalidation here
     this.cookieService.deleteAll();
     this.setCredentials();
+    localStorage.clear();
     return of(true);
   }
 
@@ -111,14 +145,30 @@ export class AuthenticationService {
   }
 
   permissionView(): string | boolean {
-    let role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
-    if (role) {
-      role = JSON.parse(role);
-      const role_type = role['role'][0];
+    // let role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
+    // if (role) {
+    //   role = JSON.parse(role);
+    //   const role_type = role['role'][0];
+    //   return role_type;
+    // } else {
+    //   return false;
+    // }
+    //
+
+    return this._credentials['user']['roles'][0];
+  }
+
+  userInfoType(): string {
+    const role_type = this._credentials['user']['roles'][0];
+    if (role_type) {
       return role_type;
     } else {
-      return false;
+      return '';
     }
+  }
+
+  userInfo(): object {
+    return this._credentials['user'];
   }
 
   onboardingView(): string | boolean {
@@ -151,13 +201,14 @@ export class AuthenticationService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  public setCredentials(credentials?: Credentials, remember?: true) {
+  public setCredentials(credentials?: Credentials, remember: boolean = true) {
     this._credentials = credentials || null;
 
+    console.log(credentials, remember);
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
-      localStorage.setItem(credentialsKey, JSON.stringify(credentials));
+      // localStorage.setItem(credentialsKey, JSON.stringify(credentials));
       // this.cookieService.set('sessionid', JSON.stringify(credentials));
     } else {
       sessionStorage.removeItem(credentialsKey);

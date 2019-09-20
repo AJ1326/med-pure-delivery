@@ -1,0 +1,228 @@
+<!--<div class="content-wrapper back_img">-->
+<!--  &lt;!&ndash;Retailer Filter&ndash;&gt;-->
+<!--  <div class="display-filter-container">-->
+<!--    &lt;!&ndash;    *ngIf="role_type === 'retailer'"&ndash;&gt;-->
+<!--    <div class="row">-->
+<!--      <div-->
+<!--        class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"-->
+<!--        *ngFor="let card_filter of filterData; let i = index"-->
+<!--        [attr.data-index]="i"-->
+<!--        (click)="selectFilterCard(card_filter.card_type)"-->
+<!--      >-->
+<!--        <div-->
+<!--          id="{{ card_filter.card_type }}"-->
+<!--          [ngClass]="activeCard === card_filter.card_type ? 'card card-statistics active_card' : 'card card-statistics'"-->
+<!--        >-->
+<!--          <div class="card-body">-->
+<!--            <div class="clearfix">-->
+<!--              <div class="float-left">-->
+<!--                &lt;!&ndash;                <img style="width: 47px" src="../../assets/images/mobile-filter/{{ card_filter.card_type }}.svg" />&ndash;&gt;-->
+<!--                <i-->
+<!--                  class="mdi mdi-poll-box text-success icon-lg"-->
+<!--                  *ngIf="card_filter.card_type === 'fast-moving-order-list'"-->
+<!--                ></i>-->
+<!--                <i class="mdi mdi-cube text-danger icon-lg" *ngIf="card_filter.card_type === 'all-order-list'"></i>-->
+<!--                <i-->
+<!--                  class="mdi mdi-receipt text-warning icon-lg"-->
+<!--                  *ngIf="card_filter.card_type === 'pending-order-list'"-->
+<!--                ></i>-->
+<!--                <i class="mdi mdi-account-location text-info icon-lg" *ngIf="card_filter.card_type === 'by-source'"></i>-->
+<!--              </div>-->
+<!--              <div class="float-right">-->
+<!--                <p class="mb-0 text-right">{{ card_filter.card_title }}</p>-->
+<!--                <div class="fluid-container">-->
+<!--                  <h3 class="font-weight-medium text-right mb-0">{{ card_filter.card_value }}</h3>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <p class="text-muted mt-3 mb-0">-->
+<!--              <i-->
+<!--                class="mdi mdi-calendar mr-1"-->
+<!--                aria-hidden="true"-->
+<!--                *ngIf="card_filter.card_type === 'all-order-list'"-->
+<!--              ></i>-->
+<!--              <i-->
+<!--                class="mdi mdi-alert-octagon mr-1"-->
+<!--                aria-hidden="true"-->
+<!--                *ngIf="card_filter.card_type === 'by-source'"-->
+<!--              ></i>-->
+<!--              <i-->
+<!--                class="mdi mdi-bookmark-outline mr-1"-->
+<!--                aria-hidden="true"-->
+<!--                *ngIf="card_filter.card_type === 'pending-order-list'"-->
+<!--              ></i>-->
+<!--              <i-->
+<!--                class="mdi mdi-reload mr-1"-->
+<!--                aria-hidden="true"-->
+<!--                *ngIf="card_filter.card_type === 'fast-moving-order-list'"-->
+<!--              ></i>-->
+<!--              {{ card_filter.card_description }}-->
+<!--            </p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;    <div *ngIf="role_type === 'distributor'" class="row">&ndash;&gt;-->
+<!--    &lt;!&ndash;      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"&ndash;&gt;-->
+<!--    &lt;!&ndash;           (click)="selectFilterCard('pending-order-list')"&ndash;&gt;-->
+<!--    &lt;!&ndash;      >&ndash;&gt;-->
+<!--    &lt;!&ndash;        <div&ndash;&gt;-->
+<!--    &lt;!&ndash;          id="pending-order-list"&ndash;&gt;-->
+<!--    &lt;!&ndash;          [ngClass]="activeCard === 'pending-order-list' ? 'card card-statistics active_card' : 'card card-statistics'"&ndash;&gt;-->
+<!--    &lt;!&ndash;        >&ndash;&gt;-->
+<!--    &lt;!&ndash;          <div class="card-body">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <div class="clearfix">&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-left">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <i class="mdi mdi-cube text-danger icon-lg"></i>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-right">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <p class="mb-0 text-right">Pending orders</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;                <div class="fluid-container">&ndash;&gt;-->
+<!--    &lt;!&ndash;                  <h3 class="font-weight-medium text-right mb-0">1067</h3>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            <p class="text-muted mt-3 mb-0"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i>By Products</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="selectFilterCard('by-source')">&ndash;&gt;-->
+<!--    &lt;!&ndash;        <div&ndash;&gt;-->
+<!--    &lt;!&ndash;          id="by-source"&ndash;&gt;-->
+<!--    &lt;!&ndash;          [ngClass]="activeCard === 'by-source' ? 'card card-statistics active_card' : 'card card-statistics'"&ndash;&gt;-->
+<!--    &lt;!&ndash;        >&ndash;&gt;-->
+<!--    &lt;!&ndash;          <div class="card-body">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <div class="clearfix">&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-left">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <i class="mdi mdi-receipt text-warning icon-lg"></i>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-right">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <p class="mb-0 text-right">List of orders</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;                <div class="fluid-container">&ndash;&gt;-->
+<!--    &lt;!&ndash;                  <h3 class="font-weight-medium text-right mb-0">500</h3>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            <p class="text-muted mt-3 mb-0">&ndash;&gt;-->
+<!--    &lt;!&ndash;              <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i>By Retailer&ndash;&gt;-->
+<!--    &lt;!&ndash;            </p>&ndash;&gt;-->
+<!--    &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"&ndash;&gt;-->
+<!--    &lt;!&ndash;           (click)="selectFilterCard('all-order-list')"&ndash;&gt;-->
+<!--    &lt;!&ndash;      >&ndash;&gt;-->
+<!--    &lt;!&ndash;        <div&ndash;&gt;-->
+<!--    &lt;!&ndash;          id="all-order-list"&ndash;&gt;-->
+<!--    &lt;!&ndash;          [ngClass]="activeCard === 'all-order-list' ? 'card card-statistics active_card' : 'card card-statistics'"&ndash;&gt;-->
+<!--    &lt;!&ndash;        >&ndash;&gt;-->
+<!--    &lt;!&ndash;          <div class="card-body">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <div class="clearfix">&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-left">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <i class="mdi mdi-poll-box text-success icon-lg"></i>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-right">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <p class="mb-0 text-right">Order placed</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;                <div class="fluid-container">&ndash;&gt;-->
+<!--    &lt;!&ndash;                  <h3 class="font-weight-medium text-right mb-0">5</h3>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            <p class="text-muted mt-3 mb-0"><i class="mdi mdi-calendar mr-1" aria-hidden="true"></i>By Products</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card"&ndash;&gt;-->
+<!--    &lt;!&ndash;           (click)="selectFilterCard('fast-moving-order-list')"&ndash;&gt;-->
+<!--    &lt;!&ndash;      >&ndash;&gt;-->
+<!--    &lt;!&ndash;        <div&ndash;&gt;-->
+<!--    &lt;!&ndash;          id="fast-moving-order-list"&ndash;&gt;-->
+<!--    &lt;!&ndash;          [ngClass]="&ndash;&gt;-->
+<!--    &lt;!&ndash;          activeCard === 'fast-moving-order-list' ? 'card card-statistics active_card' : 'card card-statistics'&ndash;&gt;-->
+<!--    &lt;!&ndash;        "&ndash;&gt;-->
+<!--    &lt;!&ndash;        >&ndash;&gt;-->
+<!--    &lt;!&ndash;          <div class="card-body">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <div class="clearfix">&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-left">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <i class="mdi mdi-account-location text-info icon-lg"></i>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              <div class="float-right">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <p class="mb-0 text-right">Fast moving products</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;                <div class="fluid-container">&ndash;&gt;-->
+<!--    &lt;!&ndash;                  <h3 class="font-weight-medium text-right mb-0">7</h3>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;            <p class="text-muted mt-3 mb-0"><i class="mdi mdi-reload mr-1" aria-hidden="true"></i>By Product</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  </div>-->
+
+<!--  <div class="mobile-filter-container">-->
+<!--    <div class="mobile-filter-heading">-->
+<!--      <span>{{ filterTitle }}</span>-->
+<!--      <span style="flex-grow: 0 !important;">{{ filterValue }}</span>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <router-outlet>-->
+<!--    &lt;!&ndash;Retailer Page&ndash;&gt;-->
+<!--    <app-retailer-order-list *ngIf="role_type === 'retailer'"></app-retailer-order-list>-->
+
+<!--    &lt;!&ndash;Distributor Page&ndash;&gt;-->
+<!--    <app-order-list *ngIf="role_type === 'distributor'"></app-order-list>-->
+<!--  </router-outlet>-->
+<!--</div>-->
+
+<!--<div class="mobile-bottom-view">-->
+<!--  <div class="flex-container">-->
+<!--    <div *ngFor="let card_filter of filterData; let i = index" [attr.data-index]="i">-->
+<!--      <div-->
+<!--        [ngClass]="activeCard === card_filter.card_type ? 'active_card mobile-sub-image' : 'mobile-sub-image'"-->
+<!--        (click)="selectFilterCard(card_filter.card_type)"-->
+<!--      >-->
+<!--        <img class="mobile-filter-img" src="../../assets/images/mobile-filter/{{ card_filter.card_type }}.svg" />-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="mobile-bottom-view">-->
+<!--  <div class="flex-container">-->
+<!--    <div *ngFor="let card_filter of filterData; let i = index" [attr.data-index]="i">-->
+<!--      <div-->
+<!--        [ngClass]="activeCard === card_filter.card_type ? 'active_card mobile-sub-image' : 'mobile-sub-image'"-->
+<!--        (click)="selectFilterCard(card_filter.card_type, card_filter.card_title, card_filter.card_value)"-->
+<!--      >-->
+<!--        <img class="mobile-filter-img" src="../../assets/images/mobile-filter/{{ card_filter.card_type }}.svg" />-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div
+  style="display: flex; flex-direction: column;height: 89vh;
+    justify-content: center;"
+>
+  <div style="display: flex; flex-direction: row;">
+    <div class="salesman-box" [routerLink]="['/' + role_type + '/add-retailer']">
+      <img src="../../../assets/images/salesman/addRetailer.svg" />
+      <span>KYC</span>
+    </div>
+    <div class="salesman-box" [routerLink]="['/' + role_type + '/retailer-list/order']">
+      <img src="../../../assets/images/salesman/placeorder.svg" />
+      <span>Place order</span>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: row">
+    <div class="salesman-box" [routerLink]="['/' + role_type + '/distributor-list']">
+      <img src="../../../assets/images/salesman/distributorlist.svg" />
+      <span>Distributor list</span>
+    </div>
+    <div class="salesman-box" [routerLink]="['/' + role_type + '/retailer-list/order-list']">
+      <img src="../../../assets/images/salesman/orderlist.svg" />
+      <span>Orders</span>
+    </div>
+  </div>
+</div>

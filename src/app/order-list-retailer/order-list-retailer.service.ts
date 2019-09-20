@@ -16,7 +16,19 @@ export class OrderListRetailerService {
     return this.http.get(`${URLS.DISTRIBUTOR_LIST__API}` + payload);
   }
 
-  orderListData() {
-    return this.http.get(`${URLS.ORDER_LIST_PLACED_API}`, { withCredentials: true });
+  orderListData(startdate: string, enddate: string, page: any, limit: number, role: string, filter_type: any) {
+    let qstring = '?page=' + page + '&limit=' + limit;
+    if (startdate) {
+      qstring += '&start_date=' + startdate;
+    }
+    if (enddate) {
+      qstring += '&end_date=' + enddate;
+    }
+    if (filter_type === undefined || filter_type === null) {
+      filter_type = 'all-order-list';
+    }
+    return this.http.get('orders/' + role + `${URLS.ORDER_LIST_GET_API[filter_type]}` + qstring, {
+      withCredentials: true
+    });
   }
 }

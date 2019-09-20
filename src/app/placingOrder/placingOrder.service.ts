@@ -16,7 +16,17 @@ export class PlacingOrderService {
     return this.http.get(`${URLS.DISTRIBUTOR_LIST__API}` + payload);
   }
 
-  orderListPlaced(payload: any) {
-    return this.http.post(`${URLS.ORDER_LIST_PLACED_API}`, payload, { withCredentials: true });
+  orderListPlaced(payload: any, orderBySalesman?: any) {
+    let payload_data;
+    if (orderBySalesman) {
+      payload_data = {
+        order: payload,
+        retailer_slug: orderBySalesman['retailer_slug']
+      };
+    } else {
+      payload_data = payload;
+    }
+    console.log('payload_data', payload_data);
+    return this.http.post(`${URLS.ORDER_LIST_PLACED_API['retailer']}`, payload_data, { withCredentials: true });
   }
 }

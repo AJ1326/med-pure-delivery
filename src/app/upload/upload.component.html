@@ -1,0 +1,71 @@
+<div *ngIf="message">
+  <app-message-bar [messageBarEvent]="message"></app-message-bar>
+</div>
+
+<div class="upload-centre">
+  <br />
+  <br />
+  <img class="img-upload" src="../../assets/images/upload/upload.svg" />
+  <!--<span class="head">Upload Button Re-Imagined</span>-->
+  <br />
+  <br />
+  <div *ngIf="!loading$" class="d-inline-block">
+    <div *ngIf="submitSuccess && !submitError" class="text-info">
+      The file was uploaded successfully. We will contact you through email if we find any problem.
+    </div>
+
+    <div *ngIf="submitError" class="text-danger">
+      There was an error submitting the file. please check the file is correct or contact us via support.
+    </div>
+
+    <div *ngIf="software_error" class="text-danger">
+      Please Select a Software from which csv is generated.
+    </div>
+
+    <div ngbDropdown>
+      <button class="btn btn-primary" type="button" id="dropdownMenuButton1" ngbDropdownToggle>
+        {{ software ? software : 'Please Select the Software' }}
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+        <h6 class="dropdown-header">Software</h6>
+        <a class="dropdown-item" (click)="selectSoftware('care')">Care</a>
+        <a class="dropdown-item" (click)="selectSoftware('sudhir')">Sudhir</a>
+      </div>
+    </div>
+    <div>
+      <div class="form-checkbox">
+        <label>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            name="force_update"
+            id="force_update_chechbox"
+            [(ngModel)]="force_update"
+          />
+          Delete previous data
+        </label>
+      </div>
+    </div>
+    <br />
+    <div class="fileUpload blue-btn btn width100">
+      <span>Upload your products </span>
+      <input
+        type="file"
+        class="uploadlogo"
+        [(ngModel)]="uploading_file"
+        (change)="handleFileInput($event.target.files)"
+      />
+    </div>
+  </div>
+  <div *ngIf="loading$" class="lc">
+    <div class="preload">
+      <div class="preload-status">
+        <div class="preload-status-bar"></div>
+        <div class="preload-status-info">UPLOADING</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <app-loader [isLoading]="loading$"></app-loader>
+</div>

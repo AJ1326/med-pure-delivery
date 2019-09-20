@@ -12,7 +12,24 @@ import { Utils } from '@app/shared/utils/utils';
 export class OrderListService {
   constructor(private http: HttpClient) {}
 
-  distributorList() {
-    return this.http.get(`${URLS.DISTRIBUTOR_ORDER_LIST_PLACED_API}`, { withCredentials: true });
+  rejectOrderByDistributor(payload: any) {
+    console.log('payload', payload);
+    return this.http.put(
+      `${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload.order_id + '/',
+      { status: 'rejected_by_distributor' },
+      { withCredentials: true }
+    );
+  }
+
+  downloadCsvDistributor(payload: string) {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + payload + '/compiled_order_csv');
+  }
+
+  downloadPendingProductList() {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'compiled_order_csv');
+  }
+
+  acceptPendingOrderList() {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'pending_orders/accept');
   }
 }

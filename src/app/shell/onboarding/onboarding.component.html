@@ -5,62 +5,415 @@
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
 
 <div class="card w-75 box-shadow-boarding" id="rForm">
-  <div class="card-body">
-    <h2 class="card-title">On-boarding</h2>
-    <div class="card-body">
-      <form id="regForm" action="">
-        <!-- One "tab" for each step in the form: -->
-        <div class="tab">
-          Name:
-          <p><input placeholder="First name" oninput="this.className = ''" required /></p>
-          <p><input placeholder="Last name" oninput="this.className = ''" required /></p>
-        </div>
+  <div>
+    <div class="card-body" *ngIf="!loading">
+      <!-- One "tab" for each step in the form: -->
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
+          <div>
+            <img class="on_boarding_profile_icons" src="../../../assets/images/onboarding/profiile.svg" />
+          </div>
+          <div style="margin-top: 25px;">
+            <span class="onboarding_heading"
+              ><strong>Welcome to </strong> <span class="med">Med</span><span class="pure">Pure</span></span
+            >
+            <span class="onboarding_message"
+              >Thanks for signing up,
+              <span class="onboarding_name">{{ user_initial_data.first_name }} {{ user_initial_data.last_name }}</span
+              >,</span
+            >
+            <span class="onboarding_message_sub">We are glad, you're here.</span>
+            <p class="onboarding_information_message">We need your information to get you started.</p>
+            <!--<input-->
+            <!--placeholder="First name"-->
+            <!--formControlName="firstName"-->
+            <!--class="form-control"-->
+            <!--[ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"-->
+            <!--oninput="this.className = ''"-->
+            <!--/>-->
+            <!--<div-->
+            <!--*ngIf="onBoardingForm.controls.firstName.invalid && onBoardingForm.controls.firstName.touched"-->
+            <!--class="invalid-error-msg"-->
+            <!--&gt;-->
+            <!--<div *ngIf="onBoardingForm.controls.firstName.errors.required">First Name is required</div>-->
+            <!--</div>-->
+            <!--<input-->
+            <!--placeholder="Last name"-->
+            <!--formControlName="lastName"-->
+            <!--class="form-control"-->
+            <!--[ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.lastName.errors }"-->
+            <!--oninput="this.className = ''"-->
+            <!--/>-->
+            <!--<div-->
+            <!--*ngIf="onBoardingForm.controls.lastName.invalid && onBoardingForm.controls.lastName.touched"-->
+            <!--class="invalid-error-msg"-->
+            <!--&gt;-->
+            <!--<div *ngIf="onBoardingForm.controls.lastName.errors.required">Last Name is required</div>-->
+            <!--</div>-->
+          </div>
+        </form>
+      </div>
 
-        <div class="tab">
-          Birthday:
-          <p><input type="number" [min]="1" [max]="2" placeholder="dd" oninput="this.className = ''" /></p>
-          <p><input type="number" [min]="1" [max]="2" placeholder="mm" oninput="this.className = ''" /></p>
-          <p><input type="number" placeholder="yyyy" oninput="this.className = ''" /></p>
+      <div class="tab">
+        <div>
+          <img
+            class="on_boarding_profile_icons"
+            style="width: 64% !important;"
+            src="../../../assets/images/onboarding/onboard_birthday.svg"
+          />
         </div>
+        <div style="margin-top: 25px">
+          <span class="onboarding_birthday">Your birthday is important for us !!</span>
 
-        <div class="tab">
-          Contact Info:
-          <p><input placeholder="E-mail" oninput="this.className = ''" /></p>
-          <p><input type="number" placeholder="Phone number" oninput="this.className = ''" /></p>
-        </div>
+          <form id="regForm" [formGroup]="onBoardingForm">
+            <div>
+              Birth Day:<span> {{ birthdate.day }} - {{ birthdate.month }} - {{ birthdate.year }}</span>
+            </div>
+            <input
+              hidden
+              formControlName="dob"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+              type="text"
+              placeholder="dob"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.dob.invalid && onBoardingForm.controls.dob.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.dob.errors.required">Birthdate is required</div>
+              <div *ngIf="onBoardingForm.controls.dob.errors.age">Age can not be less that 13 years.</div>
+            </div>
+          </form>
+          <!--
+            <input
+              formControlName="day"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+              [(ngModel)]="birthdate"
+              placeholder="dd"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.day.invalid && onBoardingForm.controls.day.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.day.errors.required">Day is required.</div>
+            </div>
 
-        <div class="tab">
-          Address:
-          <p><textarea class="addr_textarea" placeholder="Address"></textarea></p>
-          <p><input type="text" placeholder="Shop number" oninput="this.className = ''" /></p>
-          <p><input type="text" placeholder="Certification number" oninput="this.className = ''" /></p>
-          <p><input type="text" placeholder="City" oninput="this.className = ''" /></p>
-          <p><input type="text" placeholder="State" oninput="this.className = ''" /></p>
-          <p><input type="text" placeholder="Zip code" oninput="this.className = ''" /></p>
-        </div>
-
-        <div class="tab">
-          Login Info:
-          <p><input placeholder="Username" oninput="this.className = ''" /></p>
-          <p><input placeholder="Password" oninput="this.className = ''" /></p>
-          <p><input placeholder="Confirm password" oninput="this.className = ''" /></p>
-        </div>
-
-        <div style="overflow:auto;">
-          <div style="float:right;">
-            <button type="button" id="prevBtn" (click)="nextPrev(-1)" class="btn btn-outline-dark">Back</button>
-            <button type="button" id="nextBtn" (click)="nextPrev(1)" class="btn btn-outline-success">Save</button>
+            <input
+              type="number"
+              formControlName="month"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+              [min]="1"
+              [max]="2"
+              placeholder="mm"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.month.invalid && onBoardingForm.controls.month.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.month.errors.required">Month is required</div>
+            </div>
+            <input
+              type="number"
+              formControlName="year"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+              placeholder="yyyy"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.year.invalid && onBoardingForm.controls.year.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.year.errors.required">Year is required</div>
+            </div>
+            -->
+          <div style="margin:0 auto; display:table;">
+            <ngb-datepicker
+              #dp
+              [(ngModel)]="birthdate"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              (navigate)="birthdate = $event.next"
+            ></ngb-datepicker>
           </div>
         </div>
+      </div>
 
-        <!-- Circles which indicates the steps of the form: -->
-        <div style="text-align:center;margin-top:40px;">
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
+          <div>
+            <img
+              class="on_boarding_profile_icons"
+              style="width: 80% !important;"
+              src="../../../assets/images/onboarding/contact.svg"
+            />
+          </div>
+          <div style="margin-top: 25px">
+            <span class="onboarding_birthday">We can stay connected !!!</span>
+            <input
+              placeholder="E-mail"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.email.errors }"
+              oninput="this.className = ''"
+              disabled
+            />
+            <div
+              *ngIf="onBoardingForm.controls.email.invalid && onBoardingForm.controls.email.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.email.errors.required">Email is required</div>
+              <div *ngIf="onBoardingForm.controls.email.errors.email">Email must be a valid email address</div>
+            </div>
+            <input
+              type="number"
+              formControlName="phone_number"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.phone_number.errors }"
+              placeholder="Phone number"
+              oninput="this.className = ''"
+              disabled
+            />
+            <div
+              *ngIf="onBoardingForm.controls.phone_number.invalid && onBoardingForm.controls.phone_number.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.phone_number.errors.required">Phone number is required</div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
+          <div>
+            <img
+              class="on_boarding_profile_icons"
+              style="width: 80% !important;"
+              src="../../../assets/images/onboarding/enroll.svg"
+            />
+          </div>
+          <div style="margin-top: 25px">
+            <span class="onboarding_birthday">Need for enrolling you !!</span>
+            <textarea
+              style="margin-top: 20px"
+              formControlName="address_line_1"
+              class="form-control addr_textarea"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.address_line_1.errors }"
+              placeholder="Address line 1"
+            ></textarea>
+            <div
+              *ngIf="
+                onBoardingForm.controls.address_line_1.invalid &&
+                (onBoardingForm.controls.address_line_1.touched || tab_submitted)
+              "
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address line 1 is required</div>
+            </div>
+
+            <textarea
+              style="margin-top: 20px"
+              formControlName="address_line_2"
+              class="form-control addr_textarea"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.address_line_2.errors }"
+              placeholder="Address line 2"
+            ></textarea>
+            <div
+              *ngIf="
+                onBoardingForm.controls.address_line_2.invalid &&
+                (onBoardingForm.controls.address_line_2.touched || tab_submitted)
+              "
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
+            </div>
+
+            <div *ngIf="user_initial_data['user_role'] !== 'salesman'">
+              <input
+                formControlName="shop_name"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
+                type="text"
+                placeholder="Shop name"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
+              </div>
+              <input
+                formControlName="certificate_no"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
+                type="text"
+                placeholder="Certification number"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
+                  Certification number is required
+                </div>
+              </div>
+            </div>
+            <input
+              formControlName="state"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.state.errors }"
+              type="text"
+              placeholder="State"
+              oninput="this.className = ''"
+              disabled
+            />
+            <div
+              *ngIf="onBoardingForm.controls.state.invalid && onBoardingForm.controls.state.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.state.errors.required">State is required</div>
+            </div>
+
+            <input
+              formControlName="city"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.city.errors }"
+              type="text"
+              placeholder="City"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.city.invalid && onBoardingForm.controls.city.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.city.errors.required">City is required</div>
+            </div>
+
+            <input
+              formControlName="zip_code"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.zip_code.errors }"
+              type="text"
+              placeholder="Zip code"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.zip_code.invalid && onBoardingForm.controls.zip_code.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.zip_code.errors.required">Zip code is required</div>
+
+              <div
+                *ngIf="
+                  !onBoardingForm.controls.zip_code.errors.required &&
+                  onBoardingForm.controls.zip_code.errors.invalidZipCode
+                "
+              >
+                Zip code is not correct
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab">
+        <form id="regForm" [formGroup]="onBoardingForm">
+          <div>
+            <img class="on_boarding_profile_icons" src="../../../assets/images/onboarding/login.svg" />
+          </div>
+          <div style="margin-top: 25px">
+            <span class="onboarding_birthday">Let's get started !!</span>
+            <!-- <input
+                formControlName="user_name"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+                placeholder="Username"
+                oninput="this.className = ''"
+              />
+              <div
+                *ngIf="onBoardingForm.controls.user_name.invalid && onBoardingForm.controls.user_name.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.user_name.errors.required">User name is required</div>
+              </div> -->
+            <input
+              formControlName="password1"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.password1.errors }"
+              placeholder="Password"
+              type="password"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.password1.invalid && onBoardingForm.controls.password1.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.password1.errors.required">Password is required</div>
+              <div *ngIf="onBoardingForm.controls.password1.errors.minLength">
+                Password must have minimum of 8 characters
+              </div>
+            </div>
+            <input
+              type="password"
+              formControlName="password2"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.password2.errors }"
+              placeholder="Confirm password"
+              oninput="this.className = ''"
+            />
+            <div
+              *ngIf="onBoardingForm.controls.password2.invalid && onBoardingForm.controls.password2.touched"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.password2.errors.mustMatch">Passwords are not matching.</div>
+              <div *ngIf="onBoardingForm.controls.password2.errors.required">Confirm password is required</div>
+              <div *ngIf="onBoardingForm.controls.password2.errors.minLength">
+                Password must have minimum of 8 characters
+              </div>
+            </div>
+            <div class="form-control form-check">
+              <input
+                type="checkbox"
+                formControlName="tnc"
+                id="acceptTerms"
+                class="form-check-input"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.tnc.errors }"
+              />
+              <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+            </div>
+            <div
+              *ngIf="onBoardingForm.controls.tnc.invalid && (onBoardingForm.controls.tnc.touched || tab_submitted)"
+              class="invalid-error-msg"
+            >
+              <div *ngIf="onBoardingForm.controls.tnc.errors.requiredTrue">Accept Ts & Cs is required</div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div style="overflow:auto;">
+        <div class="form-group" style="float:right; margin-top: 30px">
+          <button type="button" id="prevBtn" (click)="nextPrev(-1)" class="btn btn-outline-dark">Back</button>
+          <button type="button" id="nextBtn" (click)="nextPrev(1)" class="btn btn-outline-success">Save</button>
         </div>
-      </form>
+      </div>
+
+      <!-- Circles which indicates the steps of the form: -->
+      <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+      </div>
     </div>
   </div>
 </div>

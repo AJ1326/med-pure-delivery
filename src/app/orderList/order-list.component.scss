@@ -1,5 +1,5 @@
 .order_list {
-  padding: 50px;
+  padding: 2%;
 }
 
 .order-list-header {
@@ -21,4 +21,43 @@
   display: table;
   margin: auto;
   margin-top: 14%;
+}
+
+.icon-calender-custom {
+  font-size: 21px;
+  margin: auto;
+  display: table;
+}
+
+.icon-calender-btn {
+  margin-top: 0px;
+  padding-top: 11px;
+}
+
+.search-box {
+  margin-left: 31px;
+}
+
+//Mobile view implementation
+@media only screen and (max-width: 768px) {
+  .filter_btn_mobile_view {
+    padding-top: 2%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .filter_end_date {
+    padding-top: 2%;
+  }
+
+  .filter_btn {
+    padding-top: 2%;
+  }
+}
+
+@media only screen and (max-width: 1130px) {
+  .order_list {
+    padding: 0;
+    margin-top: 45px;
+  }
 }

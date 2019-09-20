@@ -4,10 +4,12 @@ import {
   AuthenticationBoardingGuard,
   AuthenticationGuard,
   AuthenticationPermissionDistributorGuard,
-  AuthenticationPermissionRetailerGuard
+  AuthenticationPermissionRetailerGuard,
+  AuthenticationPermissionSalesManGuard
 } from '@app/core';
 import { ShellComponent } from './shell.component';
 import { BoardingShellComponent } from '@app/shell/boarding/onboardshell.component';
+import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.component';
 
 export class Shell {
   static distributorShell(routes: Routes): Route {
@@ -15,7 +17,7 @@ export class Shell {
       path: 'distributor',
       component: ShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard, AuthenticationPermissionDistributorGuard],
+      // canActivate: [AuthenticationGuard, AuthenticationPermissionDistributorGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
@@ -34,7 +36,19 @@ export class Shell {
       path: 'retailer',
       component: ShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard],
+      // canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard, AuthenticationBoardingGuard],
+      // AuthenticationBoardingGuard
+      // Reuse ShellComponent instance when navigating between child views
+      data: { reuse: true }
+    };
+  }
+
+  static salesManShell(routes: Routes): Route {
+    return {
+      path: 'salesman',
+      component: SalesManShellComponent,
+      children: routes,
+      canActivate: [AuthenticationGuard, AuthenticationPermissionSalesManGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
@@ -46,7 +60,7 @@ export class Shell {
       path: 'boarding',
       component: BoardingShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard, AuthenticationBoardingGuard],
+      canActivate: [],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }

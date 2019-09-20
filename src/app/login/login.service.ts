@@ -18,11 +18,35 @@ export class LoginService {
   }
 
   signup(payload: any) {
-    return this.http.post(`${URLS.SIGN_UP_API}`, payload);
+    return this.http.post(`${URLS.ON_BOARD_API}`, payload);
+  }
+
+  signupRetailerBySalesman(payload: any) {
+    return this.http.post(`${URLS.SALESMAN_ADD_RETAILER}`, payload);
+  }
+
+  verify_signup_otp(payload: any) {
+    return this.http.post(`${URLS.SIGNUP_OTP_VERIFY}`, payload);
+  }
+
+  verify_signup_otp_by_salesman(payload: any) {
+    return this.http.post(`${URLS.SALESMAN_VERIFY_OTP_RETAILER}`, payload);
+  }
+
+  resend_boarding_email(payload: any) {
+    return this.http.get(`${URLS.RESEND_BOARDING_EMAIL}` + '?email=' + payload, { withCredentials: true });
+  }
+
+  resend_signup_otp(payload: any) {
+    return this.http.post(`${URLS.SIGNUP_OTP_RESEND}`, payload);
   }
 
   forgot(payload: any) {
     return this.http.post(`${URLS.FORGOT_PASSWORD_API}`, payload);
+  }
+
+  change_password(payload: any) {
+    return this.http.post(`${URLS.CHANGE_PASSWORD_API}`, payload);
   }
 
   userinfo() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-shell',
@@ -6,7 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit {
+  sideBarDisplay: boolean;
+  master = 'Master';
+  openNoteBar = false;
+
   constructor() {}
 
   ngOnInit() {}
+
+  onClickedOutside(e: Event) {
+    console.log(e, 'Event value');
+    // this.openNoteBar = false;
+  }
+
+  displaySideBar(display: boolean): void {
+    this.sideBarDisplay = display;
+  }
+
+  openNotes(): void {
+    this.openNoteBar = true;
+  }
+
+  closeNotes(): void {
+    this.openNoteBar = false;
+  }
 }
