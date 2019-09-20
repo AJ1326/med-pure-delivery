@@ -104,12 +104,20 @@ export class AuthenticationService {
     return this.LoginService.signup(context);
   }
 
+  signupRetailerBySalesman(context: SignUpContext): Observable<any> {
+    return this.LoginService.signupRetailerBySalesman(context);
+  }
+
   resend_signup_otp(context: any): Observable<any> {
     return this.LoginService.resend_signup_otp(context);
   }
 
   verify_signup_otp(context: any): Observable<any> {
     return this.LoginService.verify_signup_otp(context);
+  }
+
+  verify_signup_otp_by_salesman(context: any): Observable<any> {
+    return this.LoginService.verify_signup_otp_by_salesman(context);
   }
 
   resend_boarding_email(context: any): Observable<any> {

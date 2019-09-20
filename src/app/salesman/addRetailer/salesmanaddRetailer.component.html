@@ -294,11 +294,14 @@
     <span style="color: green;"
       >OTP is sent to you.
       <span style="color: dodgerblue; text-decoration: underline;"
-        >Resend<img src="../../../assets/images/login/resend.png"/></span
+        >Resend<img
+          style="width: 16px;
+    padding-left: 5px;"
+          src="../../../assets/images/login/resend.png"/></span
     ></span>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <!--    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">-->
+    <!--      <span aria-hidden="true">&times;</span>-->
+    <!--    </button>-->
   </div>
   <div class="modal-body">
     <p>Please enter the otp.</p>
@@ -313,12 +316,7 @@
     />
   </div>
   <div class="modal-footer">
-    <button
-      (click)="submitOTP(); c('Save click')"
-      type="button"
-      value="Submit"
-      class="btn btn-primary btn-fw forms_buttons-action"
-    >
+    <button (click)="submitOTP()" type="button" value="Submit" class="btn btn-primary btn-fw forms_buttons-action">
       <span [hidden]="isLoading">
         Submit
       </span>
