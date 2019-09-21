@@ -45,6 +45,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SalesmanModule } from '@app/salesman/salesman.module';
 import { SalesmanlistModule } from '@app/salesman-list/salesmanlist.module';
 import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routing.module';
+import { ErrorModule } from '@app/error/error.module';
+import { ErrorRoutingModule } from '@app/error/error-routing.module';
 
 @NgModule({
   imports: [
@@ -67,6 +69,7 @@ import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routi
     OrderListRetailerRoutingModule,
     OrderListModule,
     LoginModule,
+    ErrorModule,
     PlacingOrderModule,
     ProfileModule,
     UploadModule,
@@ -74,6 +77,7 @@ import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routi
     ComingSoonModule,
     ProfileRoutingModule,
     UploadRoutingModule,
+    ErrorRoutingModule,
     AboutRoutingModule,
     ComingSoonRoutingModule,
     SalesmanlistRoutingModule,

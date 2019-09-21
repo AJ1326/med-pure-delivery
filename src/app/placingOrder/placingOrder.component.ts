@@ -58,7 +58,7 @@ export class WikipediaService {
   // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
-  orderFromSalesman: any = null;
+  orderFromSalesman: any = '';
   version: string = environment.version;
   closeResult: string;
   currentRate: any;
@@ -173,12 +173,12 @@ export class PlacingOrderComponent implements OnInit {
   ngOnInit() {
     this.message = 'Welcome !!!!';
     this.router.queryParams
-      .filter(params => params['retailer_slug'])
+      // .filter(params => params['retailer_slug'])
       .subscribe(params => {
         // console.log('params', params); // {order: "popular"}
         this.orderFromSalesman = params;
-        console.log('this.orderFromSalesman', this.orderFromSalesman);
-        console.log('this.orderFromSalesman.retailer_slug', this.orderFromSalesman['retailer_slug']);
+        // console.log('this.orderFromSalesman', this.orderFromSalesman);
+        // console.log('this.orderFromSalesman.retailer_slug', this.orderFromSalesman['retailer_slug']);
       });
   }
 
