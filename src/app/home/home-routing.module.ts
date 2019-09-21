@@ -9,28 +9,42 @@ import { PlacingOrderComponent } from '@app/placingOrder/placingOrder.component'
 const routes: Routes = [
   Shell.retailerShell([
     {
-      path: 'home',
-      component: HomeComponent,
-      // children: [
-      //   {
-      //     path:  'by-distributor',
-      //     component:  SalesmanaddRetailerComponent
-      //   },
-      //   {
-      //     path:  'all-orders',
-      //     component:  SalesmanaddRetailerComponent
-      //   },
-      //   {
-      //     path:  'pending-orders',
-      //     component:  SalesmanaddRetailerComponent
-      //   }
-      // ],
-      data: { title: extract('Home') }
-    },
-    { path: '', redirectTo: 'home', pathMatch: 'full' }
+      path: '',
+      children: [
+        {
+          path: '',
+          redirectTo: 'home',
+          pathMatch: 'full'
+        },
+        {
+          path: 'home',
+          component: HomeComponent
+        }
+      ]
+    }
+    // {
+    //   path: '',
+    //   component: HomeComponent,
+    // children: [
+    //   {
+    //     path:  'by-distributor',
+    //     component:  SalesmanaddRetailerComponent
+    //   },
+    //   {
+    //     path:  'all-orders',
+    //     component:  SalesmanaddRetailerComponent
+    //   },
+    //   {
+    //     path:  'pending-orders',
+    //     component:  SalesmanaddRetailerComponent
+    //   }
+    // ],
+    //   data: { title: extract('Home') }
+    // },
+    // { path: '', redirectTo: 'home', pathMatch: 'full' }
   ]),
   Shell.distributorShell([
-    { path: 'home', component: HomeComponent, data: { title: extract('Home') } },
+    { path: 'distributor/home', component: HomeComponent, data: { title: extract('Home') } },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
   ]),
   Shell.salesManShell([{ path: 'order-list', component: HomeComponent, data: { title: extract('Order list') } }])

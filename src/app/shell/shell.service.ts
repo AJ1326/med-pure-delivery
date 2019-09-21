@@ -36,7 +36,7 @@ export class Shell {
       path: 'retailer',
       component: ShellComponent,
       children: routes,
-      // canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard, AuthenticationBoardingGuard],
+      canActivate: [AuthenticationGuard, AuthenticationPermissionRetailerGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
