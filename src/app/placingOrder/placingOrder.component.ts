@@ -126,7 +126,7 @@ export class PlacingOrderComponent implements OnInit {
     this.calldisableBtnFunction(slug);
     const addOrder = this.distributor_list[orderNumber];
     let cloned_order = _.cloneDeep(addOrder);
-    cloned_order.quantity = 3;
+    cloned_order.quantity = 1;
     this.order_list = this.order_list.concat(cloned_order);
     this.getTotalOrderValue();
   }
