@@ -329,8 +329,12 @@
         <!--Sign up ends-->
 
         <div class="user_forms-signup" *ngIf="show_otp_form">
-          <h2 class="forms_title">OTP</h2>
-          <span style="font-size: 12px;"> is sent to you. </span>
+          <div>
+            <i class="mdi mdi-arrow-left" (click)="backFromOTP()" style="cursor:pointer;"> Back</i>
+          </div>
+          <h2 class="forms_title" style="text-align: center;">OTP VERIFICATION</h2>
+          <span style="font-size: 12px;"> OTP is sent to your mobile number.</span><br />
+          <span style="font-size: 12px;"> Please enter the OTP to continue.</span>
           <span style="font-size: 12px;">
             <a
               style="color: #1e76c7;

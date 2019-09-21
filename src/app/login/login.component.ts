@@ -243,6 +243,10 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  backFromOTP() {
+    this.show_otp_form = false;
+  }
+
   resendOnboardingEmail() {
     const resendBoardingEmailAddress = localStorage.getItem('user-email');
     this.authenticationService
