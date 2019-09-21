@@ -17,16 +17,17 @@ export class PlacingOrderService {
   }
 
   orderListPlaced(payload: any, orderBySalesman?: any) {
+    console.log('orderBySalesman value', orderBySalesman);
     let payload_data;
-    if (orderBySalesman) {
-      payload_data = {
-        order: payload,
-        retailer_slug: orderBySalesman['retailer_slug']
-      };
-    } else {
-      payload_data = payload;
-    }
-    console.log('payload_data', payload_data);
+    // if (orderBySalesman) {
+    payload_data = {
+      order: payload,
+      retailer_slug: orderBySalesman['retailer_slug']
+    };
+    // } else {
+    //   payload_data = payload;
+    // }
+    // console.log('payload_data', payload_data);
     return this.http.post(`${URLS.ORDER_LIST_PLACED_API['retailer']}`, payload_data, { withCredentials: true });
   }
 }

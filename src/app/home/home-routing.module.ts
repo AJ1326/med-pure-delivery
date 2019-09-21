@@ -8,7 +8,6 @@ import { PlacingOrderComponent } from '@app/placingOrder/placingOrder.component'
 
 const routes: Routes = [
   Shell.retailerShell([
-    { path: '', redirectTo: '/retailer/home', pathMatch: 'full' },
     {
       path: 'home',
       component: HomeComponent,
@@ -27,11 +26,12 @@ const routes: Routes = [
       //   }
       // ],
       data: { title: extract('Home') }
-    }
+    },
+    { path: '', redirectTo: 'home', pathMatch: 'full' }
   ]),
   Shell.distributorShell([
-    { path: '', redirectTo: '/distributor/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
+    { path: 'home', component: HomeComponent, data: { title: extract('Home') } },
+    { path: '', redirectTo: 'home', pathMatch: 'full' }
   ]),
   Shell.salesManShell([{ path: 'order-list', component: HomeComponent, data: { title: extract('Order list') } }])
 ];

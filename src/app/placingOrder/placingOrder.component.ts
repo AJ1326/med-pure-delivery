@@ -58,7 +58,7 @@ export class WikipediaService {
   // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
-  orderFromSalesman: any = null;
+  orderFromSalesman: any = '';
   version: string = environment.version;
   closeResult: string;
   currentRate: any;
@@ -126,7 +126,7 @@ export class PlacingOrderComponent implements OnInit {
     this.calldisableBtnFunction(slug);
     const addOrder = this.distributor_list[orderNumber];
     let cloned_order = _.cloneDeep(addOrder);
-    cloned_order.quantity = 3;
+    cloned_order.quantity = 1;
     this.order_list = this.order_list.concat(cloned_order);
     this.getTotalOrderValue();
   }
@@ -173,12 +173,12 @@ export class PlacingOrderComponent implements OnInit {
   ngOnInit() {
     this.message = 'Welcome !!!!';
     this.router.queryParams
-      .filter(params => params['retailer_slug'])
+      // .filter(params => params['retailer_slug'])
       .subscribe(params => {
         // console.log('params', params); // {order: "popular"}
         this.orderFromSalesman = params;
-        console.log('this.orderFromSalesman', this.orderFromSalesman);
-        console.log('this.orderFromSalesman.retailer_slug', this.orderFromSalesman['retailer_slug']);
+        // console.log('this.orderFromSalesman', this.orderFromSalesman);
+        // console.log('this.orderFromSalesman.retailer_slug', this.orderFromSalesman['retailer_slug']);
       });
   }
 

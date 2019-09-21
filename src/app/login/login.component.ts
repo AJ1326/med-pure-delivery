@@ -170,7 +170,7 @@ export class LoginComponent implements OnInit {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
           } else if (roleType === 'retailer' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
-          } else if (roleType === 'retailer' && onboard) {
+          } else if (roleType === 'distributor' && onboard) {
             this.route.queryParams.subscribe(params =>
               this.router.navigate(['/distributor/home'], { replaceUrl: true })
             );
