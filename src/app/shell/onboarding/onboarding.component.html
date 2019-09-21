@@ -6,9 +6,13 @@
 
 <div class="card w-75 box-shadow-boarding" id="rForm">
   <div>
+    <div class="card-body invalid-error-msg" *ngIf="page_error">
+      {{ page_error }} <br />
+      Please contact support. Or Try to reset your password.
+    </div>
     <div class="card-body" *ngIf="!loading">
       <!-- One "tab" for each step in the form: -->
-      <div class="tab">
+      <div class="tab" [ngStyle]="{ display: tab_display[0] }">
         <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img class="on_boarding_profile_icons" src="../../../assets/images/onboarding/profiile.svg" />
@@ -54,7 +58,7 @@
         </form>
       </div>
 
-      <div class="tab">
+      <div class="tab" [ngStyle]="{ display: tab_display[1] }">
         <div>
           <img
             class="on_boarding_profile_icons"
@@ -73,7 +77,7 @@
               hidden
               formControlName="dob"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.firstName.errors }"
+              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.dob.errors }"
               type="text"
               placeholder="dob"
               oninput="this.className = ''"
@@ -84,6 +88,10 @@
             >
               <div *ngIf="onBoardingForm.controls.dob.errors.required">Birthdate is required</div>
               <div *ngIf="onBoardingForm.controls.dob.errors.age">Age can not be less that 13 years.</div>
+            </div>
+
+            <div *ngIf="onb_error['dob']" class="invalid-error-msg">
+              <div *ngIf="onb_error['dob']">{{ onb_error['dob'] }}</div>
             </div>
           </form>
           <!--
@@ -144,7 +152,7 @@
         </div>
       </div>
 
-      <div class="tab">
+      <div class="tab" [ngStyle]="{ display: tab_display[2] }">
         <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img
@@ -170,6 +178,9 @@
               <div *ngIf="onBoardingForm.controls.email.errors.required">Email is required</div>
               <div *ngIf="onBoardingForm.controls.email.errors.email">Email must be a valid email address</div>
             </div>
+            <div *ngIf="onb_error['email']" class="invalid-error-msg">
+              <div *ngIf="onb_error['email']">{{ onb_error['email'] }}</div>
+            </div>
             <input
               type="number"
               formControlName="phone_number"
@@ -185,11 +196,14 @@
             >
               <div *ngIf="onBoardingForm.controls.phone_number.errors.required">Phone number is required</div>
             </div>
+            <div *ngIf="onb_error['phone_number']" class="invalid-error-msg">
+              <div *ngIf="onb_error['phone_number']">{{ onb_error['phone_number'] }}</div>
+            </div>
           </div>
         </form>
       </div>
 
-      <div class="tab">
+      <div class="tab" [ngStyle]="{ display: tab_display[3] }">
         <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img
@@ -216,6 +230,9 @@
             >
               <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address line 1 is required</div>
             </div>
+            <div *ngIf="onb_error['address_line_1']" class="invalid-error-msg">
+              <div *ngIf="onb_error['address_line_1']">{{ onb_error['address_line_1'] }}</div>
+            </div>
 
             <textarea
               style="margin-top: 20px"
@@ -233,6 +250,9 @@
             >
               <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
             </div>
+            <div *ngIf="onb_error['address_line_2']" class="invalid-error-msg">
+              <div *ngIf="onb_error['address_line_2']">{{ onb_error['address_line_2'] }}</div>
+            </div>
 
             <div *ngIf="user_initial_data['user_role'] !== 'salesman'">
               <input
@@ -249,6 +269,10 @@
               >
                 <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
               </div>
+              <div *ngIf="onb_error['shop_name']" class="invalid-error-msg">
+                <div *ngIf="onb_error['shop_name']">{{ onb_error['shop_name'] }}</div>
+              </div>
+
               <input
                 formControlName="certificate_no"
                 class="form-control"
@@ -264,6 +288,9 @@
                 <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
                   Certification number is required
                 </div>
+              </div>
+              <div *ngIf="onb_error['certificate_no']" class="invalid-error-msg">
+                <div *ngIf="onb_error['certificate_no']">{{ onb_error['certificate_no'] }}</div>
               </div>
             </div>
             <input
@@ -281,6 +308,9 @@
             >
               <div *ngIf="onBoardingForm.controls.state.errors.required">State is required</div>
             </div>
+            <div *ngIf="onb_error['state']" class="invalid-error-msg">
+              <div *ngIf="onb_error['state']">{{ onb_error['state'] }}</div>
+            </div>
 
             <input
               formControlName="city"
@@ -296,6 +326,9 @@
             >
               <div *ngIf="onBoardingForm.controls.city.errors.required">City is required</div>
             </div>
+            <div *ngIf="onb_error['city']" class="invalid-error-msg">
+              <div *ngIf="onb_error['city']">{{ onb_error['city'] }}</div>
+            </div>
 
             <input
               formControlName="zip_code"
@@ -309,8 +342,7 @@
               *ngIf="onBoardingForm.controls.zip_code.invalid && onBoardingForm.controls.zip_code.touched"
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.zip_code.errors.required">Zip code is required</div>
-
+              <div *ngIf="onBoardingForm.controls.zip_code.errors['required']">Zip code is required</div>
               <div
                 *ngIf="
                   !onBoardingForm.controls.zip_code.errors.required &&
@@ -320,11 +352,14 @@
                 Zip code is not correct
               </div>
             </div>
+            <div *ngIf="onb_error['zip_code']" class="invalid-error-msg">
+              <div *ngIf="onb_error['zip_code']">{{ onb_error['zip_code'] }}</div>
+            </div>
           </div>
         </form>
       </div>
 
-      <div class="tab">
+      <div class="tab" [ngStyle]="{ display: tab_display[4] }">
         <form id="regForm" [formGroup]="onBoardingForm">
           <div>
             <img class="on_boarding_profile_icons" src="../../../assets/images/onboarding/login.svg" />
@@ -361,6 +396,9 @@
                 Password must have minimum of 8 characters
               </div>
             </div>
+            <div *ngIf="onb_error['password1']" class="invalid-error-msg">
+              <div *ngIf="onb_error['password1']">{{ onb_error['password1'] }}</div>
+            </div>
             <input
               type="password"
               formControlName="password2"
@@ -379,6 +417,9 @@
                 Password must have minimum of 8 characters
               </div>
             </div>
+            <div *ngIf="onb_error['password2']" class="invalid-error-msg">
+              <div *ngIf="onb_error['password2']">{{ onb_error['password2'] }}</div>
+            </div>
             <div class="form-control form-check">
               <input
                 type="checkbox"
@@ -393,7 +434,10 @@
               *ngIf="onBoardingForm.controls.tnc.invalid && (onBoardingForm.controls.tnc.touched || tab_submitted)"
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.tnc.errors.requiredTrue">Accept Ts & Cs is required</div>
+              <div *ngIf="onBoardingForm.controls.tnc.errors['requiredTrue']">Accept Ts & Cs is required</div>
+            </div>
+            <div *ngIf="onb_error['tnc']" class="invalid-error-msg">
+              <div *ngIf="onb_error['tnc']">{{ onb_error['tnc'] }}</div>
             </div>
           </div>
         </form>
