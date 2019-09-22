@@ -1,6 +1,6 @@
 <form class="search-container">
-  <!--  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>-->
-  <input
+  <!--  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>
+   <input
     type="text"
     id="search-bar"
     placeholder="Search by retailer name or id."
@@ -12,10 +12,10 @@
     (selectItem)="selectedItem($event)"
     [resultTemplate]="rt"
     [inputFormatter]="formatter"
-  />
+  /> -->
   <a><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"/></a>
-  <span *ngIf="searching">searching...</span>
-  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+  <!--<span *ngIf="searching">searching...</span>
+  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>-->
 </form>
 
 <div class="row desktop-salesman-container">
