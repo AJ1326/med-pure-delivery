@@ -568,10 +568,15 @@
         </form>
       </div>
       <div *ngIf="show_otp_form">
-        <h2 class="forms_title">Enter OTP</h2>
-        <h4>Please enter the OTP sent to your mobile.</h4>
-        <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
+        <div>
+          <h6><i class="mdi mdi-arrow-left" (click)="backFromOTP()" style="cursor:pointer;color:black"> Back</i></h6>
+        </div>
         <br />
+        <h4 class="forms_title" style="text-align: center;">OTP VERIFICATION</h4>
+        <h6>OTP is sent to your mobile number.</h6>
+        <br />
+        <h6>Please enter the OTP to continue.</h6>
+        <h6>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h6>
 
         <span style="color: red;" *ngIf="otp_error" translate>
           {{ otp_error.error }}
