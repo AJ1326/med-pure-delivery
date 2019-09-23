@@ -1,8 +1,66 @@
-<div *ngIf="message">
+<div *ngIf="submitSuccess && !submitError">
   <app-message-bar [messageBarEvent]="message"></app-message-bar>
 </div>
 
-<div class="upload-centre">
+<div class="row select-upload-modal" *ngIf="chooseUploadValue">
+  <div class="col-md-6" style="display: flex; flex-direction: column;">
+    <span style="font-size: 24px; font-weight: 200;">Choose</span>
+    <div style="padding-top: 40px;">
+      <button
+        style="width: 465px;
+    font-size: 20px;
+    font-weight: bolder;"
+        (click)="chooseUpload(true)"
+        class="btn btn-outline-primary"
+        type="button"
+      >
+        Uploading all the products
+      </button>
+      <button
+        style="width: 465px;
+    font-size: 20px;
+    font-weight: 300; margin-top: 20px;"
+        (click)="chooseUpload(false)"
+        class="btn btn-outline-danger"
+        type="button"
+      >
+        Uploading new products to your old list.
+      </button>
+    </div>
+  </div>
+  <img class="col-md-6" style="width: 546px; float: right;" src="../../assets/images/upload/choose_upload_option.svg" />
+</div>
+<div *ngIf="!chooseUploadValue" class="upload-centre">
+  <div>
+    <div *ngIf="submitSuccess && !submitError" class="text-info">
+      The file was uploaded successfully. In case of any problem we will
+      <strong style="color: #ec2c70 !important;">contact you</strong>.
+    </div>
+
+    <div *ngIf="force_update" class="text-info">
+      Uploading entire product list.
+      <strong
+        (click)="openChooseModal()"
+        style="color: #ec2c70 !important; text-decoration: underline; cursor: pointer;"
+        >Click here</strong
+      >
+      to change.
+    </div>
+
+    <div *ngIf="!force_update" class="text-info">
+      Uploading new products.
+      <strong
+        (click)="openChooseModal()"
+        style="color: #ec2c70 !important; text-decoration: underline; cursor: pointer;"
+        >Click here</strong
+      >
+      to change.
+    </div>
+
+    <div *ngIf="submitError" class="text-danger">
+      There was an error submitting the file. please check the file is correct or contact us via support.
+    </div>
+  </div>
   <br />
   <br />
   <img class="img-upload" src="../../assets/images/upload/upload.svg" />
@@ -10,14 +68,6 @@
   <br />
   <br />
   <div *ngIf="!loading$" class="d-inline-block">
-    <div *ngIf="submitSuccess && !submitError" class="text-info">
-      The file was uploaded successfully. We will contact you through email if we find any problem.
-    </div>
-
-    <div *ngIf="submitError" class="text-danger">
-      There was an error submitting the file. please check the file is correct or contact us via support.
-    </div>
-
     <div *ngIf="software_error" class="text-danger">
       Please Select a Software from which csv is generated.
     </div>
@@ -32,29 +82,16 @@
         <a class="dropdown-item" (click)="selectSoftware('sudhir')">Sudhir</a>
       </div>
     </div>
-    <div>
-      <div class="form-checkbox">
-        <label>
-          <input
-            type="checkbox"
-            class="form-check-input"
-            name="force_update"
-            id="force_update_chechbox"
-            [(ngModel)]="force_update"
-          />
-          Delete previous data
-        </label>
-      </div>
-    </div>
-    <br />
-    <div class="fileUpload blue-btn btn width100">
+    <div [ngClass]="software ? 'fileUpload blue-btn btn width100' : 'fileUpload blue-btn btn width100 file-disabled'">
       <span>Upload your products </span>
       <input
+        *ngIf="software"
         type="file"
         class="uploadlogo"
         [(ngModel)]="uploading_file"
         (change)="handleFileInput($event.target.files)"
       />
+      <input *ngIf="!software" type="file file-disabled" class="uploadlogo" disabled />
     </div>
   </div>
   <div *ngIf="loading$" class="lc">
