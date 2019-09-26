@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
@@ -9,6 +9,9 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
 import { Subscription } from 'rxjs';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-on-boarding',
@@ -66,6 +69,19 @@ export class OnboardingComponent implements OnInit {
     password2: 4,
     tnc: 4
   };
+  public componentData4: any = '';
+  public userSettings = {
+    showCurrentLocation: false,
+    showSearchButton: false,
+    currentLocIconUrl: 'https://cdn4.iconfinder.com/data/icons/proglyphs-traveling/512/Current_Location-512.png',
+    locationIconUrl: 'http://www.myiconfinder.com/uploads/iconsets/369f997cef4f440c5394ed2ae6f8eecd.png',
+    recentStorageName: 'componentData4',
+    noOfRecentSearchSave: 3,
+    geoCountryRestriction: ['in']
+  };
+  zipcode_value = '';
+  state_value = '';
+  city_value = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,6 +97,25 @@ export class OnboardingComponent implements OnInit {
       month: 12,
       day: 31
     };
+    setTimeout(() => {
+      this.userSettings['inputPlaceholderText'] = 'Shop location.';
+      this.userSettings = Object.assign({}, this.userSettings);
+    }, 5000);
+  }
+
+  autoCompleteCallback1(selectedData: any) {
+    this.zipcode_value = _.find(selectedData.data['address_components'], function(data_type: any) {
+      return data_type['types'][0] === 'postal_code';
+    });
+    this.state_value = _.find(selectedData.data['address_components'], function(data_type: any) {
+      return data_type['types'][0] === 'administrative_area_level_1';
+    });
+    this.city_value = _.find(selectedData.data['address_components'], function(data_type: any) {
+      return data_type['types'][0] === 'administrative_area_level_2';
+    });
+    this.onBoardingForm.controls['zip_code'].setValue(this.zipcode_value['long_name']);
+    this.onBoardingForm.controls['state'].setValue(this.state_value['long_name']);
+    this.onBoardingForm.controls['city'].setValue(this.city_value['long_name']);
   }
 
   ngOnInit() {
@@ -292,10 +327,10 @@ export class OnboardingComponent implements OnInit {
           dob: ['', Validators.completeDate()],
           email: [data['email'] ? data['email'] : '', [Validators.required(), Validators.email()]],
           phone_number: [data['phone_number'] ? data['phone_number'] : '', Validators.required()],
-          address_line_1: [data['address_line_1'] ? data['address_line_1'] : '', Validators.required()],
-          address_line_2: [data['address_line_2'] ? data['address_line_2'] : '', Validators.required()],
+          address_line_1: [data['address_line_1'] ? data['address_line_1'] : ''],
+          address_line_2: [data['address_line_2'] ? data['address_line_2'] : ''],
           city: [data['city'] ? data['city'] : '', Validators.required()],
-          state: [data['state'] ? data['state'] : 'Maharashtra', Validators.required()],
+          state: [data['state'] ? data['state'] : '', Validators.required()],
           zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
           password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
           // tslint:disable-next-line: max-line-length
@@ -319,7 +354,7 @@ export class OnboardingComponent implements OnInit {
           shop_name: [data['shop_name'] ? data['shop_name'] : '', Validators.required()],
           certificate_no: [data['certificate_no'] ? data['certificate_no'] : '', Validators.required()],
           city: [data['city'] ? data['city'] : '', Validators.required()],
-          state: [data['state'] ? data['state'] : 'Maharashtra', Validators.required()],
+          state: [data['state'] ? data['state'] : '', Validators.required()],
           zip_code: [data['zip_code'] ? data['zip_code'] : '', [Validators.required(), Validators.validZipCode()]],
           password1: [data['password1'] ? data['password1'] : '', [Validators.required(), Validators.minLength(8)]],
           // tslint:disable-next-line: max-line-length
