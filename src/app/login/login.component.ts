@@ -61,34 +61,19 @@ export class LoginComponent implements OnInit {
     const role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (role) {
       const roleType = this.authenticationService.permissionView();
+      console.log('roleType', roleType);
       if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
-      } else if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
+        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
+      } else if (roleType === 'distributor') {
+        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor/home'], { replaceUrl: true }));
+      } else if (roleType === 'salesman') {
+        this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
       } else {
         this.route.queryParams.subscribe(params => this.router.navigate([params.redirect || ''], { replaceUrl: true }));
       }
     } else {
-      /**
-       * Variables
-       */
-      const signupButton = document.getElementById('signup-button'),
-        loginButton = document.getElementById('login-button'),
-        userForms = document.getElementById('user_options-forms');
-
-      /**
-       * Add event listener to the "Sign Up" button
-       */
-
-      /**
-       * Add event listener to the "Login" button
-       */
+      this.route.queryParams.subscribe(params => this.router.navigate([params.redirect || ''], { replaceUrl: true }));
     }
-
-    // OTP code
-    // let obj = document.getElementById('partitioned');
-    // obj.addEventListener('keydown', this.stopCarret);
-    // obj.addEventListener('keyup', this.stopCarret);
   }
 
   /**
@@ -112,22 +97,29 @@ export class LoginComponent implements OnInit {
   }
 
   stopCarret(obj: any) {
+    console.log('obj', obj);
     if (obj.value.length > 3) {
+      console.log('obj.value.length', obj.value.length);
       this.setCaretPosition(obj, 3);
     }
   }
 
   setCaretPosition(elem: any, caretPos: any) {
+    console.log(elem, 'elem', caretPos, 'caretPos');
     if (elem != null) {
       if (elem.createTextRange) {
         var range = elem.createTextRange();
+        console.log(range, 'range');
         range.move('character', caretPos);
         range.select();
       } else {
         if (elem.selectionStart) {
-          // elem.focus();
+          console.log(elem.selectionStart, 'elem.selectionStart');
+          elem.focus();
           elem.setSelectionRange(caretPos, caretPos);
-        } else elem.focus();
+        } else {
+          elem.focus();
+        }
       }
     }
   }
@@ -161,17 +153,15 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(
         credentials => {
-          console.log('yolo mf: ', credentials);
           this.authenticationService.setCredentials(credentials);
-          // this.userInfo();
           log.debug(`${credentials.user} successfully logged in`);
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
-          console.log('onboardingView mf: ', onboard);
+          console.log('onboard roleType', onboard, roleType);
           if (roleType === 'salesman' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
           } else if (roleType === 'retailer' && onboard) {
-            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
+            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
           } else if (roleType === 'distributor' && onboard) {
             this.route.queryParams.subscribe(params =>
               this.router.navigate(['/distributor/home'], { replaceUrl: true })

@@ -10,37 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 
 const log = new Logger('Home');
 
-const dummyfilterdata = [
-  {
-    index: 1,
-    card_title: 'Total orders',
-    card_value: 7,
-    card_description: 'By product',
-    card_type: 'all-order-list'
-  },
-  {
-    index: 2,
-    card_title: 'List of orders',
-    card_value: 7,
-    card_description: 'By distributor',
-    card_type: 'by-source'
-  },
-  {
-    index: 3,
-    card_title: 'Pending orders',
-    card_value: 7,
-    card_description: 'By product',
-    card_type: 'pending-order-list'
-  },
-  {
-    index: 4,
-    card_title: 'Fast moving products',
-    card_value: 7,
-    card_description: 'By product',
-    card_type: 'fast-moving-order-list'
-  }
-];
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -50,7 +19,6 @@ const dummyfilterdata = [
 export class HomeComponent implements OnInit {
   orderFromSalesman = '';
   isLoading: boolean;
-  // private filterCard = new BehaviorSubject<string>('');
   user_info: any = [];
   role_type: string;
   activeCard: string;
@@ -72,10 +40,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.user_info = this.authenticationService.userInfo();
     this.role_type = this.user_info.roles[0];
-    const pageURL = window.location.href;
-    const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
     this.router.queryParams.subscribe(params => {
-      // console.log('params', params); // {order: "popular"}
       this.orderFromSalesman = params['retailer_slug'];
       localStorage.setItem('isSalesmanOrderView', params['retailer_slug']);
     });
@@ -88,12 +53,6 @@ export class HomeComponent implements OnInit {
       this.selectFilterCard('pending-order-list');
       this.cardData('pending-order-list');
     }
-    //
-    // this.tableservice.filterTypeValue.subscribe((data: any) => {
-    //   if (data) {
-    //     console.log('------------------->: ', data, typeof data);
-    //   }
-    // });
   }
 
   cardData(filter_title?: string): void {
@@ -113,7 +72,6 @@ export class HomeComponent implements OnInit {
           this.filterValue = filterData.card_value;
         },
         (error: any) => {
-          this.filterData = dummyfilterdata;
           log.debug(`Login error: ${error}`);
           this.error = error;
         }
