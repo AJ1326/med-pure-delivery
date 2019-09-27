@@ -60,7 +60,6 @@ export class SalesmanretailerListComponent implements OnInit, OnDestroy {
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
 
     this.list_sub = this.route.data.subscribe(v => {
-      console.log(v, typeof v['list_type']);
       this.fuctionality = v['fuctionality'];
       if (v['list_type'] === 'retailer_list') {
         this.list_type = 'Retailer';
@@ -90,9 +89,7 @@ export class SalesmanretailerListComponent implements OnInit, OnDestroy {
   }
 
   navigateAddOrderPage(url: any, retailer_id?: string): void {
-    console.log('url', url);
     this.router.navigate(['salesman/' + url], { queryParams: { retailer_slug: retailer_id } });
-    // this.router.navigateByUrl('salesman/' + url + '/' + retailer_id);
   }
 
   getListOfUser(search: string = ''): void {

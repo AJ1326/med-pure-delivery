@@ -215,18 +215,28 @@
           <div style="margin-top: 25px">
             <span class="onboarding_birthday">Need for enrolling you !!</span>
             <!--            ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"-->
-            <div>
+
+            <span class="invalid-error-msg" *ngIf="invalidLocation">
+              *Please enter more specific location.
+            </span>
+            <ng-container>
+              <input
+                hidden
+                formControlName="address_line_2"
+                class="form-control"
+                type="text"
+                placeholder="dob"
+                oninput="this.className = ''"
+              />
               <ng4geo-autocomplete
                 ngDefaultControl
                 [userSettings]="userSettings"
                 (componentCallback)="autoCompleteCallback1($event)"
                 style="margin-top: 20px"
-                formControlName="address_line_1"
-                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.address_line_1.errors }"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.address_line_2.errors }"
               >
-              </ng4geo-autocomplete
-              >qqq
-            </div>
+              </ng4geo-autocomplete>
+            </ng-container>
             <!--            <input-->
             <!--              style="margin-top: 20px"-->
 
@@ -237,140 +247,147 @@
             <!--            />-->
             <div
               *ngIf="
-                onBoardingForm.controls.address_line_1.invalid &&
-                (onBoardingForm.controls.address_line_1.touched || tab_submitted)
-              "
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Address line 1 is required</div>
-            </div>
-            <div *ngIf="onb_error['address_line_1']" class="invalid-error-msg">
-              <div *ngIf="onb_error['address_line_1']">{{ onb_error['address_line_1'] }}</div>
-            </div>
-
-            <input
-              style="margin-top: 20px"
-              formControlName="address_line_2"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.address_line_2.errors }"
-              placeholder="Shop number"
-            />
-            <div
-              *ngIf="
                 onBoardingForm.controls.address_line_2.invalid &&
                 (onBoardingForm.controls.address_line_2.touched || tab_submitted)
               "
               class="invalid-error-msg"
             >
-              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Address line 2 is required</div>
+              <div *ngIf="onBoardingForm.controls.address_line_2.errors.required">Landmark is required.</div>
             </div>
             <div *ngIf="onb_error['address_line_2']" class="invalid-error-msg">
               <div *ngIf="onb_error['address_line_2']">{{ onb_error['address_line_2'] }}</div>
             </div>
 
-            <div *ngIf="user_initial_data['user_role'] !== 'salesman'">
+            <ng-container
+              *ngIf="!invalidLocation && onBoardingForm.controls['address_line_2'].value"
+              style="margin-top: 20px !important;"
+            >
               <input
-                formControlName="shop_name"
+                style="margin-top: 20px"
+                formControlName="address_line_1"
                 class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
-                type="text"
-                placeholder="Shop name"
-                oninput="this.className = ''"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.address_line_1.errors }"
+                placeholder="Shop number / House number"
               />
-              <div
-                *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
-                class="invalid-error-msg"
-              >
-                <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
-              </div>
-              <div *ngIf="onb_error['shop_name']" class="invalid-error-msg">
-                <div *ngIf="onb_error['shop_name']">{{ onb_error['shop_name'] }}</div>
-              </div>
-
-              <input
-                formControlName="certificate_no"
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
-                type="text"
-                placeholder="Certification number"
-                oninput="this.className = ''"
-              />
-              <div
-                *ngIf="onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched"
-                class="invalid-error-msg"
-              >
-                <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
-                  Certification number is required
-                </div>
-              </div>
-              <div *ngIf="onb_error['certificate_no']" class="invalid-error-msg">
-                <div *ngIf="onb_error['certificate_no']">{{ onb_error['certificate_no'] }}</div>
-              </div>
-            </div>
-            <input
-              formControlName="state"
-              class="form-control onboarding_disabled"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.state.errors }"
-              type="text"
-              placeholder="State"
-              oninput="this.className = ''"
-              disabled
-            />
-            <div
-              *ngIf="onBoardingForm.controls.state.invalid && onBoardingForm.controls.state.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.state.errors.required">State is required</div>
-            </div>
-            <div *ngIf="onb_error['state']" class="invalid-error-msg">
-              <div *ngIf="onb_error['state']">{{ onb_error['state'] }}</div>
-            </div>
-
-            <input
-              formControlName="city"
-              class="form-control onboarding_disabled"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.city.errors }"
-              type="text"
-              placeholder="City"
-              oninput="this.className = ''"
-              disabled
-            />
-            <div
-              *ngIf="onBoardingForm.controls.city.invalid && onBoardingForm.controls.city.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.city.errors.required">City is required</div>
-            </div>
-            <div *ngIf="onb_error['city']" class="invalid-error-msg">
-              <div *ngIf="onb_error['city']">{{ onb_error['city'] }}</div>
-            </div>
-
-            <input
-              formControlName="zip_code"
-              class="form-control onboarding_disabled"
-              [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.zip_code.errors }"
-              type="text"
-              placeholder="Zip code"
-              oninput="this.className = ''"
-              disabled
-            />
-            <div
-              *ngIf="onBoardingForm.controls.zip_code.invalid && onBoardingForm.controls.zip_code.touched"
-              class="invalid-error-msg"
-            >
-              <div *ngIf="onBoardingForm.controls.zip_code.errors['required']">Zip code is required</div>
               <div
                 *ngIf="
-                  !onBoardingForm.controls.zip_code.errors.required &&
-                  onBoardingForm.controls.zip_code.errors.invalidZipCode
+                  onBoardingForm.controls.address_line_1.invalid &&
+                  (onBoardingForm.controls.address_line_1.touched || tab_submitted)
                 "
+                class="invalid-error-msg"
               >
-                Zip code is not correct
+                <div *ngIf="onBoardingForm.controls.address_line_1.errors.required">Shop number is required.</div>
               </div>
-            </div>
-            <div *ngIf="onb_error['zip_code']" class="invalid-error-msg">
-              <div *ngIf="onb_error['zip_code']">{{ onb_error['zip_code'] }}</div>
-            </div>
+              <div *ngIf="onb_error['address_line_1']" class="invalid-error-msg">
+                <div *ngIf="onb_error['address_line_1']">{{ onb_error['address_line_1'] }}</div>
+              </div>
+
+              <div *ngIf="user_initial_data['user_role'] !== 'salesman'">
+                <input
+                  formControlName="shop_name"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.shop_name.errors }"
+                  type="text"
+                  placeholder="Shop name"
+                  oninput="this.className = ''"
+                />
+                <div
+                  *ngIf="onBoardingForm.controls.shop_name.invalid && onBoardingForm.controls.shop_name.touched"
+                  class="invalid-error-msg"
+                >
+                  <div *ngIf="onBoardingForm.controls.shop_name.errors.required">Shop name is required</div>
+                </div>
+                <div *ngIf="onb_error['shop_name']" class="invalid-error-msg">
+                  <div *ngIf="onb_error['shop_name']">{{ onb_error['shop_name'] }}</div>
+                </div>
+
+                <input
+                  formControlName="certificate_no"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.certificate_no.errors }"
+                  type="text"
+                  placeholder="Certification number"
+                  oninput="this.className = ''"
+                />
+                <div
+                  *ngIf="
+                    onBoardingForm.controls.certificate_no.invalid && onBoardingForm.controls.certificate_no.touched
+                  "
+                  class="invalid-error-msg"
+                >
+                  <div *ngIf="onBoardingForm.controls.certificate_no.errors.required">
+                    Certification number is required
+                  </div>
+                </div>
+                <div *ngIf="onb_error['certificate_no']" class="invalid-error-msg">
+                  <div *ngIf="onb_error['certificate_no']">{{ onb_error['certificate_no'] }}</div>
+                </div>
+              </div>
+              <input
+                formControlName="state"
+                class="form-control onboarding_disabled"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.state.errors }"
+                type="text"
+                placeholder="State"
+                oninput="this.className = ''"
+                disabled
+              />
+              <div
+                *ngIf="onBoardingForm.controls.state.invalid && onBoardingForm.controls.state.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.state.errors.required">State is required</div>
+              </div>
+              <div *ngIf="onb_error['state']" class="invalid-error-msg">
+                <div *ngIf="onb_error['state']">{{ onb_error['state'] }}</div>
+              </div>
+
+              <input
+                formControlName="city"
+                class="form-control onboarding_disabled"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.city.errors }"
+                type="text"
+                placeholder="City"
+                oninput="this.className = ''"
+                disabled
+              />
+              <div
+                *ngIf="onBoardingForm.controls.city.invalid && onBoardingForm.controls.city.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.city.errors.required">City is required</div>
+              </div>
+              <div *ngIf="onb_error['city']" class="invalid-error-msg">
+                <div *ngIf="onb_error['city']">{{ onb_error['city'] }}</div>
+              </div>
+
+              <input
+                formControlName="zip_code"
+                class="form-control onboarding_disabled"
+                [ngClass]="{ 'is-invalid': submitted && onBoardingForm.controls.zip_code.errors }"
+                type="text"
+                placeholder="Zip code"
+                oninput="this.className = ''"
+                disabled
+              />
+              <div
+                *ngIf="onBoardingForm.controls.zip_code.invalid && onBoardingForm.controls.zip_code.touched"
+                class="invalid-error-msg"
+              >
+                <div *ngIf="onBoardingForm.controls.zip_code.errors['required']">Zip code is required</div>
+                <div
+                  *ngIf="
+                    !onBoardingForm.controls.zip_code.errors.required &&
+                    onBoardingForm.controls.zip_code.errors.invalidZipCode
+                  "
+                >
+                  Zip code is not correct
+                </div>
+              </div>
+              <div *ngIf="onb_error['zip_code']" class="invalid-error-msg">
+                <div *ngIf="onb_error['zip_code']">{{ onb_error['zip_code'] }}</div>
+              </div>
+            </ng-container>
           </div>
         </form>
       </div>

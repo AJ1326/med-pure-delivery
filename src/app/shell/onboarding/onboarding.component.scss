@@ -181,3 +181,7 @@ input.invalid {
 .onboarding_disabled {
   cursor: no-drop;
 }
+
+.custom-autocomplete__input input {
+  margin-bottom: 20px !important;
+}

@@ -37,8 +37,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    DeviceDetectorModule.forRoot(),
-    GooglePlaceModule
+    DeviceDetectorModule.forRoot()
   ],
   declarations: [
     HeaderComponent,

@@ -82,6 +82,7 @@ export class OnboardingComponent implements OnInit {
   zipcode_value = '';
   state_value = '';
   city_value = '';
+  invalidLocation = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -113,9 +114,15 @@ export class OnboardingComponent implements OnInit {
     this.city_value = _.find(selectedData.data['address_components'], function(data_type: any) {
       return data_type['types'][0] === 'administrative_area_level_2';
     });
-    this.onBoardingForm.controls['zip_code'].setValue(this.zipcode_value['long_name']);
-    this.onBoardingForm.controls['state'].setValue(this.state_value['long_name']);
-    this.onBoardingForm.controls['city'].setValue(this.city_value['long_name']);
+    if (this.zipcode_value && this.state_value && this.city_value) {
+      this.invalidLocation = false;
+      this.onBoardingForm.controls['zip_code'].setValue(this.zipcode_value ? this.zipcode_value['long_name'] : '');
+      this.onBoardingForm.controls['state'].setValue(this.state_value ? this.state_value['long_name'] : '');
+      this.onBoardingForm.controls['city'].setValue(this.city_value ? this.city_value['long_name'] : '');
+      this.onBoardingForm.controls['address_line_2'].setValue(selectedData.data['description']);
+    } else {
+      this.invalidLocation = true;
+    }
   }
 
   ngOnInit() {
@@ -287,17 +294,20 @@ export class OnboardingComponent implements OnInit {
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
       // If a field is empty.
-      const element_control = this.onBoardingForm.controls[y[i].getAttribute('formControlName')];
-      element_control.markAsTouched({ onlySelf: true });
-      try {
-      } catch (error) {
-        valid = false;
-      }
-      if (y[i].value === '' || element_control.invalid) {
-        // add an 'invalid' class to the field:
-        y[i].className += 'invalid';
-        // and set the current valid status to false:
-        valid = false;
+      console.log('kkkkk: ', y[i].getAttribute('formControlName'), y[i]);
+      if (y[i].getAttribute('formControlName')) {
+        const element_control = this.onBoardingForm.controls[y[i].getAttribute('formControlName')];
+        element_control.markAsTouched({ onlySelf: true });
+        try {
+        } catch (error) {
+          valid = false;
+        }
+        if (y[i].value === '' || element_control.invalid) {
+          // add an 'invalid' class to the field:
+          y[i].className += 'invalid';
+          // and set the current valid status to false:
+          valid = false;
+        }
       }
     }
     // If the valid status is true, mark the step as finished and valid:

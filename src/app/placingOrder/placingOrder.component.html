@@ -29,6 +29,7 @@
   <a><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"/></a>
   <span *ngIf="searching">searching...</span>
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+  <!--  <div class="invalid-feedback" *ngIf="search_value">Sorry, suggestions could not be loaded.</div>-->
 </form>
 
 <app-loader [isLoading]="isLoading"></app-loader>
@@ -212,7 +213,7 @@
                             </span>
                           </div>
                         </div>
-                        <span class="col-xs-2" style="z-index: 9999;padding-top: 7px;">
+                        <span class="col-xs-2" style="z-index: 9;padding-top: 7px;">
                           <input
                             class="mobile_quantity"
                             type="number"

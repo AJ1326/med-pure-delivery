@@ -18,7 +18,7 @@ export class SalesmansidebarComponent implements OnChanges, OnInit {
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   public openOrder(redirectUrl: string): void {
-    this.router.navigate(['/salesman/' + redirectUrl], { replaceUrl: true });
+    this.router.navigate(['/salesman/retailer-list/order'], { replaceUrl: true });
   }
 
   logout(): void {
