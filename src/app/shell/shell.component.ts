@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shell',
@@ -10,9 +11,14 @@ export class ShellComponent implements OnInit {
   master = 'Master';
   openNoteBar = false;
 
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.router.url);
+    if (this.router.url === '/distributor' || this.router.url === '/retailer') {
+      this.route.queryParams.subscribe(params => this.router.navigate([this.router.url, 'home'], { replaceUrl: true }));
+    }
+  }
 
   onClickedOutside(e: Event) {
     console.log(e, 'Event value');

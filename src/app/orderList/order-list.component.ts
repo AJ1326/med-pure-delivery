@@ -29,18 +29,18 @@ export class OrderListComponent implements OnChanges, OnInit {
 
   @Input() orderListByFilterData: string;
   constructor(private orderListDistributorService: OrderListService, private tableservice: TableDataService) {
-    tableservice.orderlist$.subscribe(data => {
-      this.distributorOrderList = data;
-    });
-    tableservice.filterTypeValue.subscribe(data => {
-      this.filter_type_value = data;
-    });
+    // tableservice.orderlist$.subscribe(data => {
+    //   this.distributorOrderList = data;
+    // });
+    // tableservice.filterTypeValue.subscribe(data => {
+    //   this.filter_type_value = data;
+    // });
   }
 
   ngOnInit() {
     // this.tableservice._search(this.orderListByFilterData);
     // console.log('orderListByFilterData', this.orderListByFilterData);
-    this.tableservice._search();
+    // this.tableservice._search();
   }
 
   ngOnChanges(changes: SimpleChanges) {

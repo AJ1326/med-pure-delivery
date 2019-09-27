@@ -62,9 +62,9 @@ export class LoginComponent implements OnInit {
     if (role) {
       const roleType = this.authenticationService.permissionView();
       if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
-      } else if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
+        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/'], { replaceUrl: true }));
+      } else if (roleType === 'distributor') {
+        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor/'], { replaceUrl: true }));
       } else {
         this.route.queryParams.subscribe(params => this.router.navigate([params.redirect || ''], { replaceUrl: true }));
       }
@@ -169,11 +169,9 @@ export class LoginComponent implements OnInit {
           if (roleType === 'salesman' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
           } else if (roleType === 'retailer' && onboard) {
-            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
+            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
           } else if (roleType === 'distributor' && onboard) {
-            this.route.queryParams.subscribe(params =>
-              this.router.navigate(['/distributor/home'], { replaceUrl: true })
-            );
+            this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
           } else if (!onboard) {
             console.log('Working');
             this.route.queryParams.subscribe(params => this.router.navigate(['/boarding'], { replaceUrl: true }));
