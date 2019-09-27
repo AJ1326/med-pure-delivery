@@ -17,20 +17,16 @@
       }
     }
   ],
-  "dynamic": {
-    "group": [
-      {
-        "name": "apis",
-        "urls": {
-          "/api": { "match": "prefix" }
-        },
-        "cache": {
-          "optimizeFor": "freshness",
-          "maxAgeMs": "100",
-          "maxEntries": 1,
-          "strategy": "lru"
-        }
+  "dataGroups": [
+    {
+      "name": "tasks-users-api",
+      "urls": ["/api", "/admin"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 20,
+        "maxAge": "1h",
+        "timeout": "5s"
       }
-    ]
-  }
+    }
+  ]
 }

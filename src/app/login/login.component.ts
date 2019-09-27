@@ -356,6 +356,8 @@ export class LoginComponent implements OnInit {
   }
 
   forget() {
+    this.ForgetPasswordErrorMessage = '';
+
     this.forgrt_email_sent = false;
     console.log('this.loginForm.value', this.forgetPasswordForm.value);
     this.isLoading = true;
