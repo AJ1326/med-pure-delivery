@@ -25,36 +25,35 @@ const PARAMS = new HttpParams({
   }
 });
 
-let search_result: any[] = [];
-
-@Injectable()
-export class WikipediaService {
-  constructor(private http: HttpClient) {}
-
-  search(term: string) {
-    if (term === '') {
-      return of([]);
-    }
-
-    return this.http.get(WIKI_URL + term, { withCredentials: true }).pipe(
-      map((response: []) => {
-        const arr: string[] = [];
-        // response['results'].map((a: any) => {
-        //   console.log(a, 'a');
-        //   arr.push(a['name']);
-        // });
-        search_result = response['results'];
-        return search_result;
-      })
-    );
-  }
-}
+// let search_result: any[] = [];
+//
+// @Injectable()
+// export class WikipediaService {
+//   constructor(private http: HttpClient) {}
+//
+//   search(term: string) {
+//     if (term === '') {
+//       return of([]);
+//     }
+//
+//     return this.http.get(WIKI_URL + term, { withCredentials: true }).pipe(
+//       map((response: []) => {
+//         const arr: string[] = [];
+//         // response['results'].map((a: any) => {
+//         //   console.log(a, 'a');
+//         //   arr.push(a['name']);
+//         // });
+//         search_result = response['results'];
+//         return search_result;
+//       })
+//     );
+//   }
+// }
 
 @Component({
   selector: 'app-placing-order',
   templateUrl: './placingOrder.component.html',
-  styleUrls: ['./placingOrder.component.scss'],
-  providers: [WikipediaService]
+  styleUrls: ['./placingOrder.component.scss']
   // encapsulation: ViewEncapsulation.None
 })
 export class PlacingOrderComponent implements OnInit {
@@ -84,7 +83,6 @@ export class PlacingOrderComponent implements OnInit {
   constructor(
     private distributorService: PlacingOrderService,
     private modalService: NgbModal,
-    private _service: WikipediaService,
     private _hotkeysService: HotkeysService,
     public route: Router,
     private toastr: ToastrService,
@@ -155,7 +153,7 @@ export class PlacingOrderComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => (this.searching = true)),
       switchMap(term =>
-        this._service.search(term).pipe(
+        this.distributorService.search(term).pipe(
           tap(() => (this.searchFailed = false)),
           debounceTime(200),
           map((term: any) => (term === '' ? [] : term.filter((v: any) => v.name.toLowerCase()))),

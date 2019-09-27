@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { environment } from '@env/environment';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
 import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,6 @@ export class OrderListRetailerComponent implements OnInit, AfterViewInit {
     private tableservice: TableDataService
   ) {
     tableservice.orderlist$.subscribe(data => {
-      console.log('retiler list : ', data);
       this.retailorderList = data;
     });
     tableservice.filterTypeValue.subscribe(data => {

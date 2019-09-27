@@ -79,34 +79,36 @@ export class LoginComponent implements OnInit {
       /**
        * Add event listener to the "Sign Up" button
        */
-      signupButton.addEventListener(
-        'click',
-        () => {
-          this.typeForm = 'sign-up';
-          userForms.classList.remove('bounceRight');
-          userForms.classList.add('bounceLeft');
-        },
-        false
-      );
 
       /**
        * Add event listener to the "Login" button
        */
-      loginButton.addEventListener(
-        'click',
-        () => {
-          this.typeForm = 'login';
-          userForms.classList.remove('bounceLeft');
-          userForms.classList.add('bounceRight');
-        },
-        false
-      );
     }
 
     // OTP code
     // let obj = document.getElementById('partitioned');
     // obj.addEventListener('keydown', this.stopCarret);
     // obj.addEventListener('keyup', this.stopCarret);
+  }
+
+  /**
+   * Add event listener to the "Sign Up" button
+   */
+  show_sign_up_form() {
+    const userForms = document.getElementById('user_options-forms');
+    this.typeForm = 'sign-up';
+    userForms.classList.remove('bounceRight');
+    userForms.classList.add('bounceLeft');
+  }
+
+  /**
+   * Add event listener to the "Login" button
+   */
+  show_login_form() {
+    const userForms = document.getElementById('user_options-forms');
+    this.typeForm = 'login';
+    userForms.classList.remove('bounceLeft');
+    userForms.classList.add('bounceRight');
   }
 
   stopCarret(obj: any) {
@@ -237,10 +239,14 @@ export class LoginComponent implements OnInit {
         error => {
           log.debug(`Login error: ${error}`);
           this.signuperrorregistered = error.error['email_registered'];
-          this.signuperrorexists = error.error['email_exists'];
+          this.signuperrorexists = error.error['email'];
           this.signuperrorphonenumber = error.error['phone_number'];
         }
       );
+  }
+
+  backFromOTP() {
+    this.show_otp_form = false;
   }
 
   resendOnboardingEmail() {
