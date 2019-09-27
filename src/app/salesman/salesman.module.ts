@@ -16,10 +16,12 @@ import { SalesmanService } from '@app/salesman/salesman.service';
 import { SalesmanretailerListComponent } from '@app/salesman/retailerList/salesmanretailerList.component';
 import { SalesmanaddRetailerComponent } from '@app/salesman/addRetailer/salesmanaddRetailer.component';
 import { RouterModule } from '@angular/router';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 @NgModule({
   imports: [
     NgbModule.forRoot(),
+    Ng4GeoautocompleteModule.forRoot(),
     RouterModule,
     ReactiveFormsModule,
     CommonModule,

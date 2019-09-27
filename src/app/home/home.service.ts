@@ -12,7 +12,11 @@ import { Utils } from '@app/shared/utils/utils';
 export class HomeService {
   constructor(private http: HttpClient) {}
 
-  cardListData(roleType: any) {
-    return this.http.get(`${URLS.FILTER_CARD_LIST__API[roleType]}`);
+  cardListData(roleType: any, orderFromSalesman?: any) {
+    if (orderFromSalesman) {
+      return this.http.get(`${URLS.FILTER_CARD_LIST__API[roleType]}`);
+    } else {
+      return this.http.get(`${URLS.FILTER_CARD_LIST__API[roleType]}` + '?=' + orderFromSalesman);
+    }
   }
 }

@@ -24,7 +24,10 @@
     <h5 class="card-title mb-4" style="color: #ec2c70;">{{ list_type }} list</h5>
     <div class="card">
       <div class="card-body">
-        <div *ngIf="listOfUsers.length === 0">No {{ list_type }}s found.</div>
+        <div *ngIf="listOfUsers.length === 0">
+          <span>No {{ list_type }}s found.</span>
+          <img style="width: 590px;" src="../../../assets/images/salesman/not_found.svg" />
+        </div>
         <div *ngIf="listOfUsers.length > 0">
           <div class="fluid-container" *ngFor="let user of listOfUsers">
             <div class="ticket-card mt-3 border-bottom" style="display: flex; flex-direction: row; flex-grow: 1">
@@ -43,7 +46,7 @@
                   </div>
                   <div>
                     <div class="ticket-actions" *ngIf="list_type === 'Retailer'">
-                      <div class="btn-group dropdown" style="float: right;" *ngIf="fuctionality == 'place_order'">
+                      <div class="btn-group dropdown" style="float: right;" *ngIf="fuctionality === 'place_order'">
                         <button
                           (click)="navigateAddOrderPage('order', user['slug'])"
                           type="button"
@@ -55,7 +58,7 @@
                           Order Now
                         </button>
                       </div>
-                      <div class="btn-group dropdown" style="float: right;" *ngIf="fuctionality == 'order_list'">
+                      <div class="btn-group dropdown" style="float: right;" *ngIf="fuctionality === 'order_list'">
                         <button
                           (click)="navigateAddOrderPage('order-list', user['slug'])"
                           type="button"
