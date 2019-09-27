@@ -70,7 +70,7 @@
           MedPure is one stop solution for managing all the processes of drug stores from delivering stock to inventory
           management.
         </p>
-        <button class="user_unregistered-signup" id="signup-button">Sign up</button>
+        <button class="user_unregistered-signup" id="signup-button" (click)="show_sign_up_form()">Sign up</button>
       </div>
 
       <div class="user_options-registered">
@@ -78,7 +78,7 @@
         <p class="user_registered-text">
           Quality in a service or product is not what you put into it. It's what the customer get out of it.
         </p>
-        <button class="user_registered-login" id="login-button">Login</button>
+        <button class="user_registered-login" (click)="show_login_form()" id="login-button">Login</button>
       </div>
     </div>
 

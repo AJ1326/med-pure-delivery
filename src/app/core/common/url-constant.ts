@@ -17,6 +17,7 @@ export const URLS = {
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,
   REGISTRATION_API: `rest-auth/registration/`,
+  PRODUCT_SEARCH_API: `products/?search=`,
 
   //Home page card filter data
   FILTER_CARD_LIST__API: {
@@ -43,6 +44,6 @@ export const URLS = {
   SALESMAN_RETAILER_LIST_API: `retailers/`,
   SALESMAN_RETAILER_SEARCH_API: `retailer_list/?search=`,
   SALESMAN_DISTRIBUTOR_LIST_API: `distributors/`,
-  SALESMAN_ADD_RETAILER: `salesman/add-retailers/`,
-  SALESMAN_VERIFY_OTP_RETAILER: `salesman/add-retailers/validate_otp/`
+  SALESMAN_ADD_RETAILER: `salesman/retailers/`,
+  SALESMAN_VERIFY_OTP_RETAILER: `salesman/retailers/validate_otp/`
 };
