@@ -8,6 +8,20 @@ import { PlacingOrderComponent } from '@app/placingOrder/placingOrder.component'
 
 const routes: Routes = [
   Shell.retailerShell([
+    // {
+    //   path: '',
+    //   children: [
+    //     {
+    //       path: '',
+    //       redirectTo: 'home',
+    //       pathMatch: 'full'
+    //     },
+    //     {
+    //       path: 'home',
+    //       component: HomeComponent
+    //     }
+    //   ]
+    // }
     {
       path: 'home',
       component: HomeComponent,

@@ -23,8 +23,12 @@ const routes: Routes = [
       component: OnboardingComponent
     }
   ]),
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  // {
+  //   path: '',
+  //   loadChildren: './home/home-routing.module/#HomeModule'
+  // },
+  // { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
