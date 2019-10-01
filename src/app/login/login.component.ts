@@ -63,9 +63,9 @@ export class LoginComponent implements OnInit {
       const roleType = this.authenticationService.permissionView();
       console.log('roleType', roleType);
       if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
+        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/'], { replaceUrl: true }));
       } else if (roleType === 'distributor') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor/home'], { replaceUrl: true }));
+        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor/'], { replaceUrl: true }));
       } else if (roleType === 'salesman') {
         this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
       } else {
@@ -161,11 +161,9 @@ export class LoginComponent implements OnInit {
           if (roleType === 'salesman' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
           } else if (roleType === 'retailer' && onboard) {
-            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
+            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
           } else if (roleType === 'distributor' && onboard) {
-            this.route.queryParams.subscribe(params =>
-              this.router.navigate(['/distributor/home'], { replaceUrl: true })
-            );
+            this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
           } else if (!onboard) {
             console.log('Working');
             this.route.queryParams.subscribe(params => this.router.navigate(['/boarding'], { replaceUrl: true }));
@@ -348,6 +346,8 @@ export class LoginComponent implements OnInit {
   }
 
   forget() {
+    this.ForgetPasswordErrorMessage = '';
+
     this.forgrt_email_sent = false;
     console.log('this.loginForm.value', this.forgetPasswordForm.value);
     this.isLoading = true;

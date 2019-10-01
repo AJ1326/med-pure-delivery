@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-on-board-shell',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./onboardshell.component.scss']
 })
 export class BoardingShellComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.router.url);
+    if (this.router.url === '/boarding') {
+      this.router.navigate(['login'], { replaceUrl: true });
+    }
+  }
 }
