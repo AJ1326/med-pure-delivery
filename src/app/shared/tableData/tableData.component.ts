@@ -39,14 +39,16 @@ export class ChangeDateFormat implements PipeTransform {
   styleUrls: ['./tableData.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TableDataComponent implements OnInit {
+export class TableDataComponent implements OnInit, OnDestroy {
   disabled = false;
   closeResult: string;
   total$: Observable<number>;
   orderListDataFilter: any;
   rejectOrderModel: any;
-  filter_type = 'all-order-list';
+  filter_type: string | null = null;
   user_info: any;
+  orderListData_sub: any;
+  filter_type_sub: any;
   // pendingMedicineDate: any;
 
   //  Order data
@@ -65,14 +67,13 @@ export class TableDataComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private homeService: HomeService
   ) {
-    tableDataService.orderlist$.subscribe((data: any) => {
-      console.log('orderlist$------->>', data);
-      this.orderListData = data;
-    });
-
-    tableDataService.filterTypeValue.subscribe(value => {
+    this.filter_type_sub = tableDataService.filterTypeValue.subscribe(value => {
       console.log('---------d-----d---> ', value);
       this.filter_type = value;
+    });
+    this.orderListData_sub = tableDataService.orderlist$.subscribe((data: any) => {
+      console.log('orderlist$------->>', data);
+      this.orderListData = data;
     });
 
     this.total$ = tableDataService.total$;
@@ -82,6 +83,11 @@ export class TableDataComponent implements OnInit {
 
   ngOnInit() {
     this.user_info = this.authenticationService.userInfo();
+  }
+
+  ngOnDestroy(): void {
+    this.orderListData_sub.unsubscribe();
+    this.filter_type_sub.unsubscribe();
   }
 
   open(content: any, data?: any) {
