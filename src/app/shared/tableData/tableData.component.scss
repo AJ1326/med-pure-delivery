@@ -685,9 +685,14 @@ a.remove {
 //}
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .desktop-view {
     display: none !important;
+  }
+  .d-desktop-none {
+    display: flex !important;
+    flex-direction: row;
+    padding-left: 15px;
   }
   .mobile-view {
     display: block !important;
@@ -701,6 +706,10 @@ a.remove {
   .product-status {
     margin-left: 0 !important;
   }
+}
+
+.d-desktop-none {
+  display: none;
 }
 
 .product-status {

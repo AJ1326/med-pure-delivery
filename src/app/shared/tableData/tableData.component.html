@@ -524,11 +524,23 @@
                         >{{ order.order_datetime | changeDateFormat }} days ago</small
                       >
                     </div>
-                    <!--                    <div class="col-3 d-flex">-->
-                    <!--                      <div style="font-size: 13px; font-weight: 400;" class="badge badge-outline-primary badge-pill">-->
-                    <!--                        {{ order.status }}-->
-                    <!--                      </div>-->
-                    <!--                    </div>-->
+                  </div>
+                  <!-- For mobile view-->
+                  <div class="row text-gray d-md-flex d-desktop-none">
+                    <div class="d-flex">
+                      <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Amount:</small>
+                      <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.total_amount }}</small>
+                    </div>
+                    <div class="d-flex">
+                      <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Quantity:</small>
+                      <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.quantity }}</small>
+                    </div>
+                    <div class="d-flex">
+                      <!--<small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Recieved:</small>-->
+                      <small class="Last-responded mr-2 mb-0 text-muted text-muted"
+                        >{{ order.order_datetime | changeDateFormat }} days ago</small
+                      >
+                    </div>
                   </div>
                 </div>
                 <!--                <div class="ticket-actions col-md-2">-->
