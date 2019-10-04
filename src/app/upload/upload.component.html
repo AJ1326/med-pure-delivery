@@ -3,32 +3,38 @@
 </div>
 
 <div class="row select-upload-modal" *ngIf="chooseUploadValue">
-  <div class="col-md-6" style="display: flex; flex-direction: column;">
-    <span style="font-size: 24px; font-weight: 200;">Choose</span>
-    <div style="padding-top: 40px;">
+  <div style="display: flex; flex-direction: column;">
+    <span style="font-size: 24px; font-weight: 200;">Choose an option.</span>
+    <div style="padding-top: 40px; display: flex; flex-direction: column">
+      <span style="color: #0c85d0">
+        Uploading all the products
+      </span>
       <button
-        style="width: 465px;
+        style="
     font-size: 20px;
-    font-weight: bolder;"
+    font-weight: 300;"
         (click)="chooseUpload(true)"
         class="btn btn-outline-primary"
         type="button"
       >
-        Uploading all the products
+        All
       </button>
+      <span style="color: deeppink; margin-top: 20px;">
+        Uploading new products to your old list.
+      </span>
       <button
-        style="width: 465px;
+        style="
     font-size: 20px;
-    font-weight: 300; margin-top: 20px;"
+    font-weight: 300;"
         (click)="chooseUpload(false)"
         class="btn btn-outline-danger"
         type="button"
       >
-        Uploading new products to your old list.
+        New
       </button>
     </div>
   </div>
-  <img class="col-md-6" style="width: 546px; float: right;" src="../../assets/images/upload/choose_upload_option.svg" />
+  <img style="width: 50%; float: right; margin: auto" src="../../assets/images/upload/choose_upload_option.svg" />
 </div>
 <div *ngIf="!chooseUploadValue" class="upload-centre">
   <div>
