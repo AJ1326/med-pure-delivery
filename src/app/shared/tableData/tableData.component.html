@@ -711,6 +711,7 @@
                   >
                     {{ order['retailer']['name'] }}:
                   </p>
+
                   <p class="text-primary mr-1 mb-0">[#{{ order.order_id }}]</p>
                   <p *ngIf="role_type === 'retailer'" class="mb-0 ellipsis">
                     {{ order['distributor']['name'] }} ({{ order.company.toLowerCase() }}).
@@ -741,26 +742,43 @@
                   <!--                      </div>-->
                   <!--                    </div>-->
                 </div>
+                <!-- For mobile view-->
+                <div class="row text-gray  d-desktop-none">
+                  <div class="d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Amount:</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.total_amount }}</small>
+                  </div>
+                  <div class="d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Quantity:</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.quantity }}</small>
+                  </div>
+                  <div class="d-flex">
+                    <!--<small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Recieved:</small>-->
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted"
+                      >{{ order.order_datetime | changeDateFormat }} days ago</small
+                    >
+                  </div>
+                </div>
+                <!--                <div class="ticket-actions col-md-2">-->
+                <!--                  <div class="btn-group dropdown">-->
+                <!--                    <button-->
+                <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                <!--                      (click)="open(Reject, order)"-->
+                <!--                      type="button"-->
+                <!--                    >-->
+                <!--                      Reject-->
+                <!--                    </button>-->
+                <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                </div>-->
               </div>
-              <!--                <div class="ticket-actions col-md-2">-->
-              <!--                  <div class="btn-group dropdown">-->
-              <!--                    <button-->
-              <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
-              <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-              <!--                      (click)="open(Reject, order)"-->
-              <!--                      type="button"-->
-              <!--                    >-->
-              <!--                      Reject-->
-              <!--                    </button>-->
-              <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
-              <!--                  </div>-->
-              <!--                </div>-->
             </div>
           </div>
         </div>
@@ -822,6 +840,7 @@
                   >
                     {{ order['retailer']['name'] }}:
                   </p>
+
                   <p class="text-primary mr-1 mb-0">[#{{ order.order_id }}]</p>
                   <p *ngIf="role_type === 'retailer'" class="mb-0 ellipsis">
                     {{ order['distributor']['name'] }} ({{ order.company.toLowerCase() }}).
@@ -846,106 +865,124 @@
                       >{{ order.order_datetime | changeDateFormat }} days ago</small
                     >
                   </div>
+                </div>
+                <!-- For mobile view-->
+                <div class="row text-gray  d-desktop-none">
+                  <div class="d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Amount:</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.total_amount }}</small>
+                  </div>
+                  <div class="d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Quantity:</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ order.quantity }}</small>
+                  </div>
+                  <div class="d-flex">
+                    <!--<small class="mb-0 mr-2 text-muted text-muted text-muted-sub">Recieved:</small>-->
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted"
+                      >{{ order.order_datetime | changeDateFormat }} days ago</small
+                    >
+                  </div>
+
                   <!--                    <div class="col-3 d-flex">-->
                   <!--                      <div style="font-size: 13px; font-weight: 400;" class="badge badge-outline-primary badge-pill">-->
                   <!--                        {{ order.status }}-->
                   <!--                      </div>-->
                   <!--                    </div>-->
                 </div>
+                <!--                <div class="ticket-actions col-md-2">-->
+                <!--                  <div class="btn-group dropdown">-->
+                <!--                    <button-->
+                <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
+                <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
+                <!--                      (click)="open(Reject, order)"-->
+                <!--                      type="button"-->
+                <!--                    >-->
+                <!--                      Reject-->
+                <!--                    </button>-->
+                <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                </div>-->
               </div>
-              <!--                <div class="ticket-actions col-md-2">-->
-              <!--                  <div class="btn-group dropdown">-->
-              <!--                    <button-->
-              <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
-              <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-              <!--                      (click)="open(Reject, order)"-->
-              <!--                      type="button"-->
-              <!--                    >-->
-              <!--                      Reject-->
-              <!--                    </button>-->
-              <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
-              <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
-              <!--                  </div>-->
-              <!--                </div>-->
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<ng-template #other_no_data style="padding-top: 3em;">
-  <img class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
-</ng-template>
+  <ng-template #other_no_data style="padding-top: 3em;">
+    <img class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
+  </ng-template>
 
-<div class="d-flex justify-content-between p-2">
-  <ngb-pagination
-    class="pagination-separated"
-    [collectionSize]="total$ | async"
-    [(page)]="tableDataService.page"
-    [pageSize]="tableDataService.pageSize"
-  >
-  </ngb-pagination>
-
-  <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tableDataService.pageSize">
-    <option [ngValue]="10">10</option>
-    <option [ngValue]="25">25</option>
-    <option [ngValue]="50">50</option>
-  </select>
-</div>
-
-<div>
-  <app-loader></app-loader>
-</div>
-
-<ng-template #Reject let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title" style="font-size: 18px;">Are you sure ?</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-footer">
-    <button
-      class="btn btn-success btn-rounded btn-fw btn-yes"
-      type="button"
-      (click)="submitAlert(); modal.dismiss('yes click')"
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      class="pagination-separated"
+      [collectionSize]="total$ | async"
+      [(page)]="tableDataService.page"
+      [pageSize]="tableDataService.pageSize"
     >
-      Yes
-    </button>
-    <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">
-      No
-    </button>
-  </div>
-</ng-template>
+    </ngb-pagination>
 
-<ng-template #Reorder let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-reorder">Order list</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tableDataService.pageSize">
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="25">25</option>
+      <option [ngValue]="50">50</option>
+    </select>
   </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label>Product list</label>
-        <div class="input-group"></div>
-      </div>
-    </form>
+
+  <div>
+    <app-loader></app-loader>
   </div>
-  <div class="modal-footer">
-    <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">
-      Yes
-    </button>
-    <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button">
-      No
-    </button>
-  </div>
-</ng-template>
+
+  <ng-template #Reject let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" style="font-size: 18px;">Are you sure ?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button
+        class="btn btn-success btn-rounded btn-fw btn-yes"
+        type="button"
+        (click)="submitAlert(); modal.dismiss('yes click')"
+      >
+        Yes
+      </button>
+      <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">
+        No
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #Reorder let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-reorder">Order list</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label>Product list</label>
+          <div class="input-group"></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">
+        Yes
+      </button>
+      <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button">
+        No
+      </button>
+    </div>
+  </ng-template>
+</div>

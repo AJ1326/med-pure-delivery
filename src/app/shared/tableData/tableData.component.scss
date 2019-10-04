@@ -684,10 +684,19 @@ a.remove {
 //  }
 //}
 
+.d-desktop-none {
+  display: none;
+}
+
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .desktop-view {
     display: none !important;
+  }
+  .d-desktop-none {
+    display: flex !important;
+    flex-direction: row;
+    padding-left: 15px;
   }
   .mobile-view {
     display: block !important;
@@ -802,10 +811,6 @@ a.remove {
   .distributor-reject {
     border-radius: 0 !important;
   }
-}
-
-.text-muted {
-  font-size: 15px !important;
 }
 
 .text-muted-sub {
@@ -952,6 +957,7 @@ a.remove {
     border-top-style: solid;
     border-top-width: 1px;
   }
+
   .media-display-none {
     display: none;
   }
@@ -960,10 +966,12 @@ a.remove {
     display: flex;
     flex-direction: row;
   }
+
   .media-flex-column {
     display: flex;
     flex-direction: column;
   }
+
   .table td,
   .table th {
     vertical-align: middle;
@@ -973,6 +981,7 @@ a.remove {
     padding-left: 0px;
     padding-right: 0px;
   }
+
   .media-static {
     display: initial;
   }
