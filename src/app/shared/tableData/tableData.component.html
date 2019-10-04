@@ -865,6 +865,23 @@
                       >{{ order.order_datetime | changeDateFormat }} days ago</small
                     >
                   </div>
+                  <div class="col-3 d-flex">
+                    <div
+                      [ngClass]="{
+                        'status-pending-color': order.status == 'pending',
+                        'status-in_process-color': order.status == 'in_process',
+                        'status-accepted_by_distributor-color': order.status == 'accepted_by_distributor',
+                        'status-picked_up_by_delivery_boy-color': order.status == 'picked_up_by_delivery_boy',
+                        'status-delivered_delivery_boy-color': order.status == 'delivered_delivery_boy',
+                        'status-accepted_by_retailer-color': order.status == 'accepted_by_retailer',
+                        'status-cancel-color': order.status == 'cancel'
+                      }"
+                      style="font-size: 13px; font-weight: 400;"
+                      class="badge badge-outline-primary badge-pill"
+                    >
+                      {{ order.status }}
+                    </div>
+                  </div>
                 </div>
                 <!-- For mobile view-->
                 <div class="row text-gray  d-desktop-none">
@@ -881,6 +898,24 @@
                     <small class="Last-responded mr-2 mb-0 text-muted text-muted"
                       >{{ order.order_datetime | changeDateFormat }} days ago</small
                     >
+                  </div>
+
+                  <div class="d-flex">
+                    <div
+                      [ngClass]="{
+                        'status-pending-color': order.status == 'pending',
+                        'status-in_process-color': order.status == 'in_process',
+                        'status-accepted_by_distributor-color': order.status == 'accepted_by_distributor',
+                        'status-picked_up_by_delivery_boy-color': order.status == 'picked_up_by_delivery_boy',
+                        'status-delivered_delivery_boy-color': order.status == 'delivered_delivery_boy',
+                        'status-accepted_by_retailer-color': order.status == 'accepted_by_retailer',
+                        'status-cancel-color': order.status == 'cancel'
+                      }"
+                      style="font-size: 13px; font-weight: 400;"
+                      class="badge badge-outline-primary badge-pill"
+                    >
+                      {{ order.status }}
+                    </div>
                   </div>
 
                   <!--                    <div class="col-3 d-flex">-->
