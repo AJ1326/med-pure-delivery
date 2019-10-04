@@ -36,7 +36,7 @@ export const URLS = {
     'all-order-list': '/',
     'by-source': '/by_source/',
     'pending-order-list': '/pending_orders/',
-    'fast-moving-order-list': '/'
+    'fast-moving-order-list': '/all_orders/'
   },
   // DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`,
   UPLOAD_LIST_API: `uploads/distributor_product_list/`,
