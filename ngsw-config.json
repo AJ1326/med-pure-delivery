@@ -2,8 +2,9 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "app-root",
       "installMode": "prefetch",
+      "updateMode": "prefetch",
       "resources": {
         "files": ["/favicon.ico", "/index.html", "/*.css", "/*.js"]
       }

@@ -51,12 +51,14 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { ForgetPasswordModule } from '@app/forgetPassword/forgetPassword.module';
 import { ForgetPasswordRoutingModule } from '@app/forgetPassword/forgetPassword-routing.module';
+import { SwUpdatesModule } from './sw-updates/sw-updates.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     GooglePlaceModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    SwUpdatesModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     HttpClientModule,
     HotkeyModule.forRoot(),
