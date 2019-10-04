@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import * as _ from 'lodash';
 
 const log = new Logger('Salesman home');
 
@@ -38,6 +39,21 @@ export class SalesmanaddRetailerComponent implements OnInit {
   signuperrorphonenumber: string;
   //retailer sign up ends
   error: any;
+  //Geo location
+  public componentData4: any = '';
+  public userSettings = {
+    showCurrentLocation: false,
+    showSearchButton: false,
+    currentLocIconUrl: 'https://cdn4.iconfinder.com/data/icons/proglyphs-traveling/512/Current_Location-512.png',
+    locationIconUrl: 'http://www.myiconfinder.com/uploads/iconsets/369f997cef4f440c5394ed2ae6f8eecd.png',
+    recentStorageName: 'componentData4',
+    noOfRecentSearchSave: 3,
+    geoCountryRestriction: ['in']
+  };
+  zipcode_value = '';
+  state_value = '';
+  city_value = '';
+  invalidLocation = false;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -56,6 +72,31 @@ export class SalesmanaddRetailerComponent implements OnInit {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
+    setTimeout(() => {
+      this.userSettings['inputPlaceholderText'] = 'Address line 1';
+      this.userSettings = Object.assign({}, this.userSettings);
+    }, 5000);
+  }
+
+  autoCompleteCallback1(selectedData: any) {
+    this.zipcode_value = _.find(selectedData.data['address_components'], function(data_type: any) {
+      return data_type['types'][0] === 'postal_code';
+    });
+    this.state_value = _.find(selectedData.data['address_components'], function(data_type: any) {
+      return data_type['types'][0] === 'administrative_area_level_1';
+    });
+    this.city_value = _.find(selectedData.data['address_components'], function(data_type: any) {
+      return data_type['types'][0] === 'administrative_area_level_2';
+    });
+    if (this.zipcode_value && this.state_value && this.city_value) {
+      this.invalidLocation = false;
+      this.signUpRetailerForm.controls['zip_code'].setValue(this.zipcode_value ? this.zipcode_value['long_name'] : '');
+      this.signUpRetailerForm.controls['state'].setValue(this.state_value ? this.state_value['long_name'] : '');
+      this.signUpRetailerForm.controls['city'].setValue(this.city_value ? this.city_value['long_name'] : '');
+      this.signUpRetailerForm.controls['address_line_2'].setValue(selectedData.data['description']);
+    } else {
+      this.invalidLocation = true;
+    }
   }
 
   ngOnInit() {
@@ -166,7 +207,7 @@ export class SalesmanaddRetailerComponent implements OnInit {
           log.debug(`Login error: ${error}`);
           this.isLoading = false;
           this.signuperrorregistered = error.error['email_registered'];
-          this.signuperrorexists = error.error['email_exists'];
+          this.signuperrorexists = error.error['email'];
           this.signuperrorphonenumber = error.error['phone_number'];
         }
       );
@@ -178,12 +219,12 @@ export class SalesmanaddRetailerComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', [Validators.email()]],
       phone_number: ['', [Validators.ValidatePhoneNumber()]],
-      gender: ['retailer', Validators.required()],
+      gender: ['', Validators.required()],
       address_line_1: ['', Validators.required()],
-      address_line_2: [''],
+      address_line_2: ['', Validators.required()],
       shop_name: ['', Validators.required()],
       city: ['', Validators.required()],
-      state: ['Maharashtra', Validators.required()],
+      state: ['', Validators.required()],
       zip_code: ['', [Validators.required(), Validators.validZipCode()]]
     });
   }

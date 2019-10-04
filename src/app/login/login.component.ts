@@ -61,71 +61,65 @@ export class LoginComponent implements OnInit {
     const role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (role) {
       const roleType = this.authenticationService.permissionView();
+      console.log('roleType', roleType);
       if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
-      } else if (roleType === 'retailer') {
-        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
+        this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/'], { replaceUrl: true }));
+      } else if (roleType === 'distributor') {
+        this.route.queryParams.subscribe(params => this.router.navigate(['/distributor/'], { replaceUrl: true }));
+      } else if (roleType === 'salesman') {
+        this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
       } else {
         this.route.queryParams.subscribe(params => this.router.navigate([params.redirect || ''], { replaceUrl: true }));
       }
     } else {
-      /**
-       * Variables
-       */
-      const signupButton = document.getElementById('signup-button'),
-        loginButton = document.getElementById('login-button'),
-        userForms = document.getElementById('user_options-forms');
-
-      /**
-       * Add event listener to the "Sign Up" button
-       */
-      signupButton.addEventListener(
-        'click',
-        () => {
-          this.typeForm = 'sign-up';
-          userForms.classList.remove('bounceRight');
-          userForms.classList.add('bounceLeft');
-        },
-        false
-      );
-
-      /**
-       * Add event listener to the "Login" button
-       */
-      loginButton.addEventListener(
-        'click',
-        () => {
-          this.typeForm = 'login';
-          userForms.classList.remove('bounceLeft');
-          userForms.classList.add('bounceRight');
-        },
-        false
-      );
+      this.route.queryParams.subscribe(params => this.router.navigate([params.redirect || ''], { replaceUrl: true }));
     }
+  }
 
-    // OTP code
-    // let obj = document.getElementById('partitioned');
-    // obj.addEventListener('keydown', this.stopCarret);
-    // obj.addEventListener('keyup', this.stopCarret);
+  /**
+   * Add event listener to the "Sign Up" button
+   */
+  show_sign_up_form() {
+    const userForms = document.getElementById('user_options-forms');
+    this.typeForm = 'sign-up';
+    userForms.classList.remove('bounceRight');
+    userForms.classList.add('bounceLeft');
+  }
+
+  /**
+   * Add event listener to the "Login" button
+   */
+  show_login_form() {
+    const userForms = document.getElementById('user_options-forms');
+    this.typeForm = 'login';
+    userForms.classList.remove('bounceLeft');
+    userForms.classList.add('bounceRight');
   }
 
   stopCarret(obj: any) {
+    console.log('obj', obj);
     if (obj.value.length > 3) {
+      console.log('obj.value.length', obj.value.length);
       this.setCaretPosition(obj, 3);
     }
   }
 
   setCaretPosition(elem: any, caretPos: any) {
+    console.log(elem, 'elem', caretPos, 'caretPos');
     if (elem != null) {
       if (elem.createTextRange) {
         var range = elem.createTextRange();
+        console.log(range, 'range');
         range.move('character', caretPos);
         range.select();
       } else {
         if (elem.selectionStart) {
-          // elem.focus();
+          console.log(elem.selectionStart, 'elem.selectionStart');
+          elem.focus();
           elem.setSelectionRange(caretPos, caretPos);
-        } else elem.focus();
+        } else {
+          elem.focus();
+        }
       }
     }
   }
@@ -159,21 +153,17 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(
         credentials => {
-          console.log('yolo mf: ', credentials);
           this.authenticationService.setCredentials(credentials);
-          // this.userInfo();
           log.debug(`${credentials.user} successfully logged in`);
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
-          console.log('onboardingView mf: ', onboard);
+          console.log('onboard roleType', onboard, roleType);
           if (roleType === 'salesman' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
           } else if (roleType === 'retailer' && onboard) {
-            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/home'], { replaceUrl: true }));
+            this.route.queryParams.subscribe(params => this.router.navigate(['/retailer'], { replaceUrl: true }));
           } else if (roleType === 'distributor' && onboard) {
-            this.route.queryParams.subscribe(params =>
-              this.router.navigate(['/distributor/home'], { replaceUrl: true })
-            );
+            this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
           } else if (!onboard) {
             console.log('Working');
             this.route.queryParams.subscribe(params => this.router.navigate(['/boarding'], { replaceUrl: true }));
@@ -237,10 +227,14 @@ export class LoginComponent implements OnInit {
         error => {
           log.debug(`Login error: ${error}`);
           this.signuperrorregistered = error.error['email_registered'];
-          this.signuperrorexists = error.error['email_exists'];
+          this.signuperrorexists = error.error['email'];
           this.signuperrorphonenumber = error.error['phone_number'];
         }
       );
+  }
+
+  backFromOTP() {
+    this.show_otp_form = false;
   }
 
   resendOnboardingEmail() {
@@ -352,6 +346,8 @@ export class LoginComponent implements OnInit {
   }
 
   forget() {
+    this.ForgetPasswordErrorMessage = '';
+
     this.forgrt_email_sent = false;
     console.log('this.loginForm.value', this.forgetPasswordForm.value);
     this.isLoading = true;

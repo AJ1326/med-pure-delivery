@@ -18,6 +18,7 @@ export class OrderListRetailerService {
 
   orderListData(startdate: string, enddate: string, page: any, limit: number, role: string, filter_type: any) {
     let qstring = '?page=' + page + '&limit=' + limit;
+    let retailer_slug = localStorage.getItem('isSalesmanOrderView');
     if (startdate) {
       qstring += '&start_date=' + startdate;
     }
@@ -27,6 +28,10 @@ export class OrderListRetailerService {
     if (filter_type === undefined || filter_type === null) {
       filter_type = 'all-order-list';
     }
+    if (retailer_slug) {
+      qstring += '&retailer_slug=' + retailer_slug;
+    }
+    console.log('retailer_slug order filter api', retailer_slug);
     return this.http.get('orders/' + role + `${URLS.ORDER_LIST_GET_API[filter_type]}` + qstring, {
       withCredentials: true
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ const log = new Logger('App');
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     private swUpdate: SwUpdate,
     private router: Router,
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     if (environment.production) {
       Logger.enableProductionMode();
     }
-    this.installPwa();
+    // this.installPwa();
     log.debug('init');
 
     // Setup translations
@@ -62,6 +62,16 @@ export class AppComponent implements OnInit {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
+  }
+
+  ngAfterViewInit() {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(() => {
+        this.swUpdate.activateUpdate().then(() => {
+          window.location.reload();
+        });
+      });
+    }
   }
 
   installPwa(): void {

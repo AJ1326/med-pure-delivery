@@ -28,7 +28,7 @@ export class AuthenticationPermissionDistributorGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const role_type = this.authenticationService.permissionView();
-    if (role_type === 'retailer') {
+    if (role_type === 'distributor') {
       return true;
     }
 

@@ -47,10 +47,13 @@ import { SalesmanlistModule } from '@app/salesman-list/salesmanlist.module';
 import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routing.module';
 import { ErrorModule } from '@app/error/error.module';
 import { ErrorRoutingModule } from '@app/error/error-routing.module';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 @NgModule({
   imports: [
     BrowserModule,
+    GooglePlaceModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     HttpClientModule,

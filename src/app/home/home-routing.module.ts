@@ -8,6 +8,20 @@ import { PlacingOrderComponent } from '@app/placingOrder/placingOrder.component'
 
 const routes: Routes = [
   Shell.retailerShell([
+    // {
+    //   path: '',
+    //   children: [
+    //     {
+    //       path: '',
+    //       redirectTo: 'home',
+    //       pathMatch: 'full'
+    //     },
+    //     {
+    //       path: 'home',
+    //       component: HomeComponent
+    //     }
+    //   ]
+    // }
     {
       path: 'home',
       component: HomeComponent,
@@ -26,12 +40,12 @@ const routes: Routes = [
       //   }
       // ],
       data: { title: extract('Home') }
-    },
-    { path: '', redirectTo: 'home', pathMatch: 'full' }
+    }
+    // { path: '', redirectTo: 'home', pathMatch: 'full' }
   ]),
   Shell.distributorShell([
-    { path: 'home', component: HomeComponent, data: { title: extract('Home') } },
-    { path: '', redirectTo: 'home', pathMatch: 'full' }
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent, data: { title: extract('Home') } }
   ]),
   Shell.salesManShell([{ path: 'order-list', component: HomeComponent, data: { title: extract('Order list') } }])
 ];

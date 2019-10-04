@@ -70,7 +70,7 @@
           MedPure is one stop solution for managing all the processes of drug stores from delivering stock to inventory
           management.
         </p>
-        <button class="user_unregistered-signup" id="signup-button">Sign up</button>
+        <button class="user_unregistered-signup" id="signup-button" (click)="show_sign_up_form()">Sign up</button>
       </div>
 
       <div class="user_options-registered">
@@ -78,7 +78,7 @@
         <p class="user_registered-text">
           Quality in a service or product is not what you put into it. It's what the customer get out of it.
         </p>
-        <button class="user_registered-login" id="login-button">Login</button>
+        <button class="user_registered-login" (click)="show_login_form()" id="login-button">Login</button>
       </div>
     </div>
 
@@ -329,8 +329,12 @@
         <!--Sign up ends-->
 
         <div class="user_forms-signup" *ngIf="show_otp_form">
-          <h2 class="forms_title">OTP</h2>
-          <span style="font-size: 12px;"> is sent to you. </span>
+          <div>
+            <i class="mdi mdi-arrow-left" (click)="backFromOTP()" style="cursor:pointer;"> Back</i>
+          </div>
+          <h2 class="forms_title" style="text-align: center;">OTP VERIFICATION</h2>
+          <span style="font-size: 12px;"> OTP is sent to your mobile number.</span><br />
+          <span style="font-size: 12px;"> Please enter the OTP to continue.</span>
           <span style="font-size: 12px;">
             <a
               style="color: #1e76c7;
@@ -352,6 +356,7 @@
                 id="partitioned"
                 class="form-control forms_field-input"
                 type="text"
+                max="4"
                 maxlength="4"
                 required
                 autofocus
@@ -564,10 +569,15 @@
         </form>
       </div>
       <div *ngIf="show_otp_form">
-        <h2 class="forms_title">Enter OTP</h2>
-        <h4>Please enter the OTP sent to your mobile.</h4>
-        <h5>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h5>
+        <div>
+          <h6><i class="mdi mdi-arrow-left" (click)="backFromOTP()" style="cursor:pointer;color:black"> Back</i></h6>
+        </div>
         <br />
+        <h4 class="forms_title" style="text-align: center;">OTP VERIFICATION</h4>
+        <h6>OTP is sent to your mobile number.</h6>
+        <br />
+        <h6>Please enter the OTP to continue.</h6>
+        <h6>Not received your code? <a (click)="resendOtpCode()">Resend Code</a></h6>
 
         <span style="color: red;" *ngIf="otp_error" translate>
           {{ otp_error.error }}
