@@ -16,13 +16,16 @@ export const URLS = {
   FORGOT_PASSWORD_API: `rest-auth/password/reset/`,
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,
+  //Forget password
+  FORGET_PASSWORD_API: `rest-auth/password/reset/confirm/`,
   REGISTRATION_API: `rest-auth/registration/`,
   PRODUCT_SEARCH_API: `products/?search=`,
 
   //Home page card filter data
   FILTER_CARD_LIST__API: {
     retailer: `retailer/dashboard`,
-    distributor: `distributor/dashboard`
+    distributor: `distributor/dashboard`,
+    salesman: `retailer/dashboard`
   },
   // List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
@@ -31,6 +34,11 @@ export const URLS = {
   ORDER_LIST_PLACED_API: {
     retailer: `orders/retailer/`,
     distributor: `orders/distributor/`
+  },
+  ORDER_LIST_FILTER_VIEW_API: {
+    retailer: `orders/retailer`,
+    distributor: `orders/distributor`,
+    salesman: `orders/retailer`
   },
   ORDER_LIST_GET_API: {
     'all-order-list': '/',

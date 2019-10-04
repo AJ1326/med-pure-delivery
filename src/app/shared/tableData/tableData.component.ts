@@ -16,6 +16,8 @@ import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { ModalDismissReasons, NgbAccordionConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderListService } from '@app/orderList/order-list.service';
 import { AuthenticationService } from '@app/core';
+import { HomeService } from '@app/home/home.service';
+import { finalize } from 'rxjs/operators';
 
 @Pipe({ name: 'changeDateFormat' })
 export class ChangeDateFormat implements PipeTransform {
@@ -62,7 +64,8 @@ export class TableDataComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private orderListService: OrderListService,
     public tableDataService: TableDataService,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    private homeService: HomeService
   ) {
     this.filter_type_sub = tableDataService.filterTypeValue.subscribe(value => {
       console.log('---------d-----d---> ', value);
@@ -124,7 +127,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
 
   downLoadOrders(): void {
     this.orderListService.acceptPendingOrderList().subscribe((data: any) => {
-      console.log('working!!!!!');
+      this.homeService.cardListData(this.role_type);
       this.tableDataService._search();
     });
     this.orderListService.downloadPendingProductList().subscribe((data: any) => {

@@ -6,6 +6,7 @@
 
 .main-panel {
   background: #f2f8f9;
+  width: 100%;
 }
 
 .sidebar-active {
@@ -22,7 +23,7 @@
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 986px) {
   .sidebar_mobile {
     display: block;
   }
@@ -79,4 +80,17 @@
   font-weight: 100;
   padding-left: 2%;
   padding-top: 2%;
+}
+
+.overlay_sidenav {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(224, 236, 239, 0.45);
+  z-index: 999;
+  cursor: pointer;
 }

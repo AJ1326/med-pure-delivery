@@ -49,6 +49,8 @@ import { ErrorModule } from '@app/error/error.module';
 import { ErrorRoutingModule } from '@app/error/error-routing.module';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+import { ForgetPasswordModule } from '@app/forgetPassword/forgetPassword.module';
+import { ForgetPasswordRoutingModule } from '@app/forgetPassword/forgetPassword-routing.module';
 
 @NgModule({
   imports: [
@@ -64,6 +66,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
     SharedModule,
     ShellModule,
     SalesmanModule,
+    ForgetPasswordModule,
     SalesmanlistModule,
     HomeModule,
     AboutModule,
@@ -84,6 +87,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
     AboutRoutingModule,
     ComingSoonRoutingModule,
     SalesmanlistRoutingModule,
+    ForgetPasswordRoutingModule,
     PlacingOrderRoutingModule,
     SavingNotesRoutingModule,
     HomeRoutingModule,

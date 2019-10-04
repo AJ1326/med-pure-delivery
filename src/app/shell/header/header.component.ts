@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
@@ -9,14 +9,14 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
   menuHidden = true;
   user_info: any;
   displaySideBar = false;
   role_type: string;
   activeTag: string;
-  userEmail: string;
 
+  @Input() sideBarDisplayOverlay: boolean;
   @Output() sideBarDisplay = new EventEmitter<boolean>();
 
   constructor(
@@ -35,6 +35,11 @@ export class HeaderComponent implements OnInit {
     this.activeTag = url.substr(url.lastIndexOf('/') + 1);
     this.user_info = this.authenticationService.userInfo();
     this.role_type = this.user_info.roles[0];
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const sideBarDisplayValue: SimpleChange = changes.sideBarDisplayOverlay;
+    this.displaySideBar = sideBarDisplayValue.currentValue;
   }
 
   activeHeaderTag(type: any) {

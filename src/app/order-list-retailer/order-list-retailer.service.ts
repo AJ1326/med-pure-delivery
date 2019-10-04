@@ -31,9 +31,11 @@ export class OrderListRetailerService {
     if (retailer_slug) {
       qstring += '&retailer_slug=' + retailer_slug;
     }
-    console.log('retailer_slug order filter api', retailer_slug);
-    return this.http.get('orders/' + role + `${URLS.ORDER_LIST_GET_API[filter_type]}` + qstring, {
-      withCredentials: true
-    });
+    return this.http.get(
+      `${URLS.ORDER_LIST_FILTER_VIEW_API[role]}` + `${URLS.ORDER_LIST_GET_API[filter_type]}` + qstring,
+      {
+        withCredentials: true
+      }
+    );
   }
 }
