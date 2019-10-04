@@ -76,7 +76,10 @@
     <app-retailer-order-list *ngIf="role_type === 'salesman'"></app-retailer-order-list>
 
     <!--Distributor Page-->
-    <app-order-list *ngIf="role_type === 'distributor'"></app-order-list>
+    <app-order-list
+      (all_csv_downloaded)="orderAcceptedCSV($event)"
+      *ngIf="role_type === 'distributor'"
+    ></app-order-list>
   </router-outlet>
 </div>
 

@@ -30,25 +30,6 @@ function compare(v1: any, v2: any) {
   return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }
 
-// function sort(orders: OrderList[], column: string, direction: string): OrderList[] {
-//   if (direction === '') {
-//     return orders;
-//   } else {
-//     return [...orders].sort((a, b) => {
-//       const res = compare(a[column], b[column]);
-//       return direction === 'asc' ? res : -res;
-//     });
-//   }
-// }
-
-// function matches(orderlist: OrderList, term: string, pipe: PipeTransform) {
-//   return (
-//     orderlist.name.toLowerCase().includes(term) ||
-//     pipe.transform(orderlist.product.map(product => product.product_name)).includes(term) ||
-//     pipe.transform(orderlist.order_number).includes(term)
-//   );
-// }
-
 const log = new Logger('Login');
 
 @Injectable({ providedIn: 'root' })
@@ -76,7 +57,6 @@ export class TableDataService {
     public authenticationService: AuthenticationService
   ) {
     this.role_type = this.authenticationService.userInfoType();
-    console.log('this.role_type tabledata', this.role_type);
     this._search$
       .pipe(
         tap(() => this._loading$.next(true)),

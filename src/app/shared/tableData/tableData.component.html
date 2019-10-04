@@ -26,8 +26,8 @@
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>
-                You can pay for the product you have purchased using credit cards, debit cards, 
-                or via online banking. We also provide cash-on-delivery services for most of our 
+                You can pay for the product you have purchased using credit cards, debit cards,
+                or via online banking. We also provide cash-on-delivery services for most of our
                 products. You can also use your account wallet for payment.
             </ng-template>
           </ngb-panel>
@@ -57,8 +57,8 @@
               </h6>
             </ng-template>
             <ng-template ngbPanelContent>
-                You can add money to the wallet for any future transaction from your bank account using net-banking, or 
-                credit/debit card transaction. The money in the wallet can be used for an easier and faster transaction.                
+                You can add money to the wallet for any future transaction from your bank account using net-banking, or
+                credit/debit card transaction. The money in the wallet can be used for an easier and faster transaction.
             </ng-template>
           </ngb-panel>
         </ngb-accordion>
@@ -98,7 +98,7 @@
         <div class="arrow">
           <i class="fa fa-angle-double-down" aria-hidden="true"></i>
         </div>
-        <!-- 
+        <!--
 
 
 
@@ -309,7 +309,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <!--  
+                    <!--
                         <div style="flex-grow: 1;">
                           <strong class="sub-order-dropdown-heading-start">Units ordered :</strong
                           ><span class="product-sub-details">{{ products.quantity }}</span>
@@ -644,7 +644,7 @@
                               ><span>{{ (order.quantity * order.product.price).toFixed(2) }}</span>
                             </p>
                           </div>
-                        </div> 
+                        </div>
                       </div>-->
                   </div>
                   <!--<div *ngIf="role_type === 'distributor'" class="badge badge-distributor-status add-btn">Reject</div>-->
@@ -793,7 +793,36 @@
       <div class="card">
         <div class="card-body">
           <div class="parent_div">
-            <div class="child_div">All Orders</div>
+            <div style="display: flex; flex-direction: row;">
+              <i
+                *ngIf="order_selected_box_status_value === 'all'"
+                class="fa fa-check-square-o"
+                style="
+                  color: rgb(194, 56, 129);
+                  margin-left: -15px;
+                  font-size: 1.3rem;
+              "
+              ></i>
+              <i
+                *ngIf="order_selected_box_status_value === 'none'"
+                class="fa fa-square-o"
+                style="
+                  color: rgb(84, 147, 228);
+                  margin-left: -15px;
+                  font-size: 1.3rem;
+              "
+              ></i>
+              <i
+                *ngIf="order_selected_box_status_value === 'partial'"
+                class="fa-minus-square"
+                style="
+                  color: darkgoldenrod;
+                  margin-left: -15px;
+                  font-size: 1.3rem;
+              "
+              ></i>
+              <div class="child_div">All Orders</div>
+            </div>
             <div class="child_div" *ngIf="role_type === 'distributor'">
               <!--<span class="download_csv" (click)="downLoadOrders()">
                   Accept orders<i class="fa fa-download" aria-hidden="true"></i>
@@ -810,6 +839,24 @@
           <!--(click)="csvDownload(order.uuid); $event.stopPropagation()"-->
           <div class="fluid-container">
             <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3" *ngFor="let order of orderListData">
+              <i
+                *ngIf="order_selected_box_status"
+                class="fa fa-check-square-o"
+                style="
+                  color: rgb(194, 56, 129);
+                  padding-top: 12px;
+                  font-size: 1.3rem;
+              "
+              ></i>
+              <i
+                *ngIf="!order_selected_box_status"
+                class="fa fa-square-o"
+                style="
+                  color: rgb(84, 147, 228);
+                  padding-top: 12px;
+                  font-size: 1.3rem;
+              "
+              ></i>
               <div class="col-md-1">
                 <img
                   *ngIf="role_type === 'distributor'"

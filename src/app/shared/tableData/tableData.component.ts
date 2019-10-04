@@ -8,7 +8,9 @@ import {
   ViewEncapsulation,
   Pipe,
   PipeTransform,
-  AfterViewInit
+  AfterViewInit,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
@@ -49,6 +51,8 @@ export class TableDataComponent implements OnInit, OnDestroy {
   user_info: any;
   orderListData_sub: any;
   filter_type_sub: any;
+  order_selected_box_status = true;
+  order_selected_box_status_value = 'all';
   // pendingMedicineDate: any;
 
   //  Order data
@@ -58,6 +62,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
   @Input() endDate: string;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  @Output() accept_all_csv_downloaded = new EventEmitter<boolean>();
 
   constructor(
     config: NgbAccordionConfig,
@@ -68,11 +73,9 @@ export class TableDataComponent implements OnInit, OnDestroy {
     private homeService: HomeService
   ) {
     this.filter_type_sub = tableDataService.filterTypeValue.subscribe(value => {
-      console.log('---------d-----d---> ', value);
       this.filter_type = value;
     });
     this.orderListData_sub = tableDataService.orderlist$.subscribe((data: any) => {
-      console.log('orderlist$------->>', data);
       this.orderListData = data;
     });
 
@@ -92,7 +95,6 @@ export class TableDataComponent implements OnInit, OnDestroy {
 
   open(content: any, data?: any) {
     this.orderListDataFilter = data;
-    console.log('this.orderListDataFilter:', this.orderListDataFilter);
     this.rejectOrderModel = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;
@@ -129,6 +131,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
     this.orderListService.acceptPendingOrderList().subscribe((data: any) => {
       this.homeService.cardListData(this.role_type);
       this.tableDataService._search();
+      this.accept_all_csv_downloaded.emit(true);
     });
     this.orderListService.downloadPendingProductList().subscribe((data: any) => {
       this.JSONToCSVConvertor(data, 'Pending_Orders', true);

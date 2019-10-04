@@ -54,6 +54,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  orderAcceptedCSV(value: boolean): void {
+    if (value) {
+      this.cardData();
+    }
+  }
+
   cardData(filter_title?: string): void {
     this.homeService
       .cardListData(this.role_type, this.orderFromSalesman)
