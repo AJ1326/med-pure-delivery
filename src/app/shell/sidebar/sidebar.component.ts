@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-import { Router, ActivatedRoute, Route } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core';
 
 @Component({
@@ -12,6 +11,7 @@ export class SidebarComponent implements OnChanges, OnInit {
   role_type: any;
   user_info: any;
   displaySideBar: boolean;
+  text = '';
 
   @Input() sideBarDisplay: boolean;
 
@@ -28,7 +28,6 @@ export class SidebarComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     const sideBarDisplayValue: SimpleChange = changes.sideBarDisplay;
     this.displaySideBar = sideBarDisplayValue.currentValue;
-    console.log(this.displaySideBar, 'displaySideBar');
   }
 
   ngOnInit() {

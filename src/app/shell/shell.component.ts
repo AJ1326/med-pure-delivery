@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthenticationService, Logger } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -11,15 +11,19 @@ const credentialsKey = 'credentials';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit {
-  sideBarDisplay: boolean;
+  sideBarDisplay = false;
   master = 'Master';
   openNoteBar = false;
+  public text: String;
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private eRef: ElementRef
+  ) {
+    this.text = 'no clicks yet';
+  }
 
   ngOnInit() {
     const role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
@@ -40,9 +44,8 @@ export class ShellComponent implements OnInit {
     }
   }
 
-  onClickedOutside(e: Event) {
-    console.log(e, 'Event value');
-    // this.openNoteBar = false;
+  hideSidebar(): void {
+    this.displaySideBar(false);
   }
 
   displaySideBar(display: boolean): void {

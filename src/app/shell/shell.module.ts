@@ -9,7 +9,7 @@ import {
   NgbModalConfig,
   NgbModule
 } from '@ng-bootstrap/ng-bootstrap';
-// import { ClickOutsideModule } from 'ng-click-outside';
+import { ClickOutsideModule } from 'ng-click-outside';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from '@app/shell/footer/footer.component';
@@ -26,6 +26,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { SalesmansidebarComponent } from '@app/shell/salesManShell/sidebar/salesmansidebar.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+import { ForgetheaderComponent } from '@app/shell/forgetPasswordShell/header/forgetheader.component';
+import { ForgetPasswordShellComponent } from '@app/shell/forgetPasswordShell/forgetshell.component';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
     Ng4GeoautocompleteModule.forRoot(),
     TranslateModule,
     NgbModule,
+    ClickOutsideModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
@@ -42,10 +45,12 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
   declarations: [
     HeaderComponent,
     ShellComponent,
+    ForgetheaderComponent,
     FooterComponent,
     SidebarComponent,
     BoardingShellComponent,
     SalesManShellComponent,
+    ForgetPasswordShellComponent,
     SalesmanheaderComponent,
     SalesmansidebarComponent,
     OnboardheaderComponent,

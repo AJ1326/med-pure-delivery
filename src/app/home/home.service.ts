@@ -13,10 +13,10 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   cardListData(roleType: any, orderFromSalesman?: any) {
-    if (orderFromSalesman) {
+    if (orderFromSalesman === '') {
       return this.http.get(`${URLS.FILTER_CARD_LIST__API[roleType]}`);
     } else {
-      return this.http.get(`${URLS.FILTER_CARD_LIST__API[roleType]}` + '?=' + orderFromSalesman);
+      return this.http.get(`${URLS.FILTER_CARD_LIST__API[roleType]}` + '?retailer_slug=' + orderFromSalesman);
     }
   }
 }

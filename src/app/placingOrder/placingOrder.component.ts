@@ -112,6 +112,10 @@ export class PlacingOrderComponent implements OnInit {
       .subscribe(
         (data: []) => {
           this.distributor_list = data;
+          this.distributor_list = this.distributor_list.map(function(val) {
+            val['quantity'] = 1;
+            return val;
+          });
         },
         error => {
           log.debug(`Login error: ${error}`);
@@ -124,7 +128,7 @@ export class PlacingOrderComponent implements OnInit {
     this.calldisableBtnFunction(slug);
     const addOrder = this.distributor_list[orderNumber];
     let cloned_order = _.cloneDeep(addOrder);
-    cloned_order.quantity = 1;
+    // cloned_order.quantity = 1;
     this.order_list = this.order_list.concat(cloned_order);
     this.getTotalOrderValue();
   }

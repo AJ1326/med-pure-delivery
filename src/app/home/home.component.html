@@ -73,6 +73,7 @@
   <router-outlet>
     <!--Retailer Page-->
     <app-retailer-order-list *ngIf="role_type === 'retailer'"></app-retailer-order-list>
+    <app-retailer-order-list *ngIf="role_type === 'salesman'"></app-retailer-order-list>
 
     <!--Distributor Page-->
     <app-order-list *ngIf="role_type === 'distributor'"></app-order-list>
