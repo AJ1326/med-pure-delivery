@@ -794,34 +794,44 @@
         <div class="card-body">
           <div class="parent_div">
             <div style="display: flex; flex-direction: row;">
-              <i
-                *ngIf="order_selected_box_status_value === 'all'"
-                class="fa fa-check-square-o"
-                style="
+              <div (click)="toggle_overall_check_status()" *ngIf="role_type === 'distributor'">
+                <i
+                  *ngIf="order_selected_box_status_value === 'all'"
+                  class="fa fa-check-square-o"
+                  style="
                   color: rgb(194, 56, 129);
                   margin-left: -15px;
                   font-size: 1.3rem;
               "
-              ></i>
-              <i
-                *ngIf="order_selected_box_status_value === 'none'"
-                class="fa fa-square-o"
-                style="
+                ></i>
+                <i
+                  *ngIf="order_selected_box_status_value === 'none'"
+                  class="fa fa-square-o"
+                  style="
                   color: rgb(84, 147, 228);
                   margin-left: -15px;
                   font-size: 1.3rem;
               "
-              ></i>
-              <i
-                *ngIf="order_selected_box_status_value === 'partial'"
-                class="fa-minus-square"
-                style="
+                ></i>
+                <i
+                  *ngIf="order_selected_box_status_value === 'partial'"
+                  class="fa fa-minus-square-o"
+                  style="
                   color: darkgoldenrod;
                   margin-left: -15px;
                   font-size: 1.3rem;
               "
-              ></i>
+                ></i>
+              </div>
               <div class="child_div">All Orders</div>
+              <div style="padding-left: 20px;" *ngIf="role_type === 'distributor'">
+                <button class="btn btn-primary btn-sm" type="button" (click)="accept_orders_confirmation(alertModal)">
+                  Accept
+                </button>
+                <button class="btn btn-danger btn-sm" type="button" (click)="reject_orders_confirmation(alertModal)">
+                  Reject
+                </button>
+              </div>
             </div>
             <div class="child_div" *ngIf="role_type === 'distributor'">
               <!--<span class="download_csv" (click)="downLoadOrders()">
@@ -839,24 +849,29 @@
           <!--(click)="csvDownload(order.uuid); $event.stopPropagation()"-->
           <div class="fluid-container">
             <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3" *ngFor="let order of orderListData">
-              <i
-                *ngIf="order_selected_box_status"
-                class="fa fa-check-square-o"
-                style="
+              <div
+                (click)="toggle_select_order(order.order_id.toString())"
+                *ngIf="order.status === 'in_process' && role_type === 'distributor'"
+              >
+                <i
+                  *ngIf="order_selected_box_status[order.order_id.toString()]"
+                  class="fa fa-check-square-o"
+                  style="
                   color: rgb(194, 56, 129);
                   padding-top: 12px;
                   font-size: 1.3rem;
               "
-              ></i>
-              <i
-                *ngIf="!order_selected_box_status"
-                class="fa fa-square-o"
-                style="
+                ></i>
+                <i
+                  *ngIf="!order_selected_box_status[order.order_id.toString()]"
+                  class="fa fa-square-o"
+                  style="
                   color: rgb(84, 147, 228);
                   padding-top: 12px;
                   font-size: 1.3rem;
               "
-              ></i>
+                ></i>
+              </div>
               <div class="col-md-1">
                 <img
                   *ngIf="role_type === 'distributor'"
@@ -1068,3 +1083,7 @@
     </div>
   </ng-template>
 </div>
+
+<ng-template #alertModal let-modal>
+  <app-alert [alertModalRefference]="modalReference" (messageEvent)="modal_reply_function($event)"></app-alert>
+</ng-template>

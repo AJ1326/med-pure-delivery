@@ -20,6 +20,8 @@ import { OrderListService } from '@app/orderList/order-list.service';
 import { AuthenticationService } from '@app/core';
 import { HomeService } from '@app/home/home.service';
 import { finalize } from 'rxjs/operators';
+import { mapValues } from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Pipe({ name: 'changeDateFormat' })
 export class ChangeDateFormat implements PipeTransform {
@@ -50,9 +52,12 @@ export class TableDataComponent implements OnInit, OnDestroy {
   filter_type: string | null = null;
   user_info: any;
   orderListData_sub: any;
+  message: string;
   filter_type_sub: any;
-  order_selected_box_status = true;
-  order_selected_box_status_value = 'all';
+  modalReference: any;
+  order_selected_box_status: any = {};
+  order_selected_box_status_value = 'none';
+
   // pendingMedicineDate: any;
 
   //  Order data
@@ -70,19 +75,29 @@ export class TableDataComponent implements OnInit, OnDestroy {
     private orderListService: OrderListService,
     public tableDataService: TableDataService,
     public authenticationService: AuthenticationService,
+    private toastr: ToastrService,
     private homeService: HomeService
   ) {
     this.filter_type_sub = tableDataService.filterTypeValue.subscribe(value => {
       this.filter_type = value;
     });
     this.orderListData_sub = tableDataService.orderlist$.subscribe((data: any) => {
+      data.forEach(element => {
+        if (element.status === 'in_process') {
+          this.order_selected_box_status[element.order_id.toString()] = false;
+        }
+      });
       this.orderListData = data;
+      this.order_selected_box_status_value = 'all';
+      this.toggle_overall_check_status();
     });
 
     this.total$ = tableDataService.total$;
     config.closeOthers = true;
     config.type = 'info';
   }
+
+  modal_reply_function: any = function(content: any) {};
 
   ngOnInit() {
     this.user_info = this.authenticationService.userInfo();
@@ -103,6 +118,132 @@ export class TableDataComponent implements OnInit, OnDestroy {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
+  }
+
+  isTrue(element: any) {
+    return element === true;
+  }
+
+  toggle_overall_check_status() {
+    if (this.order_selected_box_status_value === 'partial') {
+      this.order_selected_box_status_value = 'none';
+      this.order_selected_box_status = mapValues(this.order_selected_box_status, function(o: any) {
+        return false;
+      });
+    } else if (this.order_selected_box_status_value === 'all') {
+      this.order_selected_box_status_value = 'none';
+      this.order_selected_box_status = mapValues(this.order_selected_box_status, function(o: any) {
+        return false;
+      });
+    } else if (this.order_selected_box_status_value === 'none') {
+      this.order_selected_box_status_value = 'all';
+      this.order_selected_box_status = mapValues(this.order_selected_box_status, function(o: any) {
+        return true;
+      });
+    }
+  }
+
+  toggle_select_order(order_id: string) {
+    this.order_selected_box_status[order_id] = !this.order_selected_box_status[order_id];
+
+    const status_values = Object.values(this.order_selected_box_status);
+
+    if (status_values.some(this.isTrue)) {
+      if (status_values.every(this.isTrue)) {
+        this.order_selected_box_status_value = 'all';
+      } else {
+        this.order_selected_box_status_value = 'partial';
+      }
+    } else {
+      this.order_selected_box_status_value = 'none';
+    }
+    console.log('------>', this.get_selected_orders_list());
+  }
+
+  accept_orders(accept_type: any) {
+    if (accept_type === 'Yes') {
+      const data = {
+        orders: this.get_selected_orders_list(),
+        status: 'accepted_by_distributor'
+      };
+      this.tableDataService.changeOrderStatus(data).subscribe(
+        (data2: any) => {
+          this.message = 'You have accepted the orders.';
+          this.toastr.success(this.message);
+          this.accept_all_csv_downloaded.emit(true);
+          this.tableDataService._search();
+        },
+        error => {
+          console.log(`Login error: ${error}`);
+          this.message = 'Some error is occurred.';
+          this.toastr.error(this.message);
+        }
+      );
+    } else {
+      this.order_selected_box_status_value = 'all';
+      this.toggle_overall_check_status();
+    }
+  }
+
+  accept_orders_confirmation(content: any) {
+    this.modal_reply_function = this.accept_orders;
+    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalReference.result.then(
+      (result: any) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason: any) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+  reject_orders(accept_type: any) {
+    if (accept_type === 'Yes') {
+      const data = {
+        orders: this.get_selected_orders_list(),
+        status: 'rejected_by_distributor'
+      };
+      this.tableDataService.changeOrderStatus(data).subscribe(
+        (data2: any) => {
+          this.message = 'You have rejected the orders.';
+          this.toastr.success(this.message);
+          this.accept_all_csv_downloaded.emit(true);
+          this.tableDataService._search();
+        },
+        error => {
+          console.log(`Login error: ${error}`);
+          this.message = 'Some error is occurred.';
+          this.toastr.error(this.message);
+        }
+      );
+      console.log('');
+    } else {
+      this.order_selected_box_status_value = 'all';
+      this.toggle_overall_check_status();
+    }
+  }
+
+  reject_orders_confirmation(content: any) {
+    this.modal_reply_function = this.reject_orders;
+    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalReference.result.then(
+      (result: any) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason: any) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  get_selected_orders_list() {
+    const checked_order_list = [];
+    for (let order_id in this.order_selected_box_status) {
+      if (this.order_selected_box_status[order_id]) {
+        checked_order_list.push(order_id);
+      }
+    }
+    return checked_order_list;
   }
 
   public getDismissReason(reason: any): string {

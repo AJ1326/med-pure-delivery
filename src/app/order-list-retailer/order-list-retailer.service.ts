@@ -38,4 +38,10 @@ export class OrderListRetailerService {
       }
     );
   }
+
+  changeStatusOrder(data: any, role: string) {
+    return this.http.patch(`${URLS.ORDER_LIST_FILTER_VIEW_API[role]}` + `${URLS.ORDER_LIST_CHANGE_STATUS}`, data, {
+      withCredentials: true
+    });
+  }
 }

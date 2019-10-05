@@ -46,6 +46,7 @@ export const URLS = {
     'pending-order-list': '/pending_orders/',
     'fast-moving-order-list': '/all_orders/'
   },
+  ORDER_LIST_CHANGE_STATUS: '/all_orders/',
   // DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`,
   UPLOAD_LIST_API: `uploads/distributor_product_list/`,
   //Salesman view

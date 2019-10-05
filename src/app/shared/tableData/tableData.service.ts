@@ -159,6 +159,12 @@ export class TableDataService {
 
   // }
 
+  public changeOrderStatus(data: any) {
+    this.role_type = this.authenticationService.userInfoType();
+
+    return this.orderListRetailerService.changeStatusOrder(data, this.role_type);
+  }
+
   public _search(): Observable<SearchResult> {
     this.isLoading = true;
     const { pageSize, page, startDate, endDate } = this._state;
