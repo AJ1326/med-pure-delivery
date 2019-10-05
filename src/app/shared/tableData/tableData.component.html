@@ -377,9 +377,17 @@
 
 <div *ngIf="filter_type === 'by-source' && !tableDataService.isLoading">
   <ngb-accordion *ngIf="orderListData.length > 0; else other_no_data" #acc="ngbAccordion">
-    <ngb-panel *ngFor="let list of orderListData">
+    <ngb-panel *ngFor="let list of orderListData; let i = index" [attr.data-index]="i">
       <!--Desktop and tablet view-->
       <ng-template ngbPanelTitle>
+        <div *ngIf="role_type === 'distributor'">
+          <button class="btn btn-primary csv_download_source" type="button">
+            <i class="mdi mdi-printer"></i>Batch {{ i + 1 }}
+          </button>
+        </div>
+        <div *ngIf="role_type === 'retailer'">
+          <button class="btn btn-primary csv_download_source" type="button"><i class="mdi mdi-printer"></i>Bill</button>
+        </div>
         <div class="row">
           <div class="col-md-4">
             <h6>
