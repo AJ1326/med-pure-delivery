@@ -223,6 +223,7 @@ export class PlacingOrderComponent implements OnInit {
       delete data['discount'];
       data['distributor'] = data['distributor_slug'];
       data['product'] = data['product_slug'];
+      data['distributor_product_slug'] = data['distributor_product_slug'];
       delete data['mrp'];
       delete data['distributor_slug'];
       delete data['product_slug'];
