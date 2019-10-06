@@ -49,6 +49,9 @@
               Distributor list
             </ng-template>
             <ng-template ngbTabContent>
+              <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0">
+                *Qauntity can't exceed the max value.
+              </span>
               <div class="container" *ngIf="distributor_list.length > 0; else emptyDistributorList">
                 <div class="row">
                   <div class="cart2 col-lg-9 col-xs-12">
@@ -69,6 +72,16 @@
                         [attr.data-index]="i"
                       >
                         <div class="col-xs-6">
+                          <div
+                            *ngIf="
+                              show_order_qauntity_error_index.indexOf(dist['uuid']) > -1;
+                              else other_btn_content_quantity
+                            "
+                          >
+                            <span>
+                              <i class="fa fa-exclamation-triangle fa-error-max-quantity" aria-hidden="true"></i>
+                            </span>
+                          </div>
                           <div>
                             <img src="../../assets/images/show-faces/distributor.png" />
                           </div>
@@ -81,7 +94,19 @@
                           </div>
                         </div>
                         <span class="col-xs-2 text-right"></span>
-                        <span class="text-right col-xs-2">
+                        <span class="col-xs-2" style="z-index: 9;padding-top: 7px;">
+                          <input
+                            style="padding: 0 !important;"
+                            class="mobile_quantity"
+                            type="number"
+                            [max]="dist.stock"
+                            [(ngModel)]="dist.quantity"
+                            (ngModelChange)="valueChange(i, dist, $event)"
+                            min="1"
+                          />
+                          <a style="margin-left: 5px;">Quantity</a>
+                        </span>
+                        <span style="margin-top: -26px!important;" class="text-right col-xs-2">
                           <strong
                             ><i *ngIf="dist.selling_price" class="fa fa-inr" aria-hidden="true"></i
                             >{{ dist.selling_price }}</strong
@@ -93,12 +118,10 @@
                                 then content;
                                 else other_btn_content
                               "
-                            >
-                              <!--<span></span>-->
-                            </div>
+                            ></div>
                             <ng-template #content>
                               <button
-                                style="width: 100%; margin-top: -12px;"
+                                style="width: 100%; margin-top: 16px;"
                                 [ngClass]="
                                   dist.stock <= 0
                                     ? 'not-available btn btn-fw btn-submit btn-inverse-dark'
@@ -113,7 +136,8 @@
                             </ng-template>
                             <ng-template #other_btn_content>
                               <button
-                                style="width: 100%; margin-top: -16px;"
+                                *ngIf="show_order_qauntity_error_index.length == 0"
+                                style="width: 100%; margin-top: 16px;"
                                 class="btn btn-inverse-dark btn-fw btn-submit"
                                 (click)="addOrder(dist['uuid'], i)"
                                 type="button"
@@ -215,6 +239,7 @@
                         </div>
                         <span class="col-xs-2" style="z-index: 9;padding-top: 7px;">
                           <input
+                            style="padding: 0 !important;"
                             class="mobile_quantity"
                             type="number"
                             [max]="order.stock"
@@ -222,6 +247,7 @@
                             (ngModelChange)="valueChange(i, order, $event)"
                             min="1"
                           />
+                          <!--                          {{order.quantity}}-->
                           <a style="margin-left: 5px;">Quantity</a>
                         </span>
                         <span class="text-right col-xs-2" style="margin-top: -25px !important;">
@@ -239,6 +265,9 @@
                           </a>
                         </span>
                       </div>
+                      <span style="color: #ec2c70; float: right; margin-top: 20px;"
+                        >Total amount: <span style="color: black">{{ total_amount_of_order }}</span></span
+                      >
 
                       <!--Card gst and coupon code-->
 

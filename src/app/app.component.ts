@@ -9,6 +9,7 @@ import { environment } from '@env/environment';
 import { Logger, I18nService } from '@app/core';
 import { PwaService } from '@app/pwa.service';
 import { SwUpdate } from '@angular/service-worker';
+import { ToastrService } from 'ngx-toastr';
 
 const log = new Logger('App');
 
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
+    private toastr: ToastrService,
     private translateService: TranslateService,
     private i18nService: I18nService,
     public Pwa: PwaService

@@ -69,5 +69,10 @@
       </button>
     </div>
   </div>
-  <app-table [role_type]="'distributor'" [startDate]="'startDate'" [endDate]="'startDate'"></app-table>
+  <app-table
+    (accept_all_csv_downloaded)="orderAcceptedCSV($event)"
+    [role_type]="'distributor'"
+    [startDate]="'startDate'"
+    [endDate]="'startDate'"
+  ></app-table>
 </div>

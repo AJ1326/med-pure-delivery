@@ -16,13 +16,16 @@ export const URLS = {
   FORGOT_PASSWORD_API: `rest-auth/password/reset/`,
   REFRESH_TOKEN: `token-refresh/`,
   CHANGE_PASSWORD_API: `rest-auth/password/change/`,
+  //Forget password
+  FORGET_PASSWORD_API: `rest-auth/password/reset/confirm/`,
   REGISTRATION_API: `rest-auth/registration/`,
   PRODUCT_SEARCH_API: `products/?search=`,
 
   //Home page card filter data
   FILTER_CARD_LIST__API: {
     retailer: `retailer/dashboard`,
-    distributor: `distributor/dashboard`
+    distributor: `distributor/dashboard`,
+    salesman: `retailer/dashboard`
   },
   // List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
@@ -32,12 +35,18 @@ export const URLS = {
     retailer: `orders/retailer/`,
     distributor: `orders/distributor/`
   },
+  ORDER_LIST_FILTER_VIEW_API: {
+    retailer: `orders/retailer`,
+    distributor: `orders/distributor`,
+    salesman: `orders/retailer`
+  },
   ORDER_LIST_GET_API: {
     'all-order-list': '/',
     'by-source': '/by_source/',
     'pending-order-list': '/pending_orders/',
-    'fast-moving-order-list': '/'
+    'fast-moving-order-list': '/all_orders/'
   },
+  ORDER_LIST_CHANGE_STATUS: '/all_orders/',
   // DISTRIBUTOR_ORDER_LIST_PLACED_API: `orders/distributor/`,
   UPLOAD_LIST_API: `uploads/distributor_product_list/`,
   //Salesman view

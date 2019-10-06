@@ -1,6 +1,6 @@
 .img-upload {
-  padding-top: 10%;
-  width: 35%;
+  padding-top: 4%;
+  width: 540px;
 }
 
 .anim-block {
@@ -40,7 +40,8 @@ body {
   position: relative;
   overflow: hidden;
   height: 43px;
-  margin-top: 0;
+  margin-top: 25px;
+  margin-bottom: 40px;
 }
 
 .fileUpload input.uploadlogo {
@@ -130,4 +131,23 @@ input::-webkit-file-upload-button {
 .lc {
   margin: auto;
   display: table;
+}
+
+.file-disabled {
+  cursor: no-drop !important;
+}
+
+.text-info {
+  padding-top: 120px;
+  color: #5492e4 !important;
+}
+
+.select-upload-modal {
+  padding: 2em;
+  margin: auto;
+  box-shadow: 0 1px 1px 2px #88888859;
+  margin-top: 80px;
+  margin-bottom: 70px;
+  width: 64%;
+  background-color: rgb(255, 255, 255);
 }

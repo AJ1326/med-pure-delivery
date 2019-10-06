@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { environment } from '@env/environment';
 import { OrderListRetailerService } from '@app/order-list-retailer/order-list-retailer.service';
@@ -28,6 +28,7 @@ export class OrderListComponent implements OnChanges, OnInit {
   filter_type_value: any;
 
   @Input() orderListByFilterData: string;
+  @Output() all_csv_downloaded = new EventEmitter<boolean>();
   constructor(private orderListDistributorService: OrderListService, private tableservice: TableDataService) {
     // tableservice.orderlist$.subscribe(data => {
     //   this.distributorOrderList = data;
@@ -50,6 +51,10 @@ export class OrderListComponent implements OnChanges, OnInit {
     // this.filter_type_value = orderListByFilterData.currentValue;
     // this.tableservice._search(this.filter_type_value);
     // this.orderListByFilterData = ;
+  }
+
+  orderAcceptedCSV(value: boolean): void {
+    this.all_csv_downloaded.emit(true);
   }
 
   public changeStartDate(date: any): void {

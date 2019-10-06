@@ -1,16 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { AuthenticationService, I18nService } from '@app/core';
-import { style } from '@angular/animations';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
 import { invalid } from '@angular/compiler/src/render3/view/util';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OnboardingService } from '@app/shell/onboarding/onboarding.service';
-import { Subscription } from 'rxjs';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import * as _ from 'lodash';
 
 @Component({

@@ -370,9 +370,12 @@ div.container .cart2 .cart-bottom {
 }
 
 .mobile_quantity {
-  border: 1px solid;
-  margin-top: 15px;
-  width: 12%;
+  width: 42px;
+  height: 36px;
+  text-align: center;
+  box-shadow: inset 0 0 5px 2px #eeeeee;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(209, 209, 209);
 }
 
 .not-available {

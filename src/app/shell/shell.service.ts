@@ -10,6 +10,7 @@ import {
 import { ShellComponent } from './shell.component';
 import { BoardingShellComponent } from '@app/shell/boarding/onboardshell.component';
 import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.component';
+import { ForgetPasswordShellComponent } from '@app/shell/forgetPasswordShell/forgetshell.component';
 
 export class Shell {
   static distributorShell(routes: Routes): Route {
@@ -50,6 +51,17 @@ export class Shell {
       children: routes,
       canActivate: [AuthenticationGuard, AuthenticationPermissionSalesManGuard, AuthenticationBoardingGuard],
       // AuthenticationBoardingGuard
+      // Reuse ShellComponent instance when navigating between child views
+      data: { reuse: true }
+    };
+  }
+
+  static forgetPasswordShell(routes: Routes): Route {
+    return {
+      path: 'reset',
+      component: ForgetPasswordShellComponent,
+      children: routes,
+      canActivate: [],
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
     };
