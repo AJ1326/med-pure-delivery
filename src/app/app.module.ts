@@ -49,12 +49,16 @@ import { ErrorModule } from '@app/error/error.module';
 import { ErrorRoutingModule } from '@app/error/error-routing.module';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+import { ForgetPasswordModule } from '@app/forgetPassword/forgetPassword.module';
+import { ForgetPasswordRoutingModule } from '@app/forgetPassword/forgetPassword-routing.module';
+import { SwUpdatesModule } from './sw-updates/sw-updates.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     GooglePlaceModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    SwUpdatesModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     HttpClientModule,
     HotkeyModule.forRoot(),
@@ -64,6 +68,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
     SharedModule,
     ShellModule,
     SalesmanModule,
+    ForgetPasswordModule,
     SalesmanlistModule,
     HomeModule,
     AboutModule,
@@ -84,6 +89,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
     AboutRoutingModule,
     ComingSoonRoutingModule,
     SalesmanlistRoutingModule,
+    ForgetPasswordRoutingModule,
     PlacingOrderRoutingModule,
     SavingNotesRoutingModule,
     HomeRoutingModule,

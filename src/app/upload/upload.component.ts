@@ -22,6 +22,7 @@ export class UploadComponent implements OnInit {
   submitError = false;
   software_error = false;
   force_update = false;
+  chooseUploadValue = true;
   uploading_file: any = null;
 
   constructor(
@@ -34,6 +35,15 @@ export class UploadComponent implements OnInit {
     this.user_info = this.authenticationService.userInfo();
   }
 
+  chooseUpload(data: boolean): void {
+    this.force_update = data;
+    this.chooseUploadValue = false;
+  }
+
+  openChooseModal(): void {
+    this.chooseUploadValue = true;
+  }
+
   handleFileInput(files: FileList) {
     if (this.software == null) {
       this.software_error = true;
@@ -42,7 +52,6 @@ export class UploadComponent implements OnInit {
       return;
     }
     this.loading$ = true;
-    console.log('this.loading$', this.loading$);
     this.fileToUpload = files.item(0);
     this.onSubmit(this.fileToUpload);
   }
@@ -72,6 +81,7 @@ export class UploadComponent implements OnInit {
           // this.message = 'Uploaded successfully';
         },
         (error: any) => {
+          console.log('error value', error);
           this.submitError = true;
         }
       );

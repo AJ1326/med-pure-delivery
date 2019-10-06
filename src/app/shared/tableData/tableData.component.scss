@@ -235,11 +235,11 @@ img {
       background: #fafafa;
     }
     .infoWrap {
-      display: table;
+      display: block;
       width: 100%;
     }
     .cartSection {
-      display: table-cell;
+      display: block;
 
       //vertical-align: middle;
 
@@ -250,7 +250,7 @@ img {
       }
 
       h3 {
-        font-size: 1em;
+        font-size: 1.2em;
         font-family: $fontSans;
         font-weight: bold;
         text-transform: uppercase;
@@ -568,9 +568,9 @@ a.remove {
   font-size: 15px;
 }
 
-.infoWrap {
-  padding: 12px;
-}
+// .infoWrap {
+//   padding: 12px;
+// }
 
 .footer-order-data-sub-details {
   //margin-bottom: -6px;
@@ -684,10 +684,19 @@ a.remove {
 //  }
 //}
 
+.d-desktop-none {
+  display: none;
+}
+
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .desktop-view {
     display: none !important;
+  }
+  .d-desktop-none {
+    display: flex !important;
+    flex-direction: row;
+    padding-left: 15px;
   }
   .mobile-view {
     display: block !important;
@@ -804,10 +813,6 @@ a.remove {
   }
 }
 
-.text-muted {
-  font-size: 15px !important;
-}
-
 .text-muted-sub {
   color: #ec2c70 !important;
   font-weight: 300;
@@ -824,7 +829,10 @@ a.remove {
 
 .child_div {
   float: left;
-  margin-right: 5px;
+  padding-left: 21px;
+  margin-top: -6px;
+  font-size: 1.3rem;
+  font-weight: 200;
 }
 
 .download_csv {
@@ -921,4 +929,68 @@ a.remove {
 .status-cancel-color {
   color: red;
   border: 1px solid red;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+  font-size: 1.3em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pl-12 {
+  padding-left: 12px;
+}
+
+.media-flex-row {
+  display: none;
+}
+.media-flex-column {
+  display: none;
+}
+.media-static {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .media-tr {
+    display: flex;
+    flex-direction: column;
+    border-top-style: solid;
+    border-top-width: 1px;
+  }
+
+  .media-display-none {
+    display: none;
+  }
+
+  .media-flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .media-flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table td,
+  .table th {
+    vertical-align: middle;
+    font-size: 1em;
+    line-height: 1;
+    white-space: nowrap;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .media-static {
+    display: initial;
+  }
+}
+
+.csv_download_source {
+  position: absolute;
+  left: -7px;
 }

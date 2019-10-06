@@ -3,7 +3,7 @@
 
 <div class="container-scroller">
   <!-- partial:partials/_navbar.html -->
-  <app-header (sideBarDisplay)="displaySideBar($event)"></app-header>
+  <app-header (sideBarDisplay)="displaySideBar($event)" [sideBarDisplayOverlay]="sideBarDisplay"></app-header>
   <!-- partial -->
 
   <!--  <div id="mySidenav" class="sidenav" *ngIf="openNoteBar" (clickOutside)="onClickedOutside($event)">-->
@@ -27,8 +27,9 @@
   <!--  </div>-->
 
   <div class="container-fluid page-body-wrapper">
-    <app-sidebar class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
-    <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
+    <div (click)="hideSidebar()" *ngIf="sideBarDisplay" class="overlay_sidenav"></div>
+    <app-sidebar *ngIf="sideBarDisplay" class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
+    <div [ngClass]="sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
       <!--      Commenting notes-->
       <!--      <div-->
       <!--        id="freshwidget-button"-->

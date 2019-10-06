@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angu
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 import { DecimalPipe } from '@angular/common';
 import { AuthenticationService, Logger } from '@app/core';
-import { BehaviorSubject } from 'rxjs';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { finalize } from 'rxjs/operators';
 import { HomeService } from '@app/home/home.service';
@@ -44,7 +43,7 @@ export class HomeComponent implements OnInit {
       this.orderFromSalesman = params['retailer_slug'];
       localStorage.setItem('isSalesmanOrderView', params['retailer_slug']);
     });
-    if (this.role_type === 'retailer') {
+    if (this.role_type === 'retailer' || this.role_type === 'salesman') {
       this.tableservice.SetfilterTypeValue('all-order-list');
       this.selectFilterCard('all-order-list');
       this.cardData('all-order-list');
@@ -52,6 +51,12 @@ export class HomeComponent implements OnInit {
       this.tableservice.SetfilterTypeValue('pending-order-list');
       this.selectFilterCard('pending-order-list');
       this.cardData('pending-order-list');
+    }
+  }
+
+  orderAcceptedCSV(value: boolean): void {
+    if (value) {
+      this.cardData();
     }
   }
 

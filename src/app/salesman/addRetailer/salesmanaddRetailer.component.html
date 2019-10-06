@@ -2,15 +2,15 @@
   <div class="card">
     <div class="card-body">
       <div style="display: flex; flex-direction: row;">
-        <div style="flex-grow: 1;">
-          <h4 class="card-title">Shop owner</h4>
-        </div>
+        <!--        <div style="flex-grow: 1;">-->
+        <!--          <h4 class="card-title"></h4>-->
+        <!--        </div>-->
         <div style="float: right">
           <span class="reset-form" (click)="resetAddRetailerForm()">Reset form</span>
         </div>
       </div>
       <form class="form-sample ng-untouched ng-pristine ng-valid" [formGroup]="signUpRetailerForm" novalidate="">
-        <p class="card-description" style="color: #ec2c70;">Client info</p>
+        <p class="card-description" style="color: #4ca4e1; font-weight: bold; font-size: 1.3rem;">Personal info</p>
         <div class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
           On-boarding email has been sent to the retailer.
           <!--          (click)="resendOnboardingEmail()"-->
@@ -161,9 +161,9 @@
             </div>
           </div>
         </div>
-        <p class="card-description" style="color: #ec2c70;">Shop info</p>
+        <p class="card-description" style="color: #4ca4e1; font-weight: bold; font-size: 1.3rem;">Shop info</p>
         <span class="invalid-error-msg text-danger" *ngIf="invalidLocation">
-          *Please enter more specific location.
+          *Please enter a more specific location.
         </span>
         <div class="row">
           <div class="col-md-6">
@@ -256,6 +256,7 @@
                   class="form-control forms_field-input"
                   type="text"
                   placeholder="City name"
+                  disabled
                 />
               </div>
               <div
@@ -277,6 +278,7 @@
                   class="form-control forms_field-input"
                   type="text"
                   placeholder="Zip code"
+                  disabled
                 />
               </div>
               <div
