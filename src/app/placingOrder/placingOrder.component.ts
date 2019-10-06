@@ -111,6 +111,7 @@ export class PlacingOrderComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
+          this.model = '';
           this.distributor_list = data;
         },
         error => {
