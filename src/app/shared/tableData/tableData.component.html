@@ -825,7 +825,7 @@
                   *ngIf="order_selected_box_status_value === 'partial'"
                   class="fa fa-minus-square-o"
                   style="
-                  color: darkgoldenrod;
+                  color: darkgoldenrod;                                                                                                                                                                                                                                                           
                   margin-left: -15px;
                   font-size: 1.3rem;
               "
@@ -833,10 +833,20 @@
               </div>
               <div class="child_div">All Orders</div>
               <div style="padding-left: 20px;" *ngIf="role_type === 'distributor'">
-                <button class="btn btn-primary btn-sm" type="button" (click)="accept_orders_confirmation(alertModal)">
+                <button
+                  class="btn btn-primary btn-sm"
+                  type="button"
+                  (click)="accept_orders_confirmation(alertModal)"
+                  [disabled]="order_selected_box_status_value === 'none'"
+                >
                   Accept
                 </button>
-                <button class="btn btn-danger btn-sm" type="button" (click)="reject_orders_confirmation(alertModal)">
+                <button
+                  class="btn btn-danger btn-sm"
+                  type="button"
+                  (click)="reject_orders_confirmation(alertModal)"
+                  [disabled]="order_selected_box_status_value === 'none'"
+                >
                   Reject
                 </button>
               </div>
