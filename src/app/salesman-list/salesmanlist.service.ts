@@ -12,6 +12,18 @@ import { Utils } from '@app/shared/utils/utils';
 export class SalesmanlistService {
   constructor(private http: HttpClient) {}
 
+  getSalesmanViaID(payload: any) {
+    return this.http.get(`${URLS.SALESMAN_LIST}` + `?search=` + payload);
+  }
+
+  connectSalesman(payload: any) {
+    return this.http.post(`${URLS.DISTRIBUTOR_SALESMAN_CONNECT}`, payload, { withCredentials: true });
+  }
+
+  getConnectedSalesman() {
+    return this.http.get(`${URLS.DISTRIBUTOR_SALESMAN_LIST}`);
+  }
+
   // distributorList(payload: any) {
   //   return this.http.get(`${URLS.DISTRIBUTOR_LIST__API}` + payload);
   // }

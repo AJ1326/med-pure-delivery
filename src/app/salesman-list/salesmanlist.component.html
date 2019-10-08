@@ -3,7 +3,7 @@
   <button (click)="openModal(addSalesman)" class="add_salesman_desktop btn btn-dark btn-fw" type="button">
     Add Salesman
   </button>
-  <input
+  <!--<input
     type="text"
     id="search-bar"
     placeholder="Search your products here !!!"
@@ -19,14 +19,14 @@
   <a><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"/></a>
   <span *ngIf="searching">searching...</span>
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
-  <div class="invalid-feedback" *ngIf="search_value">Sorry, suggestions could not be loaded.</div>
+  <div class="invalid-feedback" *ngIf="search_value">Sorry, suggestions could not be loaded.</div>-->
 </form>
 
 <div class="row desktop-salesman-container">
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Manage Tickets</h5>
+        <h5 class="card-title mb-4">Manage Salesman</h5>
         <div class="fluid-container">
           <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
             <div class="col-md-1">
@@ -180,14 +180,14 @@
   </div>
 </div>
 
-<ng-template #rt let-r="result" let-t="term">
+<!--<ng-template #rt let-r="result" let-t="term">
   <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-</ng-template>
+</ng-template>-->
 
 <div class="outer-add-container">
   <div class="floatcontainer">
     <button
-      (click)="navigateAddOrderPage('add-salesman')"
+      (click)="openModal(addSalesman)"
       style="cursor: pointer; width: 75px; height: 75px; background-color: #ec2c70;"
       class="btn social-btn btn-facebook btn-rounded"
       type="button"
@@ -199,7 +199,7 @@
 
 <ng-template #addSalesman let-modal>
   <div class="modal-header">
-    <div class="modal-title add-med-head" id="modal-basic-title">Add the salesman.</div>
+    <div class="modal-title add-med-head" id="modal-basic-title">Add salesman</div>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -213,30 +213,54 @@
               <h4 class="card-title">Connect via Salesman-ID</h4>
               <div class="add_salesman_via_link">
                 <input
-                  aria-multiline="false"
-                  autocapitalize="off"
-                  autocorrect="off"
                   class="form-control ng-pristine ng-valid ng-touched"
                   id="typeahead-basic"
-                  role="combobox"
                   type="text"
-                  ng-reflect-ngb-typeahead="function (text$) {
-                "
-                  autocomplete="off"
-                  aria-autocomplete="list"
-                  aria-expanded="false"
+                  [(ngModel)]="searchID"
                 />
-                <button class="btn btn-success" type="button">Connect</button>
+                <button class="btn btn-success" type="button" (click)="searchSalesmanViaID()">Search</button>
               </div>
             </div>
-            <div class="h-line"><span>Or</span></div>
-            <div class="col-md-12">
-              <!--              <h4 class="card-title"></h4>-->
-              <button style="margin: auto;display: table; margin-top: 2em;" class="btn btn-primary" type="button">
-                <i class="mdi mdi-printer"></i>Register new Salesman
-              </button>
+
+            <div *ngIf="salesmanList.length > 0">
+              <div class="row ticket-card mt-3 m-0 p-0" *ngFor="let salesman of salesmanList; let i = index">
+                <div class="col-md-2">
+                  <img
+                    class="img-sm rounded-circle mb-4 mb-md-0"
+                    src="assets/images/faces/face3.jpg"
+                    alt="profile image"
+                  />
+                </div>
+                <div class="ticket-details col-md-9">
+                  <div class="d-flex">
+                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ salesman.name }} :</p>
+                    <p class="text-primary mr-1 mb-0">[#{{ salesman.salesman_id }}]</p>
+                  </div>
+                  <p class="text-gray ellipsis mb-2">
+                    {{ salesman.email }}
+                  </p>
+                </div>
+
+                <div class="ticket-actions col-md-1 ">
+                  <button type="button" class="btn btn-success btn-sm" (click)="connectSalesman(salesman.salesman_id)">
+                    Add
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="h-line"><span>Or</span></div>
+        <div class="col-md-12">
+          <!--              <h4 class="card-title"></h4>-->
+          <button
+            (click)="navigateToAddSalesman()"
+            style="margin: auto;display: table; margin-top: 2em;"
+            class="btn btn-primary"
+            type="button"
+          >
+            <i class="mdi mdi-printer"></i>Register new Salesman
+          </button>
         </div>
       </div>
     </div>
