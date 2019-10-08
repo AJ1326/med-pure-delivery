@@ -31,6 +31,10 @@ export class OrderListService {
     );
   }
 
+  downloadBatchRetailerList(uuid: any) {
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + uuid + '/retailer_batch_csv/');
+  }
+
   acceptPendingOrderList() {
     return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'pending_orders/accept');
   }

@@ -1,9 +1,17 @@
 <div class="container-scroller">
   <!-- partial:partials/_navbar.html -->
-  <app-salesman-header (sideBarDisplay)="displaySideBar($event)"></app-salesman-header>
+  <app-salesman-header
+    (sideBarDisplay)="displaySideBar($event)"
+    [sideBarDisplayOverlay]="sideBarDisplay"
+  ></app-salesman-header>
   <!-- partial -->
   <div class="container-fluid page-body-wrapper">
-    <app-salersman-sidebar class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-salersman-sidebar>
+    <div (click)="hideSidebar()" *ngIf="sideBarDisplay" class="overlay_sidenav"></div>
+    <app-salersman-sidebar
+      *ngIf="sideBarDisplay"
+      class="sidebar_mobile"
+      [sideBarDisplay]="sideBarDisplay"
+    ></app-salersman-sidebar>
     <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'" *ngIf="!isDesktop">
       <router-outlet></router-outlet>
     </div>

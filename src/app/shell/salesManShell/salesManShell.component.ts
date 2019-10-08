@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -8,14 +8,19 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class SalesManShellComponent implements OnInit {
   isDesktop = false;
-  sideBarDisplay: boolean;
   master = 'Master';
   openNoteBar = false;
+
+  @Input() sideBarDisplay: boolean;
 
   constructor(private deviceService: DeviceDetectorService) {}
 
   ngOnInit() {
     this.checkDeviceType();
+  }
+
+  hideSidebar(): void {
+    this.displaySideBar(false);
   }
 
   displaySideBar(display: boolean): void {

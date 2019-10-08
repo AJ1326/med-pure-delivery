@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit {
     this.activeCard = id_value;
     this.filterTitle = filter_title;
     this.filterValue = filter_value;
+    this.cardData(this.activeCard);
     this.tableservice.SetfilterTypeValue(id_value);
   }
 }
