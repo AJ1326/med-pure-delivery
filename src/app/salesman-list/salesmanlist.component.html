@@ -208,38 +208,37 @@
     <div class="col-12 grid-margin">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Typeahead</h4>
           <div class="row">
-            <div class="col-md-6">
-              <p class="card-description">Add via ID</p>
-              <input
-                aria-multiline="false"
-                autocapitalize="off"
-                autocorrect="off"
-                class="form-control ng-pristine ng-valid ng-touched"
-                id="typeahead-basic"
-                role="combobox"
-                type="text"
-                ng-reflect-ngb-typeahead="function (text$) {
+            <div class="col-md-12">
+              <h4 class="card-title">Connect via Salesman-ID</h4>
+              <div class="add_salesman_via_link">
+                <input
+                  aria-multiline="false"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  class="form-control ng-pristine ng-valid ng-touched"
+                  id="typeahead-basic"
+                  role="combobox"
+                  type="text"
+                  ng-reflect-ngb-typeahead="function (text$) {
                 "
-                autocomplete="off"
-                aria-autocomplete="list"
-                aria-expanded="false"
-              />
+                  autocomplete="off"
+                  aria-autocomplete="list"
+                  aria-expanded="false"
+                />
+                <button class="btn btn-success" type="button">Connect</button>
+              </div>
             </div>
-            <div class="col-md-6">
-              <p class="card-description">Add Salesman</p>
-              <button class="btn btn-primary" type="button"><i class="mdi mdi-printer"></i>Add salesman</button>
+            <div class="h-line"><span>Or</span></div>
+            <div class="col-md-12">
+              <!--              <h4 class="card-title"></h4>-->
+              <button style="margin: auto;display: table; margin-top: 2em;" class="btn btn-primary" type="button">
+                <i class="mdi mdi-printer"></i>Register new Salesman
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <span class="add-med-footer">
-      *We will update you regarding the medicine.
-    </span>
-    <button type="submit" class="btn btn-success mr-2" (click)="modal.close('Save click')">Submit</button>
   </div>
 </ng-template>

@@ -84,3 +84,22 @@ input#search-bar {
     }
   }
 }
+
+.add_salesman_via_link {
+  display: flex;
+  flex-direction: row;
+}
+
+.h-line {
+  padding-top: 2em;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(21, 18, 19, 0.44);
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.h-line span {
+  background: #fff;
+  padding: 0 10px;
+}
