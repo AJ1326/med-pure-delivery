@@ -1,6 +1,8 @@
 <form class="search-container">
   <!--  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>-->
-  <button class="add_salesman_desktop btn btn-dark btn-fw" type="button">Add Salesman</button>
+  <button (click)="openModal(addSalesman)" class="add_salesman_desktop btn btn-dark btn-fw" type="button">
+    Add Salesman
+  </button>
   <input
     type="text"
     id="search-bar"
@@ -194,3 +196,50 @@
     </button>
   </div>
 </div>
+
+<ng-template #addSalesman let-modal>
+  <div class="modal-header">
+    <div class="modal-title add-med-head" id="modal-basic-title">Add the salesman.</div>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Typeahead</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="card-description">Add via ID</p>
+              <input
+                aria-multiline="false"
+                autocapitalize="off"
+                autocorrect="off"
+                class="form-control ng-pristine ng-valid ng-touched"
+                id="typeahead-basic"
+                role="combobox"
+                type="text"
+                ng-reflect-ngb-typeahead="function (text$) {
+                "
+                autocomplete="off"
+                aria-autocomplete="list"
+                aria-expanded="false"
+              />
+            </div>
+            <div class="col-md-6">
+              <p class="card-description">Add Salesman</p>
+              <button class="btn btn-primary" type="button"><i class="mdi mdi-printer"></i>Add salesman</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <span class="add-med-footer">
+      *We will update you regarding the medicine.
+    </span>
+    <button type="submit" class="btn btn-success mr-2" (click)="modal.close('Save click')">Submit</button>
+  </div>
+</ng-template>
