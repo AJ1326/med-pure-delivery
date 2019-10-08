@@ -25,6 +25,10 @@ export class LoginService {
     return this.http.post(`${URLS.SALESMAN_ADD_RETAILER}`, payload);
   }
 
+  signupSalesmanByDistributor(payload: any) {
+    return this.http.post(`${URLS.DISTRIBUTOR_ADD_SALESMAN}`, payload);
+  }
+
   verify_signup_otp(payload: any) {
     return this.http.post(`${URLS.SIGNUP_OTP_VERIFY}`, payload);
   }

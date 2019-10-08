@@ -268,6 +268,12 @@ export class TableDataComponent implements OnInit, OnDestroy {
     });
   }
 
+  downloadBatchByRetailer(slug: any, uuid: string): void {
+    this.orderListService.downloadBatchRetailerProductList(slug, uuid).subscribe((data: any) => {
+      this.JSONToCSVConvertor(data, 'Batch_List', true);
+    });
+  }
+
   downLoadOrders(): void {
     this.orderListService.acceptPendingOrderList().subscribe((data: any) => {
       this.homeService.cardListData(this.role_type);

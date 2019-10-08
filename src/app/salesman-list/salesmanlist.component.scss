@@ -9,11 +9,32 @@
     margin-left: -15px !important;
     margin-top: 0 !important;
   }
+  .add_salesman_desktop {
+    display: none !important;
+  }
+  //For retailer add button
+  .outer-add-container {
+    width: 90%;
+    display: block !important;
+    bottom: 30px;
+    position: fixed;
+  }
+  .floatcontainer {
+    float: right;
+  }
   .desktop-salesman-container {
     margin-top: 44px !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+}
+
+.outer-add-container {
+  display: none;
+}
+
+.add_salesman_desktop {
+  display: block;
 }
 
 .search-container {
@@ -63,22 +84,3 @@ input#search-bar {
     }
   }
 }
-
-//.salesman-retailer-list {
-//  display: flex;
-//  flex-wrap: wrap;
-//  margin-right: -15px;
-//  margin-left: -15px;
-//  margin-top: 46px;
-//  width: 112%;
-//}
-
-//For retailer add button
-//.outer-add-container {
-//  width: 90%;
-//  bottom: 30px;
-//  position: fixed;
-//}
-//.floatcontainer {
-//  float: right;
-//}

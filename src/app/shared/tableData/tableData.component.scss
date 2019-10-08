@@ -849,8 +849,8 @@ a.remove {
 .empty-cart-data {
   margin: auto;
   display: table;
-  width: 650px;
-  padding-top: 3em;
+  width: 600px;
+  padding-top: 2em;
 }
 
 .fast-moving-span {
@@ -934,7 +934,6 @@ a.remove {
 .table td,
 .table th {
   vertical-align: middle;
-  font-size: 1.3em;
   line-height: 1;
   white-space: nowrap;
 }
@@ -990,7 +989,32 @@ a.remove {
   }
 }
 
+//.csv_download_source {
+//  position: absolute;
+//  right: -69px;
+//}
+
 .csv_download_source {
   position: absolute;
-  left: -7px;
+  right: -3px;
+}
+
+.empty_cart_text_message {
+  font-weight: 200;
+  font-size: 22px;
+  margin: auto;
+  display: table;
+  text-align: center;
+}
+
+.empty_cart_container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty_cart_text_message a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: green;
 }

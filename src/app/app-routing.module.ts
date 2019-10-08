@@ -14,7 +14,7 @@ const routes: Routes = [
   // Shell.distributorShell([
   //   {
   //     path: 'distributor',
-  //     component: OrderListComponent,
+  //     component: AddSalesmanComponent,
   //   },
   // ]),
   Shell.onboardingShell([
