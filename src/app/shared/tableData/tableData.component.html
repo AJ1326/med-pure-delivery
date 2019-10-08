@@ -66,6 +66,10 @@
 -->
 <br />
 
+<div>
+  <app-loader [isLoading]="tableDataService.isLoading"></app-loader>
+</div>
+
 <div *ngIf="filter_type === 'all-order-list' && !tableDataService.isLoading">
   <ngb-accordion
     *ngIf="orderListData.length > 0; else other_no_data"
@@ -376,18 +380,16 @@
 </div>
 
 <div *ngIf="filter_type === 'by-source' && !tableDataService.isLoading">
-  <ngb-accordion *ngIf="orderListData.length > 0; else other_no_data" #acc="ngbAccordion">
-    <ngb-panel *ngFor="let list of orderListData; let i = index" [attr.data-index]="i">
+  <ngb-accordion
+    [closeOthers]="true"
+    activeIds="panel-id-0"
+    class="accordion"
+    *ngIf="orderListData.length > 0; else other_no_data"
+    #acc="ngbAccordion"
+  >
+    <ngb-panel *ngFor="let list of orderListData; let i = index" id="panel-id-{{ i }}">
       <!--Desktop and tablet view-->
       <ng-template ngbPanelTitle>
-        <div *ngIf="role_type === 'distributor'">
-          <button class="btn btn-primary csv_download_source" type="button">
-            <i class="mdi mdi-printer"></i>Batch {{ i + 1 }}
-          </button>
-        </div>
-        <div *ngIf="role_type === 'retailer'">
-          <button class="btn btn-primary csv_download_source" type="button"><i class="mdi mdi-printer"></i>Bill</button>
-        </div>
         <div class="row">
           <div class="col-md-4">
             <h6>
@@ -521,6 +523,20 @@
                 [attr.data-index]="i"
                 [ngClass]="i % 2 === 0 ? 'even' : 'odd'"
               >
+                <div *ngIf="role_type === 'distributor'">
+                  <button
+                    (click)="downloadBatchByRetailer(dist['retailer']['slug'], list.uuid)"
+                    class="btn btn-primary csv_download_source"
+                    type="button"
+                  >
+                    <i class="mdi mdi-printer"></i>Batch {{ i + 1 }}
+                  </button>
+                </div>
+                <div *ngIf="role_type === 'retailer'">
+                  <button class="btn btn-primary csv_download_source" type="button">
+                    <i class="mdi mdi-printer"></i> Invoice
+                  </button>
+                </div>
                 <div class="infoWrap">
                   <div class="cartSection cart-full-box">
                     <div class="cart-sub-section-image">
@@ -545,6 +561,8 @@
                           </p>-->
                         <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
                         <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
+                        <span *ngIf="role_type === 'distributor'">{{ dist.retailer['user_id'] }}</span>
+                        <span *ngIf="role_type === 'retailer'">{{ dist.distributor['user_id'] }}</span>
                       </div>
                     </div>
 
@@ -1030,77 +1048,80 @@
       </div>
     </div>
   </div>
-
-  <ng-template #other_no_data style="padding-top: 3em;">
-    <img class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
-  </ng-template>
-
-  <div class="d-flex justify-content-between p-2">
-    <ngb-pagination
-      class="pagination-separated"
-      [collectionSize]="total$ | async"
-      [(page)]="tableDataService.page"
-      [pageSize]="tableDataService.pageSize"
-    >
-    </ngb-pagination>
-
-    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tableDataService.pageSize">
-      <option [ngValue]="10">10</option>
-      <option [ngValue]="25">25</option>
-      <option [ngValue]="50">50</option>
-    </select>
-  </div>
-
-  <div>
-    <app-loader></app-loader>
-  </div>
-
-  <ng-template #Reject let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title" style="font-size: 18px;">Are you sure ?</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-footer">
-      <button
-        class="btn btn-success btn-rounded btn-fw btn-yes"
-        type="button"
-        (click)="submitAlert(); modal.dismiss('yes click')"
-      >
-        Yes
-      </button>
-      <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">
-        No
-      </button>
-    </div>
-  </ng-template>
-
-  <ng-template #Reorder let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-reorder">Order list</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label>Product list</label>
-          <div class="input-group"></div>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">
-        Yes
-      </button>
-      <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button">
-        No
-      </button>
-    </div>
-  </ng-template>
 </div>
+
+<ng-template #other_no_data>
+  <div class="empty_cart_container">
+    <span *ngIf="role_type === 'retailer'" class="empty_cart_text_message"
+      >Empty cart !!!. Lets place <a href="/retailer/change-password"> some orders.</a></span
+    >
+    <span *ngIf="role_type === 'distributor'" class="empty_cart_text_message">No orders yet !!</span>
+    <img *ngIf="role_type === 'retailer'" class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
+    <img *ngIf="role_type === 'distributor'" class="empty-cart-data" src="../../../assets/images/no_order.svg" />
+  </div>
+</ng-template>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination
+    class="pagination-separated"
+    [collectionSize]="total$ | async"
+    [(page)]="tableDataService.page"
+    [pageSize]="tableDataService.pageSize"
+  >
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tableDataService.pageSize">
+    <option [ngValue]="10">10</option>
+    <option [ngValue]="25">25</option>
+    <option [ngValue]="50">50</option>
+  </select>
+</div>
+
+<ng-template #Reject let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="font-size: 18px;">Are you sure ?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button
+      class="btn btn-success btn-rounded btn-fw btn-yes"
+      type="button"
+      (click)="submitAlert(); modal.dismiss('yes click')"
+    >
+      Yes
+    </button>
+    <button class="btn btn-danger btn-rounded btn-fw btn-no" type="button" (click)="modal.dismiss('cancel click')">
+      No
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #Reorder let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-reorder">Order list</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Product list</label>
+        <div class="input-group"></div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-inverse-success btn-rounded btn-fw btn-yes" type="button">
+      Yes
+    </button>
+    <button class="btn btn-inverse-danger btn-rounded btn-fw btn-no" type="button">
+      No
+    </button>
+  </div>
+</ng-template>
 
 <ng-template #alertModal let-modal>
   <app-alert [alertModalRefference]="modalReference" (messageEvent)="modal_reply_function($event)"></app-alert>

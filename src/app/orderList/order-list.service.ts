@@ -22,7 +22,13 @@ export class OrderListService {
   }
 
   downloadPendingProductList() {
-    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'compiled_order_csv');
+    return this.http.get(`${URLS.ORDER_LIST_PLACED_API['distributor']}` + 'pending_order_csv');
+  }
+
+  downloadBatchRetailerProductList(slug: any, uuid: any) {
+    return this.http.get(
+      `${URLS.ORDER_LIST_PLACED_API['distributor']}` + uuid + '/retailer_batch_csv/?retailer_slug=' + slug
+    );
   }
 
   acceptPendingOrderList() {

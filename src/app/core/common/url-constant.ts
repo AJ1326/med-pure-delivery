@@ -54,5 +54,6 @@ export const URLS = {
   SALESMAN_RETAILER_SEARCH_API: `retailer_list/?search=`,
   SALESMAN_DISTRIBUTOR_LIST_API: `distributors/`,
   SALESMAN_ADD_RETAILER: `salesman/retailers/`,
+  DISTRIBUTOR_ADD_SALESMAN: `add_salesman/`,
   SALESMAN_VERIFY_OTP_RETAILER: `salesman/retailers/validate_otp/`
 };

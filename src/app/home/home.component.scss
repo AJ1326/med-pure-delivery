@@ -123,3 +123,11 @@ q {
     height: 78px;
   }
 }
+
+.clearfix {
+  display: flex;
+}
+
+.float-left {
+  flex-grow: 1;
+}

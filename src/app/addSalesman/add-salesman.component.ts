@@ -1,44 +1,50 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
-import { DecimalPipe } from '@angular/common';
-import { AuthenticationService, I18nService, Logger } from '@app/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { TableDataService } from '@app/shared/tableData/tableData.service';
-import { catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
-import { SalesmanService } from '@app/salesman/salesman.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import * as _ from 'lodash';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 
-const log = new Logger('Salesman home');
+const log = new Logger('Add salesman by distributor');
+
+import { finalize } from 'rxjs/operators';
+import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthenticationService, I18nService, Logger } from '@app/core';
+import { SalesmanService } from '@app/salesman/salesman.service';
+import * as _ from 'lodash';
+import { ProviderDataValidators as Validators } from '@app/modules/data-valiidator';
+import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
 
 @Component({
-  selector: 'app-sales-man-home',
-  templateUrl: './salesmanaddRetailer.component.html',
-  styleUrls: ['./salesmanaddRetailer.component.scss'],
-  providers: [DecimalPipe]
+  selector: 'add-salesman-by-distributor',
+  templateUrl: './add-salesman.component.html',
+  styleUrls: ['./add-salesman.component.scss']
 })
-export class SalesmanaddRetailerComponent implements OnInit {
+export class AddSalesmanComponent implements OnInit {
   isLoading = false;
-  closeResult: string;
+
   //User info
   user_info: any = [];
   role_type: string;
-  //User info ends
+
   //Retailer sign up
-  signUpRetailerForm: FormGroup;
-  // show_otp_form = false;
+  signUpSalesmanForm: FormGroup;
   otp_code: number;
   signUpData: any;
   otp_error: any;
   onBoardingSuccess = false;
   signuperrorregistered: string;
   signuperrorexists: string;
-  signuperrorphonenumber: string;
-  //retailer sign up ends
-  error: any;
+  error: any = {
+    first_name: '',
+    last_name: '',
+    gender: '',
+    email: '',
+    phone_number: '',
+    address_line_1: '',
+    address_line_2: '',
+    city: '',
+    state: '',
+    zip_code: ''
+  };
+
   //Geo location
   public componentData4: any = '';
   public userSettings = {
@@ -57,6 +63,8 @@ export class SalesmanaddRetailerComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
+  @Input() orderListByFilterData: string;
+  @Output() all_csv_downloaded = new EventEmitter<boolean>();
   constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
@@ -73,7 +81,7 @@ export class SalesmanaddRetailerComponent implements OnInit {
     config.backdrop = 'static';
     config.keyboard = false;
     setTimeout(() => {
-      this.userSettings['inputPlaceholderText'] = 'Address line 1';
+      this.userSettings['inputPlaceholderText'] = 'Please enter nearest landmark.';
       this.userSettings = Object.assign({}, this.userSettings);
     }, 5000);
   }
@@ -90,10 +98,10 @@ export class SalesmanaddRetailerComponent implements OnInit {
     });
     if (this.zipcode_value && this.state_value && this.city_value) {
       this.invalidLocation = false;
-      this.signUpRetailerForm.controls['zip_code'].setValue(this.zipcode_value ? this.zipcode_value['long_name'] : '');
-      this.signUpRetailerForm.controls['state'].setValue(this.state_value ? this.state_value['long_name'] : '');
-      this.signUpRetailerForm.controls['city'].setValue(this.city_value ? this.city_value['long_name'] : '');
-      this.signUpRetailerForm.controls['address_line_2'].setValue(selectedData.data['description']);
+      this.signUpSalesmanForm.controls['zip_code'].setValue(this.zipcode_value ? this.zipcode_value['long_name'] : '');
+      this.signUpSalesmanForm.controls['state'].setValue(this.state_value ? this.state_value['long_name'] : '');
+      this.signUpSalesmanForm.controls['city'].setValue(this.city_value ? this.city_value['long_name'] : '');
+      this.signUpSalesmanForm.controls['address_line_2'].setValue(selectedData.data['description']);
     } else {
       this.invalidLocation = true;
     }
@@ -128,24 +136,13 @@ export class SalesmanaddRetailerComponent implements OnInit {
       )
       .subscribe(
         data => {
-          // this.show_otp_form = false;
           this.onBoardingSuccess = true;
-          this.signUpRetailerForm.reset();
+          this.signUpSalesmanForm.reset();
           this.modalService.dismissAll('done');
-          // setTimeout(()=>{    //<<<---    using ()=> syntax
-          //   this.onBoardingSuccess = false;
-          // }, 3000);
-          // return this.LoginService.login(this.loginForm.value).subscribe(result => {
-          //   console.log(result, 'result');
-          //   this.route.queryParams.subscribe(params =>
-          //     this.router.navigate([params.redirect || '/'], { replaceUrl: true })
-          //   );
-          // });
         },
         error => {
           log.debug(`Login error: ${error}`);
           this.otp_error = error.error;
-          console.log(this.error, 'this.error');
         }
       );
   }
@@ -163,23 +160,21 @@ export class SalesmanaddRetailerComponent implements OnInit {
       )
       .subscribe(
         data => {
-          this.signUpRetailerForm.reset();
+          this.signUpSalesmanForm.reset();
         },
         error => {
           log.debug(`Login error: ${error}`);
           this.otp_error = error.error;
-          console.log(this.error, 'this.error');
         }
       );
   }
 
   retailersignUp(content: any) {
-    console.log('working');
-    let values = this.signUpRetailerForm.value;
-    localStorage.setItem('user-email', this.signUpRetailerForm.value.email);
+    let values = this.signUpSalesmanForm.value;
+    localStorage.setItem('user-email', this.signUpSalesmanForm.value.email);
     this.isLoading = true;
     this.authenticationService
-      .signupSalesmanByDistributor(this.signUpRetailerForm.value)
+      .signupSalesmanByDistributor(this.signUpSalesmanForm.value)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -189,32 +184,20 @@ export class SalesmanaddRetailerComponent implements OnInit {
         data => {
           log.debug(`${data} successfully logged in`);
           this.signUpData = data;
-          // this.show_otp_form = true;
           this.modalService.open(content);
-          // this.onBoardingSuccess = true;
-          // this.signUpRetailerForm.reset();
-          // setTimeout(function() {
-          //   this.onBoardingSuccess = false;
-          // }, 2000);
-          // return this.LoginService.login(this.loginForm.value).subscribe(result => {
-          //   console.log(result, 'result');
-          //   this.route.queryParams.subscribe(params =>
-          //     this.router.navigate([params.redirect || '/'], { replaceUrl: true })
-          //   );
-          // });
         },
         error => {
           log.debug(`Login error: ${error}`);
           this.isLoading = false;
-          this.signuperrorregistered = error.error['email_registered'];
-          this.signuperrorexists = error.error['email'];
-          this.signuperrorphonenumber = error.error['phone_number'];
+          this.error = error.error;
+          // this.signuperrorregistered = error.error['email_registered'];
+          // this.signuperrorexists = error.error['email'];
         }
       );
   }
 
   private createForm() {
-    this.signUpRetailerForm = this.formBuilder.group({
+    this.signUpSalesmanForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.email()]],
@@ -222,7 +205,6 @@ export class SalesmanaddRetailerComponent implements OnInit {
       gender: ['', Validators.required()],
       address_line_1: ['', Validators.required()],
       address_line_2: ['', Validators.required()],
-      shop_name: ['', Validators.required()],
       city: ['', Validators.required()],
       state: ['', Validators.required()],
       zip_code: ['', [Validators.required(), Validators.validZipCode()]]
@@ -230,6 +212,6 @@ export class SalesmanaddRetailerComponent implements OnInit {
   }
 
   resetAddRetailerForm(): void {
-    this.signUpRetailerForm.reset();
+    this.signUpSalesmanForm.reset();
   }
 }

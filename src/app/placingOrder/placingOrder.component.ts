@@ -1,5 +1,5 @@
-import { Component, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AfterViewInit, Component, Injectable, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NgbModal, ModalDismissReasons, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -56,7 +56,7 @@ const PARAMS = new HttpParams({
   styleUrls: ['./placingOrder.component.scss']
   // encapsulation: ViewEncapsulation.None
 })
-export class PlacingOrderComponent implements OnInit {
+export class PlacingOrderComponent implements OnInit, AfterViewInit, OnChanges {
   orderFromSalesman: any = '';
   version: string = environment.version;
   closeResult: string;
@@ -65,7 +65,7 @@ export class PlacingOrderComponent implements OnInit {
   model: any;
   searching = false;
   searchFailed = false;
-  isLoading = true;
+  isLoading = false;
   error: string;
   distributor_list: any[] = [];
   order_list: any[] = [];
@@ -79,6 +79,8 @@ export class PlacingOrderComponent implements OnInit {
   distributor_list_order_index: any[] = [];
   product_name: string;
   total_amount_of_order = 0;
+  tabsInitialized: boolean = false;
+  @ViewChild('tabs') public tabs: NgbTabset;
 
   constructor(
     private distributorService: PlacingOrderService,
@@ -99,6 +101,16 @@ export class PlacingOrderComponent implements OnInit {
     // );
   }
 
+  ngAfterViewInit() {
+    this.tabsInitialized = true;
+  }
+
+  ngOnChanges() {
+    if (this.tabsInitialized) {
+      this.tabs.select('distributor_list');
+    }
+  }
+
   selectedItem(productname: any) {
     this.product_name = productname['item']['name'];
     this.isLoading = true;
@@ -111,7 +123,9 @@ export class PlacingOrderComponent implements OnInit {
       )
       .subscribe(
         (data: []) => {
+          this.model = '';
           this.distributor_list = data;
+          this.tabsInitialized = true;
           this.distributor_list = this.distributor_list.map(function(val) {
             val['quantity'] = 1;
             return val;
@@ -137,6 +151,10 @@ export class PlacingOrderComponent implements OnInit {
     this.callunableBtnFunction(slug);
     const removeOrder = this.order_list.splice(orderNumber, 1);
     this.getTotalOrderValue();
+    const index = this.show_order_qauntity_error_index.indexOf(slug);
+    if (index > -1) {
+      this.show_order_qauntity_error_index.splice(index, 1);
+    }
     // this.distributor_list = this.distributor_list.concat(removeOrder);
   }
 
@@ -275,9 +293,9 @@ export class PlacingOrderComponent implements OnInit {
 
   private valueChange(order_index: number, order: any, $event: any): void {
     order.quantity = $event;
-    console.log(order, 'order');
     const index = this.show_order_qauntity_error_index.indexOf(order.uuid);
-    if (order.quantity > order.stock) {
+    console.log(order.quantity, 'order.quantity');
+    if (order.quantity > order.stock || order.quantity === null || order.quantity === 0) {
       if (index === -1) {
         this.show_order_qauntity_error_index.push(order.uuid);
       }
@@ -298,7 +316,6 @@ export class PlacingOrderComponent implements OnInit {
   }
 
   private findExceedOrder(val: number): boolean {
-    console.log('val', val);
     const index = this.show_order_qauntity_error_index.indexOf(val);
     if (index > -1) {
       return true;

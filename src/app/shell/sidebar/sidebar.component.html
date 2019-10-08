@@ -63,6 +63,12 @@
         <span class="menu-title">Change password</span>
       </a>
     </li>
+    <li class="nav-item" *ngIf="role_type === 'distributor'">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/add-salesman']">
+        <i class="menu-icon mdi mdi-account-multiple-plus"></i>
+        <span class="menu-title">Add Salesman</span>
+      </a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" (click)="logout()">
         <i class="menu-icon mdi mdi-logout"></i>

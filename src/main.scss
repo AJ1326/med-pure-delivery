@@ -24,6 +24,10 @@
   width: 100%;
 }
 
+.card .card-body {
+  padding: 1.25rem;
+}
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
   .col-s-1 {

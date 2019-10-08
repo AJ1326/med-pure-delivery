@@ -108,6 +108,10 @@ export class AuthenticationService {
     return this.LoginService.signupRetailerBySalesman(context);
   }
 
+  signupSalesmanByDistributor(context: SignUpContext): Observable<any> {
+    return this.LoginService.signupSalesmanByDistributor(context);
+  }
+
   resend_signup_otp(context: any): Observable<any> {
     return this.LoginService.resend_signup_otp(context);
   }

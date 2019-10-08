@@ -52,6 +52,8 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { ForgetPasswordModule } from '@app/forgetPassword/forgetPassword.module';
 import { ForgetPasswordRoutingModule } from '@app/forgetPassword/forgetPassword-routing.module';
 import { SwUpdatesModule } from './sw-updates/sw-updates.module';
+import { AddSalesmanModule } from '@app/addSalesman/add-salesman.module';
+import { AddSalesmanRoutingModule } from '@app/addSalesman/add-salesman-routing.module';
 
 @NgModule({
   imports: [
@@ -70,10 +72,12 @@ import { SwUpdatesModule } from './sw-updates/sw-updates.module';
     SalesmanModule,
     ForgetPasswordModule,
     SalesmanlistModule,
+    AddSalesmanModule,
     HomeModule,
     AboutModule,
     FeedbackModule,
     OrderListRoutingModule,
+    AddSalesmanRoutingModule,
     OrderListRetailerRoutingModule,
     OrderListModule,
     LoginModule,
