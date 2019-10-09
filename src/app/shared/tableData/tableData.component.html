@@ -795,7 +795,7 @@
                   *ngIf="order_selected_box_status_value === 'partial'"
                   class="fa fa-minus-square-o"
                   style="
-                  color: darkgoldenrod;                                                                                                                                                                                                                                                           
+                  color: darkgoldenrod;
                   margin-left: -15px;
                   font-size: 1.3rem;
               "
@@ -980,7 +980,7 @@
 <ng-template #other_no_data>
   <div class="empty_cart_container">
     <span *ngIf="role_type === 'retailer'" class="empty_cart_text_message"
-      >Empty cart !!!. Lets place <a href="/retailer/change-password"> some orders.</a></span
+      >Empty cart !!!. Let's <a href="/retailer/order">place orders.</a></span
     >
     <span *ngIf="role_type === 'distributor'" class="empty_cart_text_message">No orders yet !!</span>
     <img *ngIf="role_type === 'retailer'" class="empty-cart-data" src="../../../assets/images/empty_cart.svg" />
