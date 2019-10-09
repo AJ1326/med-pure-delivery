@@ -997,6 +997,7 @@ a.remove {
 .csv_download_source {
   position: absolute;
   right: -3px;
+  z-index: 1;
 }
 
 .empty_cart_text_message {

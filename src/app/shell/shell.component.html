@@ -29,7 +29,7 @@
   <div class="container-fluid page-body-wrapper">
     <div (click)="hideSidebar()" *ngIf="sideBarDisplay" class="overlay_sidenav"></div>
     <app-sidebar *ngIf="sideBarDisplay" class="sidebar_mobile" [sideBarDisplay]="sideBarDisplay"></app-sidebar>
-    <div [ngClass]="sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
+    <div [ngClass]="!sideBarDisplay ? 'main-panel sidebar-active' : 'main-panel'">
       <!--      Commenting notes-->
       <!--      <div-->
       <!--        id="freshwidget-button"-->

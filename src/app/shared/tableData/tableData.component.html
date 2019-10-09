@@ -1,69 +1,3 @@
-<!--
-<div style="margin-top: 20px">
-  <ngb-accordion [closeOthers]="true" activeIds="static-1" class="accordion">
-          <ngb-panel id="static-1">
-            <ng-template ngbPanelTitle>
-                <div class="row">
-                    <div class="col-md-4">
-                      <h6>
-                        <span *ngIf="role_type === 'retailer'">ORDER # 1</span>
-                        <span *ngIf="role_type === 'distributor'">ORDER # 1</span>
-                      </h6>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>
-                        <span>Order date:  [date]</span>
-                      </h6>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>
-                        <span>Amount: [amount]</span>
-                      </h6>
-                    </div>
-                </div>
-                <div class="arrow">
-                  <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-                </div>
-            </ng-template>
-            <ng-template ngbPanelContent>
-                You can pay for the product you have purchased using credit cards, debit cards,
-                or via online banking. We also provide cash-on-delivery services for most of our
-                products. You can also use your account wallet for payment.
-            </ng-template>
-          </ngb-panel>
-          <ngb-panel id="static-2">
-            <ng-template ngbPanelTitle>
-              <h6 class="mb-0">
-                  I can't sign in to my account
-              </h6>
-            </ng-template>
-            <ng-template ngbPanelContent>
-              If while signing in to your account you see an error message, you can do the following
-              <ol class="pl-3 mt-4">
-                <li>Check your network connection and try again</li>
-                <li>Make sure your account credentials are correct while signing in</li>
-                <li>Check whether your account is accessible in your region</li>
-              </ol>
-              <br>
-              <p class="text-success">
-                <i class="mdi mdi-alert-octagon mr-2"></i>If the problem persists, you can contact our support.
-              </p>
-            </ng-template>
-          </ngb-panel>
-          <ngb-panel id="static-3">
-            <ng-template ngbPanelTitle>
-              <h6 class="mb-0">
-                  Can I add money to the wallet?
-              </h6>
-            </ng-template>
-            <ng-template ngbPanelContent>
-                You can add money to the wallet for any future transaction from your bank account using net-banking, or
-                credit/debit card transaction. The money in the wallet can be used for an easier and faster transaction.
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
-
--->
 <br />
 
 <div>
@@ -259,11 +193,9 @@
                         <tbody>
                           <tr *ngFor="let product_order of products.order" class="media-tr">
                             <td>
-                              <strong *ngIf="role_type === 'retailer'" class="sub-order-dropdown-heading"
-                                >Distributor name:</strong
-                              >
+                              <strong *ngIf="role_type === 'retailer'" class="sub-order-dropdown-heading">Name:</strong>
                               <strong *ngIf="role_type === 'distributor'" class="sub-order-dropdown-heading"
-                                >Retailer name:</strong
+                                >Name:</strong
                               >
                               <br class="media-static" />
 
@@ -275,16 +207,16 @@
                               }}</span>
                             </td>
                             <td>
-                              <strong class="sub-order-dropdown-heading">Units ordered :</strong
+                              <strong class="sub-order-dropdown-heading">Quantity:</strong
                               ><span class="pl-12 ">{{ product_order.quantity }}</span>
                             </td>
                             <td>
-                              <strong class="sub-order-dropdown-heading">Unit Price:</strong
+                              <strong class="sub-order-dropdown-heading">Price:</strong
                               ><i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                               ><span class="pl-12 ">{{ product_order.unit_price }}</span>
                             </td>
                             <td>
-                              <strong class="sub-order-dropdown-heading">Total Price:</strong>
+                              <strong class="sub-order-dropdown-heading">Amount:</strong>
                               <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                               ><span>{{ (product_order.quantity * product_order.unit_price).toFixed(2) }}</span>
                             </td>
@@ -390,11 +322,20 @@
     <ngb-panel *ngFor="let list of orderListData; let i = index" id="panel-id-{{ i }}">
       <!--Desktop and tablet view-->
       <ng-template ngbPanelTitle>
+        <div *ngIf="role_type === 'distributor'">
+          <button
+            (click)="downloadBatchByRetailer(list.uuid, $event)"
+            class="btn btn-primary csv_download_source"
+            type="button"
+          >
+            <i class="mdi mdi-printer"></i>Batch {{ i + 1 }}
+          </button>
+        </div>
         <div class="row">
           <div class="col-md-4">
             <h6>
-              <span *ngIf="role_type === 'retailer'">ORDER # {{ list.retailer_order_id }}</span>
-              <span *ngIf="role_type === 'distributor'">ORDER # {{ list.distributor_order_id }}</span>
+              <span *ngIf="role_type === 'retailer'">ORDER # {{ list.order_id }}</span>
+              <span *ngIf="role_type === 'distributor'">ORDER # {{ list.order_id }}</span>
             </h6>
           </div>
           <div class="col-md-4">
@@ -525,18 +466,18 @@
               >
                 <div *ngIf="role_type === 'distributor'">
                   <button
-                    (click)="downloadBatchByRetailer(dist['retailer']['slug'], list.uuid)"
-                    class="btn btn-primary csv_download_source"
+                    (click)="downloadInvoiceByRetailer(dist['retailer']['slug'], list.uuid)"
+                    class="btn btn-warning btn-fw csv_download_source"
                     type="button"
                   >
-                    <i class="mdi mdi-printer"></i>Batch {{ i + 1 }}
+                    <i class="mdi mdi-printer"></i>Invoice {{ i + 1 }}
                   </button>
                 </div>
-                <div *ngIf="role_type === 'retailer'">
-                  <button class="btn btn-primary csv_download_source" type="button">
-                    <i class="mdi mdi-printer"></i> Invoice
-                  </button>
-                </div>
+                <!--                <div *ngIf="role_type === 'retailer'">-->
+                <!--                  <button class="btn btn-primary csv_download_source" type="button">-->
+                <!--                    <i class="mdi mdi-printer"></i> Invoice-->
+                <!--                  </button>-->
+                <!--                </div>-->
                 <div class="infoWrap">
                   <div class="cartSection cart-full-box">
                     <div class="cart-sub-section-image">
@@ -559,10 +500,18 @@
                           <p class="itemNumber" *ngIf="role_type === 'distributor'">
                             RETAILER ORDER # {{ list.retailer_order_id }}
                           </p>-->
-                        <h3 *ngIf="role_type === 'retailer'">{{ dist.distributor['name'] }}</h3>
-                        <h3 *ngIf="role_type === 'distributor'">{{ dist.retailer['name'] }}</h3>
-                        <span *ngIf="role_type === 'distributor'">{{ dist.retailer['user_id'] }}</span>
-                        <span *ngIf="role_type === 'retailer'">{{ dist.distributor['user_id'] }}</span>
+                        <h3 style="margin-bottom: 0 !important;" *ngIf="role_type === 'retailer'">
+                          {{ dist.distributor['name'] }}
+                        </h3>
+                        <h3 style="margin-bottom: 0 !important;" *ngIf="role_type === 'distributor'">
+                          {{ dist.retailer['name'] }}
+                        </h3>
+                        <span style="margin-bottom: 0.5em;" class="text-muted" *ngIf="role_type === 'distributor'"
+                          >ID : {{ dist.retailer['user_id'] }}</span
+                        >
+                        <span style="margin-bottom: 0.5em;" class="text-muted" *ngIf="role_type === 'retailer'"
+                          >ID : {{ dist.distributor['user_id'] }}</span
+                        >
                       </div>
                     </div>
 
@@ -571,21 +520,24 @@
                         <tbody>
                           <tr *ngFor="let order of dist.order; let idx = index" class="media-tr">
                             <td>
-                              <strong class="sub-order-dropdown-heading">Product name:</strong
-                              ><br class="media-static" />
-                              <span class="pl-12 "> {{ order['product']['name'] }}</span>
+                              <strong class="sub-order-dropdown-heading">Product:</strong><br class="media-static" />
+                              <span class="pl-12 ">
+                                {{ order['product']['name'] }}
+                                <span style="color: rgb(163, 26, 84);"> ({{ order['order_id'] }}) </span>
+                                <span *ngIf="order.salesman !== null"> by {{ order['salesman']['name'] }} </span>
+                              </span>
                             </td>
                             <td>
-                              <strong class="sub-order-dropdown-heading">Units ordered :</strong
+                              <strong class="sub-order-dropdown-heading">Quantity:</strong
                               ><span class="pl-12 ">{{ order.quantity }}</span>
                             </td>
                             <td>
-                              <strong class="sub-order-dropdown-heading">Unit Price:</strong
+                              <strong class="sub-order-dropdown-heading">Price:</strong
                               ><i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                               ><span class="pl-12 ">{{ order.product.price }}</span>
                             </td>
                             <td>
-                              <strong class="sub-order-dropdown-heading">Total Price:</strong>
+                              <strong class="sub-order-dropdown-heading">Amount:</strong>
                               <i style="color: #00a855" class="fa fa-inr" aria-hidden="true"></i
                               ><span>{{ (order.quantity * order.product.price).toFixed(2) }}</span>
                             </td>
@@ -1015,32 +967,7 @@
                       {{ order.status }}
                     </div>
                   </div>
-
-                  <!--                    <div class="col-3 d-flex">-->
-                  <!--                      <div style="font-size: 13px; font-weight: 400;" class="badge badge-outline-primary badge-pill">-->
-                  <!--                        {{ order.status }}-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
                 </div>
-                <!--                <div class="ticket-actions col-md-2">-->
-                <!--                  <div class="btn-group dropdown">-->
-                <!--                    <button-->
-                <!--                      *ngIf="role_type === 'distributor' && !(order['status'] === 'rejected_by_distributor')"-->
-                <!--                      class="distributor-reject continue btn btn-inverse-success btn-rounded btn-fw btn-yes btn-reject"-->
-                <!--                      (click)="open(Reject, order)"-->
-                <!--                      type="button"-->
-                <!--                    >-->
-                <!--                      Reject-->
-                <!--                    </button>-->
-                <!--                    &lt;!&ndash;                    <div class="dropdown-menu">&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-reply fa-fw"></i>Quick reply</a>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-history fa-fw"></i>Another action</a>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                      <div class="dropdown-divider"></div>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-check text-success fa-fw"></i>Resolve Issue</a>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                      <a class="dropdown-item" href="#"> <i class="fa fa-times text-danger fa-fw"></i>Close Issue</a>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
-                <!--                  </div>-->
-                <!--                </div>-->
               </div>
             </div>
           </div>

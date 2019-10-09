@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, I18nService } from '@app/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -8,7 +8,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './salesmanheader.component.html',
   styleUrls: ['./salesmanheader.component.scss']
 })
-export class SalesmanheaderComponent implements OnInit {
+export class SalesmanheaderComponent implements OnInit, OnChanges {
   menuHidden = true;
   user_info: any;
   displaySideBar = false;
@@ -16,6 +16,7 @@ export class SalesmanheaderComponent implements OnInit {
   activeTag: string;
   userEmail: string;
 
+  @Input() sideBarDisplayOverlay: boolean;
   @Output() sideBarDisplay = new EventEmitter<boolean>();
 
   constructor(
@@ -34,6 +35,11 @@ export class SalesmanheaderComponent implements OnInit {
     this.activeTag = url.substr(url.lastIndexOf('/') + 1);
     this.user_info = this.authenticationService.userInfo();
     this.role_type = this.user_info.roles[0];
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const sideBarDisplayValue: SimpleChange = changes.sideBarDisplayOverlay;
+    this.displaySideBar = sideBarDisplayValue.currentValue;
   }
 
   activeHeaderTag(type: any) {
@@ -70,7 +76,6 @@ export class SalesmanheaderComponent implements OnInit {
 
   toggleSideBar(): void {
     this.displaySideBar = !this.displaySideBar;
-    console.log(this.displaySideBar, 'this.displaySideBar');
     this.sideBarDisplay.emit(this.displaySideBar);
   }
 }
