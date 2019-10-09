@@ -214,13 +214,13 @@
           </div>
           <div class="col-md-6" *ngIf="!invalidLocation && signUpSalesmanForm.controls['address_line_2'].value">
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">House number</label>
+              <label class="col-sm-3 col-form-label">Address</label>
               <div class="col-sm-9">
                 <textarea
                   class="form-control forms_field-input"
                   formControlName="address_line_1"
                   autocomplete="address_line_1"
-                  [placeholder]="'House number' | translate"
+                  [placeholder]="'House no, Building, Streat, Area' | translate"
                   required
                   autofocus
                 ></textarea>
@@ -320,7 +320,7 @@
           class="btn btn-primary btn-fw forms_buttons-action"
         >
           <span [hidden]="isLoading">
-            Sign up
+            Add salesman
           </span>
           <span>
             <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>

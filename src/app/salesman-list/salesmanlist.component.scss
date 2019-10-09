@@ -103,3 +103,36 @@ input#search-bar {
   background: #fff;
   padding: 0 10px;
 }
+
+.manage_salesman_list {
+  display: flex;
+  flex-direction: row;
+}
+
+//In case of empty list
+.empty_cart_text_message {
+  font-weight: 200;
+  font-size: 22px;
+  margin: auto;
+  display: table;
+  text-align: center;
+}
+
+.empty_cart_container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty_cart_text_message a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: green;
+}
+
+.empty-cart-data {
+  margin: auto;
+  display: table;
+  width: 450px;
+  padding-top: 2em;
+}

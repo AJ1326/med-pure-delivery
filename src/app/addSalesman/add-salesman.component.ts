@@ -118,7 +118,7 @@ export class AddSalesmanComponent implements OnInit {
   }
 
   public openModal(content: any) {
-    this.retailersignUp(content);
+    this.salesmansignUp(content);
   }
 
   submitOTP() {
@@ -169,7 +169,7 @@ export class AddSalesmanComponent implements OnInit {
       );
   }
 
-  retailersignUp(content: any) {
+  salesmansignUp(content: any) {
     let values = this.signUpSalesmanForm.value;
     localStorage.setItem('user-email', this.signUpSalesmanForm.value.email);
     this.isLoading = true;

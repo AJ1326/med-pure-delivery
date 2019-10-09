@@ -179,7 +179,7 @@ export class SalesmanaddRetailerComponent implements OnInit {
     localStorage.setItem('user-email', this.signUpRetailerForm.value.email);
     this.isLoading = true;
     this.authenticationService
-      .signupSalesmanByDistributor(this.signUpRetailerForm.value)
+      .signupRetailerBySalesman(this.signUpRetailerForm.value)
       .pipe(
         finalize(() => {
           this.isLoading = false;
