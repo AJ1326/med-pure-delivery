@@ -24,10 +24,7 @@
           <div class="">
             <p class="profile-name">{{ user_info['name'] }}</p>
             <div>
-              <small *ngIf="role_type === 'retailer'" class="designation text-muted"
-                >Retailer #{{ user_info['shop_name'] }}</small
-              >
-              <small *ngIf="role_type === 'distributor'" class="designation text-muted">Distributor ID</small>
+              <small class="designation text-muted">ID # {{ user_info['user_id'] }}</small>
               <span class="status-indicator online"></span>
             </div>
           </div>
