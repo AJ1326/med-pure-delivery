@@ -265,14 +265,14 @@ export class TableDataComponent implements OnInit, OnDestroy {
 
   downloadInvoiceByRetailer(slug: any, uuid: string): void {
     this.orderListService.downloadBatchRetailerProductList(slug, uuid).subscribe((data: any) => {
-      this.JSONToCSVConvertor(data, 'Batch_List', true);
+      this.JSONToCSVConvertor(data, 'Invoice', true);
     });
   }
 
   downloadBatchByRetailer(uuid: string, event: any): void {
     event.stopPropagation();
     this.orderListService.downloadBatchRetailerList(uuid).subscribe((data: any) => {
-      this.JSONToCSVConvertor(data, 'Batch_List', true);
+      this.JSONToCSVConvertor(data, 'Batch', true);
     });
   }
 
@@ -283,7 +283,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
       this.accept_all_csv_downloaded.emit(true);
     });
     this.orderListService.downloadPendingProductList().subscribe((data: any) => {
-      this.JSONToCSVConvertor(data, 'Pending_Orders', true);
+      this.JSONToCSVConvertor(data, 'Orders', true);
     });
   }
 

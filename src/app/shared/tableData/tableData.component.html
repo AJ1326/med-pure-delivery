@@ -334,8 +334,8 @@
         <div class="row">
           <div class="col-md-4">
             <h6>
-              <span *ngIf="role_type === 'retailer'">ORDER # {{ list.retailer_order_id }}</span>
-              <span *ngIf="role_type === 'distributor'">ORDER # {{ list.distributor_order_id }}</span>
+              <span *ngIf="role_type === 'retailer'">ORDER # {{ list.order_id }}</span>
+              <span *ngIf="role_type === 'distributor'">ORDER # {{ list.order_id }}</span>
             </h6>
           </div>
           <div class="col-md-4">
@@ -467,7 +467,7 @@
                 <div *ngIf="role_type === 'distributor'">
                   <button
                     (click)="downloadInvoiceByRetailer(dist['retailer']['slug'], list.uuid)"
-                    class="btn btn-primary csv_download_source"
+                    class="btn btn-warning btn-fw csv_download_source"
                     type="button"
                   >
                     <i class="mdi mdi-printer"></i>Invoice {{ i + 1 }}
@@ -523,7 +523,7 @@
                               <strong class="sub-order-dropdown-heading">Product:</strong><br class="media-static" />
                               <span class="pl-12 ">
                                 {{ order['product']['name'] }}
-                                <span> ({{ order['order_id'] }}) </span>
+                                <span style="color: rgb(163, 26, 84);"> ({{ order['order_id'] }}) </span>
                                 <span *ngIf="order.salesman !== null"> by {{ order['salesman']['name'] }} </span>
                               </span>
                             </td>
