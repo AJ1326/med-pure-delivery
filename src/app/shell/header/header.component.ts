@@ -73,6 +73,10 @@ export class HeaderComponent implements OnInit, OnChanges {
     return this.user_info['name'];
   }
 
+  get userid(): string | null {
+    return this.user_info['user_id'];
+  }
+
   toggleSideBar(): void {
     this.displaySideBar = !this.displaySideBar;
     this.sideBarDisplay.emit(this.displaySideBar);

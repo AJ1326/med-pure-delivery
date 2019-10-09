@@ -60,6 +60,7 @@
           />
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+          <span class="dropdown-item mt-2 text-muted"> ID : {{ user_info['user_id'] }} </span>
           <a class="dropdown-item mt-2" [routerLink]="['/' + role_type + '/change-password']">
             Change Password
           </a>
