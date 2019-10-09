@@ -18,6 +18,7 @@ export class SalesmanlistComponent implements OnInit {
   searchID = '';
   salesmanList = [];
   connectedSalesmanList = [];
+  nosalesman = false;
   role_type: any;
   user_info: any;
 
@@ -42,13 +43,41 @@ export class SalesmanlistComponent implements OnInit {
 
   getConnectedSalesman() {
     this.salesmanlistService.getConnectedSalesman().subscribe((data: any) => {
-      this.connectedSalesmanList = data.results;
+      this.connectedSalesmanList = data;
     });
   }
 
+  addOrRemoveExistingConnection(to_is_active: boolean, connection_uuid: string) {
+    this.salesmanlistService
+      .addOrRemoveConnectedSalesman(connection_uuid, {
+        is_active: to_is_active
+      })
+      .subscribe(
+        (data: any) => {
+          let msg = '';
+          if (to_is_active === true) {
+            msg = 'Salesman has been added';
+          } else {
+            msg = 'Salesman has been removed';
+          }
+          this.toastr.success(msg);
+
+          this.getConnectedSalesman();
+        },
+        (error: any) => {
+          this.toastr.error('There was some error performing the action.');
+        }
+      );
+  }
+
   searchSalesmanViaID() {
+    this.nosalesman = false;
     this.salesmanlistService.getSalesmanViaID(this.searchID).subscribe(data => {
       this.salesmanList = data['results'];
+
+      if (this.salesmanList.length === 0) {
+        this.nosalesman = true;
+      }
       console.log(data);
     });
   }
@@ -65,6 +94,7 @@ export class SalesmanlistComponent implements OnInit {
           this.searchID = '';
           this.salesmanList = [];
           this.modalService.dismissAll();
+          this.getConnectedSalesman();
         },
         (error: any) => {
           this.toastr.error(error.error.error);

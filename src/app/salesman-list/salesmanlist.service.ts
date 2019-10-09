@@ -24,6 +24,10 @@ export class SalesmanlistService {
     return this.http.get(`${URLS.DISTRIBUTOR_SALESMAN_LIST}`);
   }
 
+  addOrRemoveConnectedSalesman(con_uuid: string, payload: any) {
+    return this.http.patch(`${URLS.DISTRIBUTOR_SALESMAN_LIST}` + con_uuid + '/', payload, { withCredentials: true });
+  }
+
   // distributorList(payload: any) {
   //   return this.http.get(`${URLS.DISTRIBUTOR_LIST__API}` + payload);
   // }
