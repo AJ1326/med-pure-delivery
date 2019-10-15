@@ -6,7 +6,6 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { OrderListRetailerModule } from '@app/order-list-retailer/order-list-retailer.module';
@@ -21,7 +20,6 @@ import { HomeService } from '@app/home/home.service';
     SharedModule,
     HomeRoutingModule,
     FormsModule,
-    Ng2SmartTableModule,
     NgbModule.forRoot(),
     OrderListRetailerModule,
     OrderListModule

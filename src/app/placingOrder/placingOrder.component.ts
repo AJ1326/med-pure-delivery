@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap, finalize } from 'rxjs/operators';
 import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
 import { Logger } from '@app/core';
-import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { Route, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
@@ -85,21 +84,10 @@ export class PlacingOrderComponent implements OnInit, AfterViewInit, OnChanges {
   constructor(
     private distributorService: PlacingOrderService,
     private modalService: NgbModal,
-    private _hotkeysService: HotkeysService,
     public route: Router,
     private toastr: ToastrService,
     private router: ActivatedRoute
-  ) {
-    // this._hotkeysService.add(
-    //   new Hotkey(
-    //     'command+h',
-    //     (event: KeyboardEvent): boolean => {
-    //       this.route.navigateByUrl('/');
-    //       return false; // Prevent bubbling
-    //     }
-    //   )
-    // );
-  }
+  ) {}
 
   ngAfterViewInit() {
     this.tabsInitialized = true;

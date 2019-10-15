@@ -24,7 +24,6 @@ import { SalesmanheaderComponent } from '@app/shell/salesManShell/header/salesma
 import { SalesManShellComponent } from '@app/shell/salesManShell/salesManShell.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { SalesmansidebarComponent } from '@app/shell/salesManShell/sidebar/salesmansidebar.component';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { ForgetheaderComponent } from '@app/shell/forgetPasswordShell/header/forgetheader.component';
 import { ForgetPasswordShellComponent } from '@app/shell/forgetPasswordShell/forgetshell.component';
