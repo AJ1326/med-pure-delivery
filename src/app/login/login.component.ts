@@ -52,8 +52,6 @@ export class LoginComponent implements OnInit {
     this.createForm();
     this.route.queryParams.subscribe(params => {
       this.from = params['from'];
-      console.log('params: ', params);
-      console.log(this.from);
     });
   }
 
@@ -61,7 +59,6 @@ export class LoginComponent implements OnInit {
     const role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (role) {
       const roleType = this.authenticationService.permissionView();
-      console.log('roleType', roleType);
       if (roleType === 'retailer') {
         this.route.queryParams.subscribe(params => this.router.navigate(['/retailer/'], { replaceUrl: true }));
       } else if (roleType === 'distributor') {
@@ -97,24 +94,19 @@ export class LoginComponent implements OnInit {
   }
 
   stopCarret(obj: any) {
-    console.log('obj', obj);
     if (obj.value.length > 3) {
-      console.log('obj.value.length', obj.value.length);
       this.setCaretPosition(obj, 3);
     }
   }
 
   setCaretPosition(elem: any, caretPos: any) {
-    console.log(elem, 'elem', caretPos, 'caretPos');
     if (elem != null) {
       if (elem.createTextRange) {
         var range = elem.createTextRange();
-        console.log(range, 'range');
         range.move('character', caretPos);
         range.select();
       } else {
         if (elem.selectionStart) {
-          console.log(elem.selectionStart, 'elem.selectionStart');
           elem.focus();
           elem.setSelectionRange(caretPos, caretPos);
         } else {
@@ -157,7 +149,6 @@ export class LoginComponent implements OnInit {
           log.debug(`${credentials.user} successfully logged in`);
           const roleType = this.authenticationService.permissionView();
           const onboard = this.authenticationService.onboardingView();
-          console.log('onboard roleType', onboard, roleType);
           if (roleType === 'salesman' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/salesman'], { replaceUrl: true }));
           } else if (roleType === 'retailer' && onboard) {
@@ -165,7 +156,6 @@ export class LoginComponent implements OnInit {
           } else if (roleType === 'distributor' && onboard) {
             this.route.queryParams.subscribe(params => this.router.navigate(['/distributor'], { replaceUrl: true }));
           } else if (!onboard) {
-            console.log('Working');
             this.route.queryParams.subscribe(params => this.router.navigate(['/boarding'], { replaceUrl: true }));
           } else {
             this.route.queryParams.subscribe(params =>
@@ -349,7 +339,6 @@ export class LoginComponent implements OnInit {
     this.ForgetPasswordErrorMessage = '';
 
     this.forgrt_email_sent = false;
-    console.log('this.loginForm.value', this.forgetPasswordForm.value);
     this.isLoading = true;
     this.error = null;
     const values = this.forgetPasswordForm.value;

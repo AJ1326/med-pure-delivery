@@ -108,6 +108,10 @@ export class AuthenticationService {
     return this.LoginService.signupRetailerBySalesman(context);
   }
 
+  signupSalesmanByDistributor(context: SignUpContext): Observable<any> {
+    return this.LoginService.signupSalesmanByDistributor(context);
+  }
+
   resend_signup_otp(context: any): Observable<any> {
     return this.LoginService.resend_signup_otp(context);
   }
@@ -145,17 +149,7 @@ export class AuthenticationService {
   }
 
   permissionView(): string | boolean {
-    // let role = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
-    // if (role) {
-    //   role = JSON.parse(role);
-    //   const role_type = role['role'][0];
-    //   return role_type;
-    // } else {
-    //   return false;
-    // }
-    //
-
-    return this._credentials['user']['roles'][0];
+    return this._credentials['user']['roles'] !== undefined ? this._credentials['user']['roles'][0] : '';
   }
 
   userInfoType(): string {

@@ -30,6 +30,11 @@ export const URLS = {
   // List of distributors
   DISTRIBUTOR_LIST__API: `distributor/?product_slug=`,
 
+  //List of Distributor-salesman
+  SALESMAN_LIST: `salesman/`,
+  DISTRIBUTOR_SALESMAN_LIST: `distributor/salesman/`,
+  DISTRIBUTOR_SALESMAN_CONNECT: `distributor/salesman/connect/`,
+
   // const filterCardArray = ['all-order-list', 'pending-order-list', 'open-order-list', 'closed-order-list'];
   ORDER_LIST_PLACED_API: {
     retailer: `orders/retailer/`,
@@ -54,5 +59,6 @@ export const URLS = {
   SALESMAN_RETAILER_SEARCH_API: `retailer_list/?search=`,
   SALESMAN_DISTRIBUTOR_LIST_API: `distributors/`,
   SALESMAN_ADD_RETAILER: `salesman/retailers/`,
+  DISTRIBUTOR_ADD_SALESMAN: `add_salesman/`,
   SALESMAN_VERIFY_OTP_RETAILER: `salesman/retailers/validate_otp/`
 };

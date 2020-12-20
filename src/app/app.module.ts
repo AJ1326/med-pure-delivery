@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
 import {
@@ -24,7 +24,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { PlacingOrderModule } from '@app/placingOrder/placingOrder.module';
 import { ChangePasswordModule } from '@app/changePassword/changePassword.module';
 import { OrderListRoutingModule } from '@app/orderList/order-list-routing.module';
-import { HotkeyModule } from 'angular2-hotkeys';
 import { OrderListRetailerRoutingModule } from '@app/order-list-retailer/order-list-retailer-routing.module';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileModule } from '@app/profile/profile.module';
@@ -41,27 +40,24 @@ import { AboutRoutingModule } from '@app/about/about-routing.module';
 import { PwaService } from '@app/pwa.service';
 import { SavingNotesRoutingModule } from '@app/saving-notes/saving-notes-routing.module';
 import { SavingNotesModule } from '@app/saving-notes/saving-notes.module';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SalesmanModule } from '@app/salesman/salesman.module';
 import { SalesmanlistModule } from '@app/salesman-list/salesmanlist.module';
 import { SalesmanlistRoutingModule } from '@app/salesman-list/salesmanlist-routing.module';
 import { ErrorModule } from '@app/error/error.module';
 import { ErrorRoutingModule } from '@app/error/error-routing.module';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
-import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { ForgetPasswordModule } from '@app/forgetPassword/forgetPassword.module';
 import { ForgetPasswordRoutingModule } from '@app/forgetPassword/forgetPassword-routing.module';
 import { SwUpdatesModule } from './sw-updates/sw-updates.module';
+import { AddSalesmanModule } from '@app/addSalesman/add-salesman.module';
+import { AddSalesmanRoutingModule } from '@app/addSalesman/add-salesman-routing.module';
 
 @NgModule({
   imports: [
     BrowserModule,
-    GooglePlaceModule,
     SwUpdatesModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     HttpClientModule,
-    HotkeyModule.forRoot(),
     TranslateModule.forRoot(),
     NgbModule,
     CoreModule,
@@ -70,10 +66,12 @@ import { SwUpdatesModule } from './sw-updates/sw-updates.module';
     SalesmanModule,
     ForgetPasswordModule,
     SalesmanlistModule,
+    AddSalesmanModule,
     HomeModule,
     AboutModule,
     FeedbackModule,
     OrderListRoutingModule,
+    AddSalesmanRoutingModule,
     OrderListRetailerRoutingModule,
     OrderListModule,
     LoginModule,

@@ -34,29 +34,32 @@
                 </div>
               </div>
             </div>
-            <p class="text-muted mt-3 mb-0">
-              <i
-                class="mdi mdi-calendar mr-1"
-                aria-hidden="true"
-                *ngIf="card_filter.card_type === 'all-order-list'"
-              ></i>
-              <i
-                class="mdi mdi-alert-octagon mr-1"
-                aria-hidden="true"
-                *ngIf="card_filter.card_type === 'by-source'"
-              ></i>
-              <i
-                class="mdi mdi-bookmark-outline mr-1"
-                aria-hidden="true"
-                *ngIf="card_filter.card_type === 'pending-order-list'"
-              ></i>
-              <i
-                class="mdi mdi-reload mr-1"
-                aria-hidden="true"
-                *ngIf="card_filter.card_type === 'fast-moving-order-list'"
-              ></i>
-              {{ card_filter.card_description }}
-            </p>
+
+            <!--            Bottom explanatory buttons in the card tag.-->
+
+            <!--            <p class="text-muted mt-3 mb-0">-->
+            <!--              <i-->
+            <!--                class="mdi mdi-calendar mr-1"-->
+            <!--                aria-hidden="true"-->
+            <!--                *ngIf="card_filter.card_type === 'all-order-list'"-->
+            <!--              ></i>-->
+            <!--              <i-->
+            <!--                class="mdi mdi-alert-octagon mr-1"-->
+            <!--                aria-hidden="true"-->
+            <!--                *ngIf="card_filter.card_type === 'by-source'"-->
+            <!--              ></i>-->
+            <!--              <i-->
+            <!--                class="mdi mdi-bookmark-outline mr-1"-->
+            <!--                aria-hidden="true"-->
+            <!--                *ngIf="card_filter.card_type === 'pending-order-list'"-->
+            <!--              ></i>-->
+            <!--              <i-->
+            <!--                class="mdi mdi-reload mr-1"-->
+            <!--                aria-hidden="true"-->
+            <!--                *ngIf="card_filter.card_type === 'fast-moving-order-list'"-->
+            <!--              ></i>-->
+            <!--              {{ card_filter.card_description }}-->
+            <!--            </p>-->
           </div>
         </div>
       </div>

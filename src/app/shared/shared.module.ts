@@ -13,10 +13,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { InlineEditComponent } from '@app/shared/inline-edit-component/inline-edit.component';
 import { FormsModule } from '@angular/forms';
 import { ChangeDateFormat, TableDataComponent } from '@app/shared/tableData/tableData.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TableDataService } from '@app/shared/tableData/tableData.service';
 import { NgbdSortableHeader } from '@app/shared/directives/sortable.directive';
-import { HotkeyModule } from 'angular2-hotkeys';
 import { ComingSoonModule } from '@app/coming-soon/coming-soon.module';
 import { NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown';
 // import {AppRoutingModule} from "@app/app-routing.module";
@@ -26,11 +24,9 @@ import { NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown';
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HotkeyModule,
     FormsModule,
     // AppRoutingModule,
     ComingSoonModule,
-    Ng2SmartTableModule,
     NgbModule
   ],
   declarations: [

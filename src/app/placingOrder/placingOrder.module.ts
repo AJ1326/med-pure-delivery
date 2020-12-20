@@ -8,7 +8,6 @@ import { SharedModule } from '@app/shared';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PlacingOrderService } from '@app/placingOrder/placingOrder.service';
-import { HotkeyModule } from 'angular2-hotkeys';
 
 @NgModule({
   imports: [CommonModule, TranslateModule, PlacingOrderRoutingModule, SharedModule, FormsModule, NgbModule.forRoot()],

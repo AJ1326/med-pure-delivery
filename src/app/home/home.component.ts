@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.user_info = this.authenticationService.userInfo();
     this.role_type = this.user_info.roles[0];
     this.router.queryParams.subscribe(params => {
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
       .cardListData(this.role_type, this.orderFromSalesman)
       .pipe(
         finalize(() => {
-          this.isLoading = false;
+          // this.isLoading = false;
         })
       )
       .subscribe(
@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit {
     this.activeCard = id_value;
     this.filterTitle = filter_title;
     this.filterValue = filter_value;
+    this.cardData(this.activeCard);
     this.tableservice.SetfilterTypeValue(id_value);
   }
 }

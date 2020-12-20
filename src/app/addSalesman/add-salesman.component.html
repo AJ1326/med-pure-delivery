@@ -1,0 +1,373 @@
+<div class="col-12 grid-margin" style="margin-top: 8%;">
+  <div class="card">
+    <div class="card-body">
+      <div style="display: flex; flex-direction: row;">
+        <!--        <div style="flex-grow: 1;">-->
+        <!--          <h4 class="card-title"></h4>-->
+        <!--        </div>-->
+        <div style="float: right">
+          <span class="reset-form" (click)="resetAddRetailerForm()">Reset form</span>
+        </div>
+      </div>
+      <form class="form-sample ng-untouched ng-pristine ng-valid" [formGroup]="signUpSalesmanForm" novalidate="">
+        <p class="card-description" style="color: #4ca4e1; font-weight: bold; font-size: 1.3rem;">Personal info</p>
+        <div class="boarding-success" [hidden]="!onBoardingSuccess || isLoading" translate>
+          On-boarding email has been sent to the salesman, Kindly register.
+          <!--          (click)="resendOnboardingEmail()"-->
+          <span class="resend-mail">Resend<img src="../../../assets/images/login/resend.png"/></span>
+        </div>
+        <!--        <div *ngIf="signuperrorexists" class="boarding-email-already-exists">-->
+        <!--          This email address already exist.-->
+        <!--          &lt;!&ndash;          (click)="resendOnboardingEmail()"&ndash;&gt;-->
+        <!--          <span style="margin-left: 4px" class="resend-mail">Click here</span-->
+        <!--          ><span style="margin-left: 4px;">to resend the MedPure boarding email.</span>-->
+        <!--        </div>-->
+        <!--        <div *ngIf="signuperrorregistered" class="boarding-email-already-exists">-->
+        <!--          This email address already registered. Kindly login.-->
+        <!--        </div>-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">First Name</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="first_name"
+                  autocomplete="first_name"
+                  [placeholder]="'First Name' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="
+                    signUpSalesmanForm.controls.first_name.invalid && signUpSalesmanForm.controls.first_name.touched
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.first_name.errors.required">First name is required</div>
+                </div>
+                <div *ngIf="error['first_name']" class="text-danger">
+                  <div>{{ error['first_name'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Last Name</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="last_name"
+                  autocomplete="last_name"
+                  [placeholder]="'Last Name' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="signUpSalesmanForm.controls.last_name.invalid && signUpSalesmanForm.controls.last_name.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.last_name.errors.required">Last name is required</div>
+                </div>
+                <div *ngIf="error['last_name']" class="text-danger">
+                  <div>{{ error['last_name'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Email</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control forms_field-input"
+                  formControlName="email"
+                  autocomplete="email"
+                  [placeholder]="'Email address' | translate"
+                  required
+                  autofocus
+                />
+                <div
+                  *ngIf="signUpSalesmanForm.controls.email.invalid && signUpSalesmanForm.controls.email.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.email.errors.email">Email must be a valid email address</div>
+                </div>
+                <div *ngIf="error['email']" class="text-danger">
+                  <div>{{ error['email'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Phone number</label>
+              <div class="col-sm-9">
+                <input
+                  type="number"
+                  class="form-control forms_field-input"
+                  formControlName="phone_number"
+                  autocomplete="phone_number"
+                  [placeholder]="'Phone number' | translate"
+                  required
+                />
+                <div
+                  *ngIf="
+                    signUpSalesmanForm.controls.phone_number.invalid && signUpSalesmanForm.controls.phone_number.touched
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.phone_number.errors.validPhoneNumber">
+                    Number is in-valid.
+                  </div>
+                </div>
+                <div *ngIf="error['phone_number']" class="text-danger">
+                  <div>{{ error['phone_number'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Gender</label>
+              <div class="col-sm-9">
+                <select class="form-control" formControlName="gender">
+                  <option value="male" selected>Male</option>
+                  <option value="fe-male" selected>Female</option>
+                </select>
+                <div
+                  *ngIf="signUpSalesmanForm.controls.gender.invalid && signUpSalesmanForm.controls.gender.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.gender.errors.required">Kindly select your user type.</div>
+                </div>
+                <div *ngIf="error['gender']" class="text-danger">
+                  <div>{{ error['gender'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--          <div class="col-md-6">-->
+          <!--            <div class="form-group row">-->
+          <!--              <label class="col-sm-3 col-form-label">Shop name</label>-->
+          <!--              <div class="col-sm-9">-->
+          <!--                <input-->
+          <!--                  type="text"-->
+          <!--                  class="form-control forms_field-input"-->
+          <!--                  formControlName="shop_name"-->
+          <!--                  autocomplete="shop_name"-->
+          <!--                  [placeholder]="'Shop name' | translate"-->
+          <!--                  required-->
+          <!--                />-->
+          <!--              </div>-->
+          <!--              <div-->
+          <!--                *ngIf="signUpSalesmanForm.controls.shop_name.invalid && signUpSalesmanForm.controls.shop_name.touched"-->
+          <!--                class="text-danger"-->
+          <!--              >-->
+          <!--                <div *ngIf="signUpSalesmanForm.controls.shop_name.errors.required">Shop name is required</div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+        <p class="card-description" style="color: #4ca4e1; font-weight: bold; font-size: 1.3rem;">Address info</p>
+        <span class="invalid-error-msg text-danger" *ngIf="invalidLocation">
+          *Please enter a more specific location.
+        </span>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Landmark</label>
+              <div class="col-sm-9">
+                <ng4geo-autocomplete
+                  class="forms_field-input"
+                  ngDefaultControl
+                  formControlName="address_line_2"
+                  autocomplete="address_line_2"
+                  [userSettings]="userSettings"
+                  (componentCallback)="autoCompleteCallback1($event)"
+                  required
+                  autofocus
+                >
+                </ng4geo-autocomplete>
+                <div
+                  *ngIf="
+                    signUpSalesmanForm.controls.address_line_2.invalid &&
+                    signUpSalesmanForm.controls.address_line_2.touched
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.address_line_2.errors.required">Field is required</div>
+                </div>
+                <div *ngIf="error['address_line_2']" class="text-danger">
+                  <div>{{ error['address_line_2'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="!invalidLocation && signUpSalesmanForm.controls['address_line_2'].value">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Address</label>
+              <div class="col-sm-9">
+                <textarea
+                  class="form-control forms_field-input"
+                  formControlName="address_line_1"
+                  autocomplete="address_line_1"
+                  [placeholder]="'House no, Building, Streat, Area' | translate"
+                  required
+                  autofocus
+                ></textarea>
+                <div
+                  *ngIf="
+                    signUpSalesmanForm.controls.address_line_1.invalid &&
+                    signUpSalesmanForm.controls.address_line_1.touched
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.address_line_1.errors.required">Field is required</div>
+                </div>
+                <div *ngIf="error['address_line_1']" class="text-danger">
+                  <div>{{ error['address_line_1'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="!invalidLocation && signUpSalesmanForm.controls['address_line_2'].value">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">State</label>
+              <div class="col-sm-9">
+                <input
+                  formControlName="state"
+                  class="form-control forms_field-input"
+                  type="text"
+                  placeholder="State name"
+                  disabled
+                />
+                <div
+                  *ngIf="signUpSalesmanForm.controls.state.invalid && signUpSalesmanForm.controls.state.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.state.errors.required">State name is required</div>
+                </div>
+                <div *ngIf="error['state']" class="text-danger">
+                  <div>*We only serve in this state yet, comming soon.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">City</label>
+              <div class="col-sm-9">
+                <input
+                  formControlName="city"
+                  class="form-control forms_field-input"
+                  type="text"
+                  placeholder="City name"
+                  disabled
+                />
+                <div
+                  *ngIf="signUpSalesmanForm.controls.city.invalid && signUpSalesmanForm.controls.city.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.city.errors.required">City name is required</div>
+                </div>
+                <div *ngIf="error['city']" class="text-danger">
+                  <div>*We don't serve in your city yet, comming soon.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="!invalidLocation && signUpSalesmanForm.controls['address_line_2'].value">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Zipcode</label>
+              <div class="col-sm-9">
+                <input
+                  formControlName="zip_code"
+                  class="form-control forms_field-input"
+                  type="text"
+                  placeholder="Zip code"
+                  disabled
+                />
+                <div
+                  *ngIf="signUpSalesmanForm.controls.zip_code.invalid && signUpSalesmanForm.controls.zip_code.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="signUpSalesmanForm.controls.zip_code.errors.invalidZipCode">Zin code is invalid.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="forms_buttons">
+        <button
+          (click)="openModal(otp_modal)"
+          type="button"
+          [disabled]="signUpSalesmanForm.invalid || isLoading"
+          value="Sign up"
+          class="btn btn-primary btn-fw forms_buttons-action"
+        >
+          <span [hidden]="isLoading">
+            Add salesman
+          </span>
+          <span>
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #otp_modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <span style="color: red;" *ngIf="otp_error" translate>
+      {{ otp_error.error }}
+    </span>
+    <span style="color: green;"
+      >OTP is sent to you.
+      <span (click)="resendOtpCode()" style="color: dodgerblue; text-decoration: underline;"
+        >Resend<img
+          style="width: 16px;
+    padding-left: 5px;"
+          src="../../../assets/images/login/resend.png"/></span
+    ></span>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Please enter the otp.</p>
+    <input
+      [(ngModel)]="otp_code"
+      id="partitioned"
+      class="form-control forms_field-input"
+      type="text"
+      maxlength="4"
+      required
+      autofocus
+    />
+  </div>
+  <div class="modal-footer">
+    <button (click)="submitOTP()" type="button" value="Submit" class="btn btn-primary btn-fw forms_buttons-action">
+      <span [hidden]="isLoading">
+        Submit
+      </span>
+      <span>
+        <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+      </span>
+    </button>
+  </div>
+</ng-template>

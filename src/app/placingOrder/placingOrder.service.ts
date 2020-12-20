@@ -23,11 +23,11 @@ export class PlacingOrderService {
     if (term === '') {
       return of([]);
     }
-
     return this.http.get(`${URLS.PRODUCT_SEARCH_API}` + term, { withCredentials: true }).pipe(
       map((response: []) => {
         const arr: string[] = [];
         search_result = response['results'];
+        console.log('search_result', search_result);
         return search_result;
       })
     );

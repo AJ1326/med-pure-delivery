@@ -60,12 +60,13 @@
 <!--</div>-->
 <!--</div>-->
 <!--</div>-->
-
 <section class="desktop_view user">
   <div class="user_options-container">
     <div class="user_options-text">
       <div class="user_options-unregistered">
-        <h2 class="user_unregistered-title">Don't have an account?</h2>
+        <div class="user_unregistered-title">
+          <img style="width: 128px;" src="../../assets/images/logo/full-logo.png" />
+        </div>
         <p class="user_unregistered-text">
           MedPure is one stop solution for managing all the processes of drug stores from delivering stock to inventory
           management.
@@ -301,7 +302,7 @@
                 <select class="select-role-type" formControlName="user_role">
                   <option value="retailer" selected>Retailer</option>
                   <option value="distributor">Distributor</option>
-                  <option value="salesman">Salesman</option>
+                  <!--                  <option value="salesman">Salesman</option>-->
 
                   <!--                  <option value="delivery">Delivery</option>-->
                 </select>
@@ -558,7 +559,7 @@
             <select class="select-role-type-mobile" formControlName="user_role">
               <option value="retailer" selected>Retailer</option>
               <option value="distributor">Distributor</option>
-              <option value="salesman">Salesman</option>
+              <!--              <option value="salesman">Salesman</option>-->
             </select>
           </div>
           <button (click)="signUp()" [disabled]="signUpForm.invalid || isLoading">

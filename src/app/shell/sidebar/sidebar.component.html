@@ -24,10 +24,7 @@
           <div class="">
             <p class="profile-name">{{ user_info['name'] }}</p>
             <div>
-              <small *ngIf="role_type === 'retailer'" class="designation text-muted"
-                >Retailer #{{ user_info['shop_name'] }}</small
-              >
-              <small *ngIf="role_type === 'distributor'" class="designation text-muted">Distributor ID</small>
+              <small class="designation text-muted">ID # {{ user_info['user_id'] }}</small>
               <span class="status-indicator online"></span>
             </div>
           </div>
@@ -61,6 +58,12 @@
       <a class="nav-link" [routerLink]="['/' + role_type + '/change-password']">
         <i class="menu-icon mdi mdi-lock-open"></i>
         <span class="menu-title">Change password</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role_type === 'distributor'">
+      <a class="nav-link" [routerLink]="['/' + role_type + '/salesman-list']">
+        <i class="menu-icon mdi mdi-account-multiple-plus"></i>
+        <span class="menu-title">Manage Salesman</span>
       </a>
     </li>
     <li class="nav-item">

@@ -1,9 +1,5 @@
-<nav
-  [ngClass]="displaySideBar ? 'sidebar sidebar-offcanvas active' : 'sidebar sidebar-offcanvas'"
-  class="sidebar sidebar-offcanvas"
-  id="sidebar"
-  style="z-index: 99999 !important;"
->
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="z-index: 99999 !important;">
+  <!--  [ngClass]="displaySideBar ? 'sidebar sidebar-offcanvas active' : 'sidebar sidebar-offcanvas'"-->
   <ul class="nav">
     <li class="nav-item nav-profile">
       <div class="nav-link">
@@ -20,7 +16,7 @@
           <div class="">
             <p class="profile-name">{{ user_info['name'] }}</p>
             <div>
-              <small class="designation text-muted">Retailer #{{ user_info['shop_name'] }}</small>
+              <small class="designation text-muted">ID # {{ user_info['user_id'] }}</small>
               <span class="status-indicator online"></span>
             </div>
           </div>

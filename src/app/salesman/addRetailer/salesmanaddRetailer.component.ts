@@ -233,35 +233,3 @@ export class SalesmanaddRetailerComponent implements OnInit {
     this.signUpRetailerForm.reset();
   }
 }
-
-// @Component({
-//   selector: 'ngbd-modal-content',
-//   template: `<div class="modal-header">
-//       <h4 class="modal-title">OTP</h4>
-//       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-//           <span aria-hidden="true">&times;</span>
-//       </button>
-//   </div>
-//   <div class="modal-body">
-//       <p>Please enter the otp.</p>
-//
-//   </div>
-//   <div class="modal-footer">
-//       <button
-//               type="button"
-//               class="btn btn-primary btn-fw forms_buttons-action"
-//       >
-//           <span [hidden]="!isLoading">
-//             Submit
-//           </span>
-//           <span>
-//             <i class="fas fa-cog fa-spin" [hidden]="isLoading"></i>
-//           </span>
-//       </button>
-//       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-//   </div> `
-// })
-// export class NgbdModalContent {
-//   constructor(public activeModal: NgbActiveModal) {}
-//
-// }

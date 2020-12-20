@@ -22,8 +22,10 @@ export class ShellComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.router.url === '/distributor' || this.router.url === '/retailer' || this.router.url === '/salesman') {
+    if (this.router.url === '/distributor' || this.router.url === '/salesman') {
       this.router.navigate([this.router.url, 'home'], { replaceUrl: true });
+    } else if (this.router.url === '/retailer') {
+      this.router.navigate([this.router.url, 'order'], { replaceUrl: true });
     }
   }
 

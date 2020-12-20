@@ -9,11 +9,32 @@
     margin-left: -15px !important;
     margin-top: 0 !important;
   }
+  .add_salesman_desktop {
+    display: none !important;
+  }
+  //For retailer add button
+  .outer-add-container {
+    width: 90%;
+    display: block !important;
+    bottom: 30px;
+    position: fixed;
+  }
+  .floatcontainer {
+    float: right;
+  }
   .desktop-salesman-container {
     margin-top: 44px !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+}
+
+.outer-add-container {
+  display: none;
+}
+
+.add_salesman_desktop {
+  display: block;
 }
 
 .search-container {
@@ -64,21 +85,54 @@ input#search-bar {
   }
 }
 
-//.salesman-retailer-list {
-//  display: flex;
-//  flex-wrap: wrap;
-//  margin-right: -15px;
-//  margin-left: -15px;
-//  margin-top: 46px;
-//  width: 112%;
-//}
+.add_salesman_via_link {
+  display: flex;
+  flex-direction: row;
+}
 
-//For retailer add button
-//.outer-add-container {
-//  width: 90%;
-//  bottom: 30px;
-//  position: fixed;
-//}
-//.floatcontainer {
-//  float: right;
-//}
+.h-line {
+  padding-top: 2em;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(21, 18, 19, 0.44);
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.h-line span {
+  background: #fff;
+  padding: 0 10px;
+}
+
+.manage_salesman_list {
+  display: flex;
+  flex-direction: row;
+}
+
+//In case of empty list
+.empty_cart_text_message {
+  font-weight: 200;
+  font-size: 22px;
+  margin: auto;
+  display: table;
+  text-align: center;
+}
+
+.empty_cart_container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty_cart_text_message a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: green;
+}
+
+.empty-cart-data {
+  margin: auto;
+  display: table;
+  width: 450px;
+  padding-top: 2em;
+}

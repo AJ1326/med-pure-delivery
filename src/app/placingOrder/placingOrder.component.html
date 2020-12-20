@@ -12,11 +12,11 @@
 </ng-template>
 
 <form class="search-container">
-  <!--  <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>-->
+  <!--    <button class="btn btn-dark btn-fw btn-add-order" type="button" (click)="openModal(addmedicine)">+</button>-->
   <input
     type="text"
     id="search-bar"
-    placeholder="What can I help you with today?"
+    placeholder="Search your products here !!!"
     class="form-control"
     [class.is-invalid]="searchFailed"
     [(ngModel)]="model"
@@ -43,14 +43,14 @@
           ><br
         /></span>
 
-        <ngb-tabset class="tab-solid tab-solid-primary">
-          <ngb-tab>
+        <ngb-tabset [justify]="'justified'" class="tab-solid tab-solid-primary">
+          <ngb-tab id="distributor_list">
             <ng-template ngbTabTitle>
               Distributor list
             </ng-template>
             <ng-template ngbTabContent>
               <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0">
-                *Qauntity can't exceed the max value.
+                *Please enter a valid quantity.
               </span>
               <div class="container" *ngIf="distributor_list.length > 0; else emptyDistributorList">
                 <div class="row">
@@ -100,6 +100,7 @@
                             class="mobile_quantity"
                             type="number"
                             [max]="dist.stock"
+                            [maxlength]="dist.stock"
                             [(ngModel)]="dist.quantity"
                             (ngModelChange)="valueChange(i, dist, $event)"
                             min="1"
@@ -121,7 +122,7 @@
                             ></div>
                             <ng-template #content>
                               <button
-                                style="width: 100%; margin-top: 16px;"
+                                style="margin-top: 6px;float: right;"
                                 [ngClass]="
                                   dist.stock <= 0
                                     ? 'not-available btn btn-fw btn-submit btn-inverse-dark'
@@ -137,7 +138,7 @@
                             <ng-template #other_btn_content>
                               <button
                                 *ngIf="show_order_qauntity_error_index.length == 0"
-                                style="width: 100%; margin-top: 16px;"
+                                style="margin-top: 6px;float: right;"
                                 class="btn btn-inverse-dark btn-fw btn-submit"
                                 (click)="addOrder(dist['uuid'], i)"
                                 type="button"
@@ -187,14 +188,14 @@
               </ng-template>
             </ng-template>
           </ngb-tab>
-          <ngb-tab>
+          <ngb-tab id="order_list">
             <ng-template ngbTabTitle>
               Checkout List
               <div *ngIf="order_list.length > 0" class="badge badge-pill badge-primary">{{ order_list.length }}</div>
             </ng-template>
             <ng-template ngbTabContent>
               <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0"
-                >*Qauntity can't exceed the max value.</span
+                >*Please enter a valid quantity.</span
               >
               <div class="container" *ngIf="order_list.length > 0; else emptyCart">
                 <div class="row">
@@ -243,6 +244,7 @@
                             class="mobile_quantity"
                             type="number"
                             [max]="order.stock"
+                            [maxlength]="order.stock"
                             [(ngModel)]="order.quantity"
                             (ngModelChange)="valueChange(i, order, $event)"
                             min="1"
@@ -255,7 +257,7 @@
                           ><br />
                           <a>
                             <button
-                              style="width: 100%; margin-top: -12px;"
+                              style="margin-top: 6px;float: right; background-color: rgb(241, 49, 49);"
                               class="btn btn-inverse-dark btn-fw btn-submit"
                               (click)="removeOrder(order['uuid'], i)"
                               type="button"
@@ -266,7 +268,8 @@
                         </span>
                       </div>
                       <span style="color: #ec2c70; float: right; margin-top: 20px;"
-                        >Total amount: <span style="color: black">{{ total_amount_of_order }}</span></span
+                        >Total amount:
+                        <span style="color: black">{{ total_amount_of_order | number: '1.2-2' }}</span></span
                       >
 
                       <!--Card gst and coupon code-->
@@ -446,9 +449,9 @@
                 <!--Add class-->
                 <!--<code>.table-bordered</code>-->
                 <!--</p>-->
-                <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0"
-                  >*Qauntity can't exceed the max value.</span
-                >
+                <span class="fa-error-max-quantity-mssg" *ngIf="show_order_qauntity_error_index.length > 0">
+                  *Please enter a valid quantity.
+                </span>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -532,7 +535,7 @@
                     </tbody>
                   </table>
                   <span style="color: #ec2c70; float: right;"
-                    >Total amount: <span style="color: black">{{ total_amount_of_order }}</span></span
+                    >Total amount: <span style="color: black">{{ total_amount_of_order | number: '1.2-2' }}</span></span
                   >
                 </div>
               </div>

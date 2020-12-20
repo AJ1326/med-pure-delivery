@@ -26,12 +26,9 @@ import { ToastrService } from 'ngx-toastr';
 @Pipe({ name: 'changeDateFormat' })
 export class ChangeDateFormat implements PipeTransform {
   transform(value: string): string {
-    console.log(value, 'value');
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const firstDate = new Date(value);
     const secondDate = new Date();
-    console.log(firstDate.getTime(), 'firstDate.getTime()');
-    console.log(secondDate.getTime(), 'secondDate.getTime()');
     const pendingMedicineDate = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
     return pendingMedicineDate.toString();
   }
@@ -157,7 +154,6 @@ export class TableDataComponent implements OnInit, OnDestroy {
     } else {
       this.order_selected_box_status_value = 'none';
     }
-    console.log('------>', this.get_selected_orders_list());
   }
 
   accept_orders(accept_type: any) {
@@ -216,7 +212,6 @@ export class TableDataComponent implements OnInit, OnDestroy {
           this.toastr.error(this.message);
         }
       );
-      console.log('');
     } else {
       this.order_selected_box_status_value = 'all';
       this.toggle_overall_check_status();
@@ -268,6 +263,19 @@ export class TableDataComponent implements OnInit, OnDestroy {
     });
   }
 
+  downloadInvoiceByRetailer(slug: any, uuid: string): void {
+    this.orderListService.downloadBatchRetailerProductList(slug, uuid).subscribe((data: any) => {
+      this.JSONToCSVConvertor(data, 'Invoice', true);
+    });
+  }
+
+  downloadBatchByRetailer(uuid: string, event: any): void {
+    event.stopPropagation();
+    this.orderListService.downloadBatchRetailerList(uuid).subscribe((data: any) => {
+      this.JSONToCSVConvertor(data, 'Batch', true);
+    });
+  }
+
   downLoadOrders(): void {
     this.orderListService.acceptPendingOrderList().subscribe((data: any) => {
       this.homeService.cardListData(this.role_type);
@@ -275,7 +283,7 @@ export class TableDataComponent implements OnInit, OnDestroy {
       this.accept_all_csv_downloaded.emit(true);
     });
     this.orderListService.downloadPendingProductList().subscribe((data: any) => {
-      this.JSONToCSVConvertor(data, 'Pending_Orders', true);
+      this.JSONToCSVConvertor(data, 'Orders', true);
     });
   }
 

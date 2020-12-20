@@ -67,13 +67,24 @@
           />
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+          <span class="dropdown-item mt-2 text-muted"> ID : {{ user_info['user_id'] }} </span>
           <a class="dropdown-item mt-2" [routerLink]="['/' + role_type + '/change-password']">
+            <i class="menu-item-value menu-icon mdi mdi-lock-open"></i>
             Change Password
+          </a>
+          <a
+            *ngIf="role_type === 'distributor'"
+            class="dropdown-item mt-2"
+            [routerLink]="['/' + role_type + '/salesman-list']"
+          >
+            <i class="menu-item-value menu-icon mdi mdi-account-multiple-plus"></i>
+            Manage Salesman
           </a>
           <!--<a class="dropdown-item">-->
           <!--Check Inbox-->
           <!--</a>-->
-          <a class="dropdown-item" (click)="logout()">
+          <a class="dropdown-item mt-2" (click)="logout()">
+            <i class="menu-item-value menu-icon mdi mdi-logout"></i>
             Sign Out
           </a>
         </div>
